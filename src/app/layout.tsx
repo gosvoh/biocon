@@ -31,7 +31,8 @@ export default function RootLayout({
           "grid",
           "grid-cols-1",
           "min-h-screen",
-          "grid-rows-[auto,1fr,auto]"
+          "grid-rows-[auto,1fr,auto]",
+          "relative"
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="dark">

@@ -1,0 +1,30 @@
+const useScrollToAnchor = (offset: number = 50) => {
+  return (targetAnchor: string) => {
+    if (!(typeof window === "undefined")) {
+      const hash = targetAnchor;
+
+      const startWithHashRegex = /^#\w+/g;
+      const targetElement = document?.querySelector(`${hash}`);
+
+      if (!startWithHashRegex.test(hash) || !targetElement) {
+        return;
+      }
+
+      const elementPosition = targetElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - offset;
+
+      const scroll = () => {
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+        if (window.location.hash !== hash)
+          window.history.pushState(null, "", hash);
+      };
+
+      requestAnimationFrame(scroll);
+    }
+  };
+};
+
+export default useScrollToAnchor;
