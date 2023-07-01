@@ -1,7 +1,7 @@
 import Link from "@/components/link";
 import { Button } from "./ui/button";
 import { Mail } from "lucide-react";
-import { links } from "./links";
+import { links } from "../links";
 
 export default function MainNav({
   setOpenContact,
