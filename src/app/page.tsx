@@ -439,7 +439,7 @@ const ContactDialog = ({
                         }
                       />
                     </FormControl>
-                    <FormLabel className="m-0">
+                    <FormLabel className="!m-0">
                       I agree to the processing of personal data
                     </FormLabel>
                     <FormMessage />
