@@ -18,8 +18,6 @@ const useScrollToAnchor = (offset: number = 50) => {
           top: offsetPosition,
           behavior: "smooth",
         });
-        if (window.location.hash !== hash)
-          window.history.pushState(null, "", hash);
       };
 
       requestAnimationFrame(scroll);

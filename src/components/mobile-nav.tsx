@@ -11,17 +11,17 @@ import {
   SheetFooter,
   SheetClose,
 } from "@/components/ui/sheet";
-import { SidebarOpen } from "lucide-react";
+import { Mail, SidebarOpen } from "lucide-react";
 import { Button } from "./ui/button";
 import { links } from "./links";
-import Link from "next/link";
+import Link from "@/components/link";
 import Image from "next/image";
 import Logo from "../../public/logo.svg";
 
 export default function MobileNav({
-  setOpenRegistration,
+  setOpenContact,
 }: {
-  setOpenRegistration: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenContact: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -46,11 +46,24 @@ export default function MobileNav({
             <Link
               href={link.href}
               key={link.href}
-              onClick={() => setOpen(false)}
+              wait={0.25}
+              onClick={() => setOpen(() => false)}
+              className="hover:underline"
             >
               {link.title}
             </Link>
           ))}
+          <Button
+            variant="ghost"
+            onClick={() => {
+              setOpen(false);
+              setOpenContact(true);
+            }}
+            className="flex items-center gap-4 mt-6"
+          >
+            <Mail />
+            <span>Contact us</span>
+          </Button>
         </div>
         <SheetFooter>
           <SheetClose asChild>
