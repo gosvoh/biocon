@@ -4,23 +4,20 @@ import { Mail } from "lucide-react";
 import { links } from "./links";
 
 export default function MainNav({
-  setOpenRegistration,
+  setOpenContact,
 }: {
-  setOpenRegistration: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenContact: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   return (
     <nav className="hidden md:flex gap-4 items-center whitespace-nowrap">
       {links.map((link) => (
-        <Link href={link.href} key={link.href}>
+        <Link href={link.href} key={link.href} className="hover:underline">
           {link.title}
         </Link>
       ))}
-      <Button
-        size="icon"
-        variant="ghost"
-        onClick={() => setOpenRegistration(true)}
-      >
+      <Button size="icon" variant="ghost" onClick={() => setOpenContact(true)}>
         <Mail />
+        <span className="sr-only">Contact us</span>
       </Button>
     </nav>
   );

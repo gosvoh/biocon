@@ -6,6 +6,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -18,41 +19,446 @@ import Logo from "../../public/logo.svg";
 import Telegram from "../../public/telegram.svg";
 import { cn } from "@/lib/utils";
 import useSmoothScroll from "@/lib/useSmoothScroll";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import validator from "validator";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => (
+const SuccessDialog = ({
+  title,
+  description,
+  ...props
+}: {
+  title: string;
+  description: string;
+} & React.PropsWithoutRef<DialogProps>) => (
   <Dialog {...props}>
     <DialogContent>
-      <DialogHeader>
-        <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-        <DialogDescription>
-          This action cannot be undone. This will permanently delete your
-          account and remove your data from our servers.
-        </DialogDescription>
+      <DialogHeader className="sm:text-center">
+        <DialogTitle>{title}</DialogTitle>
+        <DialogDescription>{description}</DialogDescription>
       </DialogHeader>
+      <DialogFooter className="sm:justify-center">
+        <Button
+          variant="default"
+          onClick={() => {
+            props.onOpenChange?.(false);
+          }}
+        >
+          Close
+        </Button>
+      </DialogFooter>
     </DialogContent>
   </Dialog>
 );
+
+const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
+  const [success, setSuccess] = useState(false);
+  const participationTypes = [
+    "Listener",
+    "Color Session participant",
+    "Science Slam participant",
+  ];
+
+  const formSchema = z.object({
+    name: z.string().min(3, "Name must be at least 3 characters long"),
+    email: z.string().email("Invalid email address"),
+    mobile: z.string().refine(validator.isMobilePhone, "Invalid mobile number"),
+    country: z.string({
+      required_error: "Please select a country",
+    }),
+    city: z.string({
+      required_error: "Please select a city",
+    }),
+    institution: z
+      .string()
+      .min(3, "Institution must be at least 3 characters long"),
+    degree: z.string({
+      required_error: "Please select a degree",
+    }),
+    participation: z.enum(
+      ["Listener", "Color Session participant", "Science Slam participant"],
+      {
+        required_error: "Please select a participation type",
+      }
+    ),
+    letter: z.string().min(3, "Letter must be at least 3 characters long"),
+  });
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      mobile: "",
+      country: undefined,
+      city: undefined,
+      institution: "",
+      degree: undefined,
+      participation: "Listener",
+      letter: "",
+    },
+  });
+
+  function handleSubmit(data: z.infer<typeof formSchema>) {
+    console.log(data);
+  }
+
+  return (
+    <>
+      <SuccessDialog
+        open={success}
+        onOpenChange={setSuccess}
+        title="Registration successful"
+        description="You will receive an email with further instructions"
+      />
+      <Dialog {...props}>
+        <DialogContent className="overflow-y-auto max-h-[80vh]">
+          <DialogHeader>
+            <DialogTitle className="text-center">Registration</DialogTitle>
+          </DialogHeader>
+          <Form {...form}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                form.handleSubmit((data) => {
+                  form.reset();
+                  props.onOpenChange?.(false);
+                  setSuccess(true);
+                  return handleSubmit(data);
+                })();
+              }}
+              className="space-y-4"
+            >
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="name">Name*</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your name here" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="email">Email*</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your e-mail here" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="mobile"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="mobile">Mobile*</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your mobile number here"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="country"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="country">Country*</FormLabel>
+                    <Select onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select your country" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="1">Option 1</SelectItem>
+                        <SelectItem value="2">Option 2</SelectItem>
+                        <SelectItem value="3">Option 3</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="city"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="city">City*</FormLabel>
+                    <Select onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select your city" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="1">Option 1</SelectItem>
+                        <SelectItem value="2">Option 2</SelectItem>
+                        <SelectItem value="3">Option 3</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="institution"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="institution">Institution*</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter the name of your institution here"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="degree"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="degree">Degree*</FormLabel>
+                    <Select onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select your degree" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="1">Option 1</SelectItem>
+                        <SelectItem value="2">Option 2</SelectItem>
+                        <SelectItem value="3">Option 3</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="participation"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="participation">
+                      Participation type*
+                    </FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={(value: any) => field.onChange(value)}
+                        defaultValue={field.value}
+                      >
+                        {participationTypes.map((type) => (
+                          <FormItem
+                            key={type}
+                            className="flex items-center gap-2"
+                          >
+                            <FormControl>
+                              <RadioGroupItem value={type} />
+                            </FormControl>
+                            <FormLabel className="!my-0">{type}</FormLabel>
+                          </FormItem>
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="letter"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="letter">Motivation letter*</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Write why is it important for you to get to the conference"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Submit</Button>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
 
 const ContactDialog = ({
   ...props
-}: {} & React.PropsWithoutRef<DialogProps>) => (
-  <Dialog {...props}>
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-        <DialogDescription>
-          This action cannot be undone. This will permanently delete your
-          account and remove your data from our servers.
-        </DialogDescription>
-      </DialogHeader>
-    </DialogContent>
-  </Dialog>
-);
+}: {} & React.PropsWithoutRef<DialogProps>) => {
+  const [success, setSuccess] = useState(false);
+
+  const formSchema = z.object({
+    name: z.string().min(3, "Name must be at least 3 characters long"),
+    email: z.string().email("Invalid email address"),
+    message: z.string().min(10, "Message must be at least 10 characters long"),
+    personalData: z.boolean().refine((v) => v, {
+      message: "You must agree to our privacy policy",
+    }),
+  });
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+      personalData: false,
+    },
+  });
+
+  function handleSubmit(data: z.infer<typeof formSchema>) {
+    console.log(data);
+  }
+
+  return (
+    <>
+      <SuccessDialog
+        open={success}
+        onOpenChange={setSuccess}
+        title="Message sent"
+        description="We will get back to you as soon as possible"
+      />
+      <Dialog {...props}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="text-center text-base font-normal">
+              To contact the organizing committee please fill in the form below
+            </DialogTitle>
+          </DialogHeader>
+          <Form {...form}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                form.handleSubmit((data) => {
+                  form.reset();
+                  props.onOpenChange?.(false);
+                  setSuccess(true);
+                  return handleSubmit(data);
+                })();
+              }}
+              className="space-y-4"
+            >
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="Name*" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="Email*" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Message*"
+                        className="resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="personalData"
+                render={({ field }) => (
+                  <FormItem className="flex items-center gap-2">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={(value: boolean) =>
+                          field.onChange(value)
+                        }
+                      />
+                    </FormControl>
+                    <FormLabel className="m-0">
+                      I agree to the processing of personal data
+                    </FormLabel>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Ask Question</Button>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
 
 const Navbar = ({
-  setOpenRegistration,
+  setOpenContact,
 }: {
-  setOpenRegistration: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenContact: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
     <header
@@ -62,8 +468,8 @@ const Navbar = ({
       <Link href="/">
         <Image src={Logo} alt="Biocon" width={125} />
       </Link>
-      <MainNav setOpenRegistration={setOpenRegistration} />
-      <MobileNav setOpenRegistration={setOpenRegistration} />
+      <MainNav setOpenContact={setOpenContact} />
+      <MobileNav setOpenContact={setOpenContact} />
     </header>
   );
 };
@@ -91,7 +497,7 @@ const Footer = ({
           <Image src={Telegram} alt="Telegram" width={40} />
           <span>@telegram</span>
         </Link>
-        <div>
+        <div className="text-center sm:text-end">
           <p>ITMO University</p>
           <p>9, Lomonosova Str., St. Petersburg, Russia, 191002</p>
           <span>email: </span>
@@ -237,7 +643,7 @@ export default function Home() {
         onOpenChange={setOpenRegistration}
       />
       <ContactDialog open={openContact} onOpenChange={setOpenContact} />
-      <Navbar setOpenRegistration={setOpenRegistration} />
+      <Navbar setOpenContact={setOpenContact} />
       <main className="flex flex-col justify-center items-center gap-8">
         <Header />
         <About />
