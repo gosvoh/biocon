@@ -13,7 +13,6 @@ import {
 import { Mail, SidebarOpen } from "lucide-react";
 import { Button } from "./ui/button";
 import { links } from "../links";
-import Link from "@/components/link";
 import Image from "next/image";
 import Logo from "../../public/logo.svg";
 
@@ -34,8 +33,8 @@ export default function MobileNav({
       </SheetTrigger>
       <SheetContent
         side="left"
-        // when size is smaller than sm, the sheet will be full screen
         className="flex flex-col justify-between max-xs:w-full"
+        onCloseAutoFocus={(e) => e.preventDefault()}
       >
         <SheetHeader>
           <SheetTitle>
@@ -44,15 +43,14 @@ export default function MobileNav({
         </SheetHeader>
         <div className="flex flex-col gap-4">
           {links.map((link) => (
-            <Link
+            <a
               href={link.href}
               key={link.href}
-              wait={0.25}
-              onClick={() => setOpen(() => false)}
+              onClick={() => setOpen(false)}
               className="hover:underline"
             >
               {link.title}
-            </Link>
+            </a>
           ))}
           <Button
             variant="ghost"
