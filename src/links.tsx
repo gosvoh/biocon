@@ -1,6 +1,6 @@
 export const links = [
   {
-    title: "About conference",
+    title: "About",
     href: "#about",
   },
   {
@@ -12,11 +12,11 @@ export const links = [
     href: "#program",
   },
   {
-    title: "Location",
-    href: "#location",
+    title: "Venue",
+    href: "#venue",
   },
   {
-    title: "Contacts",
-    href: "#contacts",
+    title: "Organizers",
+    href: "#organizers",
   },
 ];

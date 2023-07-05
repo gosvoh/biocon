@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, buttonVariants } from "@/components/ui/button";
-import Link from "@/components/link";
+import Link from "next/link";
 import {
   Dialog,
   DialogContent,
@@ -15,8 +15,6 @@ import { useEffect, useState } from "react";
 import MainNav from "@/components/main-nav";
 import MobileNav from "@/components/mobile-nav";
 import Image from "next/image";
-import Logo from "../../public/logo.svg";
-import Telegram from "../../public/telegram.svg";
 import { cn } from "@/lib/utils";
 import useSmoothScroll from "@/lib/useSmoothScroll";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -43,7 +41,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import ReCAPTCHA from "react-google-recaptcha";
+
+import Logo from "../../public/logo.svg";
+import Telegram from "../../public/telegram.svg";
+import Agni from "../../public/agni.png";
+import Biotech from "../../public/biotech.png";
+import Itmo from "../../public/itmo.png";
+import Pish from "../../public/pish.png";
+import Tatneft from "../../public/tat.png";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ChevronDownIcon } from "lucide-react";
+import {
+  Command,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
 
 const SuccessDialog = ({
   title,
@@ -75,11 +93,25 @@ const SuccessDialog = ({
 
 const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
   const [success, setSuccess] = useState(false);
-  const participationTypes = [
+  const [role, setRole] = useState<string>();
+  const [openRole, setOpenRole] = useState(false);
+  type ZodStringArray = readonly [string, ...string[]];
+  const participationTypes: ZodStringArray = [
     "Listener",
     "Color Session participant",
     "Science Slam participant",
   ];
+  const roles: ZodStringArray = [
+    "Undergraduate student",
+    "Graduate student",
+    "PhD student",
+    "Professor",
+    "Industrial partner",
+  ];
+  const rolesMap = roles.map((role) => ({
+    value: role,
+    label: role,
+  }));
 
   const formSchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters long"),
@@ -91,18 +123,18 @@ const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
     city: z.string({
       required_error: "Please select a city",
     }),
-    institution: z
+    affilation: z
       .string()
-      .min(3, "Institution must be at least 3 characters long"),
-    degree: z.string({
-      required_error: "Please select a degree",
+      .min(3, "Affilation must be at least 3 characters long"),
+    role: z.string({
+      required_error: "Please select a role",
     }),
-    participation: z.enum(
-      ["Listener", "Color Session participant", "Science Slam participant"],
-      {
-        required_error: "Please select a participation type",
-      }
-    ),
+    size: z.enum(["S", "M", "L", "XL"], {
+      required_error: "Please select a size",
+    }),
+    participation: z.enum(participationTypes, {
+      required_error: "Please select a participation type",
+    }),
     letter: z.string().min(3, "Letter must be at least 3 characters long"),
   });
 
@@ -114,8 +146,8 @@ const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
       mobile: "",
       country: undefined,
       city: undefined,
-      institution: "",
-      degree: undefined,
+      affilation: "",
+      role: undefined,
       participation: "Listener",
       letter: "",
     },
@@ -134,9 +166,9 @@ const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
         description="You will receive an email with further instructions"
       />
       <Dialog {...props}>
-        <DialogContent className="overflow-y-auto max-h-[80vh]">
+        <DialogContent className="overflow-y-auto max-h-[80vh] max-w-[85%] sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle className="text-center">Registration</DialogTitle>
+            <DialogTitle className="text-center">Pre-registration</DialogTitle>
           </DialogHeader>
           <Form {...form}>
             <form
@@ -156,7 +188,7 @@ const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="name">Name*</FormLabel>
+                    <FormLabel htmlFor="name">Full name*</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter your name here" {...field} />
                     </FormControl>
@@ -182,7 +214,8 @@ const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
                 name="mobile"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="mobile">Mobile*</FormLabel>
+                    <FormLabel htmlFor="mobile">Mobile number*</FormLabel>
+                    <FormDescription>(With country code)</FormDescription>
                     <FormControl>
                       <Input
                         placeholder="Enter your mobile number here"
@@ -239,13 +272,13 @@ const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
               />
               <FormField
                 control={form.control}
-                name="institution"
+                name="affilation"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="institution">Institution*</FormLabel>
+                    <FormLabel htmlFor="affilation">Affilation*</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter the name of your institution here"
+                        placeholder="Enter the name of your affilation here"
                         {...field}
                       />
                     </FormControl>
@@ -255,22 +288,62 @@ const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
               />
               <FormField
                 control={form.control}
-                name="degree"
+                name="role"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="degree">Degree*</FormLabel>
-                    <Select onValueChange={field.onChange}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select your degree" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="1">Option 1</SelectItem>
-                        <SelectItem value="2">Option 2</SelectItem>
-                        <SelectItem value="3">Option 3</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <FormLabel htmlFor="role">Role*</FormLabel>
+                    <Popover open={openRole} onOpenChange={setOpenRole}>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            className={cn(
+                              "w-full justify-between",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? field.value : "Select your role"}
+                            <ChevronDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-full p-2">
+                        <Command value={field.value}>
+                          <CommandInput
+                            placeholder="Select your role"
+                            value={role}
+                            onValueChange={setRole}
+                          />
+                          {(() => {
+                            if (role && !rolesMap.find((r) => r.value === role))
+                              rolesMap.push({
+                                label: role,
+                                value: role,
+                              });
+
+                            return (
+                              <CommandGroup>
+                                {rolesMap.map(({ label, value }) => (
+                                  <CommandItem
+                                    key={value}
+                                    value={label}
+                                    onSelect={() => {
+                                      field.onChange(value);
+                                      setOpenRole(false);
+                                      setRole(undefined);
+                                    }}
+                                    className="hover:bg-accent my-1"
+                                  >
+                                    {label}
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            );
+                          })()}
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -296,7 +369,9 @@ const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
                             <FormControl>
                               <RadioGroupItem value={type} />
                             </FormControl>
-                            <FormLabel className="!my-0">{type}</FormLabel>
+                            <FormLabel className="!my-0 cursor-pointer">
+                              {type}
+                            </FormLabel>
                           </FormItem>
                         ))}
                       </RadioGroup>
@@ -342,6 +417,10 @@ const ContactDialog = ({
     personalData: z.boolean().refine((v) => v, {
       message: "You must agree to our privacy policy",
     }),
+    captchaToken: z
+      .string()
+      .nullable()
+      .refine((val) => val, "You must solve the captcha"),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -351,6 +430,7 @@ const ContactDialog = ({
       email: "",
       message: "",
       personalData: false,
+      captchaToken: null,
     },
   });
 
@@ -437,11 +517,31 @@ const ContactDialog = ({
                         onCheckedChange={(value: boolean) =>
                           field.onChange(value)
                         }
+                        name={field.name}
                       />
                     </FormControl>
                     <FormLabel className="!m-0">
                       I agree to the processing of personal data
                     </FormLabel>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Link href="#">Privacy policy</Link>
+              <FormField
+                control={form.control}
+                name="captchaToken"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <ReCAPTCHA
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                        onChange={field.onChange}
+                        theme="dark"
+                        // @ts-expect-error
+                        isolated={true}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -465,9 +565,9 @@ const Navbar = ({
       className="flex justify-between items-center my-4 w-full absolute top-0 left-0 right-0"
       style={{ padding: "inherit" }}
     >
-      <Link href="/">
+      <a href="/">
         <Image src={Logo} alt="Biocon" width={125} />
-      </Link>
+      </a>
       <MainNav setOpenContact={setOpenContact} />
       <MobileNav setOpenContact={setOpenContact} />
     </header>
@@ -479,23 +579,43 @@ const Footer = ({
 }: {
   setOpenContact: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const imgWidth = 200;
+
   return (
     <footer className="flex flex-col m-4 mt-16 gap-8">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-8">
-        <Link href="https://www.tatneft.ru/">Татнефть</Link>
-        <Link href="https://engineers2030.ru/">ПИШ</Link>
-        <Link href="https://itmo.ru/">ИТМО</Link>
+        <Link href="https://www.tatneft.ru/">
+          <Image src={Tatneft} alt="Tatneft" width={imgWidth} />
+        </Link>
+        <Link href="https://pish.itmo.ru/">
+          <Image src={Pish} alt="Pish" width={imgWidth} />
+        </Link>
+        <Link href="https://agni-rt.ru/">
+          <Image
+            src={Agni}
+            alt="Agni"
+            width={imgWidth}
+            style={{ filter: "invert(1)" }}
+          />
+        </Link>
+        <Link href="https://itmo.ru/">
+          <Image src={Itmo} alt="Itmo" width={imgWidth} />
+        </Link>
+        <Link href="https://vk.com/biotech.itmo">
+          <Image src={Biotech} alt="Biotech" width={imgWidth} />
+        </Link>
       </div>
       <div className="flex flex-col sm:flex-row justify-between items-center gap-8">
         <Link
-          href=""
+          href="https://t.me/BIOCON_2023"
           className={cn(
             buttonVariants({ variant: "link" }),
             "flex items-center gap-4 hover:underline p-0 h-auto"
           )}
+          target="_blank"
         >
           <Image src={Telegram} alt="Telegram" width={40} />
-          <span>@telegram</span>
+          <span>@BIOCON_2023</span>
         </Link>
         <div className="text-center sm:text-end">
           <p>ITMO University</p>
@@ -506,7 +626,7 @@ const Footer = ({
             className="hover:underline p-0 h-auto leading-normal"
             onClick={() => setOpenContact(true)}
           >
-            biocon_support@itmo.ru
+            biocon@itmo.ru
           </Button>
         </div>
       </div>
@@ -531,7 +651,7 @@ export default function Home() {
     <section
       {...props}
       className={cn(
-        "flex flex-col justify-center items-center w-full",
+        "flex flex-col justify-center items-center w-full scroll-m-12",
         className
       )}
     >
@@ -544,15 +664,22 @@ export default function Home() {
       className="flex flex-col justify-center items-center h-screen"
       style={{ minHeight: "100dvh" }}
     >
-      <h1 className="text-4xl font-bold">BioCon</h1>
-      <h2 className="text-2xl font-bold">Bioinformatics Conference</h2>
-      <p className="text-xl font-bold">October 14-16, 2021</p>
-      <p className="text-xl font-bold">St. Petersburg, Russia</p>
-      <div className="flex flex-row justify-between items-center w-1/2">
-        <Link href="#about" className={buttonVariants({ variant: "outline" })}>
+      <h1 className="text-4xl font-bold capitalize">BioCon 2023</h1>
+      <h2 className="text-2xl font-bold">
+        International Industrial Biotecnology Conference
+      </h2>
+      <p className="text-xl font-bold">december 18-20, 2023</p>
+      <p className="text-xl font-bold capitalize">Almetyevsk</p>
+      <div className="flex flex-wrap justify-between items-center w-1/2 gap-6 whitespace-nowrap mt-8">
+        <Link
+          href="#about"
+          className={cn(buttonVariants({ variant: "outline" }), "flex-1")}
+        >
           More info
         </Link>
-        <Button onClick={() => setOpenRegistration(true)}>Register</Button>
+        <Button onClick={() => setOpenRegistration(true)} className="flex-1">
+          Register
+        </Button>
       </div>
     </Section>
   );
@@ -561,12 +688,9 @@ export default function Home() {
     <Section className="flex flex-col justify-center items-center" id="about">
       <h2 className="text-4xl font-bold">About</h2>
       <p>
-        The Bioinformatics Conference (BioCon) is a forum for researchers and
-        practitioners in the field of bioinformatics and computational biology
-        to share their research results and experiences. The conference is
-        organized by the Bioinformatics Institute (BII) and the Center for
-        Algorithmic Biotechnology (CAB) of St. Petersburg State University. The
-        conference is held annually in St. Petersburg, Russia.
+        Over the three days, you will have the opportunity to share your
+        innovative ideas, research results and experiences with like-minded
+        biotech enthusiasts from around the world.
       </p>
     </Section>
   );
@@ -602,12 +726,9 @@ export default function Home() {
     </Section>
   );
 
-  const Location = () => (
-    <Section
-      className="flex flex-col justify-center items-center"
-      id="location"
-    >
-      <h2 className="text-4xl font-bold">Location</h2>
+  const Venue = () => (
+    <Section className="flex flex-col justify-center items-center" id="venue">
+      <h2 className="text-4xl font-bold">Venue</h2>
       <p>
         The Bioinformatics Conference (BioCon) is a forum for researchers and
         practitioners in the field of bioinformatics and computational biology
@@ -619,12 +740,12 @@ export default function Home() {
     </Section>
   );
 
-  const Contacts = () => (
+  const Organizers = () => (
     <Section
       className="flex flex-col justify-center items-center"
-      id="contacts"
+      id="organizers"
     >
-      <h2 className="text-4xl font-bold">Contacts</h2>
+      <h2 className="text-4xl font-bold">Organaizers</h2>
       <p>
         The Bioinformatics Conference (BioCon) is a forum for researchers and
         practitioners in the field of bioinformatics and computational biology
@@ -649,8 +770,8 @@ export default function Home() {
         <About />
         <Speakers />
         <Program />
-        <Location />
-        <Contacts />
+        <Venue />
+        <Organizers />
       </main>
       <Footer setOpenContact={setOpenContact} />
     </>
