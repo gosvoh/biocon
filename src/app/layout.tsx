@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -17,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth dark">
       <body
         className={cn(
           inter.className,
@@ -32,12 +31,11 @@ export default function RootLayout({
           "grid-cols-1",
           "min-h-screen",
           "grid-rows-[auto,1fr,auto]",
-          "relative"
+          "relative",
+          "hyphens-auto"
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark">
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );
