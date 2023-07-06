@@ -1,8 +1,8 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Inter, Heebo } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Heebo({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Biocon",
@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth dark">
       <body
         className={cn(
-          inter.className,
+          font.className,
           "mx-auto",
           "overflow-x-hidden",
           "overflow-y-auto",
