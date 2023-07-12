@@ -32,7 +32,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import validator from "validator";
+import isMobilePhone from "validator/lib/isMobilePhone";
 import {
   Select,
   SelectContent,
@@ -62,6 +62,9 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
+import { Label } from "@/components/ui/label";
+import isEmail from "validator/lib/isEmail";
+import { Roboto } from "next/font/google";
 
 const SuccessDialog = ({
   title,
@@ -95,13 +98,12 @@ const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
   const [success, setSuccess] = useState(false);
   const [role, setRole] = useState<string>();
   const [openRole, setOpenRole] = useState(false);
-  type ZodStringArray = readonly [string, ...string[]];
-  const participationTypes: ZodStringArray = [
+  const participationTypes = [
     "Listener",
     "Color Session participant",
     "Science Slam participant",
   ];
-  const roles: ZodStringArray = [
+  const roles = [
     "Undergraduate student",
     "Graduate student",
     "PhD student",
@@ -113,49 +115,42 @@ const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
     label: role,
   }));
 
-  const formSchema = z.object({
-    name: z.string().min(3, "Name must be at least 3 characters long"),
-    email: z.string().email("Invalid email address"),
-    mobile: z.string().refine(validator.isMobilePhone, "Invalid mobile number"),
-    country: z.string({
-      required_error: "Please select a country",
-    }),
-    city: z.string({
-      required_error: "Please select a city",
-    }),
-    affilation: z
-      .string()
-      .min(3, "Affilation must be at least 3 characters long"),
-    role: z.string({
-      required_error: "Please select a role",
-    }),
-    size: z.enum(["S", "M", "L", "XL"], {
-      required_error: "Please select a size",
-    }),
-    participation: z.enum(participationTypes, {
-      required_error: "Please select a participation type",
-    }),
-    letter: z.string().min(3, "Letter must be at least 3 characters long"),
-  });
+  const form = useForm<{
+    name: string;
+    email: string;
+  }>({});
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      mobile: "",
-      country: undefined,
-      city: undefined,
-      affilation: "",
-      role: undefined,
-      participation: "Listener",
-      letter: "",
-    },
-  });
-
-  function handleSubmit(data: z.infer<typeof formSchema>) {
+  function handleSubmit(data: any) {
     console.log(data);
   }
+
+  const FormInputField = ({
+    label,
+    name,
+    required = false,
+    minLength,
+    errorMessage,
+    type = "text",
+  }: {
+    label: string;
+    name: "name" | "email";
+    required?: boolean;
+    minLength?: number;
+    errorMessage?: string;
+    type?: React.InputHTMLAttributes<HTMLInputElement>["type"];
+  }) => (
+    <div className="space-y-4">
+      <Label htmlFor={name}>{label}</Label>
+      <Input
+        id={name}
+        required={required}
+        minLength={minLength}
+        onInvalid={(e) => e.currentTarget.setCustomValidity(errorMessage ?? "")}
+        type={type}
+        {...form.register(name)}
+      />
+    </div>
+  );
 
   return (
     <>
@@ -170,235 +165,37 @@ const RegistrationDialog = (props: {} & React.PropsWithoutRef<DialogProps>) => {
           <DialogHeader>
             <DialogTitle className="text-center">Pre-registration</DialogTitle>
           </DialogHeader>
-          <Form {...form}>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                form.handleSubmit((data) => {
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              form.handleSubmit(
+                (data) => {
                   form.reset();
                   props.onOpenChange?.(false);
                   setSuccess(true);
                   return handleSubmit(data);
-                })();
-              }}
-              className="space-y-4"
-            >
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="name">Full name*</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your name here" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="email">Email*</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your e-mail here" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="mobile"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="mobile">Mobile number*</FormLabel>
-                    <FormDescription>(With country code)</FormDescription>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter your mobile number here"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="country"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="country">Country*</FormLabel>
-                    <Select onValueChange={field.onChange}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select your country" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="1">Option 1</SelectItem>
-                        <SelectItem value="2">Option 2</SelectItem>
-                        <SelectItem value="3">Option 3</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="city"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="city">City*</FormLabel>
-                    <Select onValueChange={field.onChange}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select your city" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="1">Option 1</SelectItem>
-                        <SelectItem value="2">Option 2</SelectItem>
-                        <SelectItem value="3">Option 3</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="affilation"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="affilation">Affilation*</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter the name of your affilation here"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="role">Role*</FormLabel>
-                    <Popover open={openRole} onOpenChange={setOpenRole}>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            role="combobox"
-                            className={cn(
-                              "w-full justify-between",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? field.value : "Select your role"}
-                            <ChevronDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-full p-2">
-                        <Command value={field.value}>
-                          <CommandInput
-                            placeholder="Select your role"
-                            value={role}
-                            onValueChange={setRole}
-                          />
-                          {(() => {
-                            if (role && !rolesMap.find((r) => r.value === role))
-                              rolesMap.push({
-                                label: role,
-                                value: role,
-                              });
-
-                            return (
-                              <CommandGroup>
-                                {rolesMap.map(({ label, value }) => (
-                                  <CommandItem
-                                    key={value}
-                                    value={label}
-                                    onSelect={() => {
-                                      field.onChange(value);
-                                      setOpenRole(false);
-                                      setRole(undefined);
-                                    }}
-                                    className="hover:bg-accent my-1"
-                                  >
-                                    {label}
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            );
-                          })()}
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="participation"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="participation">
-                      Participation type*
-                    </FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={(value: any) => field.onChange(value)}
-                        defaultValue={field.value}
-                      >
-                        {participationTypes.map((type) => (
-                          <FormItem
-                            key={type}
-                            className="flex items-center gap-2"
-                          >
-                            <FormControl>
-                              <RadioGroupItem value={type} />
-                            </FormControl>
-                            <FormLabel className="!my-0 cursor-pointer">
-                              {type}
-                            </FormLabel>
-                          </FormItem>
-                        ))}
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="letter"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="letter">Motivation letter*</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Write why is it important for you to get to the conference"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit">Submit</Button>
-            </form>
-          </Form>
+                },
+                (e) => console.log("Invalid", e)
+              )();
+            }}
+            className="space-y-4"
+          >
+            <FormInputField
+              label="Name"
+              name="name"
+              required
+              minLength={3}
+              errorMessage="Name must be at least 3 characters long"
+            />
+            <FormInputField
+              label="Email"
+              name="email"
+              required
+              errorMessage="Invalid email address"
+              type="email"
+            />
+            <Button type="submit">Submit</Button>
+          </form>
         </DialogContent>
       </Dialog>
     </>
@@ -591,12 +388,7 @@ const Footer = ({
           <Image src={Pish} alt="Pish" width={imgWidth} />
         </Link>
         <Link href="https://agni-rt.ru/">
-          <Image
-            src={Agni}
-            alt="Agni"
-            width={imgWidth}
-            style={{ filter: "invert(1)" }}
-          />
+          <Image src={Agni} alt="Agni" width={imgWidth} />
         </Link>
         <Link href="https://itmo.ru/">
           <Image src={Itmo} alt="Itmo" width={imgWidth} />
@@ -631,6 +423,30 @@ const Footer = ({
         </div>
       </div>
     </footer>
+  );
+};
+
+const H2Font = Roboto({
+  weight: "700",
+  subsets: ["latin"],
+});
+
+const H2 = ({
+  children,
+  className,
+  ...props
+}: { children: React.ReactNode } & React.HTMLProps<HTMLHeadingElement>) => {
+  return (
+    <h2
+      {...props}
+      className={cn(
+        "text-8xl font-bold stroke text-left w-full uppercase",
+        H2Font.className,
+        className
+      )}
+    >
+      {children}
+    </h2>
   );
 };
 
@@ -686,7 +502,7 @@ export default function Home() {
 
   const About = () => (
     <Section className="flex flex-col justify-center items-center" id="about">
-      <h2 className="text-4xl font-bold">About</h2>
+      <H2>About</H2>
       <p>
         Over the three days, you will have the opportunity to share your
         innovative ideas, research results and experiences with like-minded
@@ -700,7 +516,7 @@ export default function Home() {
       className="flex flex-col justify-center items-center"
       id="speakers"
     >
-      <h2 className="text-4xl font-bold">Speakers</h2>
+      <H2 className="text-right">Speakers</H2>
       <p>
         The Bioinformatics Conference (BioCon) is a forum for researchers and
         practitioners in the field of bioinformatics and computational biology
@@ -714,7 +530,7 @@ export default function Home() {
 
   const Program = () => (
     <Section className="flex flex-col justify-center items-center" id="program">
-      <h2 className="text-4xl font-bold">Program</h2>
+      <H2>Program</H2>
       <p>
         The Bioinformatics Conference (BioCon) is a forum for researchers and
         practitioners in the field of bioinformatics and computational biology
@@ -728,7 +544,7 @@ export default function Home() {
 
   const Venue = () => (
     <Section className="flex flex-col justify-center items-center" id="venue">
-      <h2 className="text-4xl font-bold">Venue</h2>
+      <H2 className="text-right">Venue</H2>
       <p>
         The Bioinformatics Conference (BioCon) is a forum for researchers and
         practitioners in the field of bioinformatics and computational biology
@@ -745,7 +561,7 @@ export default function Home() {
       className="flex flex-col justify-center items-center"
       id="organizers"
     >
-      <h2 className="text-4xl font-bold">Organaizers</h2>
+      <H2>Organaizers</H2>
       <p>
         The Bioinformatics Conference (BioCon) is a forum for researchers and
         practitioners in the field of bioinformatics and computational biology
