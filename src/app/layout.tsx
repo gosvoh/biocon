@@ -34,6 +34,11 @@ export default function RootLayout({
           "relative",
           "hyphens-auto"
         )}
+        style={{
+          backgroundImage: "url(/bg.webp)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "100% 100%",
+        }}
       >
         {children}
       </body>
