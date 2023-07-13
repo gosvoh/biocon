@@ -33,19 +33,19 @@ import { yupResolver } from "@hookform/resolvers/yup";
 type RegisterFormValues = {
   name: string;
   email: string;
-  mobile: string;
+  mobile: number;
   country: string;
   city: string;
   affiliation: string;
   role: string;
-  clothingSize: "S" | "M" | "L" | "XL";
-  participationType: "Attendee" | "Invited Speaker" | "Science slammer";
-  motivationLetter: string;
-  researchInterests: string;
-  tentativeTitle: string;
-  resume: string;
-  scienceProfile: string;
-  video: string;
+  clothingSize: string;
+  participationType: string;
+  motivationLetter: string | undefined;
+  researchInterests: string | undefined;
+  tentativeTitle: string | undefined;
+  resume: string | undefined;
+  scienceProfile: string | undefined;
+  video: string | undefined;
 };
 
 const FormInputField = ({
@@ -117,12 +117,7 @@ const resolver = yupResolver(
     .shape({
       name: yup.string().required().min(3),
       email: yup.string().required().email(),
-      mobile: yup
-        .string()
-        .required()
-        .test("is-mobile", "Invalid mobile number", (value) =>
-          isMobilePhone(value)
-        ),
+      mobile: yup.number().required(),
       country: yup.string().required(),
       city: yup.string().required(),
       affiliation: yup.string().required(),
