@@ -15,6 +15,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const randomBg = Math.floor(Math.random() * 3) + 1;
+
   return (
     <html lang="en" className="scroll-smooth dark">
       <body
@@ -35,7 +37,7 @@ export default function RootLayout({
           "hyphens-auto"
         )}
         style={{
-          backgroundImage: "url(/bg.webp)",
+          backgroundImage: `url(/bg${randomBg}.jpg)`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% 100%",
         }}
