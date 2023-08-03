@@ -37,7 +37,7 @@ export default function RootLayout({
           "hyphens-auto"
         )}
         style={{
-          backgroundImage: `url(/bg2.jpg)`,
+          backgroundImage: `url(/bg3.jpg)`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% 100%",
         }}

@@ -1,7 +1,7 @@
 "use client";
 
-import { Button, buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
+import { Button as UiButton, buttonVariants } from "@/components/ui/button";
+import NextLink from "next/link";
 import { useEffect, useState } from "react";
 import MainNav from "@/components/main-nav";
 import MobileNav from "@/components/mobile-nav";
@@ -18,6 +18,20 @@ import RegistrationDialog from "./registration.dialog";
 import ContactDialog from "./contact.dialog";
 import AboutProgram from "../../public/about&program.png";
 import { Skeleton } from "@/components/ui/skeleton";
+
+const Link = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof NextLink>) => (
+  <NextLink {...props} className={cn(className, "text-base min-h-[44px]")} />
+);
+
+const Button = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof UiButton>) => (
+  <UiButton {...props} className={cn(className, "text-base min-h-[44px]")} />
+);
 
 const Navbar = ({
   setOpenContact,
@@ -89,6 +103,7 @@ const SpeakerCard = ({
   topic,
   description,
   className,
+  thunder,
   ...props
 }: {
   name: string;
@@ -96,7 +111,8 @@ const SpeakerCard = ({
   image?: StaticImageData | string;
   university: string;
   topic?: string;
-  description: string;
+  description?: string;
+  thunder?: string;
 } & React.HTMLProps<HTMLDivElement>) => {
   const Img = image
     ? () => (
@@ -130,10 +146,13 @@ const SpeakerCard = ({
         <p>{index}</p>
         <p>h-index</p>
       </div>
+      {thunder && <p className="text-sm">{thunder}</p>}
       <p className="text-lg">{name}</p>
-      <p className="underline mb-8">{university}</p>
-      <p className={topic ? "my-4" : ""}>{topic}</p>
-      <p>{description}</p>
+      <p className="mb-8">
+        University: <span className="underline">{university}</span>
+      </p>
+      {topic && <p>Lecture topic: {topic}</p>}
+      {description && <p>{description}</p>}
     </div>
   );
 };
@@ -162,7 +181,7 @@ const OrganizerCard = ({
         />
       )
     : () => (
-        <Skeleton className="rounded-lg aspect-square w-[150px] h-[150px]" />
+        <Skeleton className="rounded-lg aspect-square w-[100px] md:w-[150px]" />
       );
 
   return (
@@ -170,10 +189,10 @@ const OrganizerCard = ({
       {...props}
       className={cn(
         "flex-1 basis-5/12",
-        "last:flex-grow-0 last:basis-1/2",
+        "md:last:flex-grow-0 md:last:basis-1/2",
         "grid grid-cols-[auto,1fr]",
         "justify-center items-center",
-        "w-full gap-4 p-2",
+        "w-full gap-4 p-4",
         "border-2 border-white rounded-xl",
         className
       )}
@@ -213,7 +232,7 @@ export default function Home() {
     <section
       {...props}
       className={cn(
-        "flex flex-col justify-center items-center w-full scroll-m-12 my-12 first:my-0",
+        "flex flex-col justify-center items-center w-full scroll-m-12 my-6 md:my-12 first:my-0",
         className
       )}
     >
@@ -222,24 +241,21 @@ export default function Home() {
   );
 
   const Header = () => (
-    <Section
-      className="flex flex-col justify-center items-end h-screen"
-      style={{ minHeight: "100dvh" }}
-    >
+    <Section className="flex flex-col justify-center items-end md:min-h-screen">
       <Image
         src={Biocon}
         alt="Biocon"
         className="absolute top-0 left-0 -z-[1]"
         width={1000}
       />
-      <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold uppercase">
+      <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold uppercase mt-[30vh] md:mt-0">
         BioCon 2023
       </h1>
-      <h2 className="text-sm sm:text-2xl md:text-3xl font-bold my-8">
+      <h2 className="text-sm sm:text-2xl md:text-3xl mb-8 mt-2 md:mt-8">
         International Industrial Biotecnology Conference
       </h2>
-      <p className="text-sm sm:text-xl font-light">december 18-20, 2023</p>
-      <p className="text-sm sm:text-xl font-light capitalize">Almetyevsk</p>
+      <p className="text-sm sm:text-xl font-light">December 18-20, 2023</p>
+      <p className="text-sm sm:text-xl font-light uppercase">Almetyevsk</p>
       <div className="flex flex-wrap justify-between items-center w-1/2 gap-6 whitespace-nowrap mt-8 self-center">
         <Link
           href="#about"
@@ -263,7 +279,7 @@ export default function Home() {
 
   const About = () => (
     <Section
-      className="flex flex-col justify-center items-center relative"
+      className="flex flex-col justify-center items-center relative mb-4"
       id="about"
     >
       <Image
@@ -280,24 +296,20 @@ export default function Home() {
       </P>
       <P className="my-8">Oppotunities to participate:</P>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        <div className="flex flex-col justify-center text-center border-2 border-white rounded-md px-6 py-4">
+        <div className="flex flex-col justify-center text-center border-2 border-white rounded-3xl px-6 py-4">
           <h3 className="text-2xl font-bold">Attendee</h3>
           <p>Full-time participation in conference events</p>
         </div>
-        <div className="flex flex-col justify-center text-center border-2 border-white rounded-md px-6 py-4">
+        <div className="flex flex-col justify-center text-center border-2 border-white rounded-3xl px-6 py-4">
           <h3 className="text-2xl font-bold">Inited speaker</h3>
           <p>A talk during one of the parallel sessions</p>
         </div>
-        <div className="flex flex-col justify-center text-center border-2 border-white rounded-md px-6 py-4">
+        <div className="flex flex-col justify-center text-center border-2 border-white rounded-3xl px-6 py-4">
           <h3 className="text-2xl font-bold">Science Slammer</h3>
           <p>A science communication talk</p>
         </div>
       </div>
-      <div
-        className="flex flex-row gap-8 mt-16
-      flex-nowrap w-full xs:w-1/2
-      "
-      >
+      <div className="flex flex-wrap justify-between items-center w-1/2 gap-6 whitespace-nowrap mt-8 md:mt-16 self-center">
         <Button onClick={() => setOpenRegistration(true)} className="flex-1">
           Registration
         </Button>
@@ -311,6 +323,13 @@ export default function Home() {
     </Section>
   );
 
+  const ForWhom = () => (
+    <Section className="mt-0">
+      <h3 className="text-2xl font-bold">For whom?</h3>
+      <H2>TODO</H2>
+    </Section>
+  );
+
   const Speakers = () => {
     const LoremText =
       "Lorem ipsum dolor sit amet consectetur adipisicing el recusanunt corporis totam ad id, vel nulla dolore quos aspernatur perspiciatis, ducimus architecto dolor consectetur! Sit, quasi velit hic quisquam voluptates beatae aliquam nam qui aperiam nihil illo sed ea, ipsum explicabo. Reiciendis delectus sint consequatur hic repellat iste odit quasi nesciunt ipsum maxime natus nobis autem voluptatem impedit, accusamus deleniti ullam incidunt, quas dolore esse facere iure soluta? Tempora, rerum.";
@@ -321,14 +340,16 @@ export default function Home() {
         id="speakers"
       >
         <H2 className="text-right">Speakers</H2>
-        <div className="w-full grid grid-cols-3 gap-x-32 gap-y-8 justify-items-center justify-center">
-          {Array.from({ length: 7 }).map((_, i) => (
+        <h3 className="text-2xl font-bold mb-4">Plenary</h3>
+        <div className="w-full flex flex-wrap gap-y-8 gap-x-16 justify-items-center justify-around">
+          {Array.from({ length: 4 }).map((_, i) => (
             <SpeakerCard
               key={i}
               name="John Doe"
               index={81}
               university="University of Oxford"
               description={LoremText}
+              className="basis-[80%] md:basis-[22.5%]"
             />
           ))}
         </div>
@@ -348,11 +369,14 @@ export default function Home() {
         className="-z-10 opacity-25 object-contain object-center"
       />
       <H2>Program</H2>
-      <p>
+      <p className="md:text-xl">
         TED-style plenary talks from world-renowned researchers, parallel
         sessions on major spheres of biotechnology headlined by recognized
         keynote speakers, an exciting Science Slam and much more — all infused
-        with unforgettable culture ofTatarstan — BIOCON, in one word.
+        with{" "}
+        <span className="font-bold">
+          unforgettable culture of Tatarstan — BIOCON, in one word.
+        </span>
       </p>
       <div className="relative flex flex-col items-center mt-12">
         <Image
@@ -362,7 +386,7 @@ export default function Home() {
         />
         <p
           className={cn(
-            "stroke absolute translate-y-2/4 bottom-0 text-6xl",
+            "stroke absolute translate-y-2/4 bottom-0 text-4xl md:text-6xl",
             StrokeFont.className
           )}
         >
@@ -373,13 +397,16 @@ export default function Home() {
   );
 
   const Venue = () => (
-    <Section className="flex flex-row justify-center items-center" id="venue">
-      <div className="relative flex-1 h-[200%]">
+    <Section
+      className="flex flex-row justify-center items-center relative"
+      id="venue"
+    >
+      <div className="md:relative md:flex-1 md:h-[175%]">
         <Image
           src={"/venue.png"}
           alt={"Venue image"}
           fill
-          className="object-contain object-center"
+          className="-z-10 opacity-30 md:opacity-100 object-contain object-center"
         />
       </div>
       <div className="flex-1">
@@ -406,8 +433,7 @@ export default function Home() {
       id="organizers"
     >
       <H2>Organaizers</H2>
-      {/* Flex container with 2 columns, but the last item must be centered */}
-      <div className="w-full flex flex-wrap gap-10 justify-items-center justify-center">
+      <div className="w-full flex flex-wrap gap-4 md:gap-10 justify-items-center justify-center">
         {Array.from({ length: 5 }).map((_, i) => (
           <OrganizerCard
             key={i}
@@ -432,6 +458,7 @@ export default function Home() {
       <main className="flex flex-col justify-center items-center gap-8">
         <Header />
         <About />
+        <ForWhom />
         <Speakers />
         <Program />
         <Venue />

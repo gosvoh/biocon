@@ -34,7 +34,7 @@ export default function Footer({}: {}) {
         </Link>
       </div>
       <div className="flex flex-col sm:flex-row justify-between items-center gap-8">
-        <div className="flex gap-8 items-center flex-col sm:flex-row">
+        <div className="flex gap-8 items-center flex-row">
           <Link href="https://vk.com/biotech.itmo" target="_blank">
             <Image src={VK} alt={"VK social"} width={40} />
           </Link>
@@ -51,7 +51,7 @@ export default function Footer({}: {}) {
             <Image src={YouTube} alt={"YouTube social"} width={40} />
           </Link>
         </div>
-        <div className="text-center sm:text-end">
+        <div className="text-start text-xs sm:text-end sm:text-base">
           <p>ITMO University</p>
           <p>9, Lomonosova Str., St. Petersburg, Russia, 191002</p>
           <span>email: </span>
