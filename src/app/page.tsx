@@ -12,12 +12,16 @@ import useSmoothScroll from "@/lib/useSmoothScroll";
 import Cat from "../../public/cat.jpg";
 import Biocon from "../../public/biocon.png";
 import Logo from "../../public/logo.svg";
+import AboutProgram from "../../public/about&program.png";
+import OutlineCircle from "../../public/outline-circle.svg";
 import { Roboto } from "next/font/google";
 import Footer from "./footer";
 import RegistrationDialog from "./registration.dialog";
 import ContactDialog from "./contact.dialog";
-import AboutProgram from "../../public/about&program.png";
 import { Skeleton } from "@/components/ui/skeleton";
+import { theme } from "../../tailwind.config";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Link = ({
   className,
@@ -121,13 +125,19 @@ const SpeakerCard = ({
             src={image}
             alt={name}
             fill
-            className={cn("rounded-lg object-cover", className)}
+            className={cn(
+              "rounded-lg object-cover aspect-square flex-grow",
+              className
+            )}
           />
         </div>
       )
     : () => (
         <Skeleton
-          className={cn("rounded-lg aspect-square w-full h-full", className)}
+          className={cn(
+            "rounded-lg aspect-square w-full h-full flex-grow",
+            className
+          )}
         />
       );
 
@@ -323,24 +333,127 @@ export default function Home() {
     </Section>
   );
 
-  const ForWhom = () => (
-    <Section className="mt-0">
-      <h3 className="text-2xl font-bold">For whom?</h3>
-      <H2>TODO</H2>
-    </Section>
-  );
-
-  const Speakers = () => {
-    const LoremText =
-      "Lorem ipsum dolor sit amet consectetur adipisicing el recusanunt corporis totam ad id, vel nulla dolore quos aspernatur perspiciatis, ducimus architecto dolor consectetur! Sit, quasi velit hic quisquam voluptates beatae aliquam nam qui aperiam nihil illo sed ea, ipsum explicabo. Reiciendis delectus sint consequatur hic repellat iste odit quasi nesciunt ipsum maxime natus nobis autem voluptatem impedit, accusamus deleniti ullam incidunt, quas dolore esse facere iure soluta? Tempora, rerum.";
+  const ForWhom = () => {
+    const circles = [
+      { className: "col-[1] row-[1]" },
+      { className: "col-[1] md:col-[2] row-[2]" },
+      { className: "col-[2] md:col-[3] row-[1]" },
+      { className: "col-[2] md:col-[4] row-[2]" },
+    ];
 
     return (
-      <Section
-        className="flex flex-col justify-center items-center"
-        id="speakers"
-      >
-        <H2 className="text-right">Speakers</H2>
-        <h3 className="text-2xl font-bold mb-4">Plenary</h3>
+      <Section className="mt-0">
+        <h3 className="text-2xl font-bold">For whom?</h3>
+        <div
+          className={cn(
+            "grid grid-rows-2 grid-cols-2 md:grid-cols-4",
+            "mt-8 whitespace-nowrap",
+            "w-full h-[15vh]",
+            "items-center justify-items-center",
+            "text-xs sm:text-base md:text-lg",
+            "font-bold"
+          )}
+        >
+          <p
+            className="col-[1] row-[1]"
+            style={{
+              textShadow:
+                "0 0 60px #E17A32, 0 0 60px #E17A32, 0 0 60px #E17A32",
+            }}
+          >
+            Young researchers
+          </p>
+          <p
+            className="col-[2] row-[1] md:row-[2]"
+            style={{
+              textShadow:
+                "0 0 60px #E2369D, 0 0 60px #E2369D, 0 0 60px #E2369D",
+            }}
+          >
+            Scientists
+          </p>
+          <p
+            className="col-[1] md:col-[3] row-[2] md:row-[1]"
+            style={{
+              textShadow:
+                "0 0 60px #3278E1, 0 0 60px #3278E1, 0 0 60px #3278E1",
+            }}
+          >
+            Biotech experts
+          </p>
+          <p
+            className="col-[2] md:col-[4] row-[2]"
+            style={{
+              textShadow:
+                "0 0 60px #32E1E1, 0 0 60px #32E1E1, 0 0 60px #32E1E1",
+            }}
+          >
+            Students
+          </p>
+
+          {circles.map(({ className }, i) => (
+            <Image
+              key={i}
+              src={OutlineCircle}
+              alt="Outline circle"
+              className={`${className} h-[45px] md:h-[80px] w-auto`}
+            />
+          ))}
+        </div>
+      </Section>
+    );
+  };
+
+  const Speakers = () => {
+    // @ts-ignore
+    const screens: {
+      xs: number;
+      sm: number;
+      md: number;
+      lg: number;
+      xl: number;
+      "2xl": number;
+    } = Object.entries(theme!.screens as any).reduce(
+      // @ts-ignore
+      (acc, [key, val]) => ({ ...acc, [key]: Number(val.slice(0, -2)) }),
+      {}
+    );
+    const LoremText =
+      "Lorem ipsum dolor sit amet consectetur. Rnesciunt ipsum maxime natus nobis autem voluptatem impedit, accusamus deleniti ullam incidunt, quas dolore esse facere iure soluta? Tempora, rerum.";
+
+    const [screenWidth, setScreenWidth] = useState(0);
+
+    useEffect(() => {
+      if (typeof window === undefined) return;
+      setScreenWidth(() => window.screen.width);
+      const listener = () => setScreenWidth(window.screen.width);
+      window.addEventListener("resize", listener);
+      return () => window.removeEventListener("resize", listener);
+    }, []);
+
+    const speakers =
+      screenWidth < screens.md ? (
+        <Carousel
+          showArrows={false}
+          showStatus={false}
+          showIndicators={false}
+          showThumbs={false}
+          autoPlay={true}
+          dynamicHeight={false}
+          infiniteLoop={true}
+          className="w-full"
+        >
+          {Array.from({ length: 4 }).map((_, i) => (
+            <SpeakerCard
+              key={i}
+              name="John Doe"
+              index={81}
+              university="University of Oxford"
+              description={LoremText}
+            />
+          ))}
+        </Carousel>
+      ) : (
         <div className="w-full flex flex-wrap gap-y-8 gap-x-16 justify-items-center justify-around">
           {Array.from({ length: 4 }).map((_, i) => (
             <SpeakerCard
@@ -353,6 +466,16 @@ export default function Home() {
             />
           ))}
         </div>
+      );
+
+    return (
+      <Section
+        className="flex flex-col justify-center items-center"
+        id="speakers"
+      >
+        <H2 className="text-right">Speakers</H2>
+        <h3 className="text-2xl font-bold mb-4">Plenary</h3>
+        {speakers}
       </Section>
     );
   };
