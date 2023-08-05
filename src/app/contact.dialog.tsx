@@ -31,12 +31,25 @@ export default function ContactDialog({
   const [success, setSuccess] = useState(false);
 
   const formSchema = yup.object().shape({
-    subject: yup.string().required(),
-    name: yup.string().required().min(3),
-    email: yup.string().required().email(),
-    message: yup.string().required().min(10),
-    personalData: yup.boolean().required(),
-    captchaToken: yup.string().required(),
+    subject: yup.string().required("Please select a subject"),
+    name: yup
+      .string()
+      .required("Please enter your name")
+      .min(3, "Name must be at least 3 characters"),
+    email: yup
+      .string()
+      .required("Please enter your email address")
+      .email("Please enter a valid email address"),
+    message: yup
+      .string()
+      .required("Please enter your message")
+      .min(10, "Message must be at least 10 characters"),
+    personalData: yup
+      .boolean()
+      .oneOf([true], "You must agree to the processing of personal data"),
+    captchaToken: yup
+      .string()
+      .required("Please confirm that you are not a robot"),
   });
   const form = useForm({
     resolver: yupResolver(formSchema),
@@ -68,8 +81,8 @@ export default function ContactDialog({
       <SuccessDialog
         open={success}
         onOpenChange={setSuccess}
-        title="Message sent"
-        description="We will get back to you as soon as possible"
+        title="Your email is successfully delivered"
+        description="We will contact you in a short time"
       />
       <Dialog {...props}>
         <DialogContent className="overflow-y-auto max-h-[80vh] max-w-[85%] sm:max-w-lg">
@@ -89,7 +102,7 @@ export default function ContactDialog({
                   return handleSubmit(data);
                 })();
               }}
-              className="space-y-4"
+              className="space-y-4 flex flex-col"
             >
               <FormField
                 control={form.control}
@@ -159,29 +172,27 @@ export default function ContactDialog({
                 control={form.control}
                 name="personalData"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <div className="flex items-center gap-1">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={(value: boolean) =>
-                            field.onChange(value)
-                          }
-                          className="rounded-full data-[state=checked]:text-primary data-[state=checked]:bg-primary-foreground"
-                          name={field.name}
-                        />
-                      </FormControl>
-                      <FormLabel className="!m-0 hover:cursor-pointer">
-                        I agree to the processing of personal data.
-                      </FormLabel>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={(value: boolean) =>
+                          field.onChange(value)
+                        }
+                        className="rounded-full data-[state=checked]:text-primary data-[state=checked]:bg-primary-foreground"
+                        name={field.name}
+                      />
+                    </FormControl>
+                    <FormLabel className="hover:cursor-pointer">
+                      I agree to the processing of personal data.
                       <Link
-                        className="text-sm underline text-blue-400"
+                        className="ml-2 text-sm underline text-[#2A84EE]"
                         href="#"
                       >
                         Privacy policy
                       </Link>
-                    </div>
-                    <FormMessage className="!m-0" />
+                    </FormLabel>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -198,15 +209,19 @@ export default function ContactDialog({
                         options={{
                           action: "Contact",
                           theme: "dark",
+                          size: "compact",
                         }}
                         onSuccess={(token) => field.onChange(token)}
+                        className="mx-auto"
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit">Ask Question</Button>
+              <Button type="submit" className="self-center !mt-8">
+                Ask Question
+              </Button>
             </form>
           </Form>
         </DialogContent>

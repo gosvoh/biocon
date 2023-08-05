@@ -1,5 +1,4 @@
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -7,14 +6,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import type { DialogProps } from "@radix-ui/react-dialog";
-import type {
-  FieldError,
-  UseFormRegister,
-  UseFormSetValue,
-} from "react-hook-form";
 import { useForm } from "react-hook-form";
 import SuccessDialog from "./success.dialog";
 import {
@@ -27,13 +20,26 @@ import { Button } from "@/components/ui/button";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Turnstile } from "@marsidev/react-turnstile";
+import isMobilePhone from "validator/lib/isMobilePhone";
+import isURL from "validator/lib/isURL";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
+import { Textarea } from "@/components/ui/textarea";
+import { AlertCircle } from "lucide-react";
 
 type RegisterFormValues = {
   name: string;
   email: string;
-  mobile: number;
+  mobile: string;
   country: string;
   city: string;
   affiliation: string;
@@ -50,386 +56,540 @@ type RegisterFormValues = {
   captchaToken: string;
 };
 
-const FormInputField = ({
-  label,
-  name,
-  type = "text",
-  register,
-  error,
-  placeholder,
-  multiline,
-}: {
-  label: string;
-  name: keyof RegisterFormValues;
-  type?: React.InputHTMLAttributes<HTMLInputElement>["type"];
-  error?: FieldError;
-  register: UseFormRegister<RegisterFormValues>;
-  placeholder?: string;
-  multiline?: boolean;
-}) => (
-  <div className="my-4">
-    <Label htmlFor={name}>{label}</Label>
-    {multiline ? (
-      <Textarea {...register(name)} placeholder={placeholder} />
-    ) : (
-      <Input type={type} {...register(name)} placeholder={placeholder} />
-    )}
-    {error && <p className="text-red-500">{error.message}</p>}
-  </div>
-);
-
-const FormSelectField = ({
-  label,
-  name,
-  options,
-  error,
-  placeholder,
-  setValue,
-}: {
-  label: string;
-  name: keyof RegisterFormValues;
-  options: { value: string; label: string }[];
-  error?: FieldError;
-  placeholder?: string;
-  setValue: UseFormSetValue<RegisterFormValues>;
-}) => (
-  <div className="my-4">
-    <Label htmlFor={name}>{label}</Label>
-    <Select name={name} onValueChange={(val) => setValue(name, val)}>
-      <SelectTrigger>
-        <SelectValue placeholder={placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        {options.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-    {error && <p className="text-red-500">{error.message}</p>}
-  </div>
-);
-
-const FormRadioField = ({
-  label,
-  name,
-  options,
-  error,
-  setValue,
-  value,
-  register,
-}: {
-  label: string;
-  name: keyof RegisterFormValues;
-  options: { value: string; label: string }[];
-  error?: FieldError;
-  setValue: UseFormSetValue<RegisterFormValues>;
-  value?: string;
-  register: UseFormRegister<RegisterFormValues>;
-}) => {
-  const reg = register(name);
-
-  return (
-    <div className="my-4">
-      <Label htmlFor={name}>{label}</Label>
-      <RadioGroup
-        id={name}
-        {...reg}
-        // TODO: changing the value of the radio group doesn't update the form
-        onChange={(e) => {
-          reg.onChange(e);
-        }}
-        onValueChange={(val) => setValue(name, val)}
-      >
-        {options.map((option, i) => (
-          <div key={i} className="flex items-center space-x-2">
-            <RadioGroupItem
-              value={option.value.replace(" ", "_")}
-              id={`${name}-${option.value}`}
-            />
-            <Label
-              className="hover:cursor-pointer"
-              htmlFor={`${name}-${option.value}`}
-            >
-              {option.label}
-            </Label>
-          </div>
-        ))}
-      </RadioGroup>
-      {error && <p className="text-red-500">{error.message}</p>}
-    </div>
-  );
-};
-
-const resolver = yupResolver(
-  yup
-    .object()
-    .shape({
-      name: yup.string().required().min(3),
-      email: yup.string().required().email(),
-      mobile: yup.number().required(),
-      country: yup.string().required(),
-      city: yup.string().required(),
-      affiliation: yup.string().required(),
-      role: yup.string().required(),
-      clothingSize: yup.string().required(),
-      participationType: yup.string().required(),
-      motivationLetter: yup
-        .string()
-        .when("participationType", ([value], schema) => {
-          return value === "Attendee"
-            ? schema.required("This field is required")
-            : schema;
-        }),
-      researchInterests: yup
-        .string()
-        .when("participationType", ([value], schema) => {
-          return value !== "Attendee"
-            ? schema.required("This field is required")
-            : schema;
-        }),
-      tentativeTitle: yup
-        .string()
-        .when("participationType", ([value], schema) => {
-          return value === "Invited Speaker"
-            ? schema.required("This field is required")
-            : schema;
-        }),
-      resume: yup.string().when("participationType", ([value], schema) => {
-        return value === "Invited Speaker"
-          ? schema.required("This field is required")
-          : schema;
-      }),
-      scienceProfile: yup
-        .string()
-        .when("participationType", ([value], schema) => {
-          return value !== "Attendee"
-            ? schema.required("This field is required")
-            : schema;
-        }),
-      video: yup.string().when("participationType", ([value], schema) => {
-        return value !== "Attendee"
-          ? schema.required("This field is required")
-          : schema;
-      }),
-      personalData: yup
-        .boolean()
-        .default(false)
-        .oneOf([true], "This field is required"),
-      captchaToken: yup.string().required("This field is required"),
-    })
-    .required()
-);
+const formSchema = yup.object().shape({
+  name: yup
+    .string()
+    .required("Please enter your name")
+    .min(3, "Name must be at least 3 characters long"),
+  email: yup
+    .string()
+    .required("Please enter your email address")
+    .email("Please enter a valid email address"),
+  mobile: yup
+    .string()
+    .required("Please enter your mobile number")
+    .test("is-mobile-phone", "Please enter a valid mobile number", (value) =>
+      isMobilePhone(value, "any")
+    ),
+  country: yup.string().required("Please select the country you are from"),
+  city: yup.string().required("Please enter the city you are from"),
+  affiliation: yup.string().required("Please enter your affiliation"),
+  role: yup.string().required("Please enter your role"),
+  otherRole: yup
+    .string()
+    .when("role", ([value], schema) =>
+      value === "Other" ? schema.required("Please enter your role") : schema
+    ),
+  clothingSize: yup.string().required("Please select your clothing size"),
+  participationType: yup
+    .string()
+    .required("Please select your participation type"),
+  motivationLetter: yup
+    .string()
+    .when("participationType", ([value], schema) =>
+      value === "Attendee"
+        ? schema
+            .required("Please enter a motivation letter")
+            .min(10, "Motivation letter must be at least 10 characters long")
+        : schema
+    ),
+  researchInterests: yup
+    .string()
+    .when("participationType", ([value], schema) =>
+      value !== "Attendee"
+        ? schema.required("Please enter your research interests")
+        : schema
+    ),
+  tentativeTitle: yup
+    .string()
+    .when("participationType", ([value], schema) =>
+      value === "Invited Speaker"
+        ? schema.required("Please enter a tentative title")
+        : schema
+    ),
+  resume: yup.string().when("participationType", ([value], schema) =>
+    value === "Invited Speaker"
+      ? schema
+          .required("Please enter a resume")
+          .test("is-url", "Please enter a valid URL", (value) =>
+            isURL(value, {
+              protocols: ["http", "https"],
+              require_protocol: true,
+            })
+          )
+      : schema
+  ),
+  scienceProfile: yup.string().when("participationType", ([value], schema) =>
+    value !== "Attendee"
+      ? schema
+          .required("Please enter a science profile")
+          .test("is-url", "Please enter a valid URL", (value) =>
+            isURL(value, {
+              protocols: ["http", "https"],
+              require_protocol: true,
+            })
+          )
+      : schema
+  ),
+  video: yup.string().when("participationType", ([value], schema) =>
+    value !== "Attendee"
+      ? schema
+          .required("Please enter a video")
+          .test("is-url", "Please enter a valid URL", (value) =>
+            isURL(value, {
+              protocols: ["http", "https"],
+              require_protocol: true,
+            })
+          )
+      : schema
+  ),
+  personalData: yup
+    .boolean()
+    .default(false)
+    .oneOf([true], "Please accept the terms and conditions"),
+  captchaToken: yup
+    .string()
+    .required("Please complete the captcha to prove you are not a robot"),
+});
 
 export default function RegistrationDialog(
   props: {} & React.PropsWithoutRef<DialogProps>
 ) {
-  const [success, setSuccess] = useState(false);
-  const participationTypes = ["Attendee", "Invited Speaker", "Science slammer"];
-  const clothingSizes = ["S", "M", "L", "XL"];
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset: formReset,
-    setValue,
-    getValues,
-    watch,
-    clearErrors,
-  } = useForm<RegisterFormValues>({
-    resolver,
+  const form = useForm({
+    resolver: yupResolver(formSchema),
   });
-  const participationType = watch("participationType");
+  const [success, setSuccess] = useState(false);
+  const participationTypes = [
+    {
+      value: "Attendee",
+      label: "Attendee. Full-time participation in conference events",
+    },
+    {
+      value: "Invited Speaker",
+      label: "Invited speaker. A talk during one of the parallel sessions",
+    },
+    {
+      value: "Science Slammer",
+      label: "Science Slammer. A science communication talk",
+    },
+  ];
+  const participationType = form.watch("participationType");
+  const roles = [
+    "Undergraduate student",
+    "Graduate student",
+    "PhD student",
+    "Professor",
+    "Industrial partner",
+    "Other",
+  ];
+  const role = form.watch("role");
+  const clothingSizes = ["S", "M", "L", "XL"];
 
-  function onSubmit(data: any) {
+  function onSubmit(data: yup.InferType<typeof formSchema>) {
     console.log("onSubmit", data);
   }
-
-  const AfterPart = participationType ? (
-    participationType === "Attendee" ? (
-      <FormInputField
-        label="Motivation letter"
-        name="motivationLetter"
-        register={register}
-        error={errors.motivationLetter}
-        multiline
-      />
-    ) : (
-      <>
-        <FormInputField
-          label="Research interests"
-          name="researchInterests"
-          register={register}
-          error={errors.researchInterests}
-        />
-        {participationType === "Invited Speaker" && (
-          <>
-            <FormInputField
-              label="Tentative title"
-              name="tentativeTitle"
-              register={register}
-              error={errors.tentativeTitle}
-            />
-            <FormInputField
-              label="Resume"
-              name="resume"
-              register={register}
-              error={errors.resume}
-            />
-          </>
-        )}
-        <FormInputField
-          label="Science profile"
-          name="scienceProfile"
-          register={register}
-          error={errors.scienceProfile}
-        />
-        <FormInputField
-          label="Video"
-          name="video"
-          register={register}
-          error={errors.video}
-        />
-      </>
-    )
-  ) : null;
 
   return (
     <>
       <SuccessDialog
         open={success}
         onOpenChange={setSuccess}
-        title="Registration successful"
-        description="You will receive an email with further instructions"
+        title="You are awesome!"
+        description="Registration completed successfully"
       />
       <Dialog {...props}>
         <DialogContent className="overflow-y-auto max-h-[80vh] max-w-[85%] sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-center">Pre-registration</DialogTitle>
           </DialogHeader>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSubmit((data) => {
-                formReset();
-                props.onOpenChange?.(false);
-                setSuccess(true);
-                return onSubmit(data);
-              }, console.log)();
-            }}
-            onChange={() =>
-              console.log("change", getValues("participationType"))
-            }
-            className="space-y-4"
-          >
-            <FormInputField
-              label="Name"
-              name="name"
-              register={register}
-              error={errors.name}
-              placeholder="Enter your full name here"
-            />
-            <FormInputField
-              label="Email"
-              name="email"
-              register={register}
-              error={errors.email}
-              placeholder="Enter your e-mail here"
-            />
-            <FormInputField
-              label="Mobile"
-              name="mobile"
-              register={register}
-              error={errors.mobile}
-              placeholder="Enter your mobile number with country code here"
-            />
-            <FormInputField
-              label="Country"
-              name="country"
-              register={register}
-              error={errors.country}
-              placeholder="---"
-            />
-            <FormInputField
-              label="City"
-              name="city"
-              register={register}
-              error={errors.city}
-              placeholder="---"
-            />
-            <FormInputField
-              label="Affiliation"
-              name="affiliation"
-              register={register}
-              error={errors.affiliation}
-              placeholder="Enter the name of your university here"
-            />
-            <FormInputField
-              label="Role"
-              name="role"
-              register={register}
-              error={errors.role}
-              placeholder="---"
-            />
-            <FormSelectField
-              label="Clothing size"
-              name="clothingSize"
-              error={errors.clothingSize}
-              options={clothingSizes.map((size) => ({
-                value: size,
-                label: size,
-              }))}
-              setValue={setValue}
-              placeholder="---"
-            />
-            <FormRadioField
-              label="Participation type"
-              name="participationType"
-              error={errors.participationType}
-              options={participationTypes.map((type) => ({
-                value: type.toLocaleLowerCase().replace(" ", "_"),
-                label: type,
-              }))}
-              setValue={setValue}
-              value={getValues("participationType")}
-              register={register}
-            />
-            {AfterPart}
-            <div className="my-4 flex flex-col">
-              <div className="flex items-center">
-                <Checkbox
-                  onCheckedChange={(value: boolean) =>
-                    setValue("personalData", value)
-                  }
-                  className="rounded-full data-[state=checked]:text-primary data-[state=checked]:bg-primary-foreground"
-                  name={"personalData"}
-                  id="personalData"
-                />
-                <Label htmlFor="personalData" className="ml-2">
-                  I agree to the processing of my personal data
-                </Label>
-              </div>
-              {errors.personalData && (
-                <p className="text-red-500">{errors.personalData.message}</p>
-              )}
-            </div>
-            <div className="my-4">
-              <Turnstile
-                id="contact-turnstile"
-                siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                options={{
-                  action: "Contact",
-                  theme: "dark",
-                }}
-                onSuccess={(token) => setValue("captchaToken", token)}
+          <Form {...form}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                form.handleSubmit((data) => {
+                  form.reset();
+                  props.onOpenChange?.(false);
+                  setSuccess(true);
+                  return onSubmit(data);
+                })();
+              }}
+              className="space-y-4 flex flex-col"
+            >
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Full name*</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your full name here"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-              {errors.captchaToken && (
-                <p className="text-red-500">{errors.captchaToken.message}</p>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>E-mail*</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your e-mail here" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="mobile"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Mobile number*</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your mobile number with country code here"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="country"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Select country*</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="---" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>{}</SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="city"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Select city*</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="---" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>{}</SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="affiliation"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Affiliation*</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter the name of your university here"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Role*</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="---" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {roles.map((role) => (
+                          <SelectItem key={role} value={role}>
+                            {role}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {role === "Other" && (
+                <FormField
+                  control={form.control}
+                  name="otherRole"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Other role*</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter your role here" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               )}
-            </div>
-            <Button type="submit">Submit</Button>
-          </form>
+              <FormField
+                control={form.control}
+                name="clothingSize"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Select your clothing size*</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="---" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {clothingSizes.map((size) => (
+                          <SelectItem key={size} value={size}>
+                            {size}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="participationType"
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormLabel>Type of participation:</FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex flex-col space-y-1"
+                      >
+                        {participationTypes.map((type, i) => (
+                          <FormItem
+                            key={i}
+                            className="flex items-center space-x-3 space-y-0"
+                          >
+                            <FormControl>
+                              <RadioGroupItem value={type.value} />
+                            </FormControl>
+                            <FormLabel className="font-normal hover:cursor-pointer">
+                              {type.label}
+                            </FormLabel>
+                          </FormItem>
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {participationType === "Attendee" && (
+                <FormField
+                  control={form.control}
+                  name="motivationLetter"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Motivation letter*</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Write why is it important for you to attend BIOCON?"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+              {participationType !== "Attendee" && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="researchInterests"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Research interest(s)*</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Enter your research interest(s) here"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  {participationType === "Invited Speaker" && (
+                    <>
+                      <FormField
+                        control={form.control}
+                        name="tentativeTitle"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Tentative title of your talk*</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Enter the tentative title of your work here"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="resume"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Resume*</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Provide a link to your resume in PDF format"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </>
+                  )}
+                  <FormField
+                    control={form.control}
+                    name="scienceProfile"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Your Google Scholar, Scopus or ORCID profile*
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Provide a link to your Google Scholar, Scopus or ORCID profile"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="video"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Short video*</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Provide a link to a teaser of your slam talk"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
+              <FormField
+                control={form.control}
+                name="personalData"
+                render={({ field }) => (
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={(value: boolean) =>
+                          field.onChange(value)
+                        }
+                        className="rounded-full data-[state=checked]:text-primary data-[state=checked]:bg-primary-foreground"
+                        name={field.name}
+                      />
+                    </FormControl>
+                    <FormLabel className="hover:cursor-pointer">
+                      I agree to the processing of personal data.
+                      <Link
+                        className="ml-2 text-sm underline text-[#2A84EE]"
+                        href="#"
+                      >
+                        Privacy policy
+                      </Link>
+                    </FormLabel>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="captchaToken"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Turnstile
+                        id="registration-turnstile"
+                        siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                        options={{
+                          action: "Registration",
+                          theme: "dark",
+                          size: "compact",
+                        }}
+                        onSuccess={(token) => field.onChange(token)}
+                        className="mx-auto"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <p className="text-destructive">
+                <AlertCircle className="h-4 w-4 inline-block mr-1" />
+                After submitting the form, a confirmation will be sent to your
+                e-mail address. If confirmation has not been recieved, please
+                email us{" "}
+                <Link className="underline" href="mailto:biocon@itmo.ru">
+                  biocon@itmo.ru
+                </Link>
+              </p>
+              <Button type="submit" className="self-center !mt-8">
+                Submit
+              </Button>
+            </form>
+          </Form>
         </DialogContent>
       </Dialog>
     </>
