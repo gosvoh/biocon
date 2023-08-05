@@ -10,11 +10,18 @@ import {
   SheetFooter,
   SheetClose,
 } from "@/components/ui/sheet";
-import { Mail, SidebarOpen } from "lucide-react";
+import { Grip, Mail, SidebarOpen } from "lucide-react";
 import { Button } from "./ui/button";
 import { links } from "../links";
 import Image from "next/image";
-import Logo from "../../public/logo.svg";
+import Link from "next/link";
+import VK from "../../public/vk.svg";
+import Telegram from "../../public/telegram.svg";
+import Facebook from "../../public/facebook.svg";
+import YouTube from "../../public/youtube.svg";
+import React from "react";
+import { Separator } from "./ui/separator";
+import { socials } from "@/socials";
 
 export default function MobileNav({
   setOpenContact,
@@ -26,48 +33,67 @@ export default function MobileNav({
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <SidebarOpen />
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden border border-white"
+        >
+          <Grip />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="flex flex-col justify-between max-xs:w-full"
+        className="flex flex-col justify-between w-full"
+        style={{
+          backgroundImage: `url(/mobile-nav-bg.svg)`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
         onCloseAutoFocus={(e) => e.preventDefault()}
       >
-        <SheetHeader>
-          <SheetTitle>
-            <Image src={Logo} alt="Logo" width={125} />
-          </SheetTitle>
-        </SheetHeader>
+        <SheetHeader></SheetHeader>
         <div className="flex flex-col gap-4">
-          {links.map((link) => (
-            <a
-              href={link.href}
-              key={link.href}
-              onClick={() => setOpen(false)}
-              className="hover:underline"
-            >
-              {link.title}
-            </a>
+          <Separator className="bg-white" />
+          {links.map((link, i) => (
+            <React.Fragment key={i}>
+              <Link
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="hover:underline ml-4 uppercase"
+              >
+                {link.title}
+              </Link>
+              <Separator className="bg-white" />
+            </React.Fragment>
           ))}
-          <Button
-            variant="ghost"
-            onClick={() => {
-              setOpen(false);
-              setOpenContact(true);
-            }}
-            className="flex items-center gap-4 mt-6"
-          >
-            <Mail />
-            <span>Contact us</span>
-          </Button>
         </div>
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button variant="ghost">Close</Button>
-          </SheetClose>
+        <SheetFooter className="flex-col gap-8">
+          <div className="flex gap-8 items-center flex-row justify-between">
+            <Link href={socials.vk} target="_blank">
+              <Image src={VK} alt={"VK social"} width={40} />
+            </Link>
+            <Link href={socials.telegram} target="_blank">
+              <Image src={Telegram} alt="Telegram social" width={40} />
+            </Link>
+            <Link href={socials.facebook} target="_blank">
+              <Image src={Facebook} alt={"Facebook social"} width={40} />
+            </Link>
+            <Link href={socials.youtube} target="_blank">
+              <Image src={YouTube} alt={"YouTube social"} width={40} />
+            </Link>
+          </div>
+          <div className="text-start text-xs sm:text-end sm:text-base">
+            <p>ITMO University</p>
+            <p>9, Lomonosova Str., St. Petersburg, Russia, 191002</p>
+            <span>email: </span>
+            <Link
+              className="hover:underline p-0 h-auto leading-normal"
+              href={"mailto:biocon@itmo.ru"}
+            >
+              biocon@itmo.ru
+            </Link>
+          </div>
         </SheetFooter>
       </SheetContent>
     </Sheet>
