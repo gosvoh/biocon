@@ -33,6 +33,7 @@
     "react-hook-form": "^7.45.1",
     "react-responsive-carousel": "^3.2.23",
     "sharp": "^0.32.2",
+    "swiper": "^10.1.0",
     "tailwind-merge": "^1.13.2",
     "tailwindcss": "^3.3.2",
     "tailwindcss-animate": "^1.0.6",

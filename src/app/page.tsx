@@ -20,8 +20,12 @@ import RegistrationDialog from "./registration.dialog";
 import ContactDialog from "./contact.dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { theme } from "../../tailwind.config";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Lightning from "../../public/lightning.svg";
 
 const Link = ({
   className,
@@ -125,43 +129,33 @@ const SpeakerCard = ({
             src={image}
             alt={name}
             fill
-            className={cn(
-              "rounded-lg object-cover aspect-square flex-grow",
-              className
-            )}
+            className="rounded-lg object-cover aspect-square flex-grow"
           />
         </div>
       )
-    : () => (
-        <Skeleton
-          className={cn(
-            "rounded-lg aspect-square w-full h-full flex-grow",
-            className
-          )}
-        />
-      );
+    : () => <Skeleton className="rounded-lg aspect-square w-full flex-grow" />;
 
   return (
     <div
       {...props}
-      className={cn(
-        "flex flex-col",
-        "justify-center items-center",
-        "w-full p-2",
-        className
-      )}
+      className={cn("flex flex-col", "justify-center", "w-full p-2", className)}
     >
       <Img />
       <div className="border border-white rounded-lg text-center px-4 py-2 w-full my-8">
         <p>{index}</p>
         <p>h-index</p>
       </div>
-      {thunder && <p className="text-sm">{thunder}</p>}
-      <p className="text-lg">{name}</p>
-      <p className="mb-8">
+      {thunder && (
+        <p className="text-sm text-center mb-4">
+          <Image src={Lightning} alt={"Lightning"} className="h-5 inline" />{" "}
+          {thunder}
+        </p>
+      )}
+      <p className="text-lg mb-4 text-center">{name}</p>
+      <p className="mb-4">
         University: <span className="underline">{university}</span>
       </p>
-      {topic && <p>Lecture topic: {topic}</p>}
+      {topic && <p className="mb-4">Lecture topic: {topic}</p>}
       {description && <p>{description}</p>}
     </div>
   );
@@ -209,14 +203,11 @@ const OrganizerCard = ({
     >
       <Img />
       <div className="flex flex-col justify-center w-full">
-        <h3 className="text-lg font-bold uppercase">{name}</h3>
-        <p className="text-sm font-light uppercase">{position}</p>
+        <h3 className="text-lg">{name}</h3>
+        <p className="text-sm">{position}</p>
         <div>
-          <span className="text-sm font-light">E-mail: </span>
-          <Link
-            href={`mailto:${email}`}
-            className="text-sm font-light hover:underline"
-          >
+          <span className="text-sm">E-mail: </span>
+          <Link href={`mailto:${email}`} className="text-sm hover:underline">
             {email}
           </Link>
         </div>
@@ -433,26 +424,51 @@ export default function Home() {
 
     const speakers =
       screenWidth < screens.md ? (
-        <Carousel
-          showArrows={false}
-          showStatus={false}
-          showIndicators={false}
-          showThumbs={false}
-          autoPlay={true}
-          dynamicHeight={false}
-          infiniteLoop={true}
-          className="w-full"
-        >
-          {Array.from({ length: 4 }).map((_, i) => (
-            <SpeakerCard
-              key={i}
-              name="John Doe"
-              index={81}
-              university="University of Oxford"
-              description={LoremText}
-            />
-          ))}
-        </Carousel>
+        <div className="w-full flex gap-4 items-center">
+          <div
+            className={cn(
+              buttonVariants({ variant: "outline", size: "icon" }),
+              "swiper-button-prev flex-1 aspect-square rounded-full border-white"
+            )}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </div>
+          <Swiper
+            modules={[Navigation, Autoplay]}
+            spaceBetween={50}
+            slidesPerView={1}
+            navigation={{
+              prevEl: ".swiper-button-prev",
+              nextEl: ".swiper-button-next",
+            }}
+            pagination={{ clickable: true, dynamicBullets: true }}
+            loop={true}
+            centeredSlides={true}
+            autoplay={{ delay: 3000 }}
+          >
+            {Array.from({ length: 4 }).map((_, i) => (
+              <SwiperSlide key={i}>
+                <SpeakerCard
+                  name="John Doe"
+                  index={81}
+                  university="University of Oxford"
+                  description={LoremText}
+                  thunder="Highly Cited Researcher 2018"
+                  topic="Topic"
+                  className="text-center"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <div
+            className={cn(
+              buttonVariants({ variant: "outline", size: "icon" }),
+              "swiper-button-next flex-1 aspect-square rounded-full border-white"
+            )}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </div>
+        </div>
       ) : (
         <div className="w-full flex flex-wrap gap-y-8 gap-x-16 justify-items-center justify-around">
           {Array.from({ length: 4 }).map((_, i) => (
@@ -462,6 +478,8 @@ export default function Home() {
               index={81}
               university="University of Oxford"
               description={LoremText}
+              thunder="Highly Cited Researcher 2018"
+              topic="Topic"
               className="basis-[80%] md:basis-[22.5%]"
             />
           ))}
@@ -524,7 +542,7 @@ export default function Home() {
       className="flex flex-row justify-center items-center relative"
       id="venue"
     >
-      <div className="md:relative md:flex-1 md:h-[175%]">
+      <div className="hidden md:block md:relative md:flex-1 md:h-[175%]">
         <Image
           src={"/venue.png"}
           alt={"Venue image"}
@@ -534,7 +552,13 @@ export default function Home() {
       </div>
       <div className="flex-1">
         <H2 className="text-right">Venue</H2>
-        <div>
+        <div className="relative">
+          <Image
+            src={"/venue.png"}
+            alt={"Venue image"}
+            fill
+            className="md:hidden -z-10 opacity-30 md:opacity-100 object-contain object-center !top-[-40%] !h-[200%]"
+          />
           <p className="font-semibold text-xl">Almetyevsk</p>
           <p className="my-4">(Russian: Альметьевск; Tatar: Әлмәт)</p>
           <p className="my-4">
@@ -555,7 +579,7 @@ export default function Home() {
       className="flex flex-col justify-center items-center"
       id="organizers"
     >
-      <H2>Organaizers</H2>
+      <H2>Organizers</H2>
       <div className="w-full flex flex-wrap gap-4 md:gap-10 justify-items-center justify-center">
         {Array.from({ length: 5 }).map((_, i) => (
           <OrganizerCard
