@@ -10,6 +10,7 @@ import Telegram from "../../public/telegram.svg";
 import VK from "../../public/vk.svg";
 import Facebook from "../../public/facebook.svg";
 import YouTube from "../../public/youtube.svg";
+import { socials } from "@/socials";
 
 export default function Footer({}: {}) {
   const imgWidth = 200;
@@ -35,19 +36,16 @@ export default function Footer({}: {}) {
       </div>
       <div className="flex flex-col sm:flex-row justify-between items-center gap-8">
         <div className="flex gap-8 items-center flex-row">
-          <Link href="https://vk.com/biotech.itmo" target="_blank">
+          <Link href={socials.vk} target="_blank">
             <Image src={VK} alt={"VK social"} width={40} />
           </Link>
-          <Link href="https://t.me/BIOCON_2023" target="_blank">
+          <Link href={socials.telegram} target="_blank">
             <Image src={Telegram} alt="Telegram social" width={40} />
           </Link>
-          <Link href="https://facebook.com/biocon2023" target="_blank">
+          <Link href={socials.facebook} target="_blank">
             <Image src={Facebook} alt={"Facebook social"} width={40} />
           </Link>
-          <Link
-            href="https://www.youtube.com/channel/UC9Z3Z4Z6Z2Z3Z4Z6Z2Z3Z4Z6"
-            target="_blank"
-          >
+          <Link href={socials.youtube} target="_blank">
             <Image src={YouTube} alt={"YouTube social"} width={40} />
           </Link>
         </div>

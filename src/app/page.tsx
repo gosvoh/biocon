@@ -26,6 +26,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Lightning from "../../public/lightning.svg";
+import FollowDialog from "./follow.dialog";
 
 const Link = ({
   className,
@@ -219,6 +220,7 @@ const OrganizerCard = ({
 export default function Home() {
   const [openRegistration, setOpenRegistration] = useState(false);
   const [openContact, setOpenContact] = useState(false);
+  const [openFollow, setOpenFollow] = useState(false);
   const smoothScroll = useSmoothScroll();
 
   useEffect(() => {
@@ -246,7 +248,7 @@ export default function Home() {
       <Image
         src={Biocon}
         alt="Biocon"
-        className="absolute top-0 left-0 -z-[1]"
+        className="absolute top-0 left-0 -z-[10]"
         width={1000}
       />
       <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold uppercase mt-[30vh] md:mt-0">
@@ -317,6 +319,7 @@ export default function Home() {
         <Button
           variant="outline"
           className="flex-1 bg-transparent border-white hover:bg-white hover:text-black"
+          onClick={() => setOpenFollow(true)}
         >
           Follow us
         </Button>
@@ -601,6 +604,7 @@ export default function Home() {
         onOpenChange={setOpenRegistration}
       />
       <ContactDialog open={openContact} onOpenChange={setOpenContact} />
+      <FollowDialog open={openFollow} onOpenChange={setOpenFollow} />
       <Navbar setOpenContact={setOpenContact} />
       <main className="flex flex-col justify-center items-center gap-8">
         <Header />
