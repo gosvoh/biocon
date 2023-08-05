@@ -581,7 +581,11 @@ export default function RegistrationDialog(
                 After submitting the form, a confirmation will be sent to your
                 e-mail address. If confirmation has not been recieved, please
                 email us{" "}
-                <Link className="underline" href="mailto:biocon@itmo.ru">
+                <Link
+                  className="underline"
+                  href="mailto:biocon@itmo.ru"
+                  prefetch={false}
+                >
                   biocon@itmo.ru
                 </Link>
               </p>

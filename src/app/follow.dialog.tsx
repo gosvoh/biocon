@@ -62,16 +62,16 @@ export default function FollowDialog({
           </DialogTitle>
         </DialogHeader>
         <div className="flex flex-row flex-wrap gap-8 items-center justify-center my-12">
-          <Link href={socials.vk} target="_blank">
+          <Link href={socials.vk} target="_blank" prefetch={false}>
             <Image src={VK} alt={"VK social"} width={40} />
           </Link>
-          <Link href={socials.telegram} target="_blank">
+          <Link href={socials.telegram} target="_blank" prefetch={false}>
             <Image src={Telegram} alt="Telegram social" width={40} />
           </Link>
-          <Link href={socials.facebook} target="_blank">
+          <Link href={socials.facebook} target="_blank" prefetch={false}>
             <Image src={Facebook} alt={"Facebook social"} width={40} />
           </Link>
-          <Link href={socials.youtube} target="_blank">
+          <Link href={socials.youtube} target="_blank" prefetch={false}>
             <Image src={YouTube} alt={"YouTube social"} width={40} />
           </Link>
         </div>

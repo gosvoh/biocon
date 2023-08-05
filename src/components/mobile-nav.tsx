@@ -70,16 +70,16 @@ export default function MobileNav({
         </div>
         <SheetFooter className="flex-col gap-8">
           <div className="flex gap-8 items-center flex-row justify-between">
-            <Link href={socials.vk} target="_blank">
+            <Link href={socials.vk} target="_blank" prefetch={false}>
               <Image src={VK} alt={"VK social"} width={40} />
             </Link>
-            <Link href={socials.telegram} target="_blank">
+            <Link href={socials.telegram} target="_blank" prefetch={false}>
               <Image src={Telegram} alt="Telegram social" width={40} />
             </Link>
-            <Link href={socials.facebook} target="_blank">
+            <Link href={socials.facebook} target="_blank" prefetch={false}>
               <Image src={Facebook} alt={"Facebook social"} width={40} />
             </Link>
-            <Link href={socials.youtube} target="_blank">
+            <Link href={socials.youtube} target="_blank" prefetch={false}>
               <Image src={YouTube} alt={"YouTube social"} width={40} />
             </Link>
           </div>
@@ -90,6 +90,7 @@ export default function MobileNav({
             <Link
               className="hover:underline p-0 h-auto leading-normal"
               href={"mailto:biocon@itmo.ru"}
+              prefetch={false}
             >
               biocon@itmo.ru
             </Link>

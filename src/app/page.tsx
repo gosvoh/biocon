@@ -32,7 +32,11 @@ const Link = ({
   className,
   ...props
 }: React.ComponentProps<typeof NextLink>) => (
-  <NextLink {...props} className={cn(className, "text-base min-h-[44px]")} />
+  <NextLink
+    {...props}
+    className={cn(className, "text-base min-h-[44px]")}
+    prefetch={false}
+  />
 );
 
 const Button = ({

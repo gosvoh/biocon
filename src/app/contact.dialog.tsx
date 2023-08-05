@@ -186,6 +186,7 @@ export default function ContactDialog({
                     <FormLabel className="hover:cursor-pointer">
                       I agree to the processing of personal data.
                       <Link
+                        prefetch={false}
                         className="ml-2 text-sm underline text-[#2A84EE]"
                         href="#"
                       >
