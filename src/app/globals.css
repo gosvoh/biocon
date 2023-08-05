@@ -79,9 +79,16 @@
 
 @layer components {
   .stroke {
-    -webkit-text-stroke: thin;
-    text-stroke: thin;
+    -webkit-text-stroke: 1px;
+    text-stroke: 1px;
     -webkit-text-fill-color: transparent;
     text-fill-color: transparent;
+  }
+
+  @screen md {
+    .stroke {
+      -webkit-text-stroke: 3px;
+      text-stroke: 3px;
+    }
   }
 }
