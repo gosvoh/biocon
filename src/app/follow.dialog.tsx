@@ -1,6 +1,5 @@
 import {
   Dialog,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogContent,
@@ -43,14 +42,12 @@ export default function FollowDialog({
 
   const form = useForm({
     resolver: yupResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-    },
   });
 
   function handleSubmit(data: yup.InferType<typeof formSchema>) {
     console.log(data);
+    form.reset();
+    props.onOpenChange?.(false);
   }
 
   return (
@@ -83,14 +80,7 @@ export default function FollowDialog({
         </DialogDescription>
         <Form {...form}>
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              form.handleSubmit((data) => {
-                form.reset();
-                props.onOpenChange?.(false);
-                return handleSubmit(data);
-              }, console.error);
-            }}
+            onSubmit={form.handleSubmit(handleSubmit)}
             className="grid grid-cols-1 gap-4 items-center justify-center justify-items-center"
           >
             <div className="flex flex-col md:flex-row gap-4 items-center justify-center w-full">
