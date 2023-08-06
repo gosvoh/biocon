@@ -27,6 +27,7 @@ import "swiper/css/pagination";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Lightning from "../../public/lightning.svg";
 import FollowDialog from "./follow.dialog";
+import { Separator } from "@/components/ui/separator";
 
 const Link = ({
   className,
@@ -612,11 +613,16 @@ export default function Home() {
       <Navbar setOpenContact={setOpenContact} />
       <main className="flex flex-col justify-center items-center gap-8">
         <Header />
+        <Separator className="bg-white" />
         <About />
         <ForWhom />
+        <Separator className="bg-white" />
         <Speakers />
+        <Separator className="bg-white" />
         <Program />
+        <Separator className="bg-white" />
         <Venue />
+        <Separator className="bg-white" />
         <Organizers />
       </main>
       <Footer />
