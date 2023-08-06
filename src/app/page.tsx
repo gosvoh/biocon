@@ -254,7 +254,7 @@ export default function Home() {
         src={Biocon}
         alt="Biocon"
         className="absolute top-0 left-0 -z-[10]"
-        width={1000}
+        width={800}
       />
       <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold uppercase mt-[30vh] md:mt-0">
         BioCon 2023
@@ -488,7 +488,7 @@ export default function Home() {
               description={LoremText}
               thunder="Highly Cited Researcher 2018"
               topic="Topic"
-              className="basis-[80%] md:basis-[22.5%]"
+              className="basis-[80%] md:basis-3/12"
             />
           ))}
         </div>
