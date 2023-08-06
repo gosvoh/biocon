@@ -46,7 +46,7 @@ export default function MobileNav({
         side="left"
         className="flex flex-col justify-between w-full"
         style={{
-          backgroundImage: `url(/mobile-nav-bg.svg)`,
+          backgroundImage: `url(/mobile-nav-bg.jpg)`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
