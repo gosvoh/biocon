@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { DialogProps } from "@radix-ui/react-dialog";
 import { useForm } from "react-hook-form";
 import SuccessDialog from "./success.dialog";
@@ -34,7 +34,23 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Check, ChevronsUpDown } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
+import { useAsync } from "@react-hookz/web";
+import { FixedSizeList as List } from "react-window";
+import { List as VirtualizedList, AutoSizer } from "react-virtualized";
 
 type RegisterFormValues = {
   name: string;
@@ -173,7 +189,7 @@ export default function RegistrationDialog(
       label: "Science Slammer. A science communication talk",
     },
   ];
-  const participationType = form.watch("participationType");
+  const selectedParticipationType = form.watch("participationType");
   const roles = [
     "Undergraduate student",
     "Graduate student",
@@ -182,12 +198,131 @@ export default function RegistrationDialog(
     "Industrial partner",
     "Other",
   ];
-  const role = form.watch("role");
+  const selectedRole = form.watch("role");
   const clothingSizes = ["S", "M", "L", "XL"];
+  const [countriesState, countriesAction] = useAsync<
+    {
+      id: number;
+      name: string;
+      iso2: string;
+    }[]
+  >(
+    () =>
+      fetch("https://api.countrystatecity.in/v1/countries", {
+        headers: {
+          "X-CSCAPI-KEY": process.env.NEXT_PUBLIC_API_KEY as string,
+        },
+      }).then((res) => res.json()),
+    []
+  );
+  const [cityState, cityAction] = useAsync<
+    {
+      id: number;
+      name: string;
+    }[]
+  >(
+    () =>
+      fetch(
+        `https://api.countrystatecity.in/v1/countries/${selectedCountry}/cities`,
+        {
+          headers: {
+            "X-CSCAPI-KEY": process.env.NEXT_PUBLIC_API_KEY as string,
+          },
+        }
+      ).then((res) => res.json()),
+    []
+  );
+  const selectedCountry = form.watch("country");
+  const selectedCity = form.watch("city");
+  const [countryPopoverOpen, setCountryPopoverOpen] = useState(false);
+  const [cityPopoverOpen, setCityPopoverOpen] = useState(false);
+  const [filteredCountries, setFilteredCountries] = useState<
+    { id: number; name: string; iso2: string }[]
+  >([]);
+  const [filteredCities, setFilteredCities] = useState<
+    { id: number; name: string }[]
+  >([]);
+
+  useEffect(() => {
+    countriesAction.execute();
+  }, [countriesAction]);
+
+  useEffect(() => {
+    if (!countriesState.result) return;
+    setFilteredCountries(countriesState.result);
+  }, [countriesState.result]);
+
+  useEffect(() => {
+    if (!selectedCountry) return;
+    cityAction.execute();
+  }, [selectedCountry, cityAction]);
+
+  useEffect(() => {
+    if (!cityState.result) return;
+    setFilteredCities(cityState.result);
+  }, [cityState.result]);
 
   function onSubmit(data: yup.InferType<typeof formSchema>) {
     console.log("onSubmit", data);
   }
+
+  const CountryListRenderer = ({
+    key,
+    index,
+    style,
+  }: {
+    key: string;
+    index: number;
+    style: React.CSSProperties;
+  }) => (
+    <CommandItem
+      value={filteredCountries[index]?.name}
+      onSelect={() => {
+        form.setValue("country", filteredCountries[index]?.iso2);
+        setCountryPopoverOpen(false);
+        setFilteredCountries(countriesState.result);
+      }}
+      style={style}
+      key={key}
+    >
+      <Check
+        className={cn(
+          "mr-2 h-4 w-4 shrink-0",
+          filteredCountries[index]?.iso2 === selectedCountry
+            ? "opacity-100"
+            : "opacity-0"
+        )}
+      />
+      {filteredCountries[index]?.name}
+    </CommandItem>
+  );
+  const CityListRenderer = ({
+    index,
+    style,
+    data,
+  }: {
+    index: number;
+    style: React.CSSProperties;
+    data: { id: number; name: string }[];
+  }) => {
+    return (
+      <CommandItem
+        value={filteredCities[index]?.name}
+        onSelect={() => form.setValue("city", filteredCities[index]?.name)}
+        style={style}
+      >
+        <Check
+          className={cn(
+            "mr-2 h-4 w-4 shrink-0",
+            filteredCities[index]?.name === selectedCity
+              ? "opacity-100"
+              : "opacity-0"
+          )}
+        />
+        {filteredCities[index]?.name}
+      </CommandItem>
+    );
+  };
 
   return (
     <>
@@ -264,44 +399,133 @@ export default function RegistrationDialog(
                 control={form.control}
                 name="country"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
                     <FormLabel>Select country*</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
+                    <Popover
+                      open={countryPopoverOpen}
+                      onOpenChange={setCountryPopoverOpen}
                     >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="---" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>{}</SelectContent>
-                    </Select>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            role="combobox"
+                            className={cn(
+                              "w-full justify-between",
+                              !selectedCountry && "text-muted-foreground"
+                            )}
+                          >
+                            {selectedCountry
+                              ? filteredCountries?.find(
+                                  (country) => country.iso2 === selectedCountry
+                                )?.name
+                              : "---"}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[300px] p-0 h-72">
+                        <Command
+                          onValueChange={console.log}
+                          shouldFilter={false}
+                        >
+                          <CommandInput
+                            onValueChange={(value) => {
+                              return setFilteredCountries(
+                                () =>
+                                  countriesState.result?.filter((country) =>
+                                    country.name
+                                      .toLowerCase()
+                                      .includes(value.toLowerCase())
+                                  ) ?? []
+                              );
+                            }}
+                            placeholder="Search..."
+                          />
+                          <CommandEmpty>No country found</CommandEmpty>
+                          <CommandGroup className="overflow-y-auto flex-1 grid">
+                            <AutoSizer>
+                              {({ height, width }) => (
+                                <VirtualizedList
+                                  rowCount={filteredCountries?.length ?? 0}
+                                  rowHeight={30}
+                                  width={width}
+                                  height={height}
+                                  rowRenderer={CountryListRenderer}
+                                />
+                              )}
+                            </AutoSizer>
+                          </CommandGroup>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="city"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Select city*</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="---" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>{}</SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {selectedCountry && (
+                <FormField
+                  control={form.control}
+                  name="city"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Select city*</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={"outline"}
+                              role="combobox"
+                              className={cn(
+                                "w-full justify-between",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value
+                                ? filteredCities?.find(
+                                    (city) => city.name === field.value
+                                  )?.name
+                                : "---"}
+                              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-[300px] p-0 h-72">
+                          <Command shouldFilter={false}>
+                            <CommandInput
+                              onBlur={() =>
+                                setFilteredCities(cityState.result ?? [])
+                              }
+                              onValueChange={(value) => {
+                                setFilteredCities(
+                                  cityState.result?.filter((city) =>
+                                    city.name
+                                      .toLowerCase()
+                                      .includes(value.toLowerCase())
+                                  ) ?? []
+                                );
+                              }}
+                              placeholder="Search..."
+                            />
+                            <CommandEmpty>No city found</CommandEmpty>
+                            <CommandGroup className="overflow-y-auto">
+                              <List
+                                height={230}
+                                itemCount={filteredCities?.length ?? 0}
+                                itemSize={30}
+                                width="100%"
+                              >
+                                {CityListRenderer}
+                              </List>
+                            </CommandGroup>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
               <FormField
                 control={form.control}
                 name="affiliation"
@@ -345,7 +569,7 @@ export default function RegistrationDialog(
                   </FormItem>
                 )}
               />
-              {role === "Other" && (
+              {selectedRole === "Other" && (
                 <FormField
                   control={form.control}
                   name="otherRole"
@@ -418,7 +642,7 @@ export default function RegistrationDialog(
                   </FormItem>
                 )}
               />
-              {participationType === "Attendee" && (
+              {selectedParticipationType === "Attendee" && (
                 <FormField
                   control={form.control}
                   name="motivationLetter"
@@ -436,7 +660,7 @@ export default function RegistrationDialog(
                   )}
                 />
               )}
-              {participationType !== "Attendee" && (
+              {selectedParticipationType !== "Attendee" && (
                 <>
                   <FormField
                     control={form.control}
@@ -454,7 +678,7 @@ export default function RegistrationDialog(
                       </FormItem>
                     )}
                   />
-                  {participationType === "Invited Speaker" && (
+                  {selectedParticipationType === "Invited Speaker" && (
                     <>
                       <FormField
                         control={form.control}
