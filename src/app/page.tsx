@@ -7,7 +7,6 @@ import MainNav from "@/components/main-nav";
 import MobileNav from "@/components/mobile-nav";
 import Image, { StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
-import useSmoothScroll from "@/lib/useSmoothScroll";
 
 import Cat from "../../public/cat.jpg";
 import Biocon from "../../public/biocon.png";
@@ -28,6 +27,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Lightning from "../../public/lightning.svg";
 import FollowDialog from "./follow.dialog";
 import { Separator } from "@/components/ui/separator";
+import { useAsync } from "@react-hookz/web";
+import { Organizer, Speaker } from "./data";
 
 const Link = ({
   className,
@@ -226,11 +227,14 @@ export default function Home() {
   const [openRegistration, setOpenRegistration] = useState(false);
   const [openContact, setOpenContact] = useState(false);
   const [openFollow, setOpenFollow] = useState(false);
-  const smoothScroll = useSmoothScroll();
-
-  useEffect(() => {
-    if (window.location.hash) smoothScroll(window.location.hash);
-  }, [smoothScroll]);
+  const [speakersState, speakersAction] = useAsync<Speaker[]>(
+    async () => fetch("/api/speakers").then((res) => res.json()),
+    []
+  );
+  const [organizersState, organizersAction] = useAsync<Organizer[]>(
+    async () => fetch("/api/organizers").then((res) => res.json()),
+    []
+  );
 
   const Section = ({
     children,
@@ -309,7 +313,7 @@ export default function Home() {
           <p>Full-time participation in conference events</p>
         </div>
         <div className="flex flex-col justify-center text-center border-2 border-white rounded-3xl px-6 py-4">
-          <h3 className="text-2xl font-bold">Inited speaker</h3>
+          <h3 className="text-2xl font-bold">Invited speaker</h3>
           <p>A talk during one of the parallel sessions</p>
         </div>
         <div className="flex flex-col justify-center text-center border-2 border-white rounded-3xl px-6 py-4">
