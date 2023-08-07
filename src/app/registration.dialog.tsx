@@ -49,8 +49,6 @@ import {
   CommandItem,
 } from "@/components/ui/command";
 import { useAsync } from "@react-hookz/web";
-import { FixedSizeList as List } from "react-window";
-import { List as VirtualizedList, AutoSizer } from "react-virtualized";
 
 type RegisterFormValues = {
   name: string;
@@ -215,114 +213,25 @@ export default function RegistrationDialog(
       }).then((res) => res.json()),
     []
   );
-  const [cityState, cityAction] = useAsync<
-    {
-      id: number;
-      name: string;
-    }[]
-  >(
-    () =>
-      fetch(
-        `https://api.countrystatecity.in/v1/countries/${selectedCountry}/cities`,
-        {
-          headers: {
-            "X-CSCAPI-KEY": process.env.NEXT_PUBLIC_API_KEY as string,
-          },
-        }
-      ).then((res) => res.json()),
-    []
-  );
-  const selectedCountry = form.watch("country");
-  const selectedCity = form.watch("city");
   const [countryPopoverOpen, setCountryPopoverOpen] = useState(false);
-  const [cityPopoverOpen, setCityPopoverOpen] = useState(false);
-  const [filteredCountries, setFilteredCountries] = useState<
-    { id: number; name: string; iso2: string }[]
-  >([]);
-  const [filteredCities, setFilteredCities] = useState<
-    { id: number; name: string }[]
-  >([]);
 
   useEffect(() => {
     countriesAction.execute();
   }, [countriesAction]);
 
-  useEffect(() => {
-    if (!countriesState.result) return;
-    setFilteredCountries(countriesState.result);
-  }, [countriesState.result]);
-
-  useEffect(() => {
-    if (!selectedCountry) return;
-    cityAction.execute();
-  }, [selectedCountry, cityAction]);
-
-  useEffect(() => {
-    if (!cityState.result) return;
-    setFilteredCities(cityState.result);
-  }, [cityState.result]);
-
   function onSubmit(data: yup.InferType<typeof formSchema>) {
-    console.log("onSubmit", data);
+    fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then(() => {
+      form.reset();
+      props.onOpenChange?.(false);
+      setSuccess(true);
+    });
   }
-
-  const CountryListRenderer = ({
-    key,
-    index,
-    style,
-  }: {
-    key: string;
-    index: number;
-    style: React.CSSProperties;
-  }) => (
-    <CommandItem
-      value={filteredCountries[index]?.name}
-      onSelect={() => {
-        form.setValue("country", filteredCountries[index]?.iso2);
-        setCountryPopoverOpen(false);
-        setFilteredCountries(countriesState.result);
-      }}
-      style={style}
-      key={key}
-    >
-      <Check
-        className={cn(
-          "mr-2 h-4 w-4 shrink-0",
-          filteredCountries[index]?.iso2 === selectedCountry
-            ? "opacity-100"
-            : "opacity-0"
-        )}
-      />
-      {filteredCountries[index]?.name}
-    </CommandItem>
-  );
-  const CityListRenderer = ({
-    index,
-    style,
-    data,
-  }: {
-    index: number;
-    style: React.CSSProperties;
-    data: { id: number; name: string }[];
-  }) => {
-    return (
-      <CommandItem
-        value={filteredCities[index]?.name}
-        onSelect={() => form.setValue("city", filteredCities[index]?.name)}
-        style={style}
-      >
-        <Check
-          className={cn(
-            "mr-2 h-4 w-4 shrink-0",
-            filteredCities[index]?.name === selectedCity
-              ? "opacity-100"
-              : "opacity-0"
-          )}
-        />
-        {filteredCities[index]?.name}
-      </CommandItem>
-    );
-  };
 
   return (
     <>
@@ -335,19 +244,11 @@ export default function RegistrationDialog(
       <Dialog {...props}>
         <DialogContent className="overflow-y-auto max-h-[80vh] max-w-[85%] sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle className="text-center">Pre-registration</DialogTitle>
+            <DialogTitle className="text-center">Registration</DialogTitle>
           </DialogHeader>
           <Form {...form}>
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                form.handleSubmit((data) => {
-                  form.reset();
-                  props.onOpenChange?.(false);
-                  setSuccess(true);
-                  return onSubmit(data);
-                })();
-              }}
+              onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-4 flex flex-col"
             >
               <FormField
@@ -412,12 +313,12 @@ export default function RegistrationDialog(
                             role="combobox"
                             className={cn(
                               "w-full justify-between",
-                              !selectedCountry && "text-muted-foreground"
+                              !field.value && "text-muted-foreground"
                             )}
                           >
-                            {selectedCountry
-                              ? filteredCountries?.find(
-                                  (country) => country.iso2 === selectedCountry
+                            {field.value
+                              ? countriesState.result?.find(
+                                  (country) => country.name === field.value
                                 )?.name
                               : "---"}
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -425,36 +326,30 @@ export default function RegistrationDialog(
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent className="w-[300px] p-0 h-72">
-                        <Command
-                          onValueChange={console.log}
-                          shouldFilter={false}
-                        >
-                          <CommandInput
-                            onValueChange={(value) => {
-                              return setFilteredCountries(
-                                () =>
-                                  countriesState.result?.filter((country) =>
-                                    country.name
-                                      .toLowerCase()
-                                      .includes(value.toLowerCase())
-                                  ) ?? []
-                              );
-                            }}
-                            placeholder="Search..."
-                          />
+                        <Command>
+                          <CommandInput placeholder="Search..." />
                           <CommandEmpty>No country found</CommandEmpty>
                           <CommandGroup className="overflow-y-auto flex-1 grid">
-                            <AutoSizer>
-                              {({ height, width }) => (
-                                <VirtualizedList
-                                  rowCount={filteredCountries?.length ?? 0}
-                                  rowHeight={30}
-                                  width={width}
-                                  height={height}
-                                  rowRenderer={CountryListRenderer}
+                            {countriesState.result?.map((country) => (
+                              <CommandItem
+                                key={country.id}
+                                value={country.name}
+                                onSelect={() => {
+                                  form.setValue("country", country.name);
+                                  setCountryPopoverOpen(false);
+                                }}
+                              >
+                                <Check
+                                  className={cn(
+                                    "mr-2 h-4 w-4 shrink-0",
+                                    country.name === field.value
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  )}
                                 />
-                              )}
-                            </AutoSizer>
+                                {country.name}
+                              </CommandItem>
+                            ))}
                           </CommandGroup>
                         </Command>
                       </PopoverContent>
@@ -463,69 +358,19 @@ export default function RegistrationDialog(
                   </FormItem>
                 )}
               />
-              {selectedCountry && (
-                <FormField
-                  control={form.control}
-                  name="city"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Select city*</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={"outline"}
-                              role="combobox"
-                              className={cn(
-                                "w-full justify-between",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value
-                                ? filteredCities?.find(
-                                    (city) => city.name === field.value
-                                  )?.name
-                                : "---"}
-                              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[300px] p-0 h-72">
-                          <Command shouldFilter={false}>
-                            <CommandInput
-                              onBlur={() =>
-                                setFilteredCities(cityState.result ?? [])
-                              }
-                              onValueChange={(value) => {
-                                setFilteredCities(
-                                  cityState.result?.filter((city) =>
-                                    city.name
-                                      .toLowerCase()
-                                      .includes(value.toLowerCase())
-                                  ) ?? []
-                                );
-                              }}
-                              placeholder="Search..."
-                            />
-                            <CommandEmpty>No city found</CommandEmpty>
-                            <CommandGroup className="overflow-y-auto">
-                              <List
-                                height={230}
-                                itemCount={filteredCities?.length ?? 0}
-                                itemSize={30}
-                                width="100%"
-                              >
-                                {CityListRenderer}
-                              </List>
-                            </CommandGroup>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
+              <FormField
+                control={form.control}
+                name="city"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Select city*</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your city here" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="affiliation"

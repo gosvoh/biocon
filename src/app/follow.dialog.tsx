@@ -45,9 +45,16 @@ export default function FollowDialog({
   });
 
   function handleSubmit(data: yup.InferType<typeof formSchema>) {
-    console.log(data);
-    form.reset();
-    props.onOpenChange?.(false);
+    fetch("/api/follow", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then(() => {
+      form.reset();
+      props.onOpenChange?.(false);
+    });
   }
 
   return (

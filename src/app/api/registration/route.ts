@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import isMobilePhone from "validator/lib/isMobilePhone";
 import isURL from "validator/lib/isURL";
 import * as yup from "yup";
+import prisma from "@/lib/prisma";
+import { checkCaptchaToken } from "../utils";
 
 const formSchema = yup.object().shape({
   name: yup
@@ -90,23 +92,24 @@ const formSchema = yup.object().shape({
           )
       : schema
   ),
-  personalData: yup
-    .boolean()
-    .default(false)
-    .oneOf([true], "Please accept the terms and conditions"),
-  captchaToken: yup
-    .string()
-    .required("Please complete the captcha to prove you are not a robot"),
 });
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+  const { captchaToken, personalData, ...data } = await req.json();
+
+  if (!(await checkCaptchaToken(captchaToken)))
+    return NextResponse.json(
+      { message: "Captcha verification failed" },
+      { status: 400 }
+    );
 
   try {
-    await formSchema.validate(body, { abortEarly: false });
+    await formSchema.validate(data, { abortEarly: false });
+    return NextResponse.json({
+      message: "Registration successful",
+      registration: await prisma.registrations.create({ data }),
+    });
   } catch (error) {
     return NextResponse.json(error, { status: 400 });
   }
-
-  return NextResponse.json({});
 }

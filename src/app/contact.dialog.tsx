@@ -64,7 +64,17 @@ export default function ContactDialog({
   });
 
   function handleSubmit(data: yup.InferType<typeof formSchema>) {
-    console.log(data);
+    fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then(() => {
+      form.reset();
+      props.onOpenChange?.(false);
+      setSuccess(true);
+    });
   }
 
   const subjects = [
