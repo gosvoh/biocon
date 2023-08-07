@@ -67,6 +67,16 @@ export default function MobileNav({
               <Separator className="bg-white" />
             </React.Fragment>
           ))}
+          <Link
+            href=""
+            onClick={() => {
+              setOpen(false);
+              setOpenContact(true);
+            }}
+            className="hover:underline ml-4 uppercase"
+          >
+            Contact us
+          </Link>
         </div>
         <SheetFooter className="flex-col gap-8">
           <div className="flex gap-8 items-center flex-row justify-between">
