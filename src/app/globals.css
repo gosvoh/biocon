@@ -87,8 +87,8 @@
 
   @screen md {
     .stroke {
-      -webkit-text-stroke: 3px;
-      text-stroke: 3px;
+      -webkit-text-stroke: 2px;
+      text-stroke: 2px;
     }
   }
 }
