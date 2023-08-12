@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
   try {
     await sharp(await img.arrayBuffer()).toFile(`./uploads/${uuid}.webp`);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { message: "Error while processing image", error },
       { status: 500 }
