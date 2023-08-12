@@ -24,9 +24,9 @@ export async function POST(req: NextRequest) {
   const uuid = randomUUID();
   try {
     await sharp(await img.arrayBuffer()).toFile(`./uploads/${uuid}.webp`);
-  } catch {
+  } catch (error) {
     return NextResponse.json(
-      { error: "Error while processing image" },
+      { message: "Error while processing image", error },
       { status: 500 }
     );
   }
