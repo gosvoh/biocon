@@ -14,4 +14,5 @@ export interface Speaker {
   topic: string;
   description?: string;
   thunder?: string;
+  hIndex: number;
 }

@@ -45,6 +45,7 @@ model Speakers {
   topic       String
   description String?
   thunder     String?
+  hIndex      Int
 }
 
 model Organizers {
@@ -53,4 +54,8 @@ model Organizers {
   position String
   image    String
   email    String
+}
+
+model Auth {
+  token String @id @default(cuid())
 }
