@@ -29,6 +29,7 @@ import FollowDialog from "./follow.dialog";
 import { Separator } from "@/components/ui/separator";
 import { useAsync } from "@react-hookz/web";
 import { Organizer, Speaker } from "./data";
+import React from "react";
 
 const Link = ({
   className,
@@ -168,6 +169,30 @@ const SpeakerCard = ({
   );
 };
 
+const SpeakerCardSkeleton = ({ ...props }: React.HTMLProps<HTMLDivElement>) => (
+  <div
+    {...props}
+    className={cn(
+      "flex flex-col",
+      "justify-center",
+      "w-full p-2",
+      "gap-4",
+      props.className
+    )}
+  >
+    <Skeleton className="rounded-lg aspect-square w-full flex-grow" />
+    <div className="border border-white rounded-lg text-center px-4 py-2 w-full my-8 space-y-2">
+      <Skeleton className="w-1/2 h-6 mx-auto" />
+      <Skeleton className="w-1/2 h-6 mx-auto" />
+    </div>
+    <Skeleton className="w-3/4 h-4 mx-auto" />
+    <Skeleton className="w-3/4 h-4 mx-auto" />
+    <Skeleton className="w-3/4 h-4" />
+    <Skeleton className="w-3/4 h-4" />
+    <Skeleton className="w-3/4 h-32" />
+  </div>
+);
+
 const OrganizerCard = ({
   name,
   position,
@@ -227,14 +252,6 @@ export default function Home() {
   const [openRegistration, setOpenRegistration] = useState(false);
   const [openContact, setOpenContact] = useState(false);
   const [openFollow, setOpenFollow] = useState(false);
-  const [speakersState, speakersAction] = useAsync<Speaker[]>(
-    async () => fetch("/api/speakers").then((res) => res.json()),
-    []
-  );
-  const [organizersState, organizersAction] = useAsync<Organizer[]>(
-    async () => fetch("/api/organizers").then((res) => res.json()),
-    []
-  );
 
   const Section = ({
     children,
@@ -408,6 +425,11 @@ export default function Home() {
   };
 
   const Speakers = () => {
+    const [speakersState, speakersAction] = useAsync<Speaker[]>(
+      async () => fetch("/api/speakers").then((res) => res.json()),
+      []
+    );
+
     // @ts-ignore
     const screens: {
       xs: number;
@@ -424,7 +446,7 @@ export default function Home() {
     const LoremText =
       "Lorem ipsum dolor sit amet consectetur. Rnesciunt ipsum maxime natus nobis autem voluptatem impedit, accusamus deleniti ullam incidunt, quas dolore esse facere iure soluta? Tempora, rerum.";
 
-    const [screenWidth, setScreenWidth] = useState(0);
+    const [screenWidth, setScreenWidth] = useState(1920);
 
     useEffect(() => {
       if (typeof window === undefined) return;
@@ -434,8 +456,36 @@ export default function Home() {
       return () => window.removeEventListener("resize", listener);
     }, []);
 
-    const speakers =
-      screenWidth < screens.md ? (
+    useEffect(() => {
+      speakersAction.execute();
+    }, [speakersAction]);
+
+    let speakers = (
+      <div className="w-full flex flex-wrap gap-y-8 gap-x-16 justify-items-center justify-around">
+        {speakersState.status === "loading" || speakersState.result.length === 0
+          ? Array.from({ length: 3 }).map((_, i) => (
+              <SpeakerCardSkeleton
+                key={i}
+                className="basis-[80%] md:basis-3/12"
+              />
+            ))
+          : speakersState.result.map((speaker) => (
+              <SpeakerCard
+                key={speaker.id}
+                name={speaker.name}
+                index={speaker.hIndex}
+                university={speaker.university}
+                description={speaker.description}
+                thunder={speaker.thunder}
+                topic={speaker.topic}
+                image={`/images/${speaker.image}.webp`}
+                className="basis-[80%] md:basis-3/12"
+              />
+            ))}
+      </div>
+    );
+    if (screenWidth < screens.md) {
+      speakers = (
         <div className="w-full flex gap-4 items-center">
           <div
             className={cn(
@@ -458,19 +508,26 @@ export default function Home() {
             centeredSlides={true}
             autoplay={{ delay: 3000 }}
           >
-            {Array.from({ length: 4 }).map((_, i) => (
-              <SwiperSlide key={i}>
-                <SpeakerCard
-                  name="John Doe"
-                  index={81}
-                  university="University of Oxford"
-                  description={LoremText}
-                  thunder="Highly Cited Researcher 2018"
-                  topic="Topic"
-                  className="text-center"
-                />
-              </SwiperSlide>
-            ))}
+            {speakersState.result.length === 0
+              ? Array.from({ length: 3 }).map((_, i) => (
+                  <SwiperSlide key={i}>
+                    <SpeakerCardSkeleton />
+                  </SwiperSlide>
+                ))
+              : speakersState.result.map((speaker) => (
+                  <SwiperSlide key={speaker.id}>
+                    <SpeakerCard
+                      name={speaker.name}
+                      index={speaker.hIndex}
+                      university={speaker.university}
+                      description={speaker.description}
+                      thunder={speaker.thunder}
+                      topic={speaker.topic}
+                      image={`/images/${speaker.image}.webp`}
+                      className="text-center"
+                    />
+                  </SwiperSlide>
+                ))}
           </Swiper>
           <div
             className={cn(
@@ -481,22 +538,8 @@ export default function Home() {
             <ChevronRight className="h-4 w-4" />
           </div>
         </div>
-      ) : (
-        <div className="w-full flex flex-wrap gap-y-8 gap-x-16 justify-items-center justify-around">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <SpeakerCard
-              key={i}
-              name="John Doe"
-              index={81}
-              university="University of Oxford"
-              description={LoremText}
-              thunder="Highly Cited Researcher 2018"
-              topic="Topic"
-              className="basis-[80%] md:basis-3/12"
-            />
-          ))}
-        </div>
       );
+    }
 
     return (
       <Section
@@ -554,7 +597,7 @@ export default function Home() {
       className="flex flex-row justify-center items-center relative"
       id="venue"
     >
-      <div className="hidden md:block md:relative md:flex-1 md:h-[175%]">
+      <div className="hidden md:block relative md:flex-1 md:h-[175%]">
         <Image
           src={"/venue.png"}
           alt={"Venue image"}
@@ -586,25 +629,47 @@ export default function Home() {
     </Section>
   );
 
-  const Organizers = () => (
-    <Section
-      className="flex flex-col justify-center items-center"
-      id="organizers"
-    >
-      <H2>Organizers</H2>
-      <div className="w-full flex flex-wrap gap-4 md:gap-10 justify-items-center justify-center">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <OrganizerCard
-            key={i}
-            email="email@email.com"
-            name="Name Surname"
-            position="Position"
-            className="flex-1 basis-5/12"
-          />
-        ))}
-      </div>
-    </Section>
-  );
+  const Organizers = () => {
+    const [organizersState, organizersAction] = useAsync<Organizer[]>(
+      async () => fetch("/api/organizers").then((res) => res.json()),
+      []
+    );
+
+    useEffect(() => {
+      organizersAction.execute();
+    }, [organizersAction]);
+
+    return (
+      <Section
+        className="flex flex-col justify-center items-center"
+        id="organizers"
+      >
+        <H2>Organizers</H2>
+        <div className="w-full flex flex-wrap gap-4 md:gap-10 justify-items-center justify-center">
+          {organizersState.result.length === 0
+            ? Array.from({ length: 5 }).map((_, i) => (
+                <OrganizerCard
+                  key={i}
+                  email="email@email.com"
+                  name="Name Surname"
+                  position="Position"
+                  className="flex-1 basis-5/12"
+                />
+              ))
+            : organizersState.result.map((organizer) => (
+                <OrganizerCard
+                  key={organizer.id}
+                  email={organizer.email}
+                  name={organizer.name}
+                  position={organizer.position}
+                  image={`/images/${organizer.image}.webp`}
+                  className="flex-1 basis-5/12"
+                />
+              ))}
+        </div>
+      </Section>
+    );
+  };
 
   return (
     <>
