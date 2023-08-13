@@ -42,9 +42,9 @@ model Speakers {
   name        String
   image       String
   university  String
-  topic       String
+  topic       String?
   description String?
-  thunder     String?
+  thunder     String
   hIndex      Int
 }
 

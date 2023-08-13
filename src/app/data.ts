@@ -11,8 +11,8 @@ export interface Speaker {
   name: string;
   image: string;
   university: string;
-  topic: string;
+  topic?: string;
   description?: string;
-  thunder?: string;
+  thunder: string;
   hIndex: number;
 }

@@ -43,7 +43,7 @@ export async function PATCH(
     const hIndex = data.get("hIndex") as string | null;
     const img = data.get("image") as File | null;
 
-    if (!name || !university || !topic || !hIndex)
+    if (!name || !university || !topic || !hIndex || !thunder)
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
 
     const speaker = await prisma.speakers.findUnique({

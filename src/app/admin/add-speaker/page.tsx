@@ -115,6 +115,16 @@ export default function AddSpeaker() {
     );
   }
 
+  const SpeakerFields = {
+    name: true,
+    image: true,
+    university: true,
+    topic: false,
+    description: false,
+    thunder: true,
+    hIndex: true,
+  };
+
   return (
     <Layout>
       <Modal
@@ -162,7 +172,11 @@ export default function AddSpeaker() {
               .finally(() => setLoading(false));
           }}
         >
-          <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+          <Form.Item
+            name="name"
+            label="Name"
+            rules={[{ required: SpeakerFields.name }]}
+          >
             <Input />
           </Form.Item>
           <Form.Item
@@ -170,29 +184,45 @@ export default function AddSpeaker() {
             label="Image"
             valuePropName="fileList"
             getValueFromEvent={(e) => e && e.fileList}
-            rules={[{ required: editData ? false : true }]}
+            rules={[{ required: editData ? false : SpeakerFields.image }]}
           >
             <Upload beforeUpload={() => false} accept="image/*" maxCount={1}>
               <Button icon={<UploadOutlined />}>Upload</Button>
             </Upload>
           </Form.Item>
-          <Form.Item name="hIndex" label="H-Index" rules={[{ required: true }]}>
+          <Form.Item
+            name="hIndex"
+            label="H-Index"
+            rules={[{ required: SpeakerFields.hIndex }]}
+          >
             <InputNumber min={1} />
           </Form.Item>
           <Form.Item
             name="university"
             label="University"
-            rules={[{ required: true }]}
+            rules={[{ required: SpeakerFields.university }]}
           >
             <Input />
           </Form.Item>
-          <Form.Item name="topic" label="Topic" rules={[{ required: true }]}>
+          <Form.Item
+            name="topic"
+            label="Topic"
+            rules={[{ required: SpeakerFields.topic }]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item name="description" label="Description">
+          <Form.Item
+            name="description"
+            label="Description"
+            rules={[{ required: SpeakerFields.description }]}
+          >
             <Input.TextArea />
           </Form.Item>
-          <Form.Item name="thunder" label="Thunder">
+          <Form.Item
+            name="thunder"
+            label="Thunder"
+            rules={[{ required: SpeakerFields.thunder }]}
+          >
             <Input />
           </Form.Item>
         </Form>
