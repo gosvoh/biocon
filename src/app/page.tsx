@@ -3,8 +3,6 @@
 import { Button as UiButton, buttonVariants } from "@/components/ui/button";
 import NextLink from "next/link";
 import { useEffect, useState } from "react";
-import MainNav from "@/components/main-nav";
-import MobileNav from "@/components/mobile-nav";
 import Image, { StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -15,21 +13,24 @@ import AboutProgram from "../../public/about&program.png";
 import OutlineCircle from "../../public/outline-circle.svg";
 import { Roboto } from "next/font/google";
 import Footer from "./footer";
-import RegistrationDialog from "./registration.dialog";
-import ContactDialog from "./contact.dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { theme } from "../../tailwind.config";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import Lightning from "../../public/lightning.svg";
-import FollowDialog from "./follow.dialog";
+import { ChevronLeft, ChevronRight, Trophy } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { useAsync } from "@react-hookz/web";
 import { Organizer, Speaker } from "./data";
 import React from "react";
+import dynamic from "next/dynamic";
+
+const RegistrationDialog = dynamic(() => import("./registration.dialog"));
+const ContactDialog = dynamic(() => import("./contact.dialog"));
+const FollowDialog = dynamic(() => import("./follow.dialog"));
+const MainNav = dynamic(() => import("@/components/main-nav"));
+const MobileNav = dynamic(() => import("@/components/mobile-nav"));
 
 const Link = ({
   className,
@@ -128,7 +129,7 @@ const SpeakerCard = ({
   university: string;
   topic?: string;
   description?: string;
-  thunder?: string;
+  thunder: string;
 } & React.HTMLProps<HTMLDivElement>) => {
   const Img = image
     ? () => (
@@ -153,12 +154,9 @@ const SpeakerCard = ({
         <p>{index}</p>
         <p>h-index</p>
       </div>
-      {thunder && (
-        <p className="text-sm text-center mb-4">
-          <Image src={Lightning} alt={"Lightning"} className="h-5 inline" />{" "}
-          {thunder}
-        </p>
-      )}
+      <p className="text-sm text-center mb-4">
+        <Trophy /> {thunder}
+      </p>
       <p className="text-lg mb-4 text-center">{name}</p>
       <p className="mb-4">
         University: <span className="underline">{university}</span>
