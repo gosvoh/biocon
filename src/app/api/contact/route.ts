@@ -19,7 +19,7 @@ const formSchema = yup.object().shape({
 });
 
 export async function POST(req: NextRequest) {
-  const { captchaToken, personalData } = await req.json();
+  const { captchaToken, personalData, ...data } = await req.json();
 
   if (!(await checkCaptchaToken(captchaToken))) {
     return NextResponse.json(
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    await formSchema.validate(personalData, { abortEarly: false });
+    await formSchema.validate(data, { abortEarly: false });
     return NextResponse.json({ message: "Success" });
   } catch (error) {
     return NextResponse.json(error, { status: 400 });
