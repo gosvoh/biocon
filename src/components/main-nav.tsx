@@ -8,9 +8,9 @@ export default function MainNav({
   setOpenContact: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   return (
-    <nav className="hidden md:flex gap-4 items-center whitespace-nowrap">
+    <nav className="hidden md:flex gap-8 items-center whitespace-nowrap">
       {links.map((link) => (
-        <a href={link.href} key={link.href} className="hover:underline">
+        <a href={link.href} key={link.href} className="hover:underline text-xl">
           {link.title}
         </a>
       ))}
