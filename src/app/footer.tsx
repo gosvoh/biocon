@@ -25,7 +25,7 @@ export default function Footer({}: {}) {
 
   return (
     <footer className="flex flex-col mb-8 mt-16 gap-8">
-      <div className="flex flex-wrap flex-row justify-around md:justify-between items-center gap-8">
+      <div className="flex flex-wrap md:flex-nowrap flex-row justify-around md:justify-between items-center gap-8">
         <Link href="https://itmo.ru/" prefetch={false}>
           <Image src={Itmo} alt="Itmo" width={imgWidth} />
         </Link>
@@ -57,7 +57,7 @@ export default function Footer({}: {}) {
             <Image src={YouTube} alt={"YouTube social"} width={40} />
           </Link>
         </div>
-        <div className="text-start text-xs sm:text-end sm:text-base">
+        <div className="text-start sm:text-end text-sm sm:text-base md:text-lg">
           <p>ITMO University</p>
           <p>9, Lomonosova Str., St. Petersburg, Russia, 191002</p>
           <span>email: </span>

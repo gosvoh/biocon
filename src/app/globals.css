@@ -75,6 +75,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  section,
+  header,
+  footer {
+    @apply px-6 md:px-12 lg:px-24 xl:px-40;
+  }
 }
 
 @layer components {

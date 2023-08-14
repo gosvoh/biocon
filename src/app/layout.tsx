@@ -25,16 +25,11 @@ export default function RootLayout({
           "mx-auto",
           "overflow-x-hidden",
           "overflow-y-auto",
-          "px-4",
-          "md:px-12",
-          "lg:px-24",
-          "xl:px-40",
           "grid",
           "grid-cols-1",
           "min-h-screen",
           "grid-rows-[auto,1fr,auto]",
-          "relative",
-          "hyphens-auto"
+          "relative"
         )}
         style={{
           backgroundImage: `url(/bg2.jpg)`,
