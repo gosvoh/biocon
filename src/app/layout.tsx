@@ -43,6 +43,7 @@ export default function RootLayout({
         }}
       >
         {children}
+        <div className="absolute bottom-0 left-0 right-0 h-screen bg-gradient-to-t from-black to-transparent -z-50"></div>
       </body>
     </html>
   );
