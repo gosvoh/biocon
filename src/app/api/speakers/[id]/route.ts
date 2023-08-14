@@ -54,7 +54,6 @@ export async function PATCH(
       !universityUrl ||
       !hIndex ||
       !thunder ||
-      !thunderUrl ||
       !speakerType
     )
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
@@ -83,7 +82,7 @@ export async function PATCH(
           topic: topic || "",
           description: description || "",
           thunder,
-          thunderUrl,
+          thunderUrl: thunderUrl || "",
           hIndex: parseInt(hIndex),
           speakerType,
         },

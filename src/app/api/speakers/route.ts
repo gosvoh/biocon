@@ -33,7 +33,6 @@ export async function POST(req: NextRequest) {
     !hIndex ||
     !img ||
     !thunder ||
-    !thunderUrl ||
     !speakerType
   )
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });

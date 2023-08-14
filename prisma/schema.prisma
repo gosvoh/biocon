@@ -47,7 +47,7 @@ model Speakers {
   topic         String?
   description   String?
   thunder       String
-  thunderUrl    String
+  thunderUrl    String?
   hIndex        Int
   speakerType   String
 }

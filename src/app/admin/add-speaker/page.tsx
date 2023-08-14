@@ -127,7 +127,7 @@ export default function AddSpeaker() {
     topic: false,
     description: false,
     thunder: true,
-    thunderUrl: true,
+    thunderUrl: false,
     hIndex: true,
     speakerType: true,
   };
@@ -154,12 +154,16 @@ export default function AddSpeaker() {
           onFinish={(values) => {
             const formData = new FormData();
             formData.append("name", values.name);
+            formData.append("nameUrl", values.nameUrl);
             formData.append("university", values.university);
+            formData.append("universityUrl", values.universityUrl);
             formData.append("topic", values.topic);
             values.description &&
               formData.append("description", values.description);
-            values.thunder && formData.append("thunder", values.thunder);
+            formData.append("thunder", values.thunder);
+            formData.append("thunderUrl", values.thunderUrl);
             formData.append("hIndex", values.hIndex);
+            formData.append("speakerType", values.speakerType);
             if (values.image)
               formData.append("image", values.image[0].originFileObj);
             setLoading(true);
