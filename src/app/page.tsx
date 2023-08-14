@@ -136,7 +136,7 @@ const SpeakerCard = ({
   topic?: string;
   description?: string;
   thunder: string;
-  thunderUrl: string;
+  thunderUrl?: string;
 } & React.HTMLProps<HTMLDivElement>) => {
   const [isValidImage, setIsValidImage] = useState(false);
 
@@ -190,12 +190,19 @@ const SpeakerCard = ({
           <span className="italic">h</span>-index
         </p>
       </div>
-      <Link
-        href={thunderUrl}
-        className="text-center my-4 flex items-center justify-center gap-4 hover:underline"
-      >
-        <TrophyFilled className="text-yellow-400" /> {thunder}
-      </Link>
+      {thunderUrl ? (
+        <Link
+          prefetch={false}
+          href={thunderUrl}
+          className="text-center my-4 flex items-center justify-center gap-4 hover:underline"
+        >
+          <TrophyFilled className="text-yellow-400" /> {thunder}
+        </Link>
+      ) : (
+        <p className="text-center my-4 flex items-center justify-center gap-4">
+          <Trophy className="text-yellow-400" /> {thunder}
+        </p>
+      )}
       {topic && <p className="my-4">Lecture topic: {topic}</p>}
       {description && <p>{description}</p>}
     </div>
@@ -506,92 +513,95 @@ export default function Home() {
       speakersAction.execute();
     }, [speakersAction]);
 
-    let speakers = (
-      <div className="w-full flex flex-wrap gap-y-8 gap-x-16 justify-items-center justify-around">
-        {speakersState.status === "loading" || speakersState.result.length === 0
-          ? Array.from({ length: 3 }).map((_, i) => (
-              <SpeakerCardSkeleton
-                key={i}
-                className="basis-[80%] md:basis-3/12"
-              />
-            ))
-          : speakersState.result.map((speaker) => (
-              <SpeakerCard
-                nameUrl="#"
-                universityUrl="#"
-                thunderUrl="#"
-                key={speaker.id}
-                name={speaker.name}
-                index={speaker.hIndex}
-                university={speaker.university}
-                description={speaker.description}
-                thunder={speaker.thunder}
-                topic={speaker.topic}
-                imageUrl={`/images/${speaker.image}.webp`}
-                className="basis-[80%] md:basis-3/12"
-              />
-            ))}
-      </div>
-    );
-    if (windowSizes.width && windowSizes.width < screens.md) {
-      speakers = (
-        <div className="w-full flex gap-4 items-center">
-          <div
-            className={cn(
-              buttonVariants({ variant: "outline", size: "icon" }),
-              "swiper-button-prev flex-1 aspect-square rounded-full border-white"
-            )}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </div>
-          <Swiper
-            modules={[Navigation, Autoplay]}
-            spaceBetween={50}
-            slidesPerView={1}
-            navigation={{
-              prevEl: ".swiper-button-prev",
-              nextEl: ".swiper-button-next",
-            }}
-            pagination={{ clickable: true, dynamicBullets: true }}
-            loop={true}
-            centeredSlides={true}
-            autoplay={{ delay: 3000 }}
-          >
-            {speakersState.result.length === 0
-              ? Array.from({ length: 3 }).map((_, i) => (
-                  <SwiperSlide key={i}>
-                    <SpeakerCardSkeleton />
-                  </SwiperSlide>
-                ))
-              : speakersState.result.map((speaker) => (
-                  <SwiperSlide key={speaker.id}>
-                    <SpeakerCard
-                      nameUrl="#"
-                      universityUrl="#"
-                      thunderUrl="#"
-                      name={speaker.name}
-                      index={speaker.hIndex}
-                      university={speaker.university}
-                      description={speaker.description}
-                      thunder={speaker.thunder}
-                      topic={speaker.topic}
-                      imageUrl={`/images/${speaker.image}.webp`}
-                      className="text-center"
-                    />
-                  </SwiperSlide>
-                ))}
-          </Swiper>
-          <div
-            className={cn(
-              buttonVariants({ variant: "outline", size: "icon" }),
-              "swiper-button-next flex-1 aspect-square rounded-full border-white"
-            )}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </div>
+    const Wrapper = ({ elements }: { elements: Speaker[] }) => {
+      let ret = (
+        <div className="w-full flex flex-wrap gap-y-8 gap-x-16 justify-items-center justify-around">
+          {speakersState.status === "loading" || elements.length === 0
+            ? Array.from({ length: 3 }).map((_, i) => (
+                <SpeakerCardSkeleton
+                  key={i}
+                  className="basis-[80%] md:basis-3/12"
+                />
+              ))
+            : elements.map((speaker) => (
+                <SpeakerCard
+                  nameUrl={speaker.nameUrl}
+                  universityUrl={speaker.universityUrl}
+                  thunderUrl={speaker.thunderUrl}
+                  key={speaker.id}
+                  name={speaker.name}
+                  index={speaker.hIndex}
+                  university={speaker.university}
+                  description={speaker.description}
+                  thunder={speaker.thunder}
+                  topic={speaker.topic}
+                  imageUrl={`/images/${speaker.image}.webp`}
+                  className="basis-[80%] md:basis-3/12"
+                />
+              ))}
         </div>
       );
-    }
+      if (windowSizes.width && windowSizes.width < screens.md)
+        ret = (
+          <div className="w-full flex gap-4 items-center">
+            <div
+              className={cn(
+                buttonVariants({ variant: "outline", size: "icon" }),
+                "swiper-button-prev flex-1 aspect-square rounded-full border-white"
+              )}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </div>
+            <Swiper
+              modules={[Navigation, Autoplay]}
+              spaceBetween={50}
+              slidesPerView={1}
+              navigation={{
+                prevEl: ".swiper-button-prev",
+                nextEl: ".swiper-button-next",
+              }}
+              pagination={{ clickable: true, dynamicBullets: true }}
+              loop={true}
+              centeredSlides={true}
+              autoplay={{ delay: 3000 }}
+            >
+              {elements.length === 0
+                ? Array.from({ length: 3 }).map((_, i) => (
+                    <SwiperSlide key={i}>
+                      <SpeakerCardSkeleton />
+                    </SwiperSlide>
+                  ))
+                : elements.map((speaker) => (
+                    <SwiperSlide key={speaker.id}>
+                      <SpeakerCard
+                        nameUrl="#"
+                        universityUrl="#"
+                        thunderUrl="#"
+                        name={speaker.name}
+                        index={speaker.hIndex}
+                        university={speaker.university}
+                        description={speaker.description}
+                        thunder={speaker.thunder}
+                        topic={speaker.topic}
+                        imageUrl={`/images/${speaker.image}.webp`}
+                        className="text-center"
+                      />
+                    </SwiperSlide>
+                  ))}
+            </Swiper>
+            <div
+              className={cn(
+                buttonVariants({ variant: "outline", size: "icon" }),
+                "swiper-button-next flex-1 aspect-square rounded-full border-white"
+              )}
+            >
+              <ChevronRight className="h-4 w-4" />
+            </div>
+          </div>
+        );
+
+      return ret;
+    };
 
     return (
       <Section
@@ -600,7 +610,17 @@ export default function Home() {
       >
         <H2 className="text-right">Speakers</H2>
         <h3 className="text-2xl font-bold mb-4">Plenary</h3>
-        {speakers}
+        <Wrapper
+          elements={speakersState.result.filter(
+            (speaker) => speaker.speakerType === "plenary"
+          )}
+        />
+        <h3 className="text-2xl font-bold mb-4 mt-16">Invited</h3>
+        <Wrapper
+          elements={speakersState.result.filter(
+            (speaker) => speaker.speakerType === "invited"
+          )}
+        />
       </Section>
     );
   };
