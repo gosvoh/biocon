@@ -11,27 +11,35 @@ import VK from "../../public/vk.svg";
 import Facebook from "../../public/facebook.svg";
 import YouTube from "../../public/youtube.svg";
 import { socials } from "@/socials";
+import { useWindowSize } from "@react-hookz/web";
+import { useEffect, useState } from "react";
 
 export default function Footer({}: {}) {
-  const imgWidth = 200;
+  const windowSize = useWindowSize();
+  const [imgWidth, setImgWidth] = useState(150);
+
+  useEffect(() => {
+    if (windowSize.width < 640) setImgWidth(150);
+    else setImgWidth(200);
+  }, [windowSize]);
 
   return (
-    <footer className="flex flex-col m-4 mt-16 gap-8">
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-8">
-        <Link href="https://www.tatneft.ru/" prefetch={false}>
-          <Image src={Tatneft} alt="Tatneft" width={imgWidth} />
-        </Link>
-        <Link href="https://pish.itmo.ru/" prefetch={false}>
-          <Image src={Pish} alt="Pish" width={imgWidth} />
-        </Link>
-        <Link href="https://agni-rt.ru/" prefetch={false}>
-          <Image src={Agni} alt="Agni" width={imgWidth} />
-        </Link>
+    <footer className="flex flex-col mb-8 mt-16 gap-8">
+      <div className="flex flex-wrap flex-row justify-around md:justify-between items-center gap-8">
         <Link href="https://itmo.ru/" prefetch={false}>
           <Image src={Itmo} alt="Itmo" width={imgWidth} />
         </Link>
         <Link href="https://vk.com/biotech.itmo" prefetch={false}>
           <Image src={Biotech} alt="Biotech" width={imgWidth} />
+        </Link>
+        <Link href="https://www.tatneft.ru/" prefetch={false}>
+          <Image src={Tatneft} alt="Tatneft" width={imgWidth} />
+        </Link>
+        <Link href="https://pish-itmo.ru/" prefetch={false}>
+          <Image src={Pish} alt="Pish" width={imgWidth} />
+        </Link>
+        <Link href="https://agni-rt.ru/" prefetch={false}>
+          <Image src={Agni} alt="Agni" width={imgWidth} />
         </Link>
       </div>
       <div className="flex flex-col sm:flex-row justify-between items-center gap-8">
