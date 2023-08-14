@@ -21,10 +21,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { ChevronLeft, ChevronRight, Trophy } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { useAsync } from "@react-hookz/web";
+import { useAsync, useWindowSize } from "@react-hookz/web";
 import { Organizer, Speaker } from "./data";
 import React from "react";
 import dynamic from "next/dynamic";
+import { TrophyFilled } from "@ant-design/icons";
 
 const RegistrationDialog = dynamic(() => import("./registration.dialog"));
 const ContactDialog = dynamic(() => import("./contact.dialog"));
@@ -38,7 +39,7 @@ const Link = ({
 }: React.ComponentProps<typeof NextLink>) => (
   <NextLink
     {...props}
-    className={cn(className, "text-base min-h-[44px]")}
+    className={cn("text-base", className)}
     prefetch={false}
   />
 );
@@ -106,7 +107,7 @@ const P = ({
 }: { children: React.ReactNode } & React.HTMLProps<HTMLParagraphElement>) => (
   <p
     {...props}
-    className={cn("text-sm sm:text-xl font-light text-left w-full", className)}
+    className={cn("text-base sm:text-2xl text-left w-full", className)}
   >
     {children}
   </p>
@@ -114,28 +115,41 @@ const P = ({
 
 const SpeakerCard = ({
   name,
+  nameUrl,
   index,
-  image,
+  imageUrl,
   university,
+  universityUrl,
   topic,
   description,
   className,
   thunder,
+  thunderUrl,
   ...props
 }: {
   name: string;
+  nameUrl: string;
   index: number;
-  image?: StaticImageData | string;
+  imageUrl?: string;
   university: string;
+  universityUrl: string;
   topic?: string;
   description?: string;
   thunder: string;
+  thunderUrl: string;
 } & React.HTMLProps<HTMLDivElement>) => {
-  const Img = image
+  const [isValidImage, setIsValidImage] = useState(false);
+
+  useEffect(() => {
+    if (!imageUrl) return;
+    fetch(imageUrl).then((res) => setIsValidImage(res.ok));
+  }, [imageUrl]);
+
+  const Img = isValidImage
     ? () => (
         <div className="relative w-full h-full aspect-square">
           <Image
-            src={image}
+            src={imageUrl as string}
             alt={name}
             fill
             className="rounded-lg object-cover aspect-square flex-grow"
@@ -147,21 +161,42 @@ const SpeakerCard = ({
   return (
     <div
       {...props}
-      className={cn("flex flex-col", "justify-center", "w-full p-2", className)}
+      className={cn(
+        "flex flex-col",
+        "justify-center",
+        "w-full p-2",
+        "text-lg",
+        className
+      )}
     >
       <Img />
-      <div className="border border-white rounded-lg text-center px-4 py-2 w-full my-8">
-        <p>{index}</p>
-        <p>h-index</p>
+      <Link
+        prefetch={false}
+        href={nameUrl}
+        className="text-3xl my-4 text-center hover:underline"
+      >
+        {name}
+      </Link>
+      <Link
+        prefetch={false}
+        href={universityUrl}
+        className="mb-4 hover:underline text-center"
+      >
+        {university}
+      </Link>
+      <div className="border border-white rounded-lg text-center px-4 py-2 w-full my-4">
+        <p className="text-xl font-semibold">{index}</p>
+        <p>
+          <span className="italic">h</span>-index
+        </p>
       </div>
-      <p className="text-sm text-center mb-4">
-        <Trophy /> {thunder}
-      </p>
-      <p className="text-lg mb-4 text-center">{name}</p>
-      <p className="mb-4">
-        University: <span className="underline">{university}</span>
-      </p>
-      {topic && <p className="mb-4">Lecture topic: {topic}</p>}
+      <Link
+        href={thunderUrl}
+        className="text-center my-4 flex items-center justify-center gap-4 hover:underline"
+      >
+        <TrophyFilled className="text-yellow-400" /> {thunder}
+      </Link>
+      {topic && <p className="my-4">Lecture topic: {topic}</p>}
       {description && <p>{description}</p>}
     </div>
   );
@@ -179,12 +214,12 @@ const SpeakerCardSkeleton = ({ ...props }: React.HTMLProps<HTMLDivElement>) => (
     )}
   >
     <Skeleton className="rounded-lg aspect-square w-full flex-grow" />
+    <Skeleton className="w-3/4 h-4 mx-auto" />
+    <Skeleton className="w-3/4 h-4 mx-auto" />
     <div className="border border-white rounded-lg text-center px-4 py-2 w-full my-8 space-y-2">
       <Skeleton className="w-1/2 h-6 mx-auto" />
       <Skeleton className="w-1/2 h-6 mx-auto" />
     </div>
-    <Skeleton className="w-3/4 h-4 mx-auto" />
-    <Skeleton className="w-3/4 h-4 mx-auto" />
     <Skeleton className="w-3/4 h-4" />
     <Skeleton className="w-3/4 h-4" />
     <Skeleton className="w-3/4 h-32" />
@@ -268,88 +303,108 @@ export default function Home() {
   );
 
   const Header = () => (
-    <Section className="flex flex-col justify-center items-end md:min-h-screen">
+    <Section className="flex flex-col justify-center items-end !mb-24">
       <Image
         src={Biocon}
         alt="Biocon"
         className="absolute top-0 left-0 -z-[10]"
-        width={800}
+        width={900}
       />
-      <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold uppercase mt-[30vh] md:mt-0">
+      <h1 className="text-5xl sm:text-7xl md:text-9xl font-bold uppercase mt-[30vh]">
         BioCon 2023
       </h1>
-      <h2 className="text-sm sm:text-2xl md:text-3xl mb-8 mt-2 md:mt-8">
-        International Industrial Biotecnology Conference
+      <h2 className="text-sm sm:text-2xl md:text-4xl mb-8 mt-2 md:mt-8">
+        International Industrial Biotechnology Conference
       </h2>
-      <p className="text-sm sm:text-xl font-light">December 18-20, 2023</p>
-      <p className="text-sm sm:text-xl font-light uppercase">Almetyevsk</p>
-      <div className="flex flex-wrap justify-between items-center w-1/2 gap-6 whitespace-nowrap mt-8 self-center">
+      <p className="text-sm sm:text-2xl">December 18-20, 2023</p>
+      <p className="text-sm sm:text-2xl uppercase">Almetyevsk</p>
+      <div className="flex flex-wrap justify-evenly items-center w-1/2 gap-6 whitespace-nowrap mt-16 self-center">
         <Link
           href="#about"
           className={cn(
             buttonVariants({ variant: "outline" }),
-            "flex-1",
             "bg-transparent",
             "border-white",
             "hover:bg-white",
-            "hover:text-black"
+            "hover:text-black",
+            "px-8 py-4"
           )}
         >
           More info
         </Link>
-        <Button onClick={() => setOpenRegistration(true)} className="flex-1">
-          Register
+        <Button onClick={() => setOpenRegistration(true)} className="px-8 py-4">
+          Registration
         </Button>
       </div>
     </Section>
   );
 
-  const About = () => (
-    <Section
-      className="flex flex-col justify-center items-center relative mb-4"
-      id="about"
-    >
-      <Image
-        src={AboutProgram}
-        alt="About background image"
-        fill
-        className="-z-10 opacity-25 object-contain object-center"
-      />
-      <H2>About</H2>
-      <P>
-        Over the three days, you will have the opportunity to share your
-        innovative ideas, research results and experiences with like-minded
-        biotech enthusiasts from around the world.
-      </P>
-      <P className="my-8">Oppotunities to participate:</P>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        <div className="flex flex-col justify-center text-center border-2 border-white rounded-3xl px-6 py-4">
-          <h3 className="text-2xl font-bold">Attendee</h3>
-          <p>Full-time participation in conference events</p>
+  const About = () => {
+    const Card = ({
+      title,
+      description,
+    }: {
+      title: string;
+      description: string;
+    }) => {
+      return (
+        <div className="flex flex-col justify-center text-center border-2 border-white rounded-3xl px-12 md:px-16 py-8 hyphens-none">
+          <h3 className="text-2xl font-bold">{title}</h3>
+          <p>{description}</p>
         </div>
-        <div className="flex flex-col justify-center text-center border-2 border-white rounded-3xl px-6 py-4">
-          <h3 className="text-2xl font-bold">Invited speaker</h3>
-          <p>A talk during one of the parallel sessions</p>
+      );
+    };
+
+    return (
+      <Section
+        className="flex flex-col justify-center items-center relative mb-4"
+        id="about"
+      >
+        <Image
+          src={AboutProgram}
+          alt="About background image"
+          fill
+          className="-z-10 opacity-25 object-center"
+        />
+        <H2>About</H2>
+        <P className="my-8">
+          Over the three days, you will have the opportunity to share your
+          innovative ideas, research results and experiences with like-minded
+          biotech enthusiasts from around the world.
+        </P>
+        <P className="my-8">Oppotunities to participate:</P>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <Card
+            title="Attendee"
+            description="Full-time participation in conference events"
+          />
+          <Card
+            title="Contributed speaker"
+            description="Attendee with opportunity to talk during one of the parallel session"
+          />
+          <Card
+            title="Science Slammer"
+            description="Attendee with opportunity to science communication talk"
+          />
         </div>
-        <div className="flex flex-col justify-center text-center border-2 border-white rounded-3xl px-6 py-4">
-          <h3 className="text-2xl font-bold">Science Slammer</h3>
-          <p>A science communication talk</p>
+        <div className="flex flex-wrap justify-evenly items-center w-1/2 gap-6 whitespace-nowrap mt-8 md:mt-16 self-center">
+          <Button
+            onClick={() => setOpenRegistration(true)}
+            className="px-8 py-4"
+          >
+            Registration
+          </Button>
+          <Button
+            variant="outline"
+            className="px-8 py-4 bg-transparent border-white hover:bg-white hover:text-black"
+            onClick={() => setOpenFollow(true)}
+          >
+            Follow us
+          </Button>
         </div>
-      </div>
-      <div className="flex flex-wrap justify-between items-center w-1/2 gap-6 whitespace-nowrap mt-8 md:mt-16 self-center">
-        <Button onClick={() => setOpenRegistration(true)} className="flex-1">
-          Registration
-        </Button>
-        <Button
-          variant="outline"
-          className="flex-1 bg-transparent border-white hover:bg-white hover:text-black"
-          onClick={() => setOpenFollow(true)}
-        >
-          Follow us
-        </Button>
-      </div>
-    </Section>
-  );
+      </Section>
+    );
+  };
 
   const ForWhom = () => {
     const circles = [
@@ -366,10 +421,11 @@ export default function Home() {
           className={cn(
             "grid grid-rows-2 grid-cols-2 md:grid-cols-4",
             "mt-8 whitespace-nowrap",
-            "w-full h-[15vh]",
+            "w-full",
             "items-center justify-items-center",
             "text-xs sm:text-base md:text-lg",
-            "font-bold"
+            "font-bold",
+            "gap-y-8"
           )}
         >
           <p
@@ -444,15 +500,7 @@ export default function Home() {
     const LoremText =
       "Lorem ipsum dolor sit amet consectetur. Rnesciunt ipsum maxime natus nobis autem voluptatem impedit, accusamus deleniti ullam incidunt, quas dolore esse facere iure soluta? Tempora, rerum.";
 
-    const [screenWidth, setScreenWidth] = useState(1920);
-
-    useEffect(() => {
-      if (typeof window === undefined) return;
-      setScreenWidth(() => window.screen.width);
-      const listener = () => setScreenWidth(window.screen.width);
-      window.addEventListener("resize", listener);
-      return () => window.removeEventListener("resize", listener);
-    }, []);
+    const windowSizes = useWindowSize();
 
     useEffect(() => {
       speakersAction.execute();
@@ -469,6 +517,9 @@ export default function Home() {
             ))
           : speakersState.result.map((speaker) => (
               <SpeakerCard
+                nameUrl="#"
+                universityUrl="#"
+                thunderUrl="#"
                 key={speaker.id}
                 name={speaker.name}
                 index={speaker.hIndex}
@@ -476,13 +527,13 @@ export default function Home() {
                 description={speaker.description}
                 thunder={speaker.thunder}
                 topic={speaker.topic}
-                image={`/images/${speaker.image}.webp`}
+                imageUrl={`/images/${speaker.image}.webp`}
                 className="basis-[80%] md:basis-3/12"
               />
             ))}
       </div>
     );
-    if (screenWidth < screens.md) {
+    if (windowSizes.width && windowSizes.width < screens.md) {
       speakers = (
         <div className="w-full flex gap-4 items-center">
           <div
@@ -515,13 +566,16 @@ export default function Home() {
               : speakersState.result.map((speaker) => (
                   <SwiperSlide key={speaker.id}>
                     <SpeakerCard
+                      nameUrl="#"
+                      universityUrl="#"
+                      thunderUrl="#"
                       name={speaker.name}
                       index={speaker.hIndex}
                       university={speaker.university}
                       description={speaker.description}
                       thunder={speaker.thunder}
                       topic={speaker.topic}
-                      image={`/images/${speaker.image}.webp`}
+                      imageUrl={`/images/${speaker.image}.webp`}
                       className="text-center"
                     />
                   </SwiperSlide>
@@ -562,7 +616,7 @@ export default function Home() {
         fill
         className="-z-10 opacity-25 object-contain object-center"
       />
-      <H2>Program</H2>
+      <H2 className="mb-20">Program</H2>
       <p className="md:text-xl">
         TED-style plenary talks from world-renowned researchers, parallel
         sessions on major spheres of biotechnology headlined by recognized
@@ -572,15 +626,15 @@ export default function Home() {
           unforgettable culture of Tatarstan — BIOCON, in one word.
         </span>
       </p>
-      <div className="relative flex flex-col items-center mt-12">
+      <div className="relative flex flex-col items-center mt-12 w-full">
         <Image
           src={Cat}
           alt="Coming soon image with cat"
-          className="w-1/2 rounded-xl"
+          className="rounded-xl w-3/4 md:w-1/3"
         />
         <p
           className={cn(
-            "stroke absolute translate-y-2/4 bottom-0 text-4xl md:text-6xl",
+            "stroke absolute translate-y-2/4 bottom-0 text-3xl xs:text-4xl sm:text-5xl",
             StrokeFont.className
           )}
         >
@@ -595,7 +649,7 @@ export default function Home() {
       className="flex flex-row justify-center items-center relative"
       id="venue"
     >
-      <div className="hidden md:block relative md:flex-1 md:h-[175%]">
+      <div className="hidden md:block relative md:flex-1 md:h-[175%] mt-12">
         <Image
           src={"/venue.png"}
           alt={"Venue image"}
@@ -605,14 +659,14 @@ export default function Home() {
       </div>
       <div className="flex-1">
         <H2 className="text-right">Venue</H2>
-        <div className="relative">
+        <div className="relative text-2xl">
           <Image
             src={"/venue.png"}
             alt={"Venue image"}
             fill
             className="md:hidden -z-10 opacity-30 md:opacity-100 object-contain object-center !top-[-40%] !h-[200%]"
           />
-          <p className="font-semibold text-xl">Almetyevsk</p>
+          <p className="font-semibold">Almetyevsk</p>
           <p className="my-4">(Russian: Альметьевск; Tatar: Әлмәт)</p>
           <p className="my-4">
             Is a city in Tatarstan, Russia, located on the left bank of Zay
