@@ -64,7 +64,6 @@ const Navbar = ({
         "flex justify-between items-center my-4 w-full absolute top-0 left-0 right-0",
         className
       )}
-      style={{ padding: "inherit" }}
       {...props}
     >
       <a href="/">
@@ -107,7 +106,10 @@ const P = ({
 }: { children: React.ReactNode } & React.HTMLProps<HTMLParagraphElement>) => (
   <p
     {...props}
-    className={cn("text-base sm:text-2xl text-left w-full", className)}
+    className={cn(
+      "text-base sm:text-2xl md:text-3xl text-left w-full",
+      className
+    )}
   >
     {children}
   </p>
@@ -277,12 +279,12 @@ const OrganizerCard = ({
       )}
     >
       <Img />
-      <div className="flex flex-col justify-center w-full">
-        <h3 className="text-lg">{name}</h3>
-        <p className="text-sm">{position}</p>
+      <div className="flex flex-col justify-center w-full text-sm sm:text-base md:text-lg">
+        <h3 className="text-base sm:text-2xl md:text-3xl">{name}</h3>
+        <p>{position}</p>
         <div>
-          <span className="text-sm">E-mail: </span>
-          <Link href={`mailto:${email}`} className="text-sm hover:underline">
+          <span>E-mail: </span>
+          <Link href={`mailto:${email}`} className="hover:underline">
             {email}
           </Link>
         </div>
@@ -290,6 +292,29 @@ const OrganizerCard = ({
     </div>
   );
 };
+
+const OrganizersSkeleton = ({ ...props }: React.HTMLProps<HTMLDivElement>) => (
+  <div
+    {...props}
+    className={cn(
+      "flex-1 basis-5/12",
+      "md:last:flex-grow-0 md:last:basis-1/2",
+      "grid grid-cols-[auto,1fr]",
+      "justify-center items-center",
+      "w-full gap-4 p-4",
+      "border-2 border-white rounded-xl",
+      "gap-4",
+      props.className
+    )}
+  >
+    <Skeleton className="rounded-lg aspect-square w-[100px] md:w-[150px]" />
+    <div className="flex flex-col justify-center w-full text-sm sm:text-base md:text-lg space-y-4">
+      <Skeleton className="w-3/4 h-8" />
+      <Skeleton className="w-3/4 h-4" />
+      <Skeleton className="w-3/4 h-4" />
+    </div>
+  </div>
+);
 
 export default function Home() {
   const [openRegistration, setOpenRegistration] = useState(false);
@@ -326,9 +351,9 @@ export default function Home() {
       <h2 className="text-sm sm:text-2xl md:text-4xl mb-8 mt-2 md:mt-8">
         International Industrial Biotechnology Conference
       </h2>
-      <p className="text-sm sm:text-2xl">December 18-20, 2023</p>
-      <p className="text-sm sm:text-2xl uppercase">Almetyevsk</p>
-      <div className="flex flex-wrap justify-evenly items-center w-1/2 gap-6 whitespace-nowrap mt-16 self-center">
+      <P className="text-right">December 18-20, 2023</P>
+      <P className="text-right uppercase">Almetyevsk</P>
+      <div className="flex flex-nowrap flex-col sm:flex-row justify-evenly items-center w-1/2 gap-6 whitespace-nowrap mt-16 self-center">
         <Link
           href="#about"
           className={cn(
@@ -337,12 +362,23 @@ export default function Home() {
             "border-white",
             "hover:bg-white",
             "hover:text-black",
-            "px-8 py-4"
+            "px-8 py-4",
+            "text-base sm:text-lg md:text-2xl",
+            "sm:py-5 md:py-6",
+            "w-full sm:w-auto"
           )}
         >
           More info
         </Link>
-        <Button onClick={() => setOpenRegistration(true)} className="px-8 py-4">
+        <Button
+          onClick={() => setOpenRegistration(true)}
+          className={cn(
+            "px-8 py-4",
+            "text-base sm:text-lg md:text-2xl",
+            "sm:py-5 md:py-6",
+            "w-full sm:w-auto"
+          )}
+        >
           Registration
         </Button>
       </div>
@@ -358,7 +394,7 @@ export default function Home() {
       description: string;
     }) => {
       return (
-        <div className="flex flex-col justify-center text-center border-2 border-white rounded-3xl px-12 md:px-16 py-8 hyphens-none">
+        <div className="flex-grow md:flex-grow-0 basis-[27.5%] flex flex-col justify-center text-center border-2 border-white rounded-3xl px-12 md:px-16 py-8 hyphens-none">
           <h3 className="text-2xl font-bold">{title}</h3>
           <p>{description}</p>
         </div>
@@ -374,7 +410,7 @@ export default function Home() {
           src={AboutProgram}
           alt="About background image"
           fill
-          className="-z-10 opacity-25 object-center"
+          className="-z-10 opacity-25 object-cover object-center"
         />
         <H2>About</H2>
         <P className="my-8">
@@ -383,7 +419,7 @@ export default function Home() {
           biotech enthusiasts from around the world.
         </P>
         <P className="my-8">Oppotunities to participate:</P>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="flex flex-wrap justify-center gap-6">
           <Card
             title="Attendee"
             description="Full-time participation in conference events"
@@ -637,10 +673,10 @@ export default function Home() {
         src={AboutProgram}
         alt="Program background image"
         fill
-        className="-z-10 opacity-25 object-contain object-center"
+        className="-z-10 opacity-25 object-cover md:object-scale-down object-center"
       />
       <H2 className="mb-20">Program</H2>
-      <p className="md:text-xl">
+      <P>
         TED-style plenary talks from world-renowned researchers, parallel
         sessions on major spheres of biotechnology headlined by recognized
         keynote speakers, an exciting Science Slam and much more — all infused
@@ -648,7 +684,7 @@ export default function Home() {
         <span className="font-bold">
           unforgettable culture of Tatarstan — BIOCON, in one word.
         </span>
-      </p>
+      </P>
       <div className="relative flex flex-col items-center mt-12 w-full">
         <Image
           src={Cat}
@@ -689,9 +725,9 @@ export default function Home() {
             fill
             className="md:hidden -z-10 opacity-30 md:opacity-100 object-contain object-center !top-[-40%] !h-[200%]"
           />
-          <p className="font-semibold">Almetyevsk</p>
-          <p className="my-4">(Russian: Альметьевск; Tatar: Әлмәт)</p>
-          <p className="my-4">
+          <p className="font-semibold text-5xl">Almetyevsk</p>
+          <p className="my-6">(Russian: Альметьевск; Tatar: Әлмәт)</p>
+          <p className="my-6">
             Is a city in Tatarstan, Russia, located on the left bank of Zay
             River.
           </p>
@@ -723,13 +759,7 @@ export default function Home() {
         <div className="w-full flex flex-wrap gap-4 md:gap-10 justify-items-center justify-center">
           {organizersState.result.length === 0
             ? Array.from({ length: 5 }).map((_, i) => (
-                <OrganizerCard
-                  key={i}
-                  email="email@email.com"
-                  name="Name Surname"
-                  position="Position"
-                  className="flex-1 basis-5/12"
-                />
+                <OrganizersSkeleton key={i} />
               ))
             : organizersState.result.map((organizer) => (
                 <OrganizerCard
