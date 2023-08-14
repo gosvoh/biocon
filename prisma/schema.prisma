@@ -38,14 +38,18 @@ model Newsletters {
 }
 
 model Speakers {
-  id          Int     @id @default(autoincrement())
-  name        String
-  image       String
-  university  String
-  topic       String?
-  description String?
-  thunder     String
-  hIndex      Int
+  id            Int     @id @default(autoincrement())
+  name          String
+  nameUrl       String
+  image         String
+  university    String
+  universityUrl String
+  topic         String?
+  description   String?
+  thunder       String
+  thunderUrl    String
+  hIndex        Int
+  speakerType   String
 }
 
 model Organizers {

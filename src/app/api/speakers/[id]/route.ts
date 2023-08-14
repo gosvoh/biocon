@@ -36,14 +36,27 @@ export async function PATCH(
   try {
     const data = await req.formData();
     const name = data.get("name") as string | null;
+    const nameUrl = data.get("nameUrl") as string | null;
     const university = data.get("university") as string | null;
+    const universityUrl = data.get("universityUrl") as string | null;
     const topic = data.get("topic") as string | null;
     const description = data.get("description") as string | null;
     const thunder = data.get("thunder") as string | null;
+    const thunderUrl = data.get("thunderUrl") as string | null;
     const hIndex = data.get("hIndex") as string | null;
     const img = data.get("image") as File | null;
+    const speakerType = data.get("speakerType") as string | null;
 
-    if (!name || !university || !topic || !hIndex || !thunder)
+    if (
+      !name ||
+      !nameUrl ||
+      !university ||
+      !universityUrl ||
+      !hIndex ||
+      !thunder ||
+      !thunderUrl ||
+      !speakerType
+    )
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
 
     const speaker = await prisma.speakers.findUnique({
@@ -64,11 +77,15 @@ export async function PATCH(
         where: { id: Number(params.id) },
         data: {
           name,
+          nameUrl,
           university,
-          topic,
+          universityUrl,
+          topic: topic || "",
           description: description || "",
-          thunder: thunder || "",
+          thunder,
+          thunderUrl,
           hIndex: parseInt(hIndex),
+          speakerType,
         },
       })
     );

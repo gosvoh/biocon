@@ -9,10 +9,14 @@ export interface Organizer {
 export interface Speaker {
   id: number;
   name: string;
+  nameUrl: string;
   image: string;
   university: string;
+  universityUrl: string;
   topic?: string;
   description?: string;
   thunder: string;
+  thunderUrl: string;
   hIndex: number;
+  speakerType: string;
 }

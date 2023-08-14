@@ -5,6 +5,7 @@ import { Speaker } from "@/app/data";
 import {
   DeleteOutlined,
   EditOutlined,
+  LinkOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
 import { useAsync, useSessionStorageValue } from "@react-hookz/web";
@@ -22,8 +23,10 @@ import {
   Image,
   Tooltip,
   Popconfirm,
+  Select,
 } from "antd";
 import { useEffect, useReducer, useState } from "react";
+import Link from "next/link";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -117,12 +120,16 @@ export default function AddSpeaker() {
 
   const SpeakerFields = {
     name: true,
+    nameUrl: true,
     image: true,
     university: true,
+    universityUrl: true,
     topic: false,
     description: false,
     thunder: true,
+    thunderUrl: true,
     hIndex: true,
+    speakerType: true,
   };
 
   return (
@@ -180,6 +187,13 @@ export default function AddSpeaker() {
             <Input />
           </Form.Item>
           <Form.Item
+            name="nameUrl"
+            label="Name URL"
+            rules={[{ required: SpeakerFields.nameUrl, type: "url" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
             name="image"
             label="Image"
             valuePropName="fileList"
@@ -205,6 +219,13 @@ export default function AddSpeaker() {
             <Input />
           </Form.Item>
           <Form.Item
+            name="universityUrl"
+            label="University URL"
+            rules={[{ required: SpeakerFields.universityUrl, type: "url" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
             name="topic"
             label="Topic"
             rules={[{ required: SpeakerFields.topic }]}
@@ -225,11 +246,31 @@ export default function AddSpeaker() {
           >
             <Input />
           </Form.Item>
+          <Form.Item
+            name="thunderUrl"
+            label="Thunder URL"
+            rules={[{ required: SpeakerFields.thunderUrl, type: "url" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="speakerType"
+            label="Speaker Type"
+            rules={[{ required: SpeakerFields.speakerType }]}
+          >
+            <Select
+              options={[
+                { label: "Planary", value: "plenary" },
+                { label: "Invited", value: "invited" },
+              ]}
+            />
+          </Form.Item>
         </Form>
       </Modal>
       <Table
         tableLayout="fixed"
         bordered
+        size="small"
         className="w-full self-start"
         pagination={false}
         loading={organizersState.status === "loading"}
@@ -250,20 +291,42 @@ export default function AddSpeaker() {
             dataIndex: "image",
             render: (url: string) => (
               <Image
-                width={75}
-                height={75}
                 className="object-cover"
                 src={`/images/${url}.webp`}
                 alt="Speaker image"
+                style={{ aspectRatio: "1/1", objectPosition: "center" }}
               />
             ),
+            width: 100,
           },
-          { title: "Name", dataIndex: "name" },
-          { title: "H-Index", dataIndex: "hIndex" },
-          { title: "University", dataIndex: "university" },
+          {
+            title: "Name",
+            render: (_, record) => (
+              <Link href={record.nameUrl}>
+                {record.name} <LinkOutlined />
+              </Link>
+            ),
+          },
+          { title: "H-Index", dataIndex: "hIndex", width: 75 },
+          {
+            title: "University",
+            render: (_, record) => (
+              <Link href={record.universityUrl}>
+                {record.university} <LinkOutlined />
+              </Link>
+            ),
+          },
           { title: "Topic", dataIndex: "topic" },
-          { title: "Description", dataIndex: "description" },
-          { title: "Thunder", dataIndex: "thunder" },
+          { title: "Description", dataIndex: "description", ellipsis: true },
+          {
+            title: "Thunder",
+            render: (_, record) => (
+              <Link href={record.thunderUrl}>
+                {record.thunder} <LinkOutlined />
+              </Link>
+            ),
+          },
+          { title: "Speaker Type", dataIndex: "speakerType" },
           {
             title: "Actions",
             render: (_, record) => (
@@ -277,11 +340,15 @@ export default function AddSpeaker() {
                       setEditData(record);
                       setEditOpen(true);
                       form.setFieldValue("name", record.name);
-                      form.setFieldValue("hIndex", record.hIndex);
+                      form.setFieldValue("nameUrl", record.nameUrl);
                       form.setFieldValue("university", record.university);
+                      form.setFieldValue("universityUrl", record.universityUrl);
                       form.setFieldValue("topic", record.topic);
                       form.setFieldValue("description", record.description);
                       form.setFieldValue("thunder", record.thunder);
+                      form.setFieldValue("thunderUrl", record.thunderUrl);
+                      form.setFieldValue("hIndex", record.hIndex);
+                      form.setFieldValue("speakerType", record.speakerType);
                     }}
                   />
                 </Tooltip>
