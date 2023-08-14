@@ -171,6 +171,7 @@ const SpeakerCard = ({
     >
       <Img />
       <Link
+        target="_blank"
         prefetch={false}
         href={nameUrl}
         className="text-3xl my-4 text-center hover:underline"
@@ -178,6 +179,7 @@ const SpeakerCard = ({
         {name}
       </Link>
       <Link
+        target="_blank"
         prefetch={false}
         href={universityUrl}
         className="mb-4 hover:underline text-center"
@@ -194,6 +196,7 @@ const SpeakerCard = ({
         <Link
           prefetch={false}
           href={thunderUrl}
+          target="_blank"
           className="text-center my-4 flex items-center justify-center gap-4 hover:underline"
         >
           <TrophyFilled className="text-yellow-400" /> {thunder}
