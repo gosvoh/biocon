@@ -19,8 +19,8 @@ model Registrations {
   country           String
   city              String
   affiliation       String
+  clothingSize      String
   role              String
-  otherRole         String?
   participationType String
   motivationLetter  String?
   researchInterests String?
