@@ -31,8 +31,7 @@ import Link from "next/link";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <div></div>
-      <div className="flex items-center justify-center p-4">
+      <div className="min-h-screen flex items-center justify-center p-4">
         <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
           {children}
         </ConfigProvider>
@@ -65,13 +64,30 @@ export default function AddSpeaker() {
     async () => fetch("/api/speakers").then((res) => res.json()),
     []
   );
+  const [countriesState, countriesAction] = useAsync<
+    {
+      id: number;
+      name: string;
+      iso2: string;
+    }[]
+  >(
+    () =>
+      fetch("https://api.countrystatecity.in/v1/countries", {
+        headers: {
+          "X-CSCAPI-KEY": process.env.NEXT_PUBLIC_API_KEY as string,
+        },
+      }).then((res) => res.json()),
+    []
+  );
 
   const HTTP = useFetch(token.value);
 
   useEffect(() => {
     setLoading(true);
-    organizersAction.execute().then(() => setLoading(false));
-  }, [organizersAction]);
+    Promise.all([organizersAction.execute(), countriesAction.execute()]).then(
+      () => setLoading(false)
+    );
+  }, [organizersAction, countriesAction]);
 
   useEffect(() => {
     if (!token.value || token.value === "" || tokenData.isValid) return;
@@ -130,6 +146,7 @@ export default function AddSpeaker() {
     thunderUrl: false,
     hIndex: true,
     speakerType: true,
+    country: true,
   };
 
   return (
@@ -157,13 +174,14 @@ export default function AddSpeaker() {
             formData.append("nameUrl", values.nameUrl);
             formData.append("university", values.university);
             formData.append("universityUrl", values.universityUrl);
-            formData.append("topic", values.topic);
+            values.topic && formData.append("topic", values.topic);
             values.description &&
               formData.append("description", values.description);
             formData.append("thunder", values.thunder);
             formData.append("thunderUrl", values.thunderUrl);
             formData.append("hIndex", values.hIndex);
             formData.append("speakerType", values.speakerType);
+            formData.append("country", values.country);
             if (values.image)
               formData.append("image", values.image[0].originFileObj);
             setLoading(true);
@@ -269,6 +287,18 @@ export default function AddSpeaker() {
               ]}
             />
           </Form.Item>
+          <Form.Item
+            name="country"
+            label="Country"
+            rules={[{ required: SpeakerFields.country }]}
+          >
+            <Select
+              options={countriesState.result?.map((country) => ({
+                label: country.name,
+                value: country.name,
+              }))}
+            />
+          </Form.Item>
         </Form>
       </Modal>
       <Table
@@ -311,6 +341,7 @@ export default function AddSpeaker() {
               </Link>
             ),
           },
+          { title: "Country", dataIndex: "country" },
           { title: "H-Index", dataIndex: "hIndex", width: 75 },
           {
             title: "University",
@@ -347,7 +378,7 @@ export default function AddSpeaker() {
                       form.setFieldValue("nameUrl", record.nameUrl);
                       form.setFieldValue("university", record.university);
                       form.setFieldValue("universityUrl", record.universityUrl);
-                      form.setFieldValue("topic", record.topic);
+                      form.setFieldValue("topic", record.topic); // TODO:fix
                       form.setFieldValue("description", record.description);
                       form.setFieldValue("thunder", record.thunder);
                       form.setFieldValue("thunderUrl", record.thunderUrl);
