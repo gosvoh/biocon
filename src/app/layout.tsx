@@ -32,7 +32,7 @@ export default function RootLayout({
           "relative"
         )}
         style={{
-          backgroundImage: `url(/bg2.jpg)`,
+          backgroundImage: `url(/bg.png)`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% 100%",
         }}
