@@ -211,12 +211,12 @@ const SpeakerCard = ({
           prefetch={false}
           href={thunderUrl}
           target="_blank"
-          className="text-center flex items-center justify-center gap-4 hover:underline mx-auto"
+          className="text-center flex items-center justify-center gap-2 whitespace-nowrap hover:underline mx-auto"
         >
           <TrophyFilled className="text-yellow-400" /> {thunder}
         </Link>
       ) : (
-        <p className="text-center flex items-center justify-center gap-4">
+        <p className="text-center flex items-center justify-center gap-2 whitespace-nowrap">
           <Trophy className="text-yellow-400" /> {thunder}
         </p>
       )}
@@ -589,7 +589,7 @@ export default function Home() {
 
     const Wrapper = ({ elements }: { elements: Speakers[] }) => {
       let ret = (
-        <div className="w-full flex flex-wrap gap-y-8 gap-x-16 justify-items-center justify-around">
+        <div className="w-full flex flex-wrap gap-y-8 gap-x-12 justify-items-center justify-around">
           {speakersState.status === "loading" || elements.length === 0
             ? Array.from({ length: 3 }).map((_, i) => (
                 <SpeakerCardSkeleton
