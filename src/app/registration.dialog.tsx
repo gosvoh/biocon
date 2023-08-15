@@ -1,63 +1,20 @@
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useEffect, useState } from "react";
-import type { DialogProps } from "@radix-ui/react-dialog";
-import { useForm } from "react-hook-form";
-import SuccessDialog from "./success.dialog";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Turnstile } from "@marsidev/react-turnstile";
-import isMobilePhone from "validator/lib/isMobilePhone";
-import isURL from "validator/lib/isURL";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Checkbox } from "@/components/ui/checkbox";
-import Link from "next/link";
-import { Textarea } from "@/components/ui/textarea";
-import { AlertCircle, Check, ChevronsUpDown } from "lucide-react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/components/ui/command";
 import { useAsync } from "@react-hookz/web";
+import { Button, Checkbox, Form, Input, Modal, Radio, Select } from "antd";
+import { useEffect, useState } from "react";
+import SuccessDialog from "./success.dialog";
+import Link from "next/link";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 type RegisterFormValues = {
   name: string;
   email: string;
+  howToKnow: string;
   mobile: string;
   country: string;
   city: string;
   affiliation: string;
   role: string;
+  customRole?: string;
   clothingSize: string;
   participationType: string;
   motivationLetter: string | undefined;
@@ -70,108 +27,14 @@ type RegisterFormValues = {
   captchaToken: string;
 };
 
-const formSchema = yup.object().shape({
-  name: yup
-    .string()
-    .required("Please enter your name")
-    .min(3, "Name must be at least 3 characters long"),
-  email: yup
-    .string()
-    .required("Please enter your email address")
-    .email("Please enter a valid email address"),
-  mobile: yup
-    .string()
-    .required("Please enter your mobile number")
-    .test("is-mobile-phone", "Please enter a valid mobile number", (value) =>
-      isMobilePhone(value, "any")
-    ),
-  country: yup.string().required("Please select the country you are from"),
-  city: yup.string().required("Please enter the city you are from"),
-  affiliation: yup.string().required("Please enter your affiliation"),
-  role: yup.string().required("Please enter your role"),
-  otherRole: yup
-    .string()
-    .when("role", ([value], schema) =>
-      value === "Other" ? schema.required("Please enter your role") : schema
-    ),
-  clothingSize: yup.string().required("Please select your clothing size"),
-  participationType: yup
-    .string()
-    .required("Please select your participation type"),
-  motivationLetter: yup
-    .string()
-    .when("participationType", ([value], schema) =>
-      value === "Attendee"
-        ? schema
-            .required("Please enter a motivation letter")
-            .min(10, "Motivation letter must be at least 10 characters long")
-        : schema
-    ),
-  researchInterests: yup
-    .string()
-    .when("participationType", ([value], schema) =>
-      value !== "Attendee"
-        ? schema.required("Please enter your research interests")
-        : schema
-    ),
-  tentativeTitle: yup
-    .string()
-    .when("participationType", ([value], schema) =>
-      value === "Invited Speaker"
-        ? schema.required("Please enter a tentative title")
-        : schema
-    ),
-  resume: yup.string().when("participationType", ([value], schema) =>
-    value === "Invited Speaker"
-      ? schema
-          .required("Please enter a resume")
-          .test("is-url", "Please enter a valid URL", (value) =>
-            isURL(value, {
-              protocols: ["http", "https"],
-              require_protocol: true,
-            })
-          )
-      : schema
-  ),
-  scienceProfile: yup.string().when("participationType", ([value], schema) =>
-    value !== "Attendee"
-      ? schema
-          .required("Please enter a science profile")
-          .test("is-url", "Please enter a valid URL", (value) =>
-            isURL(value, {
-              protocols: ["http", "https"],
-              require_protocol: true,
-            })
-          )
-      : schema
-  ),
-  video: yup.string().when("participationType", ([value], schema) =>
-    value !== "Attendee"
-      ? schema
-          .required("Please enter a video")
-          .test("is-url", "Please enter a valid URL", (value) =>
-            isURL(value, {
-              protocols: ["http", "https"],
-              require_protocol: true,
-            })
-          )
-      : schema
-  ),
-  personalData: yup
-    .boolean()
-    .default(false)
-    .oneOf([true], "Please accept the terms and conditions"),
-  captchaToken: yup
-    .string()
-    .required("Please complete the captcha to prove you are not a robot"),
-});
-
-export default function RegistrationDialog(
-  props: {} & React.PropsWithoutRef<DialogProps>
-) {
-  const form = useForm({
-    resolver: yupResolver(formSchema),
-  });
+export default function RegistrationDialog({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const [form] = Form.useForm<RegisterFormValues>();
   const [success, setSuccess] = useState(false);
   const participationTypes = [
     {
@@ -187,7 +50,7 @@ export default function RegistrationDialog(
       label: "Science Slammer. A science communication talk",
     },
   ];
-  const selectedParticipationType = form.watch("participationType");
+  const selectedParticipationType = Form.useWatch("participationType", form);
   const roles = [
     "Undergraduate student",
     "Graduate student",
@@ -196,7 +59,6 @@ export default function RegistrationDialog(
     "Industrial partner",
     "Other",
   ];
-  const selectedRole = form.watch("role");
   const clothingSizes = ["S", "M", "L", "XL"];
   const [countriesState, countriesAction] = useAsync<
     {
@@ -213,25 +75,26 @@ export default function RegistrationDialog(
       }).then((res) => res.json()),
     []
   );
-  const [countryPopoverOpen, setCountryPopoverOpen] = useState(false);
+  const [citiesState, citiesAction] = useAsync<
+    {
+      id: number;
+      name: string;
+    }[]
+  >(
+    (code: any) =>
+      fetch(`https://api.countrystatecity.in/v1/countries/${code}/cities`, {
+        headers: {
+          "X-CSCAPI-KEY": process.env.NEXT_PUBLIC_API_KEY as string,
+        },
+      }).then((res) => res.json()),
+    []
+  );
+  const [citiesLoading, setCitiesLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     countriesAction.execute();
   }, [countriesAction]);
-
-  function onSubmit(data: yup.InferType<typeof formSchema>) {
-    fetch("/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then(() => {
-      form.reset();
-      props.onOpenChange?.(false);
-      setSuccess(true);
-    });
-  }
 
   return (
     <>
@@ -241,430 +104,338 @@ export default function RegistrationDialog(
         title="You are awesome!"
         description="Registration completed successfully"
       />
-      <Dialog {...props}>
-        <DialogContent className="overflow-y-auto max-h-[80vh] max-w-[85%] sm:max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="text-center">Registration</DialogTitle>
-          </DialogHeader>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-4 flex flex-col"
+      <Modal
+        className="!py-8"
+        open={open}
+        width={600}
+        title={<div className="text-center">Registration</div>}
+        centered
+        onCancel={() => onOpenChange(false)}
+        footer={
+          <div className="flex justify-center">
+            <Button onClick={() => form.submit()} loading={loading}>
+              Register
+            </Button>
+          </div>
+        }
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={(values) => {
+            setLoading(true);
+            fetch("/api/registration", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(values),
+            })
+              .then((res) => {
+                if (res.ok) {
+                  setSuccess(true);
+                  form.resetFields();
+                  onOpenChange(false);
+                }
+              })
+              .finally(() => setLoading(false));
+          }}
+        >
+          <Form.Item<RegisterFormValues>
+            name="name"
+            label="Name"
+            rules={[
+              { required: true, message: "Please enter your name" },
+              { min: 3, message: "Name must be at least 3 characters" },
+            ]}
+          >
+            <Input placeholder="Enter your full name here" />
+          </Form.Item>
+          <Form.Item<RegisterFormValues>
+            name="email"
+            label="Email"
+            rules={[
+              { required: true, message: "Please enter your email" },
+              { type: "email", message: "Please enter a valid email" },
+            ]}
+          >
+            <Input placeholder="Enter your email here" type="email" />
+          </Form.Item>
+          <Form.Item<RegisterFormValues>
+            name="howToKnow"
+            label="How did you hear about the BIOCON?"
+            rules={[
+              {
+                required: true,
+                message: "Please enter how did you hear about the BIOCON",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item<RegisterFormValues>
+            name="mobile"
+            label="Mobile"
+            rules={[
+              { required: true, message: "Please enter your mobile" },
+              {
+                pattern:
+                  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+                message: "Invalid mobile",
+              },
+            ]}
+          >
+            <Input
+              placeholder="Enter your mobile number with country code here"
+              type="tel"
+            />
+          </Form.Item>
+          <Form.Item<RegisterFormValues>
+            name="country"
+            label="Select country"
+            rules={[{ required: true, message: "Please select your country" }]}
+          >
+            <Select
+              placeholder="---"
+              showSearch
+              options={countriesState.result.map((country) => ({
+                value: country.name,
+                label: country.name,
+              }))}
+              onChange={(value) => {
+                setCitiesLoading(true);
+                citiesAction.reset();
+                citiesAction
+                  .execute(
+                    countriesState.result.find(
+                      (country) => country.name === value
+                    )?.iso2
+                  )
+                  .finally(() => setCitiesLoading(false));
+              }}
+            />
+          </Form.Item>
+          <Form.Item<RegisterFormValues>
+            name="city"
+            label="Select city"
+            rules={[{ required: true, message: "Please select your city" }]}
+          >
+            <Select
+              showSearch
+              placeholder="---"
+              loading={citiesLoading}
+              disabled={form.getFieldValue("country") === undefined}
+              options={citiesState.result.map((city) => ({
+                value: city.name,
+                label: city.name,
+              }))}
+            />
+          </Form.Item>
+          <Form.Item<RegisterFormValues>
+            name="affiliation"
+            label="Affiliation"
+            rules={[
+              { required: true, message: "Please enter your affiliation" },
+            ]}
+          >
+            <Input placeholder="Enter the name of your university here" />
+          </Form.Item>
+          <Form.Item<RegisterFormValues>
+            name="role"
+            label="Role"
+            rules={[{ required: true, message: "Please select your role" }]}
+          >
+            <Select
+              placeholder="---"
+              options={roles.map((role) => ({
+                value: role,
+                label: role,
+              }))}
+            />
+          </Form.Item>
+          {form.getFieldValue("role") === "Other" && (
+            <Form.Item<RegisterFormValues>
+              name="customRole"
+              label="Custom role"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your role",
+                },
+              ]}
             >
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full name*</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter your full name here"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>E-mail*</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your e-mail here" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="mobile"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Mobile number*</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter your mobile number with country code here"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="country"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Select country*</FormLabel>
-                    <Popover
-                      open={countryPopoverOpen}
-                      onOpenChange={setCountryPopoverOpen}
-                    >
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            role="combobox"
-                            className={cn(
-                              "w-full justify-between",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value
-                              ? countriesState.result?.find(
-                                  (country) => country.name === field.value
-                                )?.name
-                              : "---"}
-                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-[300px] p-0 h-72">
-                        <Command>
-                          <CommandInput placeholder="Search..." />
-                          <CommandEmpty>No country found</CommandEmpty>
-                          <CommandGroup className="overflow-y-auto flex-1 grid">
-                            {countriesState.result?.map((country) => (
-                              <CommandItem
-                                key={country.id}
-                                value={country.name}
-                                onSelect={() => {
-                                  form.setValue("country", country.name);
-                                  setCountryPopoverOpen(false);
-                                }}
-                              >
-                                <Check
-                                  className={cn(
-                                    "mr-2 h-4 w-4 shrink-0",
-                                    country.name === field.value
-                                      ? "opacity-100"
-                                      : "opacity-0"
-                                  )}
-                                />
-                                {country.name}
-                              </CommandItem>
-                            ))}
-                          </CommandGroup>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="city"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Select city*</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your city here" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="affiliation"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Affiliation*</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter the name of your university here"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Role*</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="---" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {roles.map((role) => (
-                          <SelectItem key={role} value={role}>
-                            {role}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {selectedRole === "Other" && (
-                <FormField
-                  control={form.control}
-                  name="otherRole"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Other role*</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter your role here" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-              <FormField
-                control={form.control}
-                name="clothingSize"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Select your clothing size*</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="---" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {clothingSizes.map((size) => (
-                          <SelectItem key={size} value={size}>
-                            {size}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="participationType"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Type of participation:</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        {participationTypes.map((type, i) => (
-                          <FormItem
-                            key={i}
-                            className="flex items-center space-x-3 space-y-0"
-                          >
-                            <FormControl>
-                              <RadioGroupItem value={type.value} />
-                            </FormControl>
-                            <FormLabel className="font-normal hover:cursor-pointer">
-                              {type.label}
-                            </FormLabel>
-                          </FormItem>
-                        ))}
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {selectedParticipationType === "Attendee" && (
-                <FormField
-                  control={form.control}
-                  name="motivationLetter"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Motivation letter*</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Write why is it important for you to attend BIOCON?"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-              {selectedParticipationType !== "Attendee" && (
-                <>
-                  <FormField
-                    control={form.control}
-                    name="researchInterests"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Research interest(s)*</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            placeholder="Enter your research interest(s) here"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  {selectedParticipationType === "Invited Speaker" && (
-                    <>
-                      <FormField
-                        control={form.control}
-                        name="tentativeTitle"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Tentative title of your talk*</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Enter the tentative title of your work here"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="resume"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Resume*</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Provide a link to your resume in PDF format"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </>
-                  )}
-                  <FormField
-                    control={form.control}
-                    name="scienceProfile"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          Your Google Scholar, Scopus or ORCID profile*
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Provide a link to your Google Scholar, Scopus or ORCID profile"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="video"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Short video*</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Provide a link to a teaser of your slam talk"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </>
-              )}
-              <FormField
-                control={form.control}
-                name="personalData"
-                render={({ field }) => (
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={(value: boolean) =>
-                          field.onChange(value)
-                        }
-                        className="rounded-full data-[state=checked]:text-primary data-[state=checked]:bg-primary-foreground"
-                        name={field.name}
-                      />
-                    </FormControl>
-                    <FormLabel className="hover:cursor-pointer">
-                      I agree to the processing of personal data.
-                      <Link
-                        className="ml-2 text-sm underline text-[#2A84EE]"
-                        href="#"
-                      >
-                        Privacy policy
-                      </Link>
-                    </FormLabel>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="captchaToken"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Turnstile
-                        id="registration-turnstile"
-                        siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                        options={{
-                          action: "Registration",
-                          theme: "dark",
-                          size: "compact",
-                        }}
-                        onSuccess={(token) => field.onChange(token)}
-                        className="mx-auto"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <p className="text-destructive">
-                <AlertCircle className="h-4 w-4 inline-block mr-1" />
-                After submitting the form, a confirmation will be sent to your
-                e-mail address. If confirmation has not been recieved, please
-                email us{" "}
-                <Link
-                  className="underline"
-                  href="mailto:biocon@itmo.ru"
-                  prefetch={false}
+              <Input placeholder="Enter your custom role here" />
+            </Form.Item>
+          )}
+          <Form.Item<RegisterFormValues>
+            name="clothingSize"
+            label="Clothing size"
+            rules={[
+              { required: true, message: "Please select your clothing size" },
+            ]}
+          >
+            <Select
+              placeholder="---"
+              options={clothingSizes.map((size) => ({
+                value: size,
+                label: size,
+              }))}
+            />
+          </Form.Item>
+          <Form.Item<RegisterFormValues>
+            name="participationType"
+            label="Participation type"
+            rules={[
+              {
+                required: true,
+                message: "Please select your participation type",
+              },
+            ]}
+          >
+            <Radio.Group>
+              {participationTypes.map((participationType, i) => (
+                <Radio key={i} value={participationType.value}>
+                  {participationType.label}
+                </Radio>
+              ))}
+            </Radio.Group>
+          </Form.Item>
+          {selectedParticipationType === "Attendee" && (
+            <Form.Item<RegisterFormValues>
+              name="motivationLetter"
+              label="Motivation letter"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your motivation letter",
+                },
+              ]}
+            >
+              <Input.TextArea placeholder="Enter your motivation letter here" />
+            </Form.Item>
+          )}
+          {selectedParticipationType &&
+            selectedParticipationType !== "Attendee" && (
+              <>
+                <Form.Item<RegisterFormValues>
+                  name="researchInterests"
+                  label="Research interests"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your research interests",
+                    },
+                  ]}
                 >
-                  biocon@itmo.ru
-                </Link>
-              </p>
-              <Button type="submit" className="self-center !mt-8">
-                Submit
-              </Button>
-            </form>
-          </Form>
-        </DialogContent>
-      </Dialog>
+                  <Input placeholder="Enter your research interest(s) here" />
+                </Form.Item>
+                {selectedParticipationType === "Invited Speaker" && (
+                  <>
+                    <Form.Item<RegisterFormValues>
+                      name="tentativeTitle"
+                      label="Tentative title"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter your tentative title",
+                        },
+                      ]}
+                    >
+                      <Input placeholder="Enter the tentative title of your work here" />
+                    </Form.Item>
+                    <Form.Item<RegisterFormValues>
+                      name="resume"
+                      label="Resume"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please provide a link to your resume",
+                        },
+                        { type: "url", message: "Please enter a valid url" },
+                      ]}
+                    >
+                      <Input placeholder="Provide a link to your resume in PDF format" />
+                    </Form.Item>
+                  </>
+                )}
+                <Form.Item<RegisterFormValues>
+                  name="scienceProfile"
+                  label="Your Google Scholar, Scopus or ORCID profile"
+                  rules={[
+                    {
+                      required: true,
+                      message:
+                        "Please enter your Google Scholar, Scopus or ORCID profile",
+                    },
+                    { type: "url", message: "Please enter a valid url" },
+                  ]}
+                >
+                  <Input placeholder="Provide a link to your Google Scholar, Scopus or ORCID profile" />
+                </Form.Item>
+                <Form.Item<RegisterFormValues>
+                  name="video"
+                  label="Video"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your video",
+                    },
+                    { type: "url", message: "Please enter a valid url" },
+                  ]}
+                >
+                  <Input placeholder="Provide a link to a teaser of your slam talk" />
+                </Form.Item>
+              </>
+            )}
+          <Form.Item<RegisterFormValues>
+            name="personalData"
+            valuePropName="checked"
+            rules={[
+              {
+                required: true,
+                message: "Please accept the personal data agreement",
+              },
+            ]}
+          >
+            <Checkbox>
+              I agree to the processing of my personal data.
+              <Link
+                prefetch={false}
+                className="ml-2 text-sm underline text-[#2A84EE]"
+                href="#"
+              >
+                Privacy policy
+              </Link>
+            </Checkbox>
+          </Form.Item>
+          <Form.Item<RegisterFormValues>
+            name="captchaToken"
+            rules={[
+              {
+                validator: (_, value) =>
+                  value
+                    ? Promise.resolve()
+                    : Promise.reject("Please confirm that you are not a robot"),
+              },
+            ]}
+          >
+            <Turnstile
+              id="registration-turnstile"
+              siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+              options={{
+                action: "Registration",
+                theme: "light",
+                size: "normal",
+                language: "en",
+              }}
+              onSuccess={(token) =>
+                form.setFieldsValue({ captchaToken: token })
+              }
+              className="mx-auto"
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
     </>
   );
 }
