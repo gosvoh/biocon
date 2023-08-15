@@ -155,7 +155,7 @@ const SpeakerCard = ({
 
   const Img = isValidImage
     ? () => (
-        <div className="relative w-full h-full aspect-square">
+        <div className="relative w-full aspect-square">
           <Image
             src={image as string}
             alt={name}
