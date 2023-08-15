@@ -2,7 +2,16 @@ import { useState } from "react";
 import SuccessDialog from "./success.dialog";
 import { Turnstile } from "@marsidev/react-turnstile";
 import Link from "next/link";
-import { Modal, Button, Form, Input, Checkbox, Tag } from "antd";
+import {
+  Modal,
+  Button,
+  Form,
+  Input,
+  Checkbox,
+  Tag,
+  ConfigProvider,
+  theme,
+} from "antd";
 
 export default function ContactDialog({
   open,
@@ -25,7 +34,7 @@ export default function ContactDialog({
   ];
 
   return (
-    <>
+    <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
       <SuccessDialog
         open={success}
         onOpenChange={setSuccess}
@@ -174,6 +183,6 @@ export default function ContactDialog({
           </Form.Item>
         </Form>
       </Modal>
-    </>
+    </ConfigProvider>
   );
 }

@@ -78,7 +78,8 @@
   section,
   header,
   footer,
-  .separator {
+  .separator,
+  .timeline {
     @apply px-6 md:px-12 lg:px-24 xl:px-40;
   }
 }

@@ -1,5 +1,15 @@
 import { useAsync } from "@react-hookz/web";
-import { Button, Checkbox, Form, Input, Modal, Radio, Select } from "antd";
+import {
+  Button,
+  Checkbox,
+  ConfigProvider,
+  Form,
+  Input,
+  Modal,
+  Radio,
+  Select,
+  theme,
+} from "antd";
 import { useEffect, useState } from "react";
 import SuccessDialog from "./success.dialog";
 import Link from "next/link";
@@ -97,7 +107,7 @@ export default function RegistrationDialog({
   }, [countriesAction]);
 
   return (
-    <>
+    <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
       <SuccessDialog
         open={success}
         onOpenChange={setSuccess}
@@ -436,6 +446,6 @@ export default function RegistrationDialog({
           </Form.Item>
         </Form>
       </Modal>
-    </>
+    </ConfigProvider>
   );
 }

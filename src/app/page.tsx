@@ -13,7 +13,7 @@ import OutlineCircle from "../../public/outline-circle.svg";
 import { Roboto } from "next/font/google";
 import Footer from "./footer";
 import { Skeleton } from "@/components/ui/skeleton";
-import { theme } from "../../tailwind.config";
+import { theme as tailwindTheme } from "../../tailwind.config";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -21,12 +21,16 @@ import "swiper/css/pagination";
 import { ChevronLeft, ChevronRight, Trophy } from "lucide-react";
 import { Separator as UiSeparator } from "@/components/ui/separator";
 import { useAsync, useWindowSize } from "@react-hookz/web";
-import { Organizer, Speaker } from "./data";
 import React from "react";
 import dynamic from "next/dynamic";
 import { TrophyFilled } from "@ant-design/icons";
-import { Speakers } from "@prisma/client";
-import { FloatButton } from "antd";
+import type { Speakers, Organizers } from "@prisma/client";
+import {
+  ConfigProvider,
+  FloatButton,
+  Timeline,
+  theme as antdTheme,
+} from "antd";
 import { useRouter } from "next/navigation";
 
 const RegistrationDialog = dynamic(() => import("./registration.dialog"));
@@ -500,6 +504,64 @@ export default function Home() {
     );
   };
 
+  const TimeLine = () => {
+    return (
+      <div className="timeline grid grid-cols-[auto,1fr] grid-rows[7] justify-center items-center justify-items-center gap-x-6 md:gap-x-16 hyphens-auto">
+        <div className="row-[1] col-[1] rounded-full border-[3px] border-white w-24 h-24 md:w-20 md:h-20" />
+        <div className="row-[2] col-[1] bg-white w-[3px] h-14 md:h-20" />
+        <div className="row-[3] col-[1] rounded-full border-[3px] border-white w-24 h-24 md:w-20 md:h-20" />
+        <div className="row-[4] col-[1] bg-white w-[3px] h-14 md:h-20" />
+        <div className="row-[5] col-[1] rounded-full border-[3px] border-white w-24 h-24 md:w-20 md:h-20" />
+        <div className="row-[6] col-[1] bg-white w-[3px] h-14 md:h-20" />
+        <div className="row-[7] col-[1] rounded-full bg-white border-[3px] border-white w-24 h-24 md:w-20 md:h-20" />
+
+        <div className="row-[1] h-full justify-self-start flex flex-col justify-around">
+          <p
+            className={cn(componentsClassNames.h3.className, "text-[#6CCD86]")}
+          >
+            Free participation
+          </p>
+
+          <p>For all types of participants</p>
+        </div>
+        <div className="row-[3] h-full justify-self-start flex flex-col justify-around">
+          <p className={cn(componentsClassNames.h3.className)}>November 1</p>
+          <p>
+            End of registration for participants from{" "}
+            <Link
+              className="underline"
+              href="https://electronic-visa.kdmid.ru/country_en.html"
+            >
+              non-listed countries
+            </Link>
+          </p>
+        </div>
+        <div className="row-[5] h-full justify-self-start flex flex-col justify-around">
+          <p
+            className={cn(componentsClassNames.h3.className, "text-[#FE6F61]")}
+          >
+            December 1
+          </p>
+          <p>
+            End of registration for participants from Russia and{" "}
+            <Link
+              className="underline"
+              href="https://electronic-visa.kdmid.ru/country_en.html"
+            >
+              countries included in the list
+            </Link>
+          </p>
+        </div>
+        <div className="row-[7] h-full justify-self-start flex flex-col justify-around">
+          <p className={cn(componentsClassNames.h3.className)}>
+            December 18-20
+          </p>
+          <p>International Industrial Biotechnology Conference</p>
+        </div>
+      </div>
+    );
+  };
+
   const SpeakersComp = () => {
     const [speakersState, speakersAction] = useAsync<Speakers[]>(
       async () => fetch("/api/speakers").then((res) => res.json()),
@@ -514,7 +576,7 @@ export default function Home() {
       lg: number;
       xl: number;
       "2xl": number;
-    } = Object.entries(theme!.screens as any).reduce(
+    } = Object.entries(tailwindTheme!.screens as any).reduce(
       // @ts-ignore
       (acc, [key, val]) => ({ ...acc, [key]: Number(val.slice(0, -2)) }),
       {}
@@ -721,7 +783,7 @@ export default function Home() {
   );
 
   const Organizers = () => {
-    const [organizersState, organizersAction] = useAsync<Organizer[]>(
+    const [organizersState, organizersAction] = useAsync<Organizers[]>(
       async () => fetch("/api/organizers").then((res) => res.json()),
       []
     );
@@ -774,6 +836,7 @@ export default function Home() {
       <Separator />
       <About />
       <ForWhom />
+      <TimeLine />
       <Separator />
       <SpeakersComp />
       <Separator />

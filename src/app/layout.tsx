@@ -38,17 +38,15 @@ export default function RootLayout({
           backgroundSize: "100% 100%",
         }}
       >
-        <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
-          <Image
-            src={Biocon}
-            alt="Biocon"
-            className="absolute top-0 left-0 -z-[10]"
-            width={900}
-            priority
-          />
-          {children}
-          <div className="absolute bottom-0 left-0 right-0 h-screen bg-gradient-to-t from-black to-transparent -z-50"></div>
-        </ConfigProvider>
+        <Image
+          src={Biocon}
+          alt="Biocon"
+          className="absolute top-0 left-0 -z-[10]"
+          width={900}
+          priority
+        />
+        {children}
+        <div className="absolute bottom-0 left-0 right-0 h-screen bg-gradient-to-t from-black to-transparent -z-50"></div>
       </body>
     </html>
   );
