@@ -1,13 +1,12 @@
 "use client";
 
-import { Button as UiButton, buttonVariants } from "@/components/ui/button";
-import NextLink from "next/link";
+import { Button, buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
 
 import Cat from "../../public/cat.jpg";
-import Biocon from "../../public/biocon.png";
 import Logo from "../../public/logo.svg";
 import AboutProgram from "../../public/about&program.png";
 import OutlineCircle from "../../public/outline-circle.svg";
@@ -20,12 +19,15 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { ChevronLeft, ChevronRight, Trophy } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { Separator as UiSeparator } from "@/components/ui/separator";
 import { useAsync, useWindowSize } from "@react-hookz/web";
 import { Organizer, Speaker } from "./data";
 import React from "react";
 import dynamic from "next/dynamic";
 import { TrophyFilled } from "@ant-design/icons";
+import { Speakers } from "@prisma/client";
+import { FloatButton } from "antd";
+import { useRouter } from "next/navigation";
 
 const RegistrationDialog = dynamic(() => import("./registration.dialog"));
 const ContactDialog = dynamic(() => import("./contact.dialog"));
@@ -33,23 +35,40 @@ const FollowDialog = dynamic(() => import("./follow.dialog"));
 const MainNav = dynamic(() => import("@/components/main-nav"));
 const MobileNav = dynamic(() => import("@/components/mobile-nav"));
 
-const Link = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof NextLink>) => (
-  <NextLink
-    {...props}
-    className={cn("text-base", className)}
-    prefetch={false}
-  />
-);
-
-const Button = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof UiButton>) => (
-  <UiButton {...props} className={cn(className, "text-base min-h-[44px]")} />
-);
+const componentsClassNames = {
+  h1: {
+    className: "text-5xl sm:text-7xl md:text-9xl font-bold uppercase",
+  },
+  h2: {
+    className:
+      "text-2xl sm:text-3xl md:text-4xl mb-8 mt-2 md:mt-8 font-semibold",
+  },
+  h3: {
+    className: "text-xl sm:text-2xl md:text-3xl font-semibold",
+  },
+  button: {
+    className: "px-8 py-4 text-base sm:text-lg md:text-xl font-normal",
+    get accent() {
+      return {
+        className: cn("sm:py-5 md:py-6", "w-full sm:w-auto", this.className),
+      };
+    },
+    get outline() {
+      return {
+        className: cn(
+          buttonVariants({ variant: "outline" }),
+          "bg-transparent",
+          "border-white",
+          "hover:bg-white",
+          "hover:text-black",
+          "sm:py-5 md:py-6",
+          "w-full sm:w-auto",
+          this.className
+        ),
+      };
+    },
+  },
+};
 
 const Navbar = ({
   setOpenContact,
@@ -60,10 +79,7 @@ const Navbar = ({
 } & React.HTMLProps<HTMLDivElement>) => {
   return (
     <header
-      className={cn(
-        "flex justify-between items-center my-4 w-full absolute top-0 left-0 right-0",
-        className
-      )}
+      className={cn("flex justify-between items-center py-4 w-full", className)}
       {...props}
     >
       <a href="/">
@@ -80,13 +96,13 @@ const StrokeFont = Roboto({
   subsets: ["latin"],
 });
 
-const H2 = ({
+const H1 = ({
   children,
   className,
   ...props
 }: { children: React.ReactNode } & React.HTMLProps<HTMLHeadingElement>) => {
   return (
-    <h2
+    <h1
       {...props}
       className={cn(
         "text-4xl sm:text-6xl md:text-8xl font-bold stroke text-left w-full uppercase mb-12",
@@ -95,7 +111,7 @@ const H2 = ({
       )}
     >
       {children}
-    </h2>
+    </h1>
   );
 };
 
@@ -107,7 +123,7 @@ const P = ({
   <p
     {...props}
     className={cn(
-      "text-base sm:text-2xl md:text-3xl text-left w-full",
+      "text-base sm:text-lg md:text-2xl text-left w-full",
       className
     )}
   >
@@ -118,8 +134,8 @@ const P = ({
 const SpeakerCard = ({
   name,
   nameUrl,
-  index,
-  imageUrl,
+  hIndex: hIndex,
+  image: image,
   university,
   universityUrl,
   topic,
@@ -127,47 +143,38 @@ const SpeakerCard = ({
   className,
   thunder,
   thunderUrl,
+  country,
   ...props
-}: {
-  name: string;
-  nameUrl: string;
-  index: number;
-  imageUrl?: string;
-  university: string;
-  universityUrl: string;
-  topic?: string;
-  description?: string;
-  thunder: string;
-  thunderUrl?: string;
-} & React.HTMLProps<HTMLDivElement>) => {
+}: Omit<Speakers, "id" | "speakerType"> & React.HTMLProps<HTMLDivElement>) => {
   const [isValidImage, setIsValidImage] = useState(false);
 
   useEffect(() => {
-    if (!imageUrl) return;
-    fetch(imageUrl).then((res) => setIsValidImage(res.ok));
-  }, [imageUrl]);
+    if (!image) return;
+    fetch(image).then((res) => setIsValidImage(res.ok));
+  }, [image]);
 
   const Img = isValidImage
     ? () => (
         <div className="relative w-full h-full aspect-square">
           <Image
-            src={imageUrl as string}
+            src={image as string}
             alt={name}
             fill
-            className="rounded-lg object-cover aspect-square flex-grow"
+            className="rounded-lg object-cover aspect-square"
           />
         </div>
       )
-    : () => <Skeleton className="rounded-lg aspect-square w-full flex-grow" />;
+    : () => <Skeleton className="rounded-lg aspect-square w-full" />;
 
   return (
     <div
       {...props}
       className={cn(
         "flex flex-col",
-        "justify-center",
+        "items-start",
         "w-full p-2",
-        "text-lg",
+        "text-sm sm:text-base md:text-lg",
+        "space-y-4",
         className
       )}
     >
@@ -176,7 +183,7 @@ const SpeakerCard = ({
         target="_blank"
         prefetch={false}
         href={nameUrl}
-        className="text-3xl my-4 text-center hover:underline"
+        className="text-lg sm:text-xl md:text-2xl text-center hover:underline mx-auto"
       >
         {name}
       </Link>
@@ -184,12 +191,13 @@ const SpeakerCard = ({
         target="_blank"
         prefetch={false}
         href={universityUrl}
-        className="mb-4 hover:underline text-center"
+        className="mb-4 hover:underline text-center mx-auto min-h-[5.25rem] md:min-h-[5.5rem]"
       >
         {university}
       </Link>
-      <div className="border border-white rounded-lg text-center px-4 py-2 w-full my-4">
-        <p className="text-xl font-semibold">{index}</p>
+      <p className="text-center font-bold">{country}</p>
+      <div className="border border-white rounded-lg text-center px-4 py-2 w-full">
+        <p className="text-xl font-semibold">{hIndex}</p>
         <p>
           <span className="italic">h</span>-index
         </p>
@@ -199,16 +207,16 @@ const SpeakerCard = ({
           prefetch={false}
           href={thunderUrl}
           target="_blank"
-          className="text-center my-4 flex items-center justify-center gap-4 hover:underline"
+          className="text-center flex items-center justify-center gap-4 hover:underline mx-auto"
         >
           <TrophyFilled className="text-yellow-400" /> {thunder}
         </Link>
       ) : (
-        <p className="text-center my-4 flex items-center justify-center gap-4">
+        <p className="text-center flex items-center justify-center gap-4">
           <Trophy className="text-yellow-400" /> {thunder}
         </p>
       )}
-      {topic && <p className="my-4">Lecture topic: {topic}</p>}
+      {topic && <p>Lecture topic: {topic}</p>}
       {description && <p>{description}</p>}
     </div>
   );
@@ -320,6 +328,7 @@ export default function Home() {
   const [openRegistration, setOpenRegistration] = useState(false);
   const [openContact, setOpenContact] = useState(false);
   const [openFollow, setOpenFollow] = useState(false);
+  const router = useRouter();
 
   const Section = ({
     children,
@@ -338,52 +347,35 @@ export default function Home() {
   );
 
   const Header = () => (
-    <Section className="flex flex-col justify-center items-end !mb-24">
-      <Image
-        src={Biocon}
-        alt="Biocon"
-        className="absolute top-0 left-0 -z-[10]"
-        width={900}
-        priority
-      />
-      <h1 className="text-5xl sm:text-7xl md:text-9xl font-bold uppercase mt-[30vh]">
-        BioCon 2023
-      </h1>
-      <h2 className="text-sm sm:text-2xl md:text-4xl mb-8 mt-2 md:mt-8">
-        International Industrial Biotechnology Conference
-      </h2>
-      <P className="text-right">December 18-20, 2023</P>
-      <P className="text-right uppercase">Almetyevsk</P>
-      <div className="flex flex-nowrap flex-col sm:flex-row justify-evenly items-center w-1/2 gap-6 whitespace-nowrap mt-16 self-center">
-        <Link
-          href="#about"
-          className={cn(
-            buttonVariants({ variant: "outline" }),
-            "bg-transparent",
-            "border-white",
-            "hover:bg-white",
-            "hover:text-black",
-            "px-8 py-4",
-            "text-base sm:text-lg md:text-2xl",
-            "sm:py-5 md:py-6",
-            "w-full sm:w-auto"
-          )}
+    <div role="none" className="flex flex-col h-screen gap-8">
+      <Navbar setOpenContact={setOpenContact} />
+      <Section className="flex-1 flex flex-col justify-center items-end">
+        <div
+          role="none"
+          className="flex-1 flex flex-col items-end justify-center"
         >
-          More info
-        </Link>
-        <Button
-          onClick={() => setOpenRegistration(true)}
-          className={cn(
-            "px-8 py-4",
-            "text-base sm:text-lg md:text-2xl",
-            "sm:py-5 md:py-6",
-            "w-full sm:w-auto"
-          )}
-        >
-          Registration
-        </Button>
-      </div>
-    </Section>
+          <h1 className={cn(componentsClassNames.h1.className, "text-right")}>
+            BioCon 2023
+          </h1>
+          <h2 className={cn(componentsClassNames.h2.className, "text-right")}>
+            International Industrial Biotechnology Conference
+          </h2>
+          <P className="text-right">December 18-20, 2023</P>
+          <P className="text-right uppercase">Almetyevsk</P>
+        </div>
+        <div className="mt-auto mb-16 flex flex-nowrap flex-col sm:flex-row justify-evenly items-center w-1/2 gap-6 whitespace-nowrap self-center">
+          <Link href="#about" {...componentsClassNames.button.outline}>
+            More info
+          </Link>
+          <Button
+            onClick={() => setOpenRegistration(true)}
+            {...componentsClassNames.button.accent}
+          >
+            Registration
+          </Button>
+        </div>
+      </Section>
+    </div>
   );
 
   const About = () => {
@@ -395,8 +387,19 @@ export default function Home() {
       description: string;
     }) => {
       return (
-        <div className="flex-grow md:flex-grow-0 basis-[27.5%] flex flex-col justify-center text-center border-2 border-white rounded-3xl px-12 md:px-16 py-8 hyphens-none">
-          <h3 className="text-2xl font-bold">{title}</h3>
+        <div
+          className={cn(
+            "flex-grow",
+            "basis-[27.5%] flex flex-col",
+            "justify-center text-center",
+            "border-2 border-white",
+            "rounded-3xl hyphens-none",
+            "px-8 sm:px-10 md:px-12 py-10"
+          )}
+        >
+          <h3 className={cn(componentsClassNames.h3.className, "mb-4")}>
+            {title}
+          </h3>
           <p>{description}</p>
         </div>
       );
@@ -411,9 +414,9 @@ export default function Home() {
           src={AboutProgram}
           alt="About background image"
           fill
-          className="-z-10 opacity-25 object-cover object-center"
+          className="-z-10 opacity-25 object-cover lg:object-contain object-center"
         />
-        <H2>About</H2>
+        <H1>About</H1>
         <P className="my-8">
           Over the three days, you will have the opportunity to share your
           innovative ideas, research results and experiences with like-minded
@@ -437,13 +440,13 @@ export default function Home() {
         <div className="flex flex-wrap justify-evenly items-center w-1/2 gap-6 whitespace-nowrap mt-8 md:mt-16 self-center">
           <Button
             onClick={() => setOpenRegistration(true)}
-            className="px-8 py-4"
+            {...componentsClassNames.button.accent}
           >
             Registration
           </Button>
           <Button
             variant="outline"
-            className="px-8 py-4 bg-transparent border-white hover:bg-white hover:text-black"
+            {...componentsClassNames.button.outline}
             onClick={() => setOpenFollow(true)}
           >
             Follow us
@@ -456,68 +459,40 @@ export default function Home() {
   const ForWhom = () => {
     const circles = [
       { className: "col-[1] row-[1]" },
-      { className: "col-[1] md:col-[2] row-[2]" },
-      { className: "col-[2] md:col-[3] row-[1]" },
-      { className: "col-[2] md:col-[4] row-[2]" },
+      { className: "col-[2] row-[2]" },
+      { className: "col-[1] md:col-[3] row-[3] md:row-[1]" },
+      { className: "col-[2] md:col-[4] row-[4] md:row-[2]" },
     ];
 
     return (
       <Section className="mt-0">
-        <h3 className="text-2xl font-bold">For whom?</h3>
+        <h2 {...componentsClassNames.h2}>For whom?</h2>
         <div
           className={cn(
-            "grid grid-rows-2 grid-cols-2 md:grid-cols-4",
+            "grid grid-rows-4 md:grid-rows-2 grid-cols-2 md:grid-cols-4",
             "mt-8 whitespace-nowrap",
             "w-full",
             "items-center justify-items-center",
-            "text-xs sm:text-base md:text-lg",
+            "text-sm sm:text-lg md:text-xl",
             "font-bold",
             "gap-y-8"
           )}
         >
-          <p
-            className="col-[1] row-[1]"
-            style={{
-              textShadow:
-                "0 0 60px #E17A32, 0 0 60px #E17A32, 0 0 60px #E17A32",
-            }}
-          >
-            Young researchers
+          <p className={cn(circles[0].className, "text-center")}>
+            Junior and
+            <br />
+            young researchers
           </p>
-          <p
-            className="col-[2] row-[1] md:row-[2]"
-            style={{
-              textShadow:
-                "0 0 60px #E2369D, 0 0 60px #E2369D, 0 0 60px #E2369D",
-            }}
-          >
-            Scientists
-          </p>
-          <p
-            className="col-[1] md:col-[3] row-[2] md:row-[1]"
-            style={{
-              textShadow:
-                "0 0 60px #3278E1, 0 0 60px #3278E1, 0 0 60px #3278E1",
-            }}
-          >
-            Biotech experts
-          </p>
-          <p
-            className="col-[2] md:col-[4] row-[2]"
-            style={{
-              textShadow:
-                "0 0 60px #32E1E1, 0 0 60px #32E1E1, 0 0 60px #32E1E1",
-            }}
-          >
-            Students
-          </p>
+          <p className={circles[1].className}>Established researchers</p>
+          <p className={circles[2].className}>Biotech experts</p>
+          <p className={circles[3].className}>Biotech enthusiasts</p>
 
           {circles.map(({ className }, i) => (
             <Image
               key={i}
               src={OutlineCircle}
               alt="Outline circle"
-              className={`${className} h-[45px] md:h-[80px] w-auto`}
+              className={`${className} h-[60px] md:h-[100px] w-auto`}
             />
           ))}
         </div>
@@ -525,8 +500,8 @@ export default function Home() {
     );
   };
 
-  const Speakers = () => {
-    const [speakersState, speakersAction] = useAsync<Speaker[]>(
+  const SpeakersComp = () => {
+    const [speakersState, speakersAction] = useAsync<Speakers[]>(
       async () => fetch("/api/speakers").then((res) => res.json()),
       []
     );
@@ -544,16 +519,13 @@ export default function Home() {
       (acc, [key, val]) => ({ ...acc, [key]: Number(val.slice(0, -2)) }),
       {}
     );
-    const LoremText =
-      "Lorem ipsum dolor sit amet consectetur. Rnesciunt ipsum maxime natus nobis autem voluptatem impedit, accusamus deleniti ullam incidunt, quas dolore esse facere iure soluta? Tempora, rerum.";
-
     const windowSizes = useWindowSize();
 
     useEffect(() => {
       speakersAction.execute();
     }, [speakersAction]);
 
-    const Wrapper = ({ elements }: { elements: Speaker[] }) => {
+    const Wrapper = ({ elements }: { elements: Speakers[] }) => {
       let ret = (
         <div className="w-full flex flex-wrap gap-y-8 gap-x-16 justify-items-center justify-around">
           {speakersState.status === "loading" || elements.length === 0
@@ -570,13 +542,14 @@ export default function Home() {
                   thunderUrl={speaker.thunderUrl}
                   key={speaker.id}
                   name={speaker.name}
-                  index={speaker.hIndex}
+                  hIndex={speaker.hIndex}
                   university={speaker.university}
                   description={speaker.description}
                   thunder={speaker.thunder}
                   topic={speaker.topic}
-                  imageUrl={`/images/${speaker.image}.webp`}
+                  image={`/images/${speaker.image}.webp`}
                   className="basis-[80%] md:basis-3/12"
+                  country={speaker.country}
                 />
               ))}
         </div>
@@ -618,13 +591,14 @@ export default function Home() {
                         universityUrl="#"
                         thunderUrl="#"
                         name={speaker.name}
-                        index={speaker.hIndex}
+                        hIndex={speaker.hIndex}
                         university={speaker.university}
                         description={speaker.description}
                         thunder={speaker.thunder}
                         topic={speaker.topic}
-                        imageUrl={`/images/${speaker.image}.webp`}
+                        image={`/images/${speaker.image}.webp`}
                         className="text-center"
+                        country={speaker.country}
                       />
                     </SwiperSlide>
                   ))}
@@ -648,14 +622,19 @@ export default function Home() {
         className="flex flex-col justify-center items-center"
         id="speakers"
       >
-        <H2 className="text-right">Speakers</H2>
-        <h3 className="text-2xl font-bold mb-4">Plenary</h3>
+        <H1 className="text-right">Speakers</H1>
+        <h3 className={cn(componentsClassNames.h2.className, "mb-8")}>
+          Plenary
+        </h3>
         <Wrapper
           elements={speakersState.result.filter(
             (speaker) => speaker.speakerType === "plenary"
           )}
         />
-        <h3 className="text-2xl font-bold mb-4 mt-16">Invited</h3>
+
+        <h3 className={cn(componentsClassNames.h2.className, "mb-8 mt-32")}>
+          Invited
+        </h3>
         <Wrapper
           elements={speakersState.result.filter(
             (speaker) => speaker.speakerType === "invited"
@@ -676,7 +655,7 @@ export default function Home() {
         fill
         className="-z-10 opacity-25 object-cover md:object-scale-down object-center"
       />
-      <H2 className="mb-20">Program</H2>
+      <H1 className="mb-20">Program</H1>
       <P>
         TED-style plenary talks from world-renowned researchers, parallel
         sessions on major spheres of biotechnology headlined by recognized
@@ -706,7 +685,7 @@ export default function Home() {
 
   const Venue = () => (
     <Section
-      className="flex flex-row justify-center items-center relative"
+      className="flex flex-row justify-center items-center relative md:grid md:grid-cols-2 md:gap-12"
       id="venue"
     >
       <div className="hidden md:block relative md:flex-1 md:h-[175%] mt-12">
@@ -714,11 +693,11 @@ export default function Home() {
           src={"/venue.png"}
           alt={"Venue image"}
           fill
-          className="-z-10 opacity-30 md:opacity-100 object-contain object-center"
+          className="-z-10 opacity-30 md:opacity-100 object-contain object-[50%_60%] h-auto"
         />
       </div>
       <div className="flex-1">
-        <H2 className="text-right">Venue</H2>
+        <H1 className="text-right">Venue</H1>
         <div className="relative text-2xl">
           <Image
             src={"/venue.png"}
@@ -756,7 +735,7 @@ export default function Home() {
         className="flex flex-col justify-center items-center"
         id="organizers"
       >
-        <H2>Organizers</H2>
+        <H1>Organizers</H1>
         <div className="w-full flex flex-wrap gap-4 md:gap-10 justify-items-center justify-center">
           {organizersState.result.length === 0
             ? Array.from({ length: 5 }).map((_, i) => (
@@ -777,6 +756,12 @@ export default function Home() {
     );
   };
 
+  const Separator = () => (
+    <div className="separator w-full">
+      <UiSeparator className="bg-white" />
+    </div>
+  );
+
   return (
     <>
       <RegistrationDialog
@@ -785,22 +770,23 @@ export default function Home() {
       />
       <ContactDialog open={openContact} onOpenChange={setOpenContact} />
       <FollowDialog open={openFollow} onOpenChange={setOpenFollow} />
-      <Navbar setOpenContact={setOpenContact} />
-      <main className="flex flex-col justify-center items-center gap-8">
-        <Header />
-        <Separator className="bg-white" />
-        <About />
-        <ForWhom />
-        <Separator className="bg-white" />
-        <Speakers />
-        <Separator className="bg-white" />
-        <Program />
-        <Separator className="bg-white" />
-        <Venue />
-        <Separator className="bg-white" />
-        <Organizers />
-      </main>
+      <Header />
+      <Separator />
+      <About />
+      <ForWhom />
+      <Separator />
+      <SpeakersComp />
+      <Separator />
+      <Program />
+      <Separator />
+      <Venue />
+      <Separator />
+      <Organizers />
       <Footer />
+      <FloatButton.BackTop
+        className="bg-white hover:bg-gray-200"
+        onClick={() => router.push("/")}
+      />
     </>
   );
 }
