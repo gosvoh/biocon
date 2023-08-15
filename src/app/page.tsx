@@ -344,6 +344,7 @@ export default function Home() {
         alt="Biocon"
         className="absolute top-0 left-0 -z-[10]"
         width={900}
+        priority
       />
       <h1 className="text-5xl sm:text-7xl md:text-9xl font-bold uppercase mt-[30vh]">
         BioCon 2023
