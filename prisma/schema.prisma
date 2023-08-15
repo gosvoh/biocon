@@ -14,6 +14,7 @@ model Registrations {
   id                Int      @id @default(autoincrement())
   name              String
   email             String   @unique
+  howToKnow         String
   mobile            String
   country           String
   city              String
@@ -50,6 +51,7 @@ model Speakers {
   thunderUrl    String?
   hIndex        Int
   speakerType   String
+  country       String
 }
 
 model Organizers {
