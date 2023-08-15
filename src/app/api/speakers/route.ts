@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
   const hIndex = data.get("hIndex") as string | null;
   const img = data.get("image") as File | null;
   const speakerType = data.get("speakerType") as string | null;
+  const country = data.get("country") as string | null;
 
   if (
     !name ||
@@ -33,7 +34,8 @@ export async function POST(req: NextRequest) {
     !hIndex ||
     !img ||
     !thunder ||
-    !speakerType
+    !speakerType ||
+    !country
   )
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });
 
@@ -62,6 +64,7 @@ export async function POST(req: NextRequest) {
       hIndex: parseInt(hIndex),
       image: uuid,
       speakerType,
+      country,
     },
   });
 

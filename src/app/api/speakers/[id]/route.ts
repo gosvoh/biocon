@@ -46,6 +46,7 @@ export async function PATCH(
     const hIndex = data.get("hIndex") as string | null;
     const img = data.get("image") as File | null;
     const speakerType = data.get("speakerType") as string | null;
+    const country = data.get("country") as string | null;
 
     if (
       !name ||
@@ -54,7 +55,8 @@ export async function PATCH(
       !universityUrl ||
       !hIndex ||
       !thunder ||
-      !speakerType
+      !speakerType ||
+      !country
     )
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
 
@@ -85,6 +87,7 @@ export async function PATCH(
           thunderUrl: thunderUrl || "",
           hIndex: parseInt(hIndex),
           speakerType,
+          country,
         },
       })
     );
