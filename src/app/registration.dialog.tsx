@@ -52,12 +52,14 @@ export default function RegistrationDialog({
       label: "Attendee. Full-time participation in conference events",
     },
     {
-      value: "Invited Speaker",
-      label: "Invited speaker. A talk during one of the parallel sessions",
+      value: "Contributed speaker",
+      label:
+        "Contributed speaker. Attendee with opportunity to talk during one of the parallel session",
     },
     {
       value: "Science Slammer",
-      label: "Science Slammer. A science communication talk",
+      label:
+        "Science Slammer. Attendee with opportunity to science communication talk",
     },
   ];
   const selectedParticipationType = Form.useWatch("participationType", form);
@@ -341,7 +343,7 @@ export default function RegistrationDialog({
                 >
                   <Input placeholder="Enter your research interest(s) here" />
                 </Form.Item>
-                {selectedParticipationType === "Invited Speaker" && (
+                {selectedParticipationType === "Contributed speaker" && (
                   <>
                     <Form.Item<RegisterFormValues>
                       name="tentativeTitle"
