@@ -3,6 +3,7 @@ import { Inter, Heebo } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Biocon from "../../public/biocon.png";
+import BG from "../../public/bg_orig.png";
 import { ConfigProvider, theme } from "antd";
 
 const font = Heebo({ subsets: ["latin"] });
@@ -32,18 +33,19 @@ export default function RootLayout({
           "relative",
           "flex flex-col gap-8"
         )}
-        style={{
-          backgroundImage: `url(/bg.png)`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "100% 100%",
-        }}
       >
+        <Image
+          src={BG}
+          alt="Background image"
+          fill
+          className="-z-[50]"
+          priority
+        />
         <Image
           src={Biocon}
           alt="Biocon"
           className="absolute top-0 left-0 -z-[10]"
           width={900}
-          priority
         />
         {children}
         <div className="absolute bottom-0 left-0 right-0 h-screen bg-gradient-to-t from-black to-transparent -z-50"></div>
