@@ -190,7 +190,7 @@ const SpeakerCard = ({
         target="_blank"
         prefetch={false}
         href={universityUrl}
-        className="mb-4 hover:underline text-center mx-auto min-h-[5.25rem] md:min-h-[5.5rem]"
+        className="mb-4 hover:underline text-center mx-auto min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]"
       >
         {university}
       </Link>
@@ -766,8 +766,8 @@ export default function Home() {
           <p className="font-semibold text-5xl">Almetyevsk</p>
           <p className="my-6">(Russian: Альметьевск; Tatar: Әлмәт)</p>
           <p className="my-6">
-            Is a city in Tatarstan, Russia, located on the left bank of Zay
-            River.
+            Is a city in the Republic of Tatarstan, Russia, located on the left
+            bank of Zay River.
           </p>
           <p className="mt-8">
             The oil-rich city of Almetyevsk in Tatarstan region has ambitious
@@ -806,7 +806,7 @@ export default function Home() {
                   name={organizer.name}
                   position={organizer.position}
                   image={`/images/${organizer.image}.webp`}
-                  className="flex-1 basis-5/12 lg:last:grow-0"
+                  className="flex-1 basis-auto md:basis-5/12 lg:last:grow-0"
                 />
               ))}
         </div>
