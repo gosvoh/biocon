@@ -25,12 +25,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { TrophyFilled } from "@ant-design/icons";
 import type { Speakers, Organizers } from "@prisma/client";
-import {
-  ConfigProvider,
-  FloatButton,
-  Timeline,
-  theme as antdTheme,
-} from "antd";
+import { FloatButton } from "antd";
 import { useRouter } from "next/navigation";
 
 const RegistrationDialog = dynamic(() => import("./registration.dialog"));
@@ -199,7 +194,9 @@ const SpeakerCard = ({
       >
         {university}
       </Link>
-      <p className="text-center font-bold">{country}</p>
+      <p className="w-full text-center font-bold text-base sm:text-lg md:text-xl">
+        {country}
+      </p>
       <div className="border border-white rounded-lg text-center px-4 py-2 w-full">
         <p className="text-xl font-semibold">{hIndex}</p>
         <p>
@@ -240,6 +237,7 @@ const SpeakerCardSkeleton = ({ ...props }: React.HTMLProps<HTMLDivElement>) => (
     <Skeleton className="rounded-lg aspect-square w-full flex-grow" />
     <Skeleton className="w-3/4 h-4 mx-auto" />
     <Skeleton className="w-3/4 h-4 mx-auto" />
+    <Skeleton className="w-1/2 h-4 mx-auto" />
     <div className="border border-white rounded-lg text-center px-4 py-2 w-full my-8 space-y-2">
       <Skeleton className="w-1/2 h-6 mx-auto" />
       <Skeleton className="w-1/2 h-6 mx-auto" />
@@ -281,8 +279,6 @@ const OrganizerCard = ({
     <div
       {...props}
       className={cn(
-        "flex-1 basis-5/12",
-        "md:last:flex-grow-0 md:last:basis-1/2",
         "grid grid-cols-[auto,1fr]",
         "justify-center items-center",
         "w-full gap-4 p-4",
@@ -506,7 +502,7 @@ export default function Home() {
 
   const TimeLine = () => {
     return (
-      <div className="timeline grid grid-cols-[auto,1fr] grid-rows[7] justify-center items-center justify-items-center gap-x-6 md:gap-x-16 hyphens-auto">
+      <div className="my-16 timeline grid grid-cols-[auto,1fr] grid-rows[7] justify-center items-center justify-items-center gap-x-6 md:gap-x-16 hyphens-auto">
         <div className="row-[1] col-[1] rounded-full border-[3px] border-white w-24 h-24 md:w-20 md:h-20" />
         <div className="row-[2] col-[1] bg-white w-[3px] h-14 md:h-20" />
         <div className="row-[3] col-[1] rounded-full border-[3px] border-white w-24 h-24 md:w-20 md:h-20" />
@@ -810,7 +806,7 @@ export default function Home() {
                   name={organizer.name}
                   position={organizer.position}
                   image={`/images/${organizer.image}.webp`}
-                  className="flex-1 basis-5/12"
+                  className="flex-1 basis-5/12 lg:last:grow-0"
                 />
               ))}
         </div>
@@ -831,7 +827,11 @@ export default function Home() {
         onOpenChange={setOpenRegistration}
       />
       <ContactDialog open={openContact} onOpenChange={setOpenContact} />
-      <FollowDialog open={openFollow} onOpenChange={setOpenFollow} />
+      <FollowDialog
+        open={openFollow}
+        onOk={() => setOpenFollow(false)}
+        onCancel={() => setOpenFollow(false)}
+      />
       <Header />
       <Separator />
       <About />
