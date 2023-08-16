@@ -42,6 +42,7 @@ export default function ContactDialog({
         description="We will contact you in a short time"
       />
       <Modal
+        destroyOnClose
         open={open}
         title={
           <div className="text-center text-base font-normal mr-4">
@@ -60,6 +61,7 @@ export default function ContactDialog({
         }
       >
         <Form
+          preserve={false}
           form={form}
           layout="vertical"
           onFinish={(values) => {

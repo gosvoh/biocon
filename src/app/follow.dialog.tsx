@@ -21,6 +21,7 @@ export default function FollowDialog({
     <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
       <Modal
         {...props}
+        destroyOnClose
         width={600}
         title=""
         centered
@@ -54,6 +55,7 @@ export default function FollowDialog({
         </p>
         <p className="text-center">Be the first one to get our updates!</p>
         <Form
+          preserve={false}
           form={form}
           layout="inline"
           className="justify-around my-8"

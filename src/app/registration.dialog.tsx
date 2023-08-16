@@ -116,6 +116,7 @@ export default function RegistrationDialog({
       />
       <Modal
         className="!py-8"
+        destroyOnClose
         open={open}
         width={600}
         title={<div className="text-center">Registration</div>}
@@ -130,6 +131,7 @@ export default function RegistrationDialog({
         }
       >
         <Form
+          preserve={false}
           form={form}
           layout="vertical"
           onFinish={(values) => {
