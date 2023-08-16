@@ -416,7 +416,8 @@ export default function RegistrationDialog({
               <Link
                 prefetch={false}
                 className="ml-2 text-sm underline text-[#2A84EE]"
-                href="#"
+                href="/personal_data_policy.pdf"
+                target="_blank"
               >
                 Privacy policy
               </Link>
