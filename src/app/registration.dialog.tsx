@@ -107,7 +107,7 @@ export default function RegistrationDialog({
   }, [countriesAction]);
 
   return (
-    <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
+    <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
       <SuccessDialog
         open={success}
         onOpenChange={setSuccess}
