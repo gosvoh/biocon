@@ -25,12 +25,15 @@ export async function POST(req: NextRequest) {
   const speakerType = data.get("speakerType") as string | null;
   const country = data.get("country") as string | null;
 
+  data.forEach((val) => {
+    if (val === "undefined") return undefined;
+  });
+
   if (
     !name ||
     !nameUrl ||
     !university ||
     !universityUrl ||
-    !topic ||
     !hIndex ||
     !img ||
     !thunder ||
