@@ -1,70 +1,40 @@
-import {
-  Dialog,
-  DialogHeader,
-  DialogTitle,
-  DialogContent,
-  DialogDescription,
-} from "@/components/ui/dialog";
-import { DialogProps } from "@radix-ui/react-dialog";
 import VK from "../../public/vk.svg";
 import Telegram from "../../public/telegram.svg";
 import Facebook from "../../public/facebook.svg";
 import YouTube from "../../public/youtube.svg";
 import Link from "next/link";
 import Image from "next/image";
-import * as yup from "yup";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { socials } from "@/socials";
+import { Button, ConfigProvider, Form, Input, Modal, theme } from "antd";
+import type { ModalFuncProps } from "antd";
+import { useState } from "react";
 
 export default function FollowDialog({
   ...props
-}: {} & React.PropsWithoutRef<DialogProps>) {
-  const formSchema = yup.object().shape({
-    name: yup
-      .string()
-      .required("Please enter your name")
-      .min(3, "Name must be at least 3 characters"),
-    email: yup
-      .string()
-      .required("Please enter your email address")
-      .email("Please enter a valid email address"),
-  });
-
-  const form = useForm({
-    resolver: yupResolver(formSchema),
-  });
-
-  function handleSubmit(data: yup.InferType<typeof formSchema>) {
-    fetch("/api/follow", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then(() => {
-      form.reset();
-      props.onOpenChange?.(false);
-    });
-  }
+}: {} & React.PropsWithoutRef<ModalFuncProps>) {
+  const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
   return (
-    <Dialog {...props}>
-      <DialogContent className="w-[80%]">
-        <DialogHeader>
-          <DialogTitle className="text-center">
-            Follow us on social networks
-          </DialogTitle>
-        </DialogHeader>
+    <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
+      <Modal
+        {...props}
+        width={600}
+        title=""
+        centered
+        footer={
+          <div className="flex justify-center">
+            <Button onClick={() => form.submit()} loading={loading}>
+              Register
+            </Button>
+          </div>
+        }
+      >
+        <h1 className="text-2xl sm:text-3xl md:text-4xl mb-8 mt-2 md:mt-8 font-semibold text-center">
+          Follow us on social networks
+        </h1>
         <div className="flex flex-row flex-wrap gap-8 items-center justify-center my-12">
           <Link href={socials.vk} target="_blank" prefetch={false}>
             <Image src={VK} alt={"VK social"} width={40} />
@@ -79,47 +49,48 @@ export default function FollowDialog({
             <Image src={YouTube} alt={"YouTube social"} width={40} />
           </Link>
         </div>
-        <DialogTitle className="text-center">
+        <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-center">
           Subscribe to our newsletter!
-        </DialogTitle>
-        <DialogDescription className="text-center">
-          Be the first one to get our updates!
-        </DialogDescription>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleSubmit)}
-            className="grid grid-cols-1 gap-4 items-center justify-center justify-items-center"
+        </p>
+        <p className="text-center">Be the first one to get our updates!</p>
+        <Form
+          form={form}
+          layout="inline"
+          className="justify-around my-8"
+          onFinish={(values) => {
+            setLoading(true);
+            fetch("/api/follow", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(values),
+            })
+              .then((res) => {
+                if (res.ok) {
+                  form.resetFields();
+                  props.onOk?.();
+                }
+              })
+              .finally(() => setLoading(false));
+          }}
+        >
+          <Form.Item
+            className="!flex-1"
+            name="name"
+            rules={[{ required: true, min: 3 }]}
           >
-            <div className="flex flex-col md:flex-row gap-4 items-center justify-center w-full">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem className="flex-1 w-full">
-                    <FormControl>
-                      <Input placeholder="Name*" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem className="flex-1 w-full">
-                    <FormControl>
-                      <Input placeholder="Email*" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <Button type="submit">Subscribe</Button>
-          </form>
+            <Input placeholder="Name*" />
+          </Form.Item>
+          <Form.Item
+            className="!flex-1"
+            name="email"
+            rules={[{ required: true, type: "email" }]}
+          >
+            <Input placeholder="Email*" />
+          </Form.Item>
         </Form>
-      </DialogContent>
-    </Dialog>
+      </Modal>
+    </ConfigProvider>
   );
 }
