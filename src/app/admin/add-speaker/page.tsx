@@ -293,6 +293,7 @@ export default function AddSpeaker() {
             rules={[{ required: SpeakerFields.country }]}
           >
             <Select
+              showSearch
               options={countriesState.result?.map((country) => ({
                 label: country.name,
                 value: country.name,
