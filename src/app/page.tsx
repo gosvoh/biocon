@@ -288,7 +288,7 @@ const OrganizerCard = ({
     >
       <Img />
       <div className="flex flex-col justify-center w-full text-sm sm:text-base md:text-lg">
-        <h3 className="text-base sm:text-2xl md:text-3xl">{name}</h3>
+        <h2 className="text-base sm:text-2xl md:text-3xl">{name}</h2>
         <p>{position}</p>
         <div>
           <span>E-mail: </span>
@@ -681,18 +681,18 @@ export default function Home() {
         id="speakers"
       >
         <H1 className="text-right">Speakers</H1>
-        <h3 className={cn(componentsClassNames.h2.className, "mb-8")}>
+        <h2 className={cn(componentsClassNames.h2.className, "mb-8")}>
           Plenary
-        </h3>
+        </h2>
         <Wrapper
           elements={speakersState.result.filter(
             (speaker) => speaker.speakerType === "plenary"
           )}
         />
 
-        <h3 className={cn(componentsClassNames.h2.className, "mb-8 mt-32")}>
+        <h2 className={cn(componentsClassNames.h2.className, "mb-8 mt-32")}>
           Invited
-        </h3>
+        </h2>
         <Wrapper
           elements={speakersState.result.filter(
             (speaker) => speaker.speakerType === "invited"
