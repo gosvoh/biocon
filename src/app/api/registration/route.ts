@@ -75,6 +75,7 @@ export async function POST(req: NextRequest) {
       ReactDomServer.renderToString(Mail(createdRegistration.name))
     );
     if (!msg.rejected) throw new Error("Email was not sent");
+    return NextResponse.json({ createdRegistration, msg });
   } catch (error) {
     console.error(error);
     await prisma.registrations.delete({
