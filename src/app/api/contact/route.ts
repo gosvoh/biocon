@@ -1,22 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import * as yup from "yup";
 import { checkCaptchaToken } from "../utils";
+import { sendMail } from "../mailer";
 
-const formSchema = yup.object().shape({
-  subject: yup.string().required("Please select a subject"),
-  name: yup
-    .string()
-    .required("Please enter your name")
-    .min(3, "Name must be at least 3 characters"),
-  email: yup
-    .string()
-    .required("Please enter your email address")
-    .email("Please enter a valid email address"),
-  message: yup
-    .string()
-    .required("Please enter your message")
-    .min(10, "Message must be at least 10 characters"),
-});
+const textMessage = (name: string, email: string, message: string) => `
+${name} (${email}) оставил(а) сообщение:
+${message}
+`;
+
+const htmlMessage = (name: string, email: string, message: string) => `
+<p>${name} (${email}) оставил(а) сообщение:</p>
+<p>${message}</p>
+`;
 
 export async function POST(req: NextRequest) {
   const { captchaToken, personalData, ...data } = await req.json();
@@ -28,8 +22,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  if (!data.subject || !data.message || !data.email || !data.name)
+    return NextResponse.json({ message: "Invalid data" }, { status: 400 });
+
   try {
-    await formSchema.validate(data, { abortEarly: false });
+    const msg = await sendMail(
+      "biocon@itmo.ru",
+      `[${data.subject}]`,
+      textMessage(data.name, data.email, data.message),
+      htmlMessage(data.name, data.email, data.message)
+    );
     return NextResponse.json({ message: "Success" });
   } catch (error) {
     return NextResponse.json(error, { status: 400 });
