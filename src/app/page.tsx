@@ -214,7 +214,7 @@ const SpeakerCard = ({
         </Link>
       ) : (
         <p className="text-center flex items-center justify-center gap-2 whitespace-nowrap">
-          <Trophy className="text-yellow-400" /> {thunder}
+          <TrophyFilled className="text-yellow-400" /> {thunder}
         </p>
       )}
       {topic && <p>Lecture topic: {topic}</p>}
