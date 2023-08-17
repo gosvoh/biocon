@@ -29,16 +29,20 @@ export default function Footer({}: {}) {
         <Link href="https://itmo.ru/" prefetch={false}>
           <Image src={Itmo} alt="Itmo" width={imgWidth} />
         </Link>
-        <Link href="https://vk.com/biotech.itmo" prefetch={false}>
+        <Link
+          href="https://en.itmo.ru/en/faculty/98/Faculty_of_Biotechnologies.htm"
+          prefetch={false}
+          target="_blank"
+        >
           <Image src={Biotech} alt="Biotech" width={imgWidth} />
         </Link>
-        <Link href="https://www.tatneft.ru/" prefetch={false}>
+        <Link href="https://www.tatneft.ru/" prefetch={false} target="_blank">
           <Image src={Tatneft} alt="Tatneft" width={imgWidth} />
         </Link>
-        <Link href="https://pish-itmo.ru/" prefetch={false}>
+        <Link href="https://pish-itmo.ru/" prefetch={false} target="_blank">
           <Image src={Pish} alt="Pish" width={imgWidth} />
         </Link>
-        <Link href="https://agni-rt.ru/" prefetch={false}>
+        <Link href="https://agni-rt.ru/" prefetch={false} target="_blank">
           <Image src={Agni} alt="Agni" width={imgWidth} />
         </Link>
       </div>
@@ -59,8 +63,6 @@ export default function Footer({}: {}) {
         </div>
         <div className="text-start sm:text-end text-sm sm:text-base md:text-lg">
           <p>ITMO University</p>
-          <p>9, Lomonosova Str., St. Petersburg, Russia, 191002</p>
-          <span>email: </span>
           <Link
             className="hover:underline p-0 h-auto leading-normal"
             href={"mailto:biocon@itmo.ru"}

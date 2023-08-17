@@ -90,6 +90,7 @@ export const metadata: Metadata = {
     index: true,
     follow: false,
   },
+  // metadataBase TODO:
   openGraph: {
     type: "website",
     description:
@@ -134,6 +135,8 @@ export default function RootLayout({
           "flex flex-col gap-8"
         )}
       >
+        <div className="absolute bottom-0 left-0 right-0 h-screen bg-gradient-to-t from-black to-transparent -z-[49]"></div>
+        <div className="absolute top-0 left-0 right-0 h-[35vh] bg-gradient-to-b from-black to-transparent -z-[49]"></div>
         <Image
           src={BG}
           alt="Background image"
@@ -144,11 +147,10 @@ export default function RootLayout({
         <Image
           src={Biocon}
           alt="Biocon"
-          className="absolute top-0 left-0 -z-[10]"
+          className="absolute top-0 left-0 -z-[50]"
           width={900}
         />
         {children}
-        <div className="absolute bottom-0 left-0 right-0 h-screen bg-gradient-to-t from-black to-transparent -z-50"></div>
       </body>
     </html>
   );

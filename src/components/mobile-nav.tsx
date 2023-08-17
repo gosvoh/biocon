@@ -61,6 +61,8 @@ export default function MobileNav({
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className="hover:underline ml-4 uppercase"
+                prefetch={false}
+                target="_blank"
               >
                 {link.title}
               </Link>

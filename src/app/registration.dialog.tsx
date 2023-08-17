@@ -49,17 +49,17 @@ export default function RegistrationDialog({
   const participationTypes = [
     {
       value: "Attendee",
-      label: "Attendee. Full-time participation in conference events",
+      label: "Attendee. Participate in all conference events!",
     },
     {
       value: "Contributed speaker",
       label:
-        "Contributed speaker. Attendee with opportunity to talk during one of the parallel session",
+        "Contributed speaker. Become part of one of the parallel sessions!",
     },
     {
       value: "Science Slammer",
       label:
-        "Science Slammer. Attendee with opportunity to science communication talk",
+        "Science Slammer. Present your research in an entertaining way in only 10 minutes!",
     },
   ];
   const selectedParticipationType = Form.useWatch("participationType", form);
@@ -212,11 +212,11 @@ export default function RegistrationDialog({
           </Form.Item>
           <Form.Item<RegisterFormValues>
             name="howToKnow"
-            label="How did you hear about the BIOCON?"
+            label="How did you learn about the BIOCON?"
             rules={[
               {
                 required: true,
-                message: "Please enter how did you hear about the BIOCON",
+                message: "Please enter how did you learn about the BIOCON",
               },
             ]}
           >
@@ -225,6 +225,7 @@ export default function RegistrationDialog({
           <Form.Item<RegisterFormValues>
             name="mobile"
             label="Mobile"
+            tooltip="Enter the country code, followed by the full phone number here"
             rules={[
               { required: true, message: "Please enter your mobile" },
               {
@@ -235,7 +236,7 @@ export default function RegistrationDialog({
             ]}
           >
             <Input
-              placeholder="Enter your mobile number with country code here"
+              // placeholder="Enter your mobile number with country code here"
               type="tel"
             />
           </Form.Item>
@@ -333,11 +334,11 @@ export default function RegistrationDialog({
           </Form.Item>
           <Form.Item<RegisterFormValues>
             name="participationType"
-            label="Participation type"
+            label="Choose your role"
             rules={[
               {
                 required: true,
-                message: "Please select your participation type",
+                message: "Please choose your role",
               },
             ]}
           >

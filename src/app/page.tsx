@@ -18,7 +18,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import { ChevronLeft, ChevronRight, Trophy } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin, Trophy } from "lucide-react";
 import { Separator as UiSeparator } from "@/components/ui/separator";
 import { useAsync, useWindowSize } from "@react-hookz/web";
 import React from "react";
@@ -44,6 +44,9 @@ const componentsClassNames = {
   },
   h3: {
     className: "text-xl sm:text-2xl md:text-3xl font-semibold",
+  },
+  p: {
+    className: "text-sm sm:text-base md:text-lg",
   },
   button: {
     className: "px-8 py-4 text-base sm:text-lg md:text-xl font-normal",
@@ -399,7 +402,8 @@ export default function Home() {
             "justify-center text-center",
             "border-2 border-white",
             "rounded-3xl hyphens-none",
-            "px-8 sm:px-10 md:px-12 py-10"
+            "px-8 sm:px-10 md:px-12 py-10",
+            "hover:bg-white hover:text-black transition-colors"
           )}
         >
           <h3 className={cn(componentsClassNames.h3.className, "mb-4")}>
@@ -423,23 +427,23 @@ export default function Home() {
         />
         <H1>About</H1>
         <P className="my-8">
-          Over the three days, you will have the opportunity to share your
-          innovative ideas, research results and experiences with like-minded
-          biotech enthusiasts from around the world.
+          Over three days, you will have the opportunity to share innovative
+          ideas, research results, and experiences with like-minded biotech
+          enthusiasts from around the world.
         </P>
-        <P className="my-8">Types to participate:</P>
+        <P className="my-8">Choose your role:</P>
         <div className="flex flex-wrap justify-center gap-6">
           <Card
             title="Attendee"
-            description="Full-time participation in conference events"
+            description="Participate in all conference events"
           />
           <Card
             title="Contributed speaker"
-            description="Attendee with opportunity to talk during one of the parallel session"
+            description="Become part of one of the parallel sessions"
           />
           <Card
             title="Science Slammer"
-            description="Attendee with opportunity to science communication talk"
+            description="Present your research in an entertaining way in only 10 minutes"
           />
         </div>
         <div className="flex flex-wrap justify-evenly items-center w-1/2 gap-6 whitespace-nowrap mt-8 md:mt-16 self-center">
@@ -471,7 +475,9 @@ export default function Home() {
 
     return (
       <Section className="mt-0">
-        <h2 {...componentsClassNames.h2}>For whom?</h2>
+        <h2 {...componentsClassNames.h2}>
+          BIOCON will be especially beneficial for:
+        </h2>
         <div
           className={cn(
             "grid grid-rows-4 md:grid-rows-2 grid-cols-2 md:grid-cols-4",
@@ -488,7 +494,9 @@ export default function Home() {
             <br />
             young researchers
           </p>
-          <p className={circles[1].className}>Established researchers</p>
+          <p className={cn(circles[1].className, "text-center")}>
+            Recognised and <br /> established researchers
+          </p>
           <p className={circles[2].className}>Biotech experts</p>
           <p className={circles[3].className}>Biotech enthusiasts</p>
 
@@ -508,9 +516,9 @@ export default function Home() {
   const TimeLine = () => {
     return (
       <div className="my-16 timeline grid grid-cols-[auto,1fr] grid-rows[7] justify-center items-center justify-items-center gap-x-6 md:gap-x-16 hyphens-auto">
-        <div className="row-[1] col-[1] rounded-full border-[3px] border-white border-dashed w-24 h-24 md:w-20 md:h-20" />
+        <div className="row-[1] col-[1] rounded-full border-[3px] border-white w-24 h-24 md:w-20 md:h-20" />
         <div className="row-[2] col-[1] bg-white w-[3px] h-14 md:h-20" />
-        <div className="row-[3] col-[1] rounded-full border-[3px] border-white w-24 h-24 md:w-20 md:h-20" />
+        <div className="row-[3] col-[1] rounded-full border-[3px] border-white border-dashed w-24 h-24 md:w-20 md:h-20" />
         <div className="row-[4] col-[1] bg-white w-[3px] h-14 md:h-20" />
         <div className="row-[5] col-[1] rounded-full border-[3px] border-white w-24 h-24 md:w-20 md:h-20" />
         <div className="row-[6] col-[1] bg-white w-[3px] h-14 md:h-20" />
@@ -520,15 +528,15 @@ export default function Home() {
           <p
             className={cn(componentsClassNames.h3.className, "text-[#6CCD86]")}
           >
-            Free participation
+            August 22
           </p>
 
-          <p>For all types of participants</p>
+          <p className={componentsClassNames.p.className}>Registration opens</p>
         </div>
         <div className="row-[3] h-full justify-self-start flex flex-col justify-around">
           <p className={cn(componentsClassNames.h3.className)}>November 1</p>
-          <p>
-            End of registration for participants from{" "}
+          <p className={componentsClassNames.p.className}>
+            Registration ends for participants from from{" "}
             <Link
               className="underline"
               prefetch={false}
@@ -536,7 +544,9 @@ export default function Home() {
               href="https://electronic-visa.kdmid.ru/country_en.html"
             >
               non-listed countries
-            </Link>
+            </Link>{" "}
+            who do not already hold a Russian visa End of registration for
+            participants
           </p>
         </div>
         <div className="row-[5] h-full justify-self-start flex flex-col justify-around">
@@ -545,23 +555,17 @@ export default function Home() {
           >
             December 1
           </p>
-          <p>
-            End of registration for participants from Russia and{" "}
-            <Link
-              className="underline"
-              prefetch={false}
-              target="_blank"
-              href="https://electronic-visa.kdmid.ru/country_en.html"
-            >
-              countries included in the list
-            </Link>
+          <p className={componentsClassNames.p.className}>
+            Registration ends for all participants
           </p>
         </div>
         <div className="row-[7] h-full justify-self-start flex flex-col justify-around">
           <p className={cn(componentsClassNames.h3.className)}>
             December 18-20
           </p>
-          <p>International Industrial Biotechnology Conference</p>
+          <p className={componentsClassNames.p.className}>
+            See you in Almetyevsk!
+          </p>
         </div>
       </div>
     );
@@ -699,14 +703,20 @@ export default function Home() {
           )}
         />
 
-        <h2 className={cn(componentsClassNames.h2.className, "mb-8 mt-32")}>
-          Invited
-        </h2>
-        <Wrapper
-          elements={speakersState.result.filter(
-            (speaker) => speaker.speakerType === "invited"
-          )}
-        />
+        {speakersState.result.filter(
+          (speaker) => speaker.speakerType === "invited"
+        ).length !== 0 && (
+          <>
+            <h2 className={cn(componentsClassNames.h2.className, "mb-8 mt-32")}>
+              Invited
+            </h2>
+            <Wrapper
+              elements={speakersState.result.filter(
+                (speaker) => speaker.speakerType === "invited"
+              )}
+            />
+          </>
+        )}
       </Section>
     );
   };
@@ -772,7 +782,22 @@ export default function Home() {
             fill
             className="md:hidden -z-10 opacity-30 md:opacity-100 object-contain object-center !top-[-40%] !h-[200%]"
           />
-          <p className="font-semibold text-5xl">Almetyevsk</p>
+          <p className="font-semibold text-5xl">
+            <Link
+              href="https://goo.gl/maps/JBbZYQ8ynVZas14g9"
+              className="hover:underline"
+              prefetch={false}
+              target="_blank"
+            >
+              Almetyevsk{" "}
+              <MapPin
+                className="h-12"
+                height="3rem"
+                width="3rem"
+                style={{ display: "unset" }}
+              />
+            </Link>
+          </p>
           <p className="my-6">(Russian: Альметьевск; Tatar: Әлмәт)</p>
           <p className="my-6">
             Is a city in the Republic of Tatarstan, Russia, located on the left
