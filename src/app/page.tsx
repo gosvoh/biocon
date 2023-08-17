@@ -290,12 +290,9 @@ const OrganizerCard = ({
       <div className="flex flex-col justify-center w-full text-sm sm:text-base md:text-lg">
         <h2 className="text-base sm:text-2xl md:text-3xl">{name}</h2>
         <p>{position}</p>
-        <div>
-          <span>E-mail: </span>
-          <Link href={`mailto:${email}`} className="hover:underline">
-            {email}
-          </Link>
-        </div>
+        <Link href={`mailto:${email}`} className="hover:underline">
+          {email}
+        </Link>
       </div>
     </div>
   );
@@ -422,7 +419,7 @@ export default function Home() {
           innovative ideas, research results and experiences with like-minded
           biotech enthusiasts from around the world.
         </P>
-        <P className="my-8">Oppotunities to participate:</P>
+        <P className="my-8">Types to participate:</P>
         <div className="flex flex-wrap justify-center gap-6">
           <Card
             title="Attendee"
@@ -503,7 +500,7 @@ export default function Home() {
   const TimeLine = () => {
     return (
       <div className="my-16 timeline grid grid-cols-[auto,1fr] grid-rows[7] justify-center items-center justify-items-center gap-x-6 md:gap-x-16 hyphens-auto">
-        <div className="row-[1] col-[1] rounded-full border-[3px] border-white w-24 h-24 md:w-20 md:h-20" />
+        <div className="row-[1] col-[1] rounded-full border-[3px] border-white border-dashed w-24 h-24 md:w-20 md:h-20" />
         <div className="row-[2] col-[1] bg-white w-[3px] h-14 md:h-20" />
         <div className="row-[3] col-[1] rounded-full border-[3px] border-white w-24 h-24 md:w-20 md:h-20" />
         <div className="row-[4] col-[1] bg-white w-[3px] h-14 md:h-20" />
@@ -526,6 +523,8 @@ export default function Home() {
             End of registration for participants from{" "}
             <Link
               className="underline"
+              prefetch={false}
+              target="_blank"
               href="https://electronic-visa.kdmid.ru/country_en.html"
             >
               non-listed countries
@@ -542,6 +541,8 @@ export default function Home() {
             End of registration for participants from Russia and{" "}
             <Link
               className="underline"
+              prefetch={false}
+              target="_blank"
               href="https://electronic-visa.kdmid.ru/country_en.html"
             >
               countries included in the list
