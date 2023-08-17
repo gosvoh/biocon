@@ -182,7 +182,7 @@ export default function RegistrationDialog({
                   form.setFields([
                     {
                       name: "captchaToken",
-                      errors: ["Captcha verification failed"],
+                      errors: [error.message],
                     },
                   ]);
                 turnstileRef.current?.reset();
