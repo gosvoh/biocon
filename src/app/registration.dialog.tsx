@@ -103,6 +103,9 @@ export default function RegistrationDialog({
   );
   const [citiesLoading, setCitiesLoading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const roleWatcher = Form.useWatch("role", form);
+
+  useEffect(() => console.log(roleWatcher), [roleWatcher]);
 
   useEffect(() => {
     countriesAction.execute();
@@ -267,7 +270,7 @@ export default function RegistrationDialog({
               }))}
             />
           </Form.Item>
-          {form.getFieldValue("role") === "Other" && (
+          {roleWatcher === "Other" && (
             <Form.Item<RegisterFormValues>
               name="customRole"
               label="Custom role"
