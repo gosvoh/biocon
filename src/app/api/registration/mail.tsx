@@ -15,7 +15,11 @@ export const Mail = (name: string) => {
       <p>
         On behalf of the Organizing Committee, we are excited to welcome you to
         BIOCON: an international conference on industrial biotechnology held in
-        the marvelous city of Almetyevsk, Republic of Tatarstan!
+        the marvelous city of{" "}
+        <a href="https://en.wikipedia.org/wiki/Almetyevsk">
+          Almetyevsk, Republic of Tatarstan
+        </a>
+        !
       </p>
       <p>
         Over three days, December 18th—20th 2023, you will have the opportunity
@@ -73,9 +77,9 @@ export const Mail = (name: string) => {
       <p style={{ marginBottom: 0 }}>
         <strong>International support</strong>
       </p>
-      <p style={{ margin: 0 }}>Sofia Antipova</p>
-      <a style={{ marginTop: 0 }} href="mailto:antipova@itmo.ru">
-        antipova@itmo.ru
+      <p style={{ margin: 0 }}>Svetlana Sultanova</p>
+      <a style={{ marginTop: 0 }} href="mailto:sysultanova@itmo.ru">
+        sysultanova@itmo.ru
       </a>
       <p style={{ textAlign: "center" }}>See you at BIOCON 2023!</p>
     </>
