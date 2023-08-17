@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SuccessDialog from "./success.dialog";
-import { Turnstile } from "@marsidev/react-turnstile";
+import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
 import Link from "next/link";
 import {
   Modal,
@@ -32,6 +32,7 @@ export default function ContactDialog({
     "Marketing & PR",
     "Other",
   ];
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   return (
     <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
@@ -73,10 +74,19 @@ export default function ContactDialog({
               },
               body: JSON.stringify(values),
             })
-              .then(() => {
+              .then((res) => {
+                if (!res.ok) res.json().then(Promise.reject);
                 form.resetFields();
                 onOpenChange(false);
                 setSuccess(true);
+              })
+              .catch((err) => {
+                if (err?.message === "Captca validation failed") {
+                  turnstileRef.current?.reset();
+                  form.setFields([
+                    { name: "captchaToken", errors: [err.message] },
+                  ]);
+                }
               })
               .finally(() => setLoading(false));
           }}
@@ -170,6 +180,7 @@ export default function ContactDialog({
             ]}
           >
             <Turnstile
+              ref={turnstileRef}
               id="contact-turnstile"
               siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
               options={{
