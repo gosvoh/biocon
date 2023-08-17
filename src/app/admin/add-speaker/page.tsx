@@ -1,7 +1,6 @@
 "use client";
 
 import { useFetch, checkToken } from "@/lib/utils";
-import { Speaker } from "@/app/data";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -27,6 +26,7 @@ import {
 } from "antd";
 import { useEffect, useReducer, useState } from "react";
 import Link from "next/link";
+import { Speakers } from "@prisma/client";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -59,8 +59,8 @@ export default function AddSpeaker() {
   );
   const [loading, setLoading] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
-  const [editData, setEditData] = useState<Speaker>();
-  const [organizersState, organizersAction] = useAsync<Speaker[]>(
+  const [editData, setEditData] = useState<Speakers>();
+  const [organizersState, organizersAction] = useAsync<Speakers[]>(
     async () => fetch("/api/speakers").then((res) => res.json()),
     []
   );
@@ -356,11 +356,14 @@ export default function AddSpeaker() {
           { title: "Description", dataIndex: "description", ellipsis: true },
           {
             title: "Thunder",
-            render: (_, record) => (
-              <Link href={record.thunderUrl}>
-                {record.thunder} <LinkOutlined />
-              </Link>
-            ),
+            render: (_, record) =>
+              record.thunderUrl ? (
+                <Link href={record.thunderUrl}>
+                  {record.thunder} <LinkOutlined />
+                </Link>
+              ) : (
+                <p>{record.thunder}</p>
+              ),
           },
           { title: "Speaker Type", dataIndex: "speakerType" },
           {
@@ -385,6 +388,7 @@ export default function AddSpeaker() {
                       form.setFieldValue("thunderUrl", record.thunderUrl);
                       form.setFieldValue("hIndex", record.hIndex);
                       form.setFieldValue("speakerType", record.speakerType);
+                      form.setFieldValue("country", record.country);
                     }}
                   />
                 </Tooltip>
