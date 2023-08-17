@@ -7,7 +7,7 @@ import Image, { StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
 
 import Cat from "../../public/cat.jpg";
-import Logo from "../../public/logo.svg";
+import Logo from "../../public/logo_transparent.png";
 import AboutProgram from "../../public/about&program.png";
 import OutlineCircle from "../../public/outline-circle.svg";
 import { Roboto } from "next/font/google";
@@ -358,7 +358,15 @@ export default function Home() {
             International Industrial Biotechnology Conference
           </h2>
           <P className="text-right">December 18-20, 2023</P>
-          <P className="text-right uppercase">Almetyevsk</P>
+          <P className="text-right uppercase mb-16">
+            <Link
+              href="https://en.wikipedia.org/wiki/Almetyevsk"
+              prefetch={false}
+              target="_blank"
+            >
+              ALMETYEVSK, REPUBLIC OF TATARSTAN
+            </Link>
+          </P>
         </div>
         <div className="mt-auto mb-16 flex flex-nowrap flex-col sm:flex-row justify-evenly items-center w-1/2 gap-6 whitespace-nowrap self-center">
           <Link href="#about" {...componentsClassNames.button.outline}>
