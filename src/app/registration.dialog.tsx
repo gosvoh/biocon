@@ -156,10 +156,12 @@ export default function RegistrationDialog({
                   error = true;
                   form.scrollToField("email");
                 }
-              })
-              .finally(() => setLoading(false));
+              });
 
-            if (error) return;
+            if (error) {
+              setLoading(false);
+              return;
+            }
 
             fetch("/api/registration", {
               method: "POST",
@@ -173,10 +175,10 @@ export default function RegistrationDialog({
                   setSuccess(true);
                   form.resetFields();
                   onOpenChange(false);
-                } else return res.json();
+                } else return res.json().then(Promise.reject);
               })
-              .then((res) => {
-                if (res.message === "Captcha verification failed")
+              .catch((error) => {
+                if (error?.message === "Captcha verification failed")
                   form.setFields([
                     {
                       name: "captchaToken",
