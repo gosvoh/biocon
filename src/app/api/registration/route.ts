@@ -37,6 +37,23 @@ antipova@itmo.ru
 See you at BIOCON 2023!
 `;
 
+export async function GET(req: NextRequest) {
+  const ReactDomServer = await import("react-dom/server");
+  return new NextResponse(
+    `<html>
+    <head><meta name="encoding" charset="utf-8" /></head>
+    <body>${ReactDomServer.renderToString(
+      Mail(req.nextUrl.searchParams.get("name") || "NAME")
+    )}</body></html>`,
+    {
+      status: 200,
+      headers: {
+        "Content-Type": "text/html",
+      },
+    }
+  );
+}
+
 export async function POST(req: NextRequest) {
   const {
     captchaToken,
