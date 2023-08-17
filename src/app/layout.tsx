@@ -86,6 +86,10 @@ export const metadata: Metadata = {
   applicationName: "Biocon",
   authors: [{ name: "Alekey Vokhmin", url: "https://github.com/gosvoh" }],
   icons: "https://biocon.international/logo.png",
+  robots: {
+    index: true,
+    follow: false,
+  },
   openGraph: {
     type: "website",
     description:
