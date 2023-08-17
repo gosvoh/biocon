@@ -10,10 +10,10 @@ import {
   Select,
   theme,
 } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SuccessDialog from "./success.dialog";
 import Link from "next/link";
-import { Turnstile } from "@marsidev/react-turnstile";
+import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
 
 type RegisterFormValues = {
   name: string;
@@ -104,8 +104,7 @@ export default function RegistrationDialog({
   const [citiesLoading, setCitiesLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const roleWatcher = Form.useWatch("role", form);
-
-  useEffect(() => console.log(roleWatcher), [roleWatcher]);
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   useEffect(() => {
     countriesAction.execute();
@@ -136,11 +135,32 @@ export default function RegistrationDialog({
         }
       >
         <Form
+          disabled={loading}
           preserve={false}
           form={form}
           layout="vertical"
           onFinish={(values) => {
             setLoading(true);
+            let error = false;
+            fetch(
+              `/api/registration/check-mail/?email=${encodeURIComponent(
+                values.email
+              )}`
+            )
+              .then((res) => res.json())
+              .then((res) => {
+                if (res.exists) {
+                  form.setFields([
+                    { name: "email", errors: ["Email already exists"] },
+                  ]);
+                  error = true;
+                  form.scrollToField("email");
+                }
+              })
+              .finally(() => setLoading(false));
+
+            if (error) return;
+
             fetch("/api/registration", {
               method: "POST",
               headers: {
@@ -153,7 +173,17 @@ export default function RegistrationDialog({
                   setSuccess(true);
                   form.resetFields();
                   onOpenChange(false);
-                }
+                } else return res.json();
+              })
+              .then((res) => {
+                if (res.message === "Captcha verification failed")
+                  form.setFields([
+                    {
+                      name: "captchaToken",
+                      errors: ["Captcha verification failed"],
+                    },
+                  ]);
+                turnstileRef.current?.reset();
               })
               .finally(() => setLoading(false));
           }}
@@ -438,6 +468,7 @@ export default function RegistrationDialog({
             ]}
           >
             <Turnstile
+              ref={turnstileRef}
               id="registration-turnstile"
               siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
               options={{
