@@ -287,7 +287,7 @@ export default function RegistrationDialog({
               { required: true, message: "Please enter your affiliation" },
             ]}
           >
-            <Input placeholder="Enter the name of your university here" />
+            <Input placeholder="Enter the name of your university or organization here" />
           </Form.Item>
           <Form.Item<RegisterFormValues>
             name="role"
