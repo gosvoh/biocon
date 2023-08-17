@@ -72,8 +72,9 @@ export default function FollowDialog({
                 if (res.ok) {
                   form.resetFields();
                   props.onOk?.();
-                }
+                } else Promise.reject(res);
               })
+              .catch(console.error)
               .finally(() => setLoading(false));
           }}
         >
