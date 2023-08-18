@@ -90,7 +90,7 @@ export const metadata: Metadata = {
     index: true,
     follow: false,
   },
-  // metadataBase TODO:
+  metadataBase: new URL("https://biocon.international"),
   openGraph: {
     type: "website",
     description:
