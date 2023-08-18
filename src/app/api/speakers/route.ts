@@ -11,6 +11,12 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const auth = req.headers.get("authorization");
+  if (!auth) return NextResponse.json({ error: "Unauthorized", status: 401 });
+  const isValid = await biocon.auth.findUnique({ where: { token: auth } });
+  if (!isValid)
+    return NextResponse.json({ error: "Unauthorized", status: 401 });
+
   const data = await req.formData();
   const name = data.get("name") as string | null;
   const nameUrl = data.get("nameUrl") as string | null;
