@@ -38,12 +38,18 @@ const componentsClassNames = {
   h1: {
     className: "text-5xl sm:text-7xl md:text-9xl font-bold uppercase",
   },
+  bigH2: {
+    className: "text-3xl sm:text-4xl md:text-5xl font-semibold",
+  },
   h2: {
     className:
       "text-2xl sm:text-3xl md:text-4xl mb-8 mt-2 md:mt-8 font-semibold",
   },
   h3: {
     className: "text-xl sm:text-2xl md:text-3xl font-semibold",
+  },
+  bigP: {
+    className: "text-base sm:text-ls md:text-xl",
   },
   p: {
     className: "text-sm sm:text-base md:text-lg",
@@ -791,7 +797,12 @@ export default function Home() {
             fill
             className="md:hidden -z-10 opacity-30 md:opacity-100 object-contain object-center !top-[-40%] !h-[200%]"
           />
-          <p className="font-semibold text-5xl">
+          <p
+            className={cn(
+              "font-semibold",
+              componentsClassNames.bigH2.className
+            )}
+          >
             <Link
               href="https://goo.gl/maps/JBbZYQ8ynVZas14g9"
               className="hover:underline"
@@ -801,18 +812,20 @@ export default function Home() {
               Almetyevsk{" "}
               <MapPin
                 className="h-12"
-                height="3rem"
-                width="3rem"
+                height="2rem"
+                width="2rem"
                 style={{ display: "unset" }}
               />
             </Link>
           </p>
-          <p className="my-6">(Russian: Альметьевск; Tatar: Әлмәт)</p>
-          <p className="my-6">
+          <p className={cn("my-6", componentsClassNames.bigP.className)}>
+            (Russian: Альметьевск; Tatar: Әлмәт)
+          </p>
+          <p className={cn("my-6", componentsClassNames.bigP.className)}>
             Is a city in the Republic of Tatarstan, Russia, located on the left
             bank of Zay River.
           </p>
-          <p className="mt-8">
+          <p className={cn("mt-8", componentsClassNames.bigP.className)}>
             The oil-rich city of Almetyevsk in Tatarstan region has ambitious
             plans to transform into a major biotechnology hub in Russia.
           </p>
