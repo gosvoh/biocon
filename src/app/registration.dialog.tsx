@@ -73,32 +73,10 @@ export default function RegistrationDialog({
   ];
   const clothingSizes = ["S", "M", "L", "XL"];
   const [countriesState, countriesAction] = useAsync<
-    {
-      id: number;
-      name: string;
-      iso2: string;
-    }[]
-  >(
-    () =>
-      fetch("https://api.countrystatecity.in/v1/countries", {
-        headers: {
-          "X-CSCAPI-KEY": process.env.NEXT_PUBLIC_API_KEY as string,
-        },
-      }).then((res) => res.json()),
-    []
-  );
-  const [citiesState, citiesAction] = useAsync<
-    {
-      id: number;
-      name: string;
-    }[]
-  >(
-    (code: any) =>
-      fetch(`https://api.countrystatecity.in/v1/countries/${code}/cities`, {
-        headers: {
-          "X-CSCAPI-KEY": process.env.NEXT_PUBLIC_API_KEY as string,
-        },
-      }).then((res) => res.json()),
+    { id: string; name: string }[]
+  >(() => fetch("/api/countries").then((res) => res.json()), []);
+  const [citiesState, citiesAction] = useAsync<{ id: string; name: string }[]>(
+    (id: any) => fetch(`/api/countries/${id}`).then((res) => res.json()),
     []
   );
   const [citiesLoading, setCitiesLoading] = useState(false);
@@ -259,7 +237,7 @@ export default function RegistrationDialog({
                   .execute(
                     countriesState.result.find(
                       (country) => country.name === value
-                    )?.iso2
+                    )?.id
                   )
                   .finally(() => setCitiesLoading(false));
               }}
@@ -274,7 +252,9 @@ export default function RegistrationDialog({
               showSearch
               placeholder="---"
               loading={citiesLoading}
-              disabled={form.getFieldValue("country") === undefined}
+              disabled={
+                form.getFieldValue("country") === undefined || citiesLoading
+              }
               options={citiesState.result.map((city) => ({
                 value: city.name,
                 label: city.name,
@@ -391,7 +371,7 @@ export default function RegistrationDialog({
                         },
                       ]}
                     >
-                      <Input placeholder="Enter the tentative title of your work here" />
+                      <Input placeholder="Enter the tentative title of your talk here" />
                     </Form.Item>
                     <Form.Item<RegisterFormValues>
                       name="resume"
@@ -433,7 +413,7 @@ export default function RegistrationDialog({
                     { type: "url", message: "Please enter a valid url" },
                   ]}
                 >
-                  <Input placeholder="Provide a link to a teaser of your slam talk" />
+                  <Input placeholder="Provide a link to a short self-presentation video" />
                 </Form.Item>
               </>
             )}
