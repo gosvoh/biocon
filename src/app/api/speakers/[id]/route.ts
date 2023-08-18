@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import { biocon } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import sharp from "sharp";
@@ -9,13 +9,13 @@ export async function DELETE(
 ) {
   const auth = req.headers.get("authorization");
   if (!auth) return NextResponse.json({ error: "Unauthorized", status: 401 });
-  const isValid = await prisma.auth.findUnique({ where: { token: auth } });
+  const isValid = await biocon.auth.findUnique({ where: { token: auth } });
   if (!isValid)
     return NextResponse.json({ error: "Unauthorized", status: 401 });
 
   try {
     const id = Number(params.id);
-    const spk = await prisma.speakers.delete({ where: { id } });
+    const spk = await biocon.speakers.delete({ where: { id } });
     fs.unlinkSync(`./uploads/${spk.image}.webp`);
     return NextResponse.json(spk);
   } catch (error: any) {
@@ -29,7 +29,7 @@ export async function PATCH(
 ) {
   const auth = req.headers.get("authorization");
   if (!auth) return NextResponse.json({ error: "Unauthorized", status: 401 });
-  const isValid = await prisma.auth.findUnique({ where: { token: auth } });
+  const isValid = await biocon.auth.findUnique({ where: { token: auth } });
   if (!isValid)
     return NextResponse.json({ error: "Unauthorized", status: 401 });
 
@@ -60,7 +60,7 @@ export async function PATCH(
     )
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
 
-    const speaker = await prisma.speakers.findUnique({
+    const speaker = await biocon.speakers.findUnique({
       where: { id: Number(params.id) },
     });
     if (!speaker)
@@ -74,7 +74,7 @@ export async function PATCH(
     }
 
     return NextResponse.json(
-      await prisma.speakers.update({
+      await biocon.speakers.update({
         where: { id: Number(params.id) },
         data: {
           name,

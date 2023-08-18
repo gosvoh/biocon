@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { biocon } from "@/lib/prisma";
 import { checkCaptchaToken } from "../utils";
-import { Registrations } from "@prisma/client";
+import type { Registrations } from "@prisma/client/biocon";
 import { sendMail } from "../mailer";
 import { Mail } from "./mail";
 
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
   let createdRegistration: Registrations | null = null;
 
   try {
-    createdRegistration = await prisma.registrations.create({ data });
+    createdRegistration = await biocon.registrations.create({ data });
     if (!createdRegistration) throw new Error("Registration was not created");
   } catch (error) {
     console.error(error);
@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ createdRegistration, msg });
   } catch (error) {
     console.error(error);
-    await prisma.registrations.delete({
+    await biocon.registrations.delete({
       where: { id: createdRegistration.id },
     });
     return NextResponse.json(error, { status: 500 });

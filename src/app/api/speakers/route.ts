@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import { biocon } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import sharp from "sharp";
@@ -7,7 +7,7 @@ import { randomUUID } from "crypto";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  return NextResponse.json(await prisma.speakers.findMany());
+  return NextResponse.json(await biocon.speakers.findMany());
 }
 
 export async function POST(req: NextRequest) {
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  await prisma.speakers.create({
+  await biocon.speakers.create({
     data: {
       name,
       nameUrl,

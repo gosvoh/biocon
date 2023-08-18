@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import { biocon } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   if (!email)
     return NextResponse.json({ message: "No email provided" }, { status: 400 });
 
-  const registraion = await prisma.registrations.findUnique({
+  const registraion = await biocon.registrations.findUnique({
     where: { email },
   });
 

@@ -26,7 +26,7 @@ import {
 } from "antd";
 import { useEffect, useReducer, useState } from "react";
 import Link from "next/link";
-import { Speakers } from "@prisma/client";
+import type { Speakers } from "@prisma/client/biocon";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
