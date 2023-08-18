@@ -1,11 +1,19 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient as BioconClient } from "@prisma/client/biocon";
+import { PrismaClient as WorldClient } from "@prisma/client/world";
 
-let prisma: PrismaClient;
+let biocon: BioconClient;
+let world: WorldClient;
 
-if (process.env.NODE_ENV === "production") prisma = new PrismaClient();
+if (process.env.NODE_ENV === "production") biocon = new BioconClient();
 else {
-  if (!(global as any).prisma) (global as any).prisma = new PrismaClient();
-  prisma = (global as any).prisma;
+  if (!(global as any).biocon) (global as any).biocon = new BioconClient();
+  biocon = (global as any).biocon;
 }
 
-export default prisma;
+if (process.env.NODE_ENV === "production") world = new WorldClient();
+else {
+  if (!(global as any).world) (global as any).world = new WorldClient();
+  world = (global as any).world;
+}
+
+export { biocon, world };
