@@ -70,15 +70,7 @@ export default function AddSpeaker() {
       name: string;
       iso2: string;
     }[]
-  >(
-    () =>
-      fetch("https://api.countrystatecity.in/v1/countries", {
-        headers: {
-          "X-CSCAPI-KEY": process.env.NEXT_PUBLIC_API_KEY as string,
-        },
-      }).then((res) => res.json()),
-    []
-  );
+  >(() => fetch("/api/countries").then((res) => res.json()), []);
 
   const HTTP = useFetch(token.value);
 
