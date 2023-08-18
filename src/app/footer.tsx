@@ -61,7 +61,7 @@ export default function Footer({}: {}) {
             <Image src={YouTube} alt={"YouTube social"} width={40} />
           </Link>
         </div>
-        <div className="text-start sm:text-end text-sm sm:text-base md:text-lg">
+        <div className="flex flex-col text-start sm:text-end text-sm sm:text-base md:text-lg">
           <p>ITMO University</p>
           <Link
             className="hover:underline p-0 h-auto leading-normal"
@@ -69,6 +69,14 @@ export default function Footer({}: {}) {
             prefetch={false}
           >
             biocon@itmo.ru
+          </Link>
+          <Link
+            prefetch={false}
+            className="hover:underline"
+            href="/personal_data_policy.pdf"
+            target="_blank"
+          >
+            Privacy policy
           </Link>
         </div>
       </div>

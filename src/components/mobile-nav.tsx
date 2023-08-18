@@ -49,9 +49,12 @@ export default function MobileNav({
           backgroundImage: `url(/mobile-nav-bg.jpg)`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
+          backgroundColor: "rgba(0, 0, 0, 0.3)",
+          backgroundBlendMode: "multiply",
         }}
         onCloseAutoFocus={(e) => e.preventDefault()}
       >
+        {/* <div className="absolute inset-0 z-[-9999] bg-black opacity-10"></div> */}
         <SheetHeader></SheetHeader>
         <div className="flex flex-col gap-4">
           <Separator className="bg-white" />
@@ -79,6 +82,7 @@ export default function MobileNav({
           >
             Contact us
           </Link>
+          <Separator className="bg-white" />
         </div>
         <SheetFooter className="flex-col gap-8">
           <div className="flex gap-8 items-center flex-row justify-between">
@@ -95,16 +99,22 @@ export default function MobileNav({
               <Image src={YouTube} alt={"YouTube social"} width={40} />
             </Link>
           </div>
-          <div className="text-start text-xs sm:text-end sm:text-base">
+          <div className="flex flex-col text-start text-xs sm:text-end sm:text-base">
             <p>ITMO University</p>
-            <p>9, Lomonosova Str., St. Petersburg, Russia, 191002</p>
-            <span>email: </span>
             <Link
               className="hover:underline p-0 h-auto leading-normal"
               href={"mailto:biocon@itmo.ru"}
               prefetch={false}
             >
               biocon@itmo.ru
+            </Link>
+            <Link
+              prefetch={false}
+              className="hover:underline"
+              href="/personal_data_policy.pdf"
+              target="_blank"
+            >
+              Privacy policy
             </Link>
           </div>
         </SheetFooter>
