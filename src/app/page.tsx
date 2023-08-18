@@ -24,7 +24,7 @@ import { useAsync, useWindowSize } from "@react-hookz/web";
 import React from "react";
 import dynamic from "next/dynamic";
 import { TrophyFilled } from "@ant-design/icons";
-import type { Speakers, Organizers } from "@prisma/client";
+import type { Speakers, Organizers } from "@prisma/client/biocon";
 import { FloatButton } from "antd";
 import { useRouter } from "next/navigation";
 
@@ -137,7 +137,7 @@ const SpeakerCard = ({
   name,
   nameUrl,
   hIndex: hIndex,
-  image: image,
+  image,
   university,
   universityUrl,
   topic,
@@ -155,11 +155,16 @@ const SpeakerCard = ({
     fetch(image).then((res) => setIsValidImage(res.ok));
   }, [image]);
 
+  const baseUrl =
+    process.env.NODE_ENV === "development"
+      ? "https://biocon.international"
+      : "";
+
   const Img = isValidImage
     ? () => (
         <div className="relative w-full aspect-square">
           <Image
-            src={image as string}
+            src={baseUrl + image}
             alt={name}
             fill
             className="rounded-lg object-cover aspect-square"
@@ -264,10 +269,15 @@ const OrganizerCard = ({
   image?: StaticImageData | string;
   email: string;
 } & React.HTMLProps<HTMLDivElement>) => {
+  const baseUrl =
+    process.env.NODE_ENV === "development"
+      ? "https://biocon.international"
+      : "";
+
   const Img = image
     ? () => (
         <Image
-          src={image}
+          src={baseUrl + image}
           alt={name}
           width={150}
           height={150}
@@ -347,7 +357,7 @@ export default function Home() {
   );
 
   const Header = () => (
-    <div role="none" className="flex flex-col h-screen gap-8">
+    <div role="none" className="flex flex-col min-h-screen gap-8">
       <Navbar setOpenContact={setOpenContact} />
       <Section className="flex-1 flex flex-col justify-center items-end">
         <div
@@ -545,8 +555,7 @@ export default function Home() {
             >
               non-listed countries
             </Link>{" "}
-            who do not already hold a Russian visa End of registration for
-            participants
+            who do not already hold a Russian visa
           </p>
         </div>
         <div className="row-[5] h-full justify-self-start flex flex-col justify-around">
