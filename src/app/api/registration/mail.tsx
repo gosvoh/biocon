@@ -2,6 +2,7 @@ export const Mail = (name: string) => {
   return (
     <>
       <h1>{name}, Thank you for registration for BIOCON 2023!</h1>
+      {/* TODO: обрезать сверху и снизу */}
       <img
         src={`${
           process.env.NODE_ENV === "development"
