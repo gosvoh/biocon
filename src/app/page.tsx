@@ -824,7 +824,7 @@ export default function Home() {
             sizes="50vw"
           />
         </div>
-        <div className="space-y-4">
+        <div className="space-y-3">
           <p
             className={cn(
               "font-semibold",
@@ -866,7 +866,7 @@ export default function Home() {
               (Tatar)
             </span>
           </p>
-          <p className={cn("text-lg sm:text-xl md:text-2xl")}>
+          <p className={cn("text-lg sm:text-xl md:text-2xl", "md:!mt-8")}>
             In the Republic of Tatarstan, Almetyevsk is often called the “Oil
             Capital”: the city is home to the headquarters of Tatneft and 80% of
             its population is employed by the oil sector.
