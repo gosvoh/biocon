@@ -1,12 +1,15 @@
 import "./globals.css";
-import { Inter, Heebo } from "next/font/google";
+import { Inter, Heebo, Roboto } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Biocon from "../../public/biocon.png";
 import BG from "../../public/bg_orig.png";
 import type { Metadata } from "next";
 
-const font = Heebo({ subsets: ["latin"] });
+const font = Roboto({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700", "900"],
+});
 
 export const metadata: Metadata = {
   title: "BIOCON 2023",
