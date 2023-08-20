@@ -880,7 +880,7 @@ export default function Home() {
         <Image
           src={VenueImg}
           alt="Venue image"
-          className="border-[10px] md:border-[14px] rounded-3xl object-cover object-center"
+          className="rounded-3xl object-cover object-center"
           sizes="(max-width: 768px) 100vw, 50vw"
           fill
         />
