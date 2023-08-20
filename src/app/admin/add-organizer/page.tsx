@@ -1,7 +1,7 @@
 "use client";
 
 import { useFetch, checkToken } from "@/lib/utils";
-import { Organizer } from "@/app/data";
+import type { Organizers } from "@prisma/client/biocon";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -54,12 +54,12 @@ export default function AddOrginizer() {
     { loading: false, isValid: false }
   );
   const [loading, setLoading] = useState(false);
-  const [speakersState, speakersAction] = useAsync<Organizer[]>(
+  const [speakersState, speakersAction] = useAsync<Organizers[]>(
     async () => fetch("/api/organizers").then((res) => res.json()),
     []
   );
   const [editOpen, setEditOpen] = useState(false);
-  const [editData, setEditData] = useState<Organizer>();
+  const [editData, setEditData] = useState<Organizers>();
 
   const HTTP = useFetch(token.value);
 
