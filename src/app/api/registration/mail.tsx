@@ -2,7 +2,6 @@ export const Mail = (name: string) => {
   return (
     <>
       <h1>{name}, Thank you for registration for BIOCON 2023!</h1>
-      {/* TODO: обрезать сверху и снизу */}
       <img
         src={`${
           process.env.NODE_ENV === "development"
@@ -10,7 +9,12 @@ export const Mail = (name: string) => {
             : "https://biocon.international"
         }/banner.png`}
         alt="Biocon banner"
-        style={{ width: "100%" }}
+        style={{
+          width: "100%",
+          height: "60%",
+          objectFit: "cover",
+          objectPosition: "center",
+        }}
       />
       <p>Dear {name},</p>
       <p>
