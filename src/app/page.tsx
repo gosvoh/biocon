@@ -1,32 +1,36 @@
 "use client";
 
-import { Button, buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
+import { Roboto } from "next/font/google";
+import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+
+import React, { useEffect, useState } from "react";
+
+import Link from "@/components/link";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Separator as UiSeparator } from "@/components/ui/separator";
+
 import { cn } from "@/lib/utils";
 
+import VenueImg from "../../public/venue.jpg";
 import Cat from "../../public/cat.jpg";
 import Logo from "../../public/logo_transparent.png";
 import AboutProgram from "../../public/about&program.png";
 import OutlineCircle from "../../public/outline-circle.svg";
-import { Roboto } from "next/font/google";
 import Footer from "./footer";
-import { Skeleton } from "@/components/ui/skeleton";
 import { theme as tailwindTheme } from "../../tailwind.config";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import { ChevronLeft, ChevronRight, MapPin, Trophy } from "lucide-react";
-import { Separator as UiSeparator } from "@/components/ui/separator";
+import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { useAsync, useWindowSize } from "@react-hookz/web";
-import React from "react";
-import dynamic from "next/dynamic";
 import { TrophyFilled } from "@ant-design/icons";
-import type { Speakers, Organizers } from "@prisma/client/biocon";
 import { FloatButton } from "antd";
-import { useRouter } from "next/navigation";
+
+import type { Speakers, Organizers } from "@prisma/client/biocon";
 
 const RegistrationDialog = dynamic(() => import("./registration.dialog"));
 const ContactDialog = dynamic(() => import("./contact.dialog"));
@@ -36,17 +40,16 @@ const MobileNav = dynamic(() => import("@/components/mobile-nav"));
 
 const componentsClassNames = {
   h1: {
-    className: "text-5xl sm:text-7xl md:text-9xl font-bold uppercase",
+    className: "text-5xl sm:text-7xl md:text-9xl",
   },
   bigH2: {
-    className: "text-3xl sm:text-4xl md:text-5xl font-semibold",
+    className: "text-3xl sm:text-4xl md:text-5xl",
   },
   h2: {
-    className:
-      "text-2xl sm:text-3xl md:text-4xl mb-8 mt-2 md:mt-8 font-semibold",
+    className: "text-2xl sm:text-3xl md:text-4xl mb-8 mt-2 md:mt-8",
   },
   h3: {
-    className: "text-xl sm:text-2xl md:text-3xl font-semibold",
+    className: "text-xl sm:text-2xl md:text-3xl",
   },
   bigP: {
     className: "text-base sm:text-ls md:text-xl",
@@ -174,6 +177,7 @@ const SpeakerCard = ({
             alt={name}
             fill
             className="rounded-lg object-cover aspect-square"
+            sizes="(max-width: 640px) 100vw, 33vw"
           />
         </div>
       )
@@ -193,16 +197,12 @@ const SpeakerCard = ({
     >
       <Img />
       <Link
-        target="_blank"
-        prefetch={false}
         href={nameUrl}
         className="text-lg sm:text-xl md:text-2xl text-center hover:underline mx-auto"
       >
         {name}
       </Link>
       <Link
-        target="_blank"
-        prefetch={false}
         href={universityUrl}
         className="mb-4 hover:underline text-center mx-auto min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]"
       >
@@ -219,9 +219,7 @@ const SpeakerCard = ({
       </div>
       {thunderUrl ? (
         <Link
-          prefetch={false}
           href={thunderUrl}
-          target="_blank"
           className="text-center flex items-center justify-center gap-2 whitespace-nowrap hover:underline mx-auto"
         >
           <TrophyFilled className="text-yellow-400" /> {thunder}
@@ -288,6 +286,7 @@ const OrganizerCard = ({
           width={150}
           height={150}
           className="rounded-lg aspect-square object-cover"
+          sizes="300px, (min-width: 768px) 600px"
         />
       )
     : () => (
@@ -370,7 +369,14 @@ export default function Home() {
           role="none"
           className="flex-1 flex flex-col items-end justify-center"
         >
-          <h1 className={cn(componentsClassNames.h1.className, "text-right")}>
+          <h1
+            className={cn(
+              componentsClassNames.h1.className,
+              "text-right",
+              "font-bold",
+              "uppercase"
+            )}
+          >
             BioCon 2023
           </h1>
           <h2 className={cn(componentsClassNames.h2.className, "text-right")}>
@@ -378,11 +384,7 @@ export default function Home() {
           </h2>
           <P className="text-right">December 18-20, 2023</P>
           <P className="text-right uppercase mb-16">
-            <Link
-              href="https://en.wikipedia.org/wiki/Almetyevsk"
-              prefetch={false}
-              target="_blank"
-            >
+            <Link href="https://en.wikipedia.org/wiki/Almetyevsk">
               ALMETYEVSK, REPUBLIC OF TATARSTAN
             </Link>
           </P>
@@ -422,7 +424,13 @@ export default function Home() {
             "hover:bg-white hover:text-black transition-colors"
           )}
         >
-          <h3 className={cn(componentsClassNames.h3.className, "mb-4")}>
+          <h3
+            className={cn(
+              componentsClassNames.h3.className,
+              "mb-4",
+              "font-semibold"
+            )}
+          >
             {title}
           </h3>
           <p>{description}</p>
@@ -542,7 +550,11 @@ export default function Home() {
 
         <div className="row-[1] h-full justify-self-start flex flex-col justify-around">
           <p
-            className={cn(componentsClassNames.h3.className, "text-[#6CCD86]")}
+            className={cn(
+              componentsClassNames.h3.className,
+              "text-[#6CCD86]",
+              "font-semibold"
+            )}
           >
             August 22
           </p>
@@ -550,13 +562,13 @@ export default function Home() {
           <p className={componentsClassNames.p.className}>Registration opens</p>
         </div>
         <div className="row-[3] h-full justify-self-start flex flex-col justify-around">
-          <p className={cn(componentsClassNames.h3.className)}>November 1</p>
+          <p className={cn(componentsClassNames.h3.className, "font-semibold")}>
+            November 1
+          </p>
           <p className={componentsClassNames.p.className}>
             Registration ends for participants from from{" "}
             <Link
               className="underline"
-              prefetch={false}
-              target="_blank"
               href="https://electronic-visa.kdmid.ru/country_en.html"
             >
               non-listed countries
@@ -566,7 +578,11 @@ export default function Home() {
         </div>
         <div className="row-[5] h-full justify-self-start flex flex-col justify-around">
           <p
-            className={cn(componentsClassNames.h3.className, "text-[#FE6F61]")}
+            className={cn(
+              componentsClassNames.h3.className,
+              "text-[#FE6F61]",
+              "font-semibold"
+            )}
           >
             December 1
           </p>
@@ -575,7 +591,7 @@ export default function Home() {
           </p>
         </div>
         <div className="row-[7] h-full justify-self-start flex flex-col justify-around">
-          <p className={cn(componentsClassNames.h3.className)}>
+          <p className={cn(componentsClassNames.h3.className, "font-semibold")}>
             December 18-20
           </p>
           <p className={componentsClassNames.p.className}>
@@ -777,7 +793,7 @@ export default function Home() {
 
   const Venue = () => (
     <Section
-      className="flex flex-row justify-center items-center relative md:grid md:grid-cols-2 md:gap-12"
+      className="flex flex-col justify-center items-center relative md:grid md:grid-cols-2 gap-8 md:gap-x-12 md:gap-y-32 md:!mb-20"
       id="venue"
     >
       <div className="hidden md:block relative md:flex-1 md:h-[175%] mt-12">
@@ -786,17 +802,21 @@ export default function Home() {
           alt={"Venue image"}
           fill
           className="-z-10 opacity-30 md:opacity-100 object-contain object-[50%_60%] h-auto"
+          sizes="100vw"
         />
       </div>
       <div className="flex-1">
         <H1 className="text-right">Venue</H1>
-        <div className="relative text-2xl">
+        <div className="relative">
           <Image
             src={"/venue.png"}
             alt={"Venue image"}
             fill
             className="md:hidden -z-10 opacity-30 md:opacity-100 object-contain object-center !top-[-40%] !h-[200%]"
+            sizes="50vw"
           />
+        </div>
+        <div className="space-y-3">
           <p
             className={cn(
               "font-semibold",
@@ -806,8 +826,6 @@ export default function Home() {
             <Link
               href="https://goo.gl/maps/JBbZYQ8ynVZas14g9"
               className="hover:underline"
-              prefetch={false}
-              target="_blank"
             >
               Almetyevsk{" "}
               <MapPin
@@ -818,18 +836,54 @@ export default function Home() {
               />
             </Link>
           </p>
-          <p className={cn("my-6", componentsClassNames.bigP.className)}>
-            (Russian: Альметьевск; Tatar: Әлмәт)
+          <p className={cn(componentsClassNames.bigH2.className, "font-light")}>
+            Альметьевск{" "}
+            <span
+              className={cn(
+                componentsClassNames.h3.className,
+                "text-lg sm:text-xl md:text-2xl"
+              )}
+            >
+              (Russian)
+            </span>
           </p>
-          <p className={cn("my-6", componentsClassNames.bigP.className)}>
-            Is a city in the Republic of Tatarstan, Russia, located on the left
-            bank of Zay River.
+          <p className={cn(componentsClassNames.bigH2.className, "font-light")}>
+            Әлмәт{" "}
+            <span
+              className={cn(
+                componentsClassNames.h3.className,
+                "text-lg sm:text-xl md:text-2xl"
+              )}
+            >
+              (Tatar)
+            </span>
           </p>
-          <p className={cn("mt-8", componentsClassNames.bigP.className)}>
-            The oil-rich city of Almetyevsk in Tatarstan region has ambitious
-            plans to transform into a major biotechnology hub in Russia.
+          <p className={cn(componentsClassNames.bigP.className)}>
+            In the Republic of Tatarstan, Almetyevsk is often called the “Oil
+            Capital”: the city is home to the headquarters of Tatneft and 80% of
+            its population is employed by the oil sector.
           </p>
         </div>
+      </div>
+      <p
+        className={cn(
+          componentsClassNames.bigP.className,
+          "text-lg sm:text-xl md:text-2xl"
+        )}
+      >
+        Almetyevsk boasts its own ski resort, a 150 km network of bike paths,
+        the “Almet” community center (complete with Renaissance-era art and
+        Shostakovich’s grand piano), and 30 art objects and murals spread
+        throughout the city.
+      </p>
+      <div className="relative w-full h-[300px] md:h-[150%]">
+        <Image
+          src={VenueImg}
+          alt="Venue image"
+          className="border-[10px] md:border-[14px] rounded-3xl object-cover object-center"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          fill
+        />
       </div>
     </Section>
   );
