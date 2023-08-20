@@ -2,10 +2,8 @@ import VK from "../../public/vk.svg";
 import Telegram from "../../public/telegram.svg";
 import Facebook from "../../public/facebook.svg";
 import YouTube from "../../public/youtube.svg";
-import Link from "next/link";
+import Link from "@/components/link";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { socials } from "@/socials";
 import { Button, ConfigProvider, Form, Input, Modal, theme } from "antd";
 import type { ModalFuncProps } from "antd";
@@ -37,16 +35,16 @@ export default function FollowDialog({
           Follow us on social networks
         </h1>
         <div className="flex flex-row flex-wrap gap-8 items-center justify-center my-12">
-          <Link href={socials.vk} target="_blank" prefetch={false}>
+          <Link href={socials.vk}>
             <Image src={VK} alt={"VK social"} width={40} />
           </Link>
-          <Link href={socials.telegram} target="_blank" prefetch={false}>
+          <Link href={socials.telegram}>
             <Image src={Telegram} alt="Telegram social" width={40} />
           </Link>
-          <Link href={socials.facebook} target="_blank" prefetch={false}>
+          <Link href={socials.facebook}>
             <Image src={Facebook} alt={"Facebook social"} width={40} />
           </Link>
-          <Link href={socials.youtube} target="_blank" prefetch={false}>
+          <Link href={socials.youtube}>
             <Image src={YouTube} alt={"YouTube social"} width={40} />
           </Link>
         </div>
