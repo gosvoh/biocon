@@ -119,33 +119,9 @@ export default function RegistrationDialog({
           layout="vertical"
           onFinish={(values) => {
             setLoading(true);
-            let error = false;
-            fetch(
-              `/api/registration/check-mail/?email=${encodeURIComponent(
-                values.email
-              )}`
-            )
-              .then((res) => res.json())
-              .then((res) => {
-                if (res.exists) {
-                  form.setFields([
-                    { name: "email", errors: ["Email already exists"] },
-                  ]);
-                  error = true;
-                  form.scrollToField("email");
-                }
-              });
-
-            if (error) {
-              setLoading(false);
-              return;
-            }
-
             fetch("/api/registration", {
               method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
+              headers: { "Content-Type": "application/json" },
               body: JSON.stringify(values),
             })
               .then((res) => {
