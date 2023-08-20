@@ -19,25 +19,25 @@ import Cat from "../../public/cat.jpg";
 import Logo from "../../public/logo_transparent.png";
 import AboutProgram from "../../public/about&program.png";
 import OutlineCircle from "../../public/outline-circle.svg";
-import Footer from "./footer";
-import { theme as tailwindTheme } from "../../tailwind.config";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
 import { MapPin } from "lucide-react";
-import { useAsync, useWindowSize } from "@react-hookz/web";
+import { useAsync } from "@react-hookz/web";
 import { TrophyFilled } from "@ant-design/icons";
-import { FloatButton } from "antd";
 
 import type { Speakers, Organizers } from "@prisma/client/biocon";
 import Icon from "@/components/icon";
+import FloatButton from "antd/es/float-button";
+
+import "swiper/css";
+import "swiper/css/pagination";
 
 const RegistrationDialog = dynamic(() => import("./registration.dialog"));
 const ContactDialog = dynamic(() => import("./contact.dialog"));
 const FollowDialog = dynamic(() => import("./follow.dialog"));
 const MainNav = dynamic(() => import("@/components/main-nav"));
 const MobileNav = dynamic(() => import("@/components/mobile-nav"));
+const Footer = dynamic(() => import("./footer"));
 
 const componentsClassNames = {
   h1: {
@@ -609,116 +609,123 @@ export default function Home() {
       []
     );
 
-    // @ts-ignore
-    const screens: {
-      xs: number;
-      sm: number;
-      md: number;
-      lg: number;
-      xl: number;
-      "2xl": number;
-    } = Object.entries(tailwindTheme!.screens as any).reduce(
-      // @ts-ignore
-      (acc, [key, val]) => ({ ...acc, [key]: Number(val.slice(0, -2)) }),
-      {}
-    );
-    const windowSizes = useWindowSize();
-
     useEffect(() => {
       speakersAction.execute();
     }, [speakersAction]);
 
-    const Wrapper = ({ elements }: { elements: Speakers[] }) => {
-      let ret = (
-        <div className="w-full flex flex-wrap gap-y-8 gap-x-12 justify-items-center justify-around">
-          {speakersState.status === "loading" || elements.length === 0
+    const NormalWrapper = ({
+      elements,
+      className,
+    }: {
+      elements: Speakers[];
+      className?: React.HTMLProps<HTMLDivElement>["className"];
+    }) => (
+      <div
+        className={cn(
+          "w-full hidden md:flex flex-wrap gap-y-8 gap-x-12 justify-items-center justify-around",
+          className
+        )}
+      >
+        {speakersState.status === "loading" || elements.length === 0
+          ? Array.from({ length: 3 }).map((_, i) => (
+              <SpeakerCardSkeleton
+                key={i}
+                className="basis-[80%] md:basis-3/12"
+              />
+            ))
+          : elements.map((speaker) => (
+              <SpeakerCard
+                nameUrl={speaker.nameUrl}
+                universityUrl={speaker.universityUrl}
+                thunderUrl={speaker.thunderUrl}
+                key={speaker.id}
+                name={speaker.name}
+                hIndex={speaker.hIndex}
+                university={speaker.university}
+                description={speaker.description}
+                thunder={speaker.thunder}
+                topic={speaker.topic}
+                image={`/images/${speaker.image}.webp`}
+                className="basis-[80%] md:basis-3/12"
+                country={speaker.country}
+              />
+            ))}
+      </div>
+    );
+
+    const MobileWrapper = ({
+      elements,
+      className,
+    }: {
+      elements: Speakers[];
+      className?: React.HTMLProps<HTMLDivElement>["className"];
+    }) => (
+      <div
+        className={cn("w-full flex md:hidden gap-4 items-center", className)}
+      >
+        <div
+          className={cn(
+            buttonVariants({ variant: "outline", size: "icon" }),
+            "swiper-button-prev flex-1 aspect-square rounded-full border-white"
+          )}
+        >
+          <Icon name="chevron-left" className="w-4 h-4" />
+        </div>
+        <Swiper
+          modules={[Navigation, Autoplay]}
+          spaceBetween={50}
+          slidesPerView={1}
+          navigation={{
+            prevEl: ".swiper-button-prev",
+            nextEl: ".swiper-button-next",
+          }}
+          pagination={{ clickable: true, dynamicBullets: true }}
+          loop={true}
+          centeredSlides={true}
+          autoplay={{ delay: 3000 }}
+        >
+          {elements.length === 0
             ? Array.from({ length: 3 }).map((_, i) => (
-                <SpeakerCardSkeleton
-                  key={i}
-                  className="basis-[80%] md:basis-3/12"
-                />
+                <SwiperSlide key={i}>
+                  <SpeakerCardSkeleton />
+                </SwiperSlide>
               ))
             : elements.map((speaker) => (
-                <SpeakerCard
-                  nameUrl={speaker.nameUrl}
-                  universityUrl={speaker.universityUrl}
-                  thunderUrl={speaker.thunderUrl}
-                  key={speaker.id}
-                  name={speaker.name}
-                  hIndex={speaker.hIndex}
-                  university={speaker.university}
-                  description={speaker.description}
-                  thunder={speaker.thunder}
-                  topic={speaker.topic}
-                  image={`/images/${speaker.image}.webp`}
-                  className="basis-[80%] md:basis-3/12"
-                  country={speaker.country}
-                />
+                <SwiperSlide key={speaker.id}>
+                  <SpeakerCard
+                    nameUrl="#"
+                    universityUrl="#"
+                    thunderUrl="#"
+                    name={speaker.name}
+                    hIndex={speaker.hIndex}
+                    university={speaker.university}
+                    description={speaker.description}
+                    thunder={speaker.thunder}
+                    topic={speaker.topic}
+                    image={`/images/${speaker.image}.webp`}
+                    className="text-center"
+                    country={speaker.country}
+                  />
+                </SwiperSlide>
               ))}
+        </Swiper>
+        <div
+          className={cn(
+            buttonVariants({ variant: "outline", size: "icon" }),
+            "swiper-button-next flex-1 aspect-square rounded-full border-white"
+          )}
+        >
+          <Icon name="chevron-right" className="w-4 h-4" />
         </div>
-      );
-      if (windowSizes.width && windowSizes.width < screens.md)
-        ret = (
-          <div className="w-full flex gap-4 items-center">
-            <div
-              className={cn(
-                buttonVariants({ variant: "outline", size: "icon" }),
-                "swiper-button-prev flex-1 aspect-square rounded-full border-white"
-              )}
-            >
-              <Icon name="chevron-left" className="w-4 h-4" />
-            </div>
-            <Swiper
-              modules={[Navigation, Autoplay]}
-              spaceBetween={50}
-              slidesPerView={1}
-              navigation={{
-                prevEl: ".swiper-button-prev",
-                nextEl: ".swiper-button-next",
-              }}
-              pagination={{ clickable: true, dynamicBullets: true }}
-              loop={true}
-              centeredSlides={true}
-              autoplay={{ delay: 3000 }}
-            >
-              {elements.length === 0
-                ? Array.from({ length: 3 }).map((_, i) => (
-                    <SwiperSlide key={i}>
-                      <SpeakerCardSkeleton />
-                    </SwiperSlide>
-                  ))
-                : elements.map((speaker) => (
-                    <SwiperSlide key={speaker.id}>
-                      <SpeakerCard
-                        nameUrl="#"
-                        universityUrl="#"
-                        thunderUrl="#"
-                        name={speaker.name}
-                        hIndex={speaker.hIndex}
-                        university={speaker.university}
-                        description={speaker.description}
-                        thunder={speaker.thunder}
-                        topic={speaker.topic}
-                        image={`/images/${speaker.image}.webp`}
-                        className="text-center"
-                        country={speaker.country}
-                      />
-                    </SwiperSlide>
-                  ))}
-            </Swiper>
-            <div
-              className={cn(
-                buttonVariants({ variant: "outline", size: "icon" }),
-                "swiper-button-next flex-1 aspect-square rounded-full border-white"
-              )}
-            >
-              <Icon name="chevron-right" className="w-4 h-4" />
-            </div>
-          </div>
-        );
+      </div>
+    );
 
-      return ret;
-    };
+    const Wrapper = ({ elements }: { elements: Speakers[] }) => (
+      <>
+        <NormalWrapper elements={elements} />
+        <MobileWrapper elements={elements} />
+      </>
+    );
 
     return (
       <Section
