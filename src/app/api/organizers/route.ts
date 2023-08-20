@@ -4,7 +4,8 @@ import fs from "fs";
 import sharp from "sharp";
 import { randomUUID } from "crypto";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 export async function GET() {
   return NextResponse.json(await biocon.organizers.findMany());
