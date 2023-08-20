@@ -622,7 +622,7 @@ export default function Home() {
     }) => (
       <div
         className={cn(
-          "w-full hidden md:flex flex-wrap gap-y-8 gap-x-12 justify-items-center justify-around",
+          "w-full hidden md:flex flex-wrap gap-8 justify-items-center justify-around",
           className
         )}
       >
@@ -824,7 +824,7 @@ export default function Home() {
             sizes="50vw"
           />
         </div>
-        <div className="space-y-3">
+        <div className="space-y-4">
           <p
             className={cn(
               "font-semibold",
