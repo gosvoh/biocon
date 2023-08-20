@@ -55,7 +55,8 @@ export default function AddOrginizer() {
   );
   const [loading, setLoading] = useState(false);
   const [speakersState, speakersAction] = useAsync<Organizers[]>(
-    async () => fetch("/api/organizers").then((res) => res.json()),
+    async () =>
+      fetch("/api/organizers", { cache: "no-cache" }).then((res) => res.json()),
     []
   );
   const [editOpen, setEditOpen] = useState(false);

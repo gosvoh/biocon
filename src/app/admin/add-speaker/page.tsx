@@ -61,7 +61,8 @@ export default function AddSpeaker() {
   const [editOpen, setEditOpen] = useState(false);
   const [editData, setEditData] = useState<Speakers>();
   const [organizersState, organizersAction] = useAsync<Speakers[]>(
-    async () => fetch("/api/speakers").then((res) => res.json()),
+    async () =>
+      fetch("/api/speakers", { cache: "no-cache" }).then((res) => res.json()),
     []
   );
   const [countriesState, countriesAction] = useAsync<
