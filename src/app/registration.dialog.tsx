@@ -389,7 +389,13 @@ export default function RegistrationDialog({
                     { type: "url", message: "Please enter a valid url" },
                   ]}
                 >
-                  <Input placeholder="Provide a link to a short self-presentation video" />
+                  <Input
+                    placeholder={
+                      selectedParticipationType === "Contributed speaker"
+                        ? "Provide a link to a short self-presentation video"
+                        : "Provide a link to a teaser of your slam talk"
+                    }
+                  />
                 </Form.Item>
               </>
             )}
