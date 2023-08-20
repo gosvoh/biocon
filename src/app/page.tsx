@@ -25,12 +25,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { useAsync, useWindowSize } from "@react-hookz/web";
 import { TrophyFilled } from "@ant-design/icons";
 import { FloatButton } from "antd";
 
 import type { Speakers, Organizers } from "@prisma/client/biocon";
+import Icon from "@/components/icon";
 
 const RegistrationDialog = dynamic(() => import("./registration.dialog"));
 const ContactDialog = dynamic(() => import("./contact.dialog"));
@@ -665,7 +666,7 @@ export default function Home() {
                 "swiper-button-prev flex-1 aspect-square rounded-full border-white"
               )}
             >
-              <ChevronLeft className="h-4 w-4" />
+              <Icon name="chevron-left" className="w-4 h-4" />
             </div>
             <Swiper
               modules={[Navigation, Autoplay]}
@@ -711,7 +712,7 @@ export default function Home() {
                 "swiper-button-next flex-1 aspect-square rounded-full border-white"
               )}
             >
-              <ChevronRight className="h-4 w-4" />
+              <Icon name="chevron-right" className="w-4 h-4" />
             </div>
           </div>
         );
@@ -858,19 +859,14 @@ export default function Home() {
               (Tatar)
             </span>
           </p>
-          <p className={cn(componentsClassNames.bigP.className)}>
+          <p className={cn("text-lg sm:text-xl md:text-2xl")}>
             In the Republic of Tatarstan, Almetyevsk is often called the “Oil
             Capital”: the city is home to the headquarters of Tatneft and 80% of
             its population is employed by the oil sector.
           </p>
         </div>
       </div>
-      <p
-        className={cn(
-          componentsClassNames.bigP.className,
-          "text-lg sm:text-xl md:text-2xl"
-        )}
-      >
+      <p className={cn("text-lg sm:text-xl md:text-2xl")}>
         Almetyevsk boasts its own ski resort, a 150 km network of bike paths,
         the “Almet” community center (complete with Renaissance-era art and
         Shostakovich’s grand piano), and 30 art objects and murals spread
