@@ -512,17 +512,29 @@ export default function Home() {
             "mt-8 whitespace-nowrap",
             "w-full",
             "items-center justify-items-center",
-            "text-sm sm:text-lg md:text-xl",
+            "text-xs sm:text-sm md:text-base",
             "font-bold",
             "gap-y-8"
           )}
         >
-          <p className={cn(circles[0].className, "text-center")}>
+          <p
+            className={cn(
+              circles[0].className,
+              "text-center",
+              "-translate-y-1"
+            )}
+          >
             Junior and
             <br />
             young researchers
           </p>
-          <p className={cn(circles[1].className, "text-center")}>
+          <p
+            className={cn(
+              circles[1].className,
+              "text-center",
+              "-translate-y-1"
+            )}
+          >
             Recognised and <br /> established researchers
           </p>
           <p className={circles[2].className}>Biotech experts</p>
@@ -533,7 +545,7 @@ export default function Home() {
               key={i}
               src={OutlineCircle}
               alt="Outline circle"
-              className={`${className} h-[60px] md:h-[100px] w-auto`}
+              className={cn(className, "h-[60px] md:h-[100px] w-auto")}
             />
           ))}
         </div>
