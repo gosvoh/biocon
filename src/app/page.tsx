@@ -344,7 +344,6 @@ export default function Home() {
   const [openRegistration, setOpenRegistration] = useState(false);
   const [openContact, setOpenContact] = useState(false);
   const [openFollow, setOpenFollow] = useState(false);
-  const router = useRouter();
 
   const Section = ({
     children,
@@ -391,7 +390,11 @@ export default function Home() {
           </P>
         </div>
         <div className="mt-auto mb-16 flex flex-nowrap flex-col sm:flex-row justify-evenly items-center w-1/2 gap-6 whitespace-nowrap self-center">
-          <Link href="#about" {...componentsClassNames.button.outline}>
+          <Link
+            target="_parent"
+            href="#about"
+            {...componentsClassNames.button.outline}
+          >
             More info
           </Link>
           <Button
@@ -782,11 +785,11 @@ export default function Home() {
         </span>
       </P>
       <div className="relative flex flex-col items-center mt-12 w-full">
-        <Image
+        {/* <Image
           src={Cat}
           alt="Coming soon image with cat"
           className="rounded-xl w-3/4 md:w-1/3"
-        />
+        /> */}
         <p
           className={cn(
             "stroke absolute translate-y-2/4 bottom-0 text-3xl xs:text-4xl sm:text-5xl",
@@ -959,10 +962,7 @@ export default function Home() {
       <Separator />
       <Organizers />
       <Footer />
-      <FloatButton.BackTop
-        className="bg-white hover:bg-gray-200"
-        onClick={() => router.push("/")}
-      />
+      <FloatButton.BackTop className="bg-white hover:bg-gray-200" href="#" />
     </>
   );
 }
