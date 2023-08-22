@@ -310,6 +310,7 @@ export default function RegistrationDialog({
             <Form.Item<RegisterFormValues>
               name="motivationLetter"
               label="Motivation letter"
+              tooltip="Please write in English"
               rules={[
                 {
                   required: true,
@@ -352,6 +353,7 @@ export default function RegistrationDialog({
                     <Form.Item<RegisterFormValues>
                       name="resume"
                       label="Resume"
+                      tooltip="Please write in English"
                       rules={[
                         {
                           required: true,
