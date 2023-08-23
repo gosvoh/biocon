@@ -111,7 +111,7 @@ export const metadata: Metadata = {
     },
     title: "BIOCON 2023",
   },
-  creator: "Alekey Vokhmin",
+  // creator: "Alekey Vokhmin",
   viewport: {
     width: "device-width",
     initialScale: 1,
