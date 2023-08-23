@@ -318,7 +318,14 @@ export default function RegistrationDialog({
                 },
               ]}
             >
-              <Input.TextArea placeholder="Enter your motivation letter here" />
+              <Input.TextArea
+                className="!min-h-[300px]"
+                placeholder={`Questions to be answered in the motivation letter (volume: 1-2 pages):
+- Why would your participation be valuable to the conference and its participants?
+- Describe your experience in the field of biotechnology (study / work / projects)
+- What are your expectations from the conference?
+                `}
+              />
             </Form.Item>
           )}
           {selectedParticipationType &&
