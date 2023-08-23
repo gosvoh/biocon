@@ -47,7 +47,7 @@ const componentsClassNames = {
     className: "text-3xl sm:text-4xl md:text-5xl",
   },
   h2: {
-    className: "text-2xl sm:text-3xl md:text-4xl mb-8 mt-2 md:mt-8",
+    className: "text-2xl sm:text-3xl md:text-4xl",
   },
   h3: {
     className: "text-xl sm:text-2xl md:text-3xl",
@@ -859,25 +859,15 @@ export default function Home() {
               />
             </Link>
           </p>
-          <p className={cn(componentsClassNames.bigH2.className, "font-light")}>
+          <p className={cn(componentsClassNames.h2.className, "font-light")}>
             Альметьевск{" "}
-            <span
-              className={cn(
-                componentsClassNames.h3.className,
-                "text-lg sm:text-xl md:text-2xl"
-              )}
-            >
+            <span className={cn("text-base sm:text-lg md:text-xl")}>
               (Russian)
             </span>
           </p>
-          <p className={cn(componentsClassNames.bigH2.className, "font-light")}>
+          <p className={cn(componentsClassNames.h2.className, "font-light")}>
             Әлмәт{" "}
-            <span
-              className={cn(
-                componentsClassNames.h3.className,
-                "text-lg sm:text-xl md:text-2xl"
-              )}
-            >
+            <span className={cn("text-base sm:text-lg md:text-xl")}>
               (Tatar)
             </span>
           </p>
