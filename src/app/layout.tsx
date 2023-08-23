@@ -111,7 +111,7 @@ export const metadata: Metadata = {
     },
     title: "BIOCON 2023",
   },
-  // creator: "Alekey Vokhmin",
+  creator: "Advanced Engineering School ITMO",
   viewport: {
     width: "device-width",
     initialScale: 1,
