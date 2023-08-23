@@ -383,7 +383,7 @@ export default function Home() {
             International Industrial Biotechnology Conference
           </h2>
           <P className="text-right">December 18-20, 2023</P>
-          <P className="text-right uppercase mb-16">
+          <P className="text-right uppercase mb-16 hover:underline">
             <Link href="https://en.wikipedia.org/wiki/Almetyevsk">
               ALMETYEVSK, REPUBLIC OF TATARSTAN
             </Link>
