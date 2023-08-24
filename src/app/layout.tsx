@@ -88,8 +88,8 @@ export const metadata: Metadata = {
   ],
   applicationName: "Biocon",
   authors: [
-    { name: "Advanced Engineering School ITMO", url: "https://pish-itmo.ru" },
     { name: "Alekey Vokhmin", url: "https://github.com/gosvoh" },
+    { name: "Advanced Engineering School ITMO", url: "https://pish-itmo.ru" },
   ],
   icons: "https://biocon.international/logo.png",
   robots: {
