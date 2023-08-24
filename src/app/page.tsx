@@ -708,9 +708,9 @@ export default function Home() {
             : elements.map((speaker) => (
                 <SwiperSlide key={speaker.id}>
                   <SpeakerCard
-                    nameUrl="#"
-                    universityUrl="#"
-                    thunderUrl="#"
+                    nameUrl={speaker.nameUrl}
+                    universityUrl={speaker.universityUrl}
+                    thunderUrl={speaker.thunderUrl}
                     name={speaker.name}
                     hIndex={speaker.hIndex}
                     university={speaker.university}
