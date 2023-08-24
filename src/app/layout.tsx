@@ -88,7 +88,7 @@ export const metadata: Metadata = {
   ],
   applicationName: "Biocon",
   authors: [
-    { name: "Alekey Vokhmin", url: "https://github.com/gosvoh" },
+    { name: "Aleksey Vokhmin", url: "https://github.com/gosvoh" },
     { name: "Advanced Engineering School ITMO", url: "https://pish-itmo.ru" },
   ],
   icons: "https://biocon.international/logo.png",
@@ -114,7 +114,7 @@ export const metadata: Metadata = {
     },
     title: "BIOCON 2023",
   },
-  // creator: "Alekey Vokhmin",
+  creator: "Aleksey Vokhmin",
   viewport: {
     width: "device-width",
     initialScale: 1,
