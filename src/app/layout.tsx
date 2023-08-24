@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     "PhD student",
   ],
   applicationName: "Biocon",
-  authors: [{ name: "Alekey Vokhmin", url: "https://github.com/gosvoh" }],
+  // authors: [{ name: "Alekey Vokhmin", url: "https://github.com/gosvoh" }],
   icons: "https://biocon.international/logo.png",
   robots: {
     index: true,
