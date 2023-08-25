@@ -413,8 +413,20 @@ export default function Home() {
           <h2 className={cn(componentsClassNames.xl2.className, "text-right")}>
             International Industrial Biotechnology Conference
           </h2>
-          <P className="text-right mt-16">December 18-20, 2023</P>
-          <P className="text-right mb-16 hover:underline">
+          <P
+            className={cn(
+              "text-right mt-16",
+              componentsClassNames.xl.className
+            )}
+          >
+            December 18-20, 2023
+          </P>
+          <P
+            className={cn(
+              "text-right mb-16 hover:underline",
+              componentsClassNames.xl.className
+            )}
+          >
             <Link href="https://en.wikipedia.org/wiki/Almetyevsk">
               Almetyevsk, Republic of Tatarstan
             </Link>
