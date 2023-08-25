@@ -35,7 +35,7 @@ export default function Footer({}: {}) {
         <Link href="https://www.tatneft.ru/">
           <Image src={Tatneft} alt="Tatneft" width={imgWidth} />
         </Link>
-        <Link href="https://pish-itmo.ru/">
+        <Link href="https://pish.itmo.ru/">
           <Image src={Pish} alt="Pish" width={imgWidth} />
         </Link>
         <Link href="https://agni-rt.ru/">
