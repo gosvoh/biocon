@@ -5,7 +5,7 @@ import { Roboto } from "next/font/google";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
-import React, { useEffect, useState } from "react";
+import React, { HTMLAttributes, useEffect, useState } from "react";
 
 import Link from "@/components/link";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -40,23 +40,32 @@ const MobileNav = dynamic(() => import("@/components/mobile-nav"));
 const Footer = dynamic(() => import("./footer"));
 
 const componentsClassNames = {
-  h1: {
+  xl5: {
     className: "text-5xl sm:text-7xl md:text-9xl",
   },
-  bigH2: {
+  xl4: {
+    className: "text-4xl sm:text-6xl md:text-8xl",
+  },
+  xl3: {
     className: "text-3xl sm:text-4xl md:text-5xl",
   },
-  h2: {
+  xl2: {
     className: "text-2xl sm:text-3xl md:text-4xl",
   },
-  h3: {
+  xl: {
     className: "text-xl sm:text-2xl md:text-3xl",
   },
-  bigP: {
+  lg: {
+    className: "text-lg sm:text-xl md:text-2xl",
+  },
+  base: {
     className: "text-base sm:text-ls md:text-xl",
   },
-  p: {
+  sm: {
     className: "text-sm sm:text-base md:text-lg",
+  },
+  xs: {
+    className: "text-xs sm:text-sm md:text-base",
   },
   button: {
     className: "px-8 py-4 text-base sm:text-lg md:text-xl font-normal",
@@ -117,7 +126,8 @@ const H1 = ({
     <h1
       {...props}
       className={cn(
-        "text-4xl sm:text-6xl md:text-8xl font-bold stroke text-left w-full uppercase mb-12",
+        componentsClassNames.xl4.className,
+        "font-bold stroke text-left w-full uppercase mb-12",
         StrokeFont.className,
         className
       )}
@@ -135,7 +145,8 @@ const P = ({
   <p
     {...props}
     className={cn(
-      "text-base sm:text-lg md:text-2xl text-left w-full",
+      componentsClassNames.base.className,
+      "text-left w-full",
       className
     )}
   >
@@ -191,7 +202,7 @@ const SpeakerCard = ({
         "flex flex-col",
         "items-start",
         "w-full p-2",
-        "text-sm sm:text-base md:text-lg",
+        componentsClassNames.sm.className,
         "space-y-4",
         className
       )}
@@ -199,7 +210,10 @@ const SpeakerCard = ({
       <Img />
       <Link
         href={nameUrl}
-        className="text-lg sm:text-xl md:text-2xl text-center hover:underline mx-auto"
+        className={cn(
+          componentsClassNames.lg.className,
+          "text-center hover:underline mx-auto"
+        )}
       >
         {name}
       </Link>
@@ -209,11 +223,18 @@ const SpeakerCard = ({
       >
         {university}
       </Link>
-      <p className="w-full text-center font-bold text-base sm:text-lg md:text-xl">
+      <p
+        className={cn(
+          componentsClassNames.base.className,
+          "w-full text-center font-bold"
+        )}
+      >
         {country}
       </p>
       <div className="border border-white rounded-lg text-center px-4 py-2 w-full">
-        <p className="text-xl font-semibold">{hIndex}</p>
+        <p className={cn(componentsClassNames.lg.className, "font-semibold")}>
+          {hIndex}
+        </p>
         <p>
           <span className="italic">h</span>-index
         </p>
@@ -221,12 +242,12 @@ const SpeakerCard = ({
       {thunderUrl ? (
         <Link
           href={thunderUrl}
-          className="text-center flex items-center justify-center gap-2 whitespace-nowrap hover:underline mx-auto"
+          className="text-center flex items-center justify-center gap-2 hover:underline mx-auto"
         >
           <TrophyFilled className="text-yellow-400" /> {thunder}
         </Link>
       ) : (
-        <p className="text-center flex items-center justify-center gap-2 whitespace-nowrap">
+        <p className="text-center flex items-center justify-center gap-2">
           <TrophyFilled className="text-yellow-400" /> {thunder}
         </p>
       )}
@@ -306,8 +327,13 @@ const OrganizerCard = ({
       )}
     >
       <Img />
-      <div className="flex flex-col justify-center w-full text-sm sm:text-base md:text-lg">
-        <h2 className="text-base sm:text-2xl md:text-3xl">{name}</h2>
+      <div
+        className={cn(
+          componentsClassNames.sm.className,
+          "flex flex-col justify-center w-full"
+        )}
+      >
+        <h2 className={cn(componentsClassNames.base.className)}>{name}</h2>
         <p>{position}</p>
         <Link href={`mailto:${email}`} className="hover:underline">
           {email}
@@ -332,7 +358,12 @@ const OrganizersSkeleton = ({ ...props }: React.HTMLProps<HTMLDivElement>) => (
     )}
   >
     <Skeleton className="rounded-lg aspect-square w-[100px] md:w-[150px]" />
-    <div className="flex flex-col justify-center w-full text-sm sm:text-base md:text-lg space-y-4">
+    <div
+      className={cn(
+        componentsClassNames.sm.className,
+        "flex flex-col justify-center w-full space-y-4"
+      )}
+    >
       <Skeleton className="w-3/4 h-8" />
       <Skeleton className="w-3/4 h-4" />
       <Skeleton className="w-3/4 h-4" />
@@ -371,7 +402,7 @@ export default function Home() {
         >
           <h1
             className={cn(
-              componentsClassNames.h1.className,
+              componentsClassNames.xl5.className,
               "text-right",
               "font-bold",
               "uppercase"
@@ -379,13 +410,13 @@ export default function Home() {
           >
             BioCon 2023
           </h1>
-          <h2 className={cn(componentsClassNames.h2.className, "text-right")}>
+          <h2 className={cn(componentsClassNames.xl2.className, "text-right")}>
             International Industrial Biotechnology Conference
           </h2>
-          <P className="text-right">December 18-20, 2023</P>
-          <P className="text-right uppercase mb-16 hover:underline">
+          <P className="text-right mt-16">December 18-20, 2023</P>
+          <P className="text-right mb-16 hover:underline">
             <Link href="https://en.wikipedia.org/wiki/Almetyevsk">
-              ALMETYEVSK, REPUBLIC OF TATARSTAN
+              Almetyevsk, Republic of Tatarstan
             </Link>
           </P>
         </div>
@@ -430,7 +461,7 @@ export default function Home() {
         >
           <h3
             className={cn(
-              componentsClassNames.h3.className,
+              componentsClassNames.xl.className,
               "mb-4",
               "font-semibold"
             )}
@@ -503,7 +534,7 @@ export default function Home() {
 
     return (
       <Section className="mt-0">
-        <h2 {...componentsClassNames.h2}>
+        <h2 {...componentsClassNames.xl2}>
           BIOCON will be especially beneficial for:
         </h2>
         <div
@@ -512,7 +543,7 @@ export default function Home() {
             "mt-8 whitespace-nowrap",
             "w-full",
             "items-center justify-items-center",
-            "text-xs sm:text-sm md:text-base",
+            componentsClassNames.xs.className,
             "font-bold",
             "gap-y-8"
           )}
@@ -567,7 +598,7 @@ export default function Home() {
         <div className="row-[1] h-full justify-self-start flex flex-col justify-around">
           <p
             className={cn(
-              componentsClassNames.h3.className,
+              componentsClassNames.xl.className,
               "text-[#6CCD86]",
               "font-semibold"
             )}
@@ -575,13 +606,15 @@ export default function Home() {
             August 22
           </p>
 
-          <p className={componentsClassNames.p.className}>Registration opens</p>
+          <p className={componentsClassNames.sm.className}>
+            Registration opens
+          </p>
         </div>
         <div className="row-[3] h-full justify-self-start flex flex-col justify-around">
-          <p className={cn(componentsClassNames.h3.className, "font-semibold")}>
+          <p className={cn(componentsClassNames.xl.className, "font-semibold")}>
             November 1
           </p>
-          <p className={componentsClassNames.p.className}>
+          <p className={componentsClassNames.sm.className}>
             Registration ends for participants from from{" "}
             <Link
               className="underline"
@@ -595,22 +628,22 @@ export default function Home() {
         <div className="row-[5] h-full justify-self-start flex flex-col justify-around">
           <p
             className={cn(
-              componentsClassNames.h3.className,
+              componentsClassNames.xl.className,
               "text-[#FE6F61]",
               "font-semibold"
             )}
           >
             December 1
           </p>
-          <p className={componentsClassNames.p.className}>
+          <p className={componentsClassNames.sm.className}>
             Registration ends for all participants
           </p>
         </div>
         <div className="row-[7] h-full justify-self-start flex flex-col justify-around">
-          <p className={cn(componentsClassNames.h3.className, "font-semibold")}>
+          <p className={cn(componentsClassNames.xl.className, "font-semibold")}>
             December 18-20
           </p>
-          <p className={componentsClassNames.p.className}>
+          <p className={componentsClassNames.sm.className}>
             See you in Almetyevsk!
           </p>
         </div>
@@ -748,7 +781,7 @@ export default function Home() {
         id="speakers"
       >
         <H1 className="text-right">Speakers</H1>
-        <h2 className={cn(componentsClassNames.h2.className, "mb-8")}>
+        <h2 className={cn(componentsClassNames.xl2.className, "mb-8")}>
           Plenary
         </h2>
         <Wrapper
@@ -761,7 +794,9 @@ export default function Home() {
           (speaker) => speaker.speakerType === "invited"
         ).length !== 0 && (
           <>
-            <h2 className={cn(componentsClassNames.h2.className, "mb-8 mt-32")}>
+            <h2
+              className={cn(componentsClassNames.xl2.className, "mb-8 mt-32")}
+            >
               Invited
             </h2>
             <Wrapper
@@ -804,7 +839,8 @@ export default function Home() {
         /> */}
         <p
           className={cn(
-            "stroke absolute translate-y-2/4 bottom-0 text-3xl xs:text-4xl sm:text-5xl",
+            componentsClassNames.xl3.className,
+            "stroke absolute translate-y-2/4 bottom-0",
             StrokeFont.className
           )}
         >
@@ -841,10 +877,7 @@ export default function Home() {
         </div>
         <div className="space-y-3">
           <p
-            className={cn(
-              "font-semibold",
-              componentsClassNames.bigH2.className
-            )}
+            className={cn("font-semibold", componentsClassNames.xl3.className)}
           >
             <Link
               href="https://goo.gl/maps/JBbZYQ8ynVZas14g9"
@@ -859,26 +892,26 @@ export default function Home() {
               />
             </Link>
           </p>
-          <p className={cn(componentsClassNames.h2.className, "font-light")}>
+          <p className={cn(componentsClassNames.xl2.className, "font-light")}>
             Альметьевск{" "}
-            <span className={cn("text-base sm:text-lg md:text-xl")}>
+            <span className={cn(componentsClassNames.base.className)}>
               (Russian)
             </span>
           </p>
-          <p className={cn(componentsClassNames.h2.className, "font-light")}>
+          <p className={cn(componentsClassNames.xl2.className, "font-light")}>
             Әлмәт{" "}
-            <span className={cn("text-base sm:text-lg md:text-xl")}>
+            <span className={cn(componentsClassNames.base.className)}>
               (Tatar)
             </span>
           </p>
-          <p className={cn("text-lg sm:text-xl md:text-2xl", "md:!mt-8")}>
+          <p className={cn(componentsClassNames.lg.className, "md:!mt-8")}>
             In the Republic of Tatarstan, Almetyevsk is often called the “Oil
             Capital”: the city is home to the headquarters of Tatneft and 80% of
             its population is employed by the oil sector.
           </p>
         </div>
       </div>
-      <p className={cn("text-lg sm:text-xl md:text-2xl")}>
+      <p className={cn(componentsClassNames.lg.className)}>
         Almetyevsk boasts its own ski resort, a 150 km network of bike paths,
         the “Almet” community center (complete with Renaissance-era art and
         Shostakovich’s grand piano), and 30 art objects and murals spread
