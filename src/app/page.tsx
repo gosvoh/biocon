@@ -542,7 +542,7 @@ export default function Home() {
       { className: "col-[2] row-[2]" },
       { className: "col-[1] md:col-[3] row-[3] md:row-[1]" },
       { className: "col-[2] md:col-[4] row-[4] md:row-[2]" },
-      { className: "col-span-2 md:col-[5] row-[5] md:row-[1]" },
+      { className: "col-[1] md:col-[5] row-[5] md:row-[1]" },
     ];
 
     return (
@@ -583,7 +583,15 @@ export default function Home() {
           </p>
           <p className={circles[2].className}>Biotech experts</p>
           <p className={circles[3].className}>Biotech enthusiasts</p>
-          <p className={circles[4].className}>Business representatives</p>
+          <p
+            className={cn(
+              circles[4].className,
+              "text-center",
+              "-translate-y-1"
+            )}
+          >
+            Business <br /> representatives
+          </p>
 
           {circles.map(({ className }, i) => (
             <Image
