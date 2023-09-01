@@ -1,32 +1,32 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
-import { Roboto } from "next/font/google";
-import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import { Roboto } from "next/font/google";
+import Image, { StaticImageData } from "next/image";
+import Script from "next/script";
 
-import React, { HTMLAttributes, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Link from "@/components/link";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Separator as UiSeparator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { cn } from "@/lib/utils";
 
-import VenueImg from "../../public/venue.jpg";
-import Cat from "../../public/cat.jpg";
-import Logo from "../../public/logo_transparent.png";
-import AboutProgram from "../../public/about&program.png";
-import OutlineCircle from "../../public/outline-circle.svg";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation } from "swiper/modules";
-import { MapPin } from "lucide-react";
-import { useAsync } from "@react-hookz/web";
 import { TrophyFilled } from "@ant-design/icons";
+import { useAsync } from "@react-hookz/web";
+import { MapPin } from "lucide-react";
+import { Autoplay, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import AboutProgram from "../../public/about&program.png";
+import Logo from "../../public/logo_transparent.png";
+import OutlineCircle from "../../public/outline-circle.svg";
+import VenueImg from "../../public/venue.jpg";
+import Zilant from "../../public/zilant.png";
 
-import type { Speakers, Organizers } from "@prisma/client/biocon";
 import Icon from "@/components/icon";
+import type { Organizers, Speakers } from "@prisma/client/biocon";
 import FloatButton from "antd/es/float-button";
 
 import "swiper/css";
@@ -542,6 +542,7 @@ export default function Home() {
       { className: "col-[2] row-[2]" },
       { className: "col-[1] md:col-[3] row-[3] md:row-[1]" },
       { className: "col-[2] md:col-[4] row-[4] md:row-[2]" },
+      { className: "col-span-2 md:col-[5] row-[5] md:row-[1]" },
     ];
 
     return (
@@ -551,7 +552,7 @@ export default function Home() {
         </h2>
         <div
           className={cn(
-            "grid grid-rows-4 md:grid-rows-2 grid-cols-2 md:grid-cols-4",
+            "grid grid-rows-5 md:grid-rows-2 grid-cols-2 md:grid-cols-5",
             "mt-8 whitespace-nowrap",
             "w-full",
             "items-center justify-items-center",
@@ -582,6 +583,7 @@ export default function Home() {
           </p>
           <p className={circles[2].className}>Biotech experts</p>
           <p className={circles[3].className}>Biotech enthusiasts</p>
+          <p className={circles[4].className}>Business representatives</p>
 
           {circles.map(({ className }, i) => (
             <Image
@@ -827,12 +829,6 @@ export default function Home() {
       className="flex flex-col justify-center items-center relative"
       id="program"
     >
-      <Image
-        src={AboutProgram}
-        alt="Program background image"
-        fill
-        className="-z-10 opacity-25 object-cover md:object-scale-down object-center"
-      />
       <H1 className="mb-20">Program</H1>
       <P>
         TED-style plenary talks from world-renowned researchers, parallel
@@ -843,12 +839,12 @@ export default function Home() {
           unforgettable culture of Tatarstan — BIOCON, in one word.
         </span>
       </P>
-      <div className="relative flex flex-col items-center mt-12 w-full">
-        {/* <Image
-          src={Cat}
-          alt="Coming soon image with cat"
-          className="rounded-xl w-3/4 md:w-1/3"
-        /> */}
+      <div className="relative flex flex-col items-center mt-6 w-full">
+        <Image
+          src={Zilant}
+          alt="Coming soon image with dragon"
+          className="w-3/4 md:w-1/3"
+        />
         <p
           className={cn(
             componentsClassNames.xl3.className,
@@ -1010,6 +1006,20 @@ export default function Home() {
       <Organizers />
       <Footer />
       <FloatButton.BackTop className="bg-white hover:bg-gray-200" href="#" />
+      <Script id="yandex-metrika">{`
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(94808565, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+        });
+      `}</Script>
     </>
   );
 }
