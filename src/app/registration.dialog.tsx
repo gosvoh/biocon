@@ -166,11 +166,11 @@ export default function RegistrationDialog({
           </Form.Item>
           <Form.Item<RegisterFormValues>
             name="howToKnow"
-            label="How did you learn about the BIOCON?"
+            label="How did you learn about BIOCON?"
             rules={[
               {
                 required: true,
-                message: "Please enter how did you learn about the BIOCON",
+                message: "Please enter how did you learn about BIOCON",
               },
             ]}
           >
