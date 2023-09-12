@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function useFetch(token: string | undefined) {
   return {
-    POST: (url: string, data: object | FormData) => {
+    POST: <T>(url: string, data: object | FormData | T) => {
       return fetch(url, {
         method: "POST",
         body: data instanceof FormData ? data : JSON.stringify(data),
@@ -16,7 +16,7 @@ export function useFetch(token: string | undefined) {
         },
       });
     },
-    PATCH: (url: string, data: object | FormData) => {
+    PATCH: <T>(url: string, data: object | FormData | T) => {
       return fetch(url, {
         method: "PATCH",
         body: data instanceof FormData ? data : JSON.stringify(data),

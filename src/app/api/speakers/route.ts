@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import sharp from "sharp";
 import { randomUUID } from "crypto";
+import { checkAuthToken } from "../utils";
 
 // export const dynamic = "force-dynamic";
 export const revalidate = 600;
@@ -12,10 +13,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const auth = req.headers.get("authorization");
-  if (!auth) return NextResponse.json({ error: "Unauthorized", status: 401 });
-  const isValid = await biocon.auth.findUnique({ where: { token: auth } });
-  if (!isValid)
+  if (!(await checkAuthToken(req)))
     return NextResponse.json({ error: "Unauthorized", status: 401 });
 
   const data = await req.formData();
@@ -79,4 +77,58 @@ export async function POST(req: NextRequest) {
   });
 
   return NextResponse.json({ message: "Speaker created" });
+}
+
+export async function PATCH(req: NextRequest) {
+  if (!(await checkAuthToken(req)))
+    return NextResponse.json({ error: "Unauthorized", status: 401 });
+
+  try {
+    const {
+      topId,
+      bottomId,
+      topOrder,
+      bottomOrder,
+      currentId,
+      currentOrder,
+    }: {
+      topId?: number;
+      bottomId?: number;
+      topOrder?: number;
+      bottomOrder?: number;
+      currentId: number;
+      currentOrder: number;
+    } = await req.json();
+    if (topId)
+      return NextResponse.json(
+        await biocon.$transaction([
+          biocon.speakers.update({
+            where: { id: topId },
+            data: { order: currentOrder },
+          }),
+          biocon.speakers.update({
+            where: { id: currentId },
+            data: { order: topOrder },
+          }),
+        ])
+      );
+    if (bottomId)
+      return NextResponse.json(
+        await biocon.$transaction([
+          biocon.speakers.update({
+            where: { id: bottomId },
+            data: { order: currentOrder },
+          }),
+          biocon.speakers.update({
+            where: { id: currentId },
+            data: { order: bottomOrder },
+          }),
+        ])
+      );
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Error changing order", error },
+      { status: 500 }
+    );
+  }
 }

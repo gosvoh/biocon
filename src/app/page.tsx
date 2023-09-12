@@ -155,26 +155,17 @@ const P = ({
 );
 
 const SpeakerCard = ({
-  name,
-  nameUrl,
-  hIndex: hIndex,
-  image,
-  university,
-  universityUrl,
-  topic,
-  description,
+  speaker,
   className,
-  thunder,
-  thunderUrl,
-  country,
   ...props
-}: Omit<Speakers, "id" | "speakerType"> & React.HTMLProps<HTMLDivElement>) => {
+}: { speaker: Speakers } & React.HTMLProps<HTMLDivElement>) => {
   const [isValidImage, setIsValidImage] = useState(false);
+  const imgUrl = `/images/${speaker.image}.webp`;
 
   useEffect(() => {
-    if (!image) return;
-    fetch(image).then((res) => setIsValidImage(res.ok));
-  }, [image]);
+    if (!speaker.image) return;
+    fetch(imgUrl).then((res) => setIsValidImage(res.ok));
+  }, [speaker.image, imgUrl]);
 
   const baseUrl =
     process.env.NODE_ENV === "development"
@@ -185,8 +176,8 @@ const SpeakerCard = ({
     ? () => (
         <div className="relative w-full aspect-square">
           <Image
-            src={baseUrl + image}
-            alt={name}
+            src={baseUrl + imgUrl}
+            alt={speaker.name}
             fill
             className="rounded-lg object-cover aspect-square"
             sizes="(max-width: 640px) 100vw, 33vw"
@@ -209,19 +200,20 @@ const SpeakerCard = ({
     >
       <Img />
       <Link
-        href={nameUrl}
+        href={speaker.nameUrl}
         className={cn(
           componentsClassNames.lg.className,
-          "text-center hover:underline mx-auto"
+          "text-center hover:underline mx-auto",
+          "min-h-[3.5rem] md:min-h-[4rem]"
         )}
       >
-        {name}
+        {speaker.name}
       </Link>
       <Link
-        href={universityUrl}
+        href={speaker.universityUrl}
         className="mb-4 hover:underline text-center mx-auto min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]"
       >
-        {university}
+        {speaker.university}
       </Link>
       <p
         className={cn(
@@ -229,30 +221,30 @@ const SpeakerCard = ({
           "w-full text-center font-bold"
         )}
       >
-        {country}
+        {speaker.country}
       </p>
       <div className="border border-white rounded-lg text-center px-4 py-2 w-full">
         <p className={cn(componentsClassNames.lg.className, "font-semibold")}>
-          {hIndex}
+          {speaker.hIndex}
         </p>
         <p>
           <span className="italic">h</span>-index
         </p>
       </div>
-      {thunderUrl ? (
+      {speaker.thunderUrl ? (
         <Link
-          href={thunderUrl}
+          href={speaker.thunderUrl}
           className="text-center flex items-center justify-center gap-2 hover:underline mx-auto"
         >
-          <TrophyFilled className="text-yellow-400" /> {thunder}
+          <TrophyFilled className="text-yellow-400" /> {speaker.thunder}
         </Link>
       ) : (
         <p className="text-center flex items-center justify-center gap-2">
-          <TrophyFilled className="text-yellow-400" /> {thunder}
+          <TrophyFilled className="text-yellow-400" /> {speaker.thunder}
         </p>
       )}
-      {topic && <p>Lecture topic: {topic}</p>}
-      {description && <p>{description}</p>}
+      {speaker.topic && <p>Lecture topic: {speaker.topic}</p>}
+      {speaker.description && <p>{speaker.description}</p>}
     </div>
   );
 };
@@ -269,8 +261,8 @@ const SpeakerCardSkeleton = ({ ...props }: React.HTMLProps<HTMLDivElement>) => (
     )}
   >
     <Skeleton className="rounded-lg aspect-square w-full flex-grow" />
-    <Skeleton className="w-3/4 h-4 mx-auto" />
-    <Skeleton className="w-3/4 h-4 mx-auto" />
+    <Skeleton className="w-3/4 h-[3.5rem] md:h-[4rem] mx-auto" />
+    <Skeleton className="w-3/4 h-[2.5rem] sm:h-[3rem] md:h-[3.5rem] mx-auto" />
     <Skeleton className="w-1/2 h-4 mx-auto" />
     <div className="border border-white rounded-lg text-center px-4 py-2 w-full my-8 space-y-2">
       <Skeleton className="w-1/2 h-6 mx-auto" />
@@ -675,7 +667,12 @@ export default function Home() {
 
   const SpeakersComp = () => {
     const [speakersState, speakersAction] = useAsync<Speakers[]>(
-      async () => fetch("/api/speakers").then((res) => res.json()),
+      async () =>
+        fetch("/api/speakers")
+          .then((res) => res.json())
+          .then((speakers: Speakers[]) =>
+            speakers.sort((a, b) => a.order - b.order)
+          ),
       []
     );
 
@@ -705,19 +702,9 @@ export default function Home() {
             ))
           : elements.map((speaker) => (
               <SpeakerCard
-                nameUrl={speaker.nameUrl}
-                universityUrl={speaker.universityUrl}
-                thunderUrl={speaker.thunderUrl}
                 key={speaker.id}
-                name={speaker.name}
-                hIndex={speaker.hIndex}
-                university={speaker.university}
-                description={speaker.description}
-                thunder={speaker.thunder}
-                topic={speaker.topic}
-                image={`/images/${speaker.image}.webp`}
+                speaker={speaker}
                 className="basis-[80%] md:basis-3/12"
-                country={speaker.country}
               />
             ))}
       </div>
@@ -763,18 +750,9 @@ export default function Home() {
             : elements.map((speaker) => (
                 <SwiperSlide key={speaker.id}>
                   <SpeakerCard
-                    nameUrl={speaker.nameUrl}
-                    universityUrl={speaker.universityUrl}
-                    thunderUrl={speaker.thunderUrl}
-                    name={speaker.name}
-                    hIndex={speaker.hIndex}
-                    university={speaker.university}
-                    description={speaker.description}
-                    thunder={speaker.thunder}
-                    topic={speaker.topic}
-                    image={`/images/${speaker.image}.webp`}
+                    key={speaker.id}
+                    speaker={speaker}
                     className="text-center"
-                    country={speaker.country}
                   />
                 </SwiperSlide>
               ))}

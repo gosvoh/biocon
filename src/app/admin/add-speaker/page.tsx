@@ -2,6 +2,8 @@
 
 import { useFetch, checkToken } from "@/lib/utils";
 import {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
   DeleteOutlined,
   EditOutlined,
   LinkOutlined,
@@ -60,9 +62,13 @@ export default function AddSpeaker() {
   const [loading, setLoading] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [editData, setEditData] = useState<Speakers>();
-  const [organizersState, organizersAction] = useAsync<Speakers[]>(
+  const [speakersState, speakersAction] = useAsync<Speakers[]>(
     async () =>
-      fetch("/api/speakers", { cache: "no-cache" }).then((res) => res.json()),
+      fetch("/api/speakers", { cache: "no-cache" })
+        .then((res) => res.json())
+        .then((speakers: Speakers[]) =>
+          speakers.sort((a, b) => a.order - b.order)
+        ),
     []
   );
   const [countriesState, countriesAction] = useAsync<
@@ -77,10 +83,10 @@ export default function AddSpeaker() {
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([organizersAction.execute(), countriesAction.execute()]).then(
+    Promise.all([speakersAction.execute(), countriesAction.execute()]).then(
       () => setLoading(false)
     );
-  }, [organizersAction, countriesAction]);
+  }, [speakersAction, countriesAction]);
 
   useEffect(() => {
     if (!token.value || token.value === "" || tokenData.isValid) return;
@@ -171,7 +177,8 @@ export default function AddSpeaker() {
             values.description &&
               formData.append("description", values.description);
             formData.append("thunder", values.thunder);
-            formData.append("thunderUrl", values.thunderUrl);
+            values.thunderUrl &&
+              formData.append("thunderUrl", values.thunderUrl);
             formData.append("hIndex", values.hIndex);
             formData.append("speakerType", values.speakerType);
             formData.append("country", values.country);
@@ -188,7 +195,7 @@ export default function AddSpeaker() {
                   form.resetFields();
                   setEditData(undefined);
                   setEditOpen(false);
-                  organizersAction.execute();
+                  speakersAction.execute();
                 }
               })
               .finally(() => setLoading(false));
@@ -301,7 +308,7 @@ export default function AddSpeaker() {
         size="small"
         className="w-full self-start"
         pagination={false}
-        loading={organizersState.status === "loading"}
+        loading={speakersState.status === "loading"}
         footer={() => (
           <Button
             type="primary"
@@ -311,8 +318,8 @@ export default function AddSpeaker() {
             Add Speaker
           </Button>
         )}
-        dataSource={organizersState.result}
-        rowKey="id"
+        dataSource={speakersState.result}
+        rowKey={(speaker) => speaker.id}
         columns={[
           {
             title: "Image",
@@ -361,11 +368,13 @@ export default function AddSpeaker() {
           { title: "Speaker Type", dataIndex: "speakerType" },
           {
             title: "Actions",
-            render: (_, record) => (
-              <>
+            sorter: (a, b) => a.order - b.order,
+            sortOrder: "ascend",
+            showSorterTooltip: false,
+            render: (_, record, index) => (
+              <div className="flex flex-wrap gap-2 justify-center">
                 <Tooltip title="Edit">
                   <Button
-                    className="mr-2"
                     type="dashed"
                     icon={<EditOutlined />}
                     onClick={() => {
@@ -375,7 +384,7 @@ export default function AddSpeaker() {
                       form.setFieldValue("nameUrl", record.nameUrl);
                       form.setFieldValue("university", record.university);
                       form.setFieldValue("universityUrl", record.universityUrl);
-                      form.setFieldValue("topic", record.topic); // TODO:fix
+                      form.setFieldValue("topic", record.topic);
                       form.setFieldValue("description", record.description);
                       form.setFieldValue("thunder", record.thunder);
                       form.setFieldValue("thunderUrl", record.thunderUrl);
@@ -390,7 +399,7 @@ export default function AddSpeaker() {
                   onConfirm={() => {
                     setLoading(true);
                     HTTP.DELETE(`/api/speakers/${record.id}`).then(() => {
-                      organizersAction.execute();
+                      speakersAction.execute();
                       setLoading(false);
                     });
                   }}
@@ -405,7 +414,41 @@ export default function AddSpeaker() {
                     loading={loading}
                   />
                 </Popconfirm>
-              </>
+                <div className="inline-flex gap-2">
+                  <Button
+                    icon={<ArrowUpOutlined />}
+                    disabled={record.order === 1}
+                    onClick={() => {
+                      setLoading(true);
+                      HTTP.PATCH("/api/speakers", {
+                        topId: speakersState.result[index - 1].id,
+                        topOrder: speakersState.result[index - 1].order,
+                        currentId: record.id,
+                        currentOrder: record.order,
+                      }).then(() => {
+                        speakersAction.execute();
+                        setLoading(false);
+                      });
+                    }}
+                  />
+                  <Button
+                    icon={<ArrowDownOutlined />}
+                    disabled={record.order === speakersState.result.length}
+                    onClick={() => {
+                      setLoading(true);
+                      HTTP.PATCH("/api/speakers", {
+                        bottomId: speakersState.result[index + 1].id,
+                        bottomOrder: speakersState.result[index + 1].order,
+                        currentId: record.id,
+                        currentOrder: record.order,
+                      }).then(() => {
+                        speakersAction.execute();
+                        setLoading(false);
+                      });
+                    }}
+                  />
+                </div>
+              </div>
             ),
           },
         ]}
