@@ -419,15 +419,26 @@ export default function RegistrationDialog({
             ]}
           >
             <Checkbox>
-              I agree to the processing of my personal data.
+              I agree to the{" "}
               <Link
                 prefetch={false}
-                className="ml-2 text-sm underline text-[#2A84EE]"
+                className="text-sm underline text-[#2A84EE]"
                 href="/personal_data_policy.pdf"
                 target="_blank"
               >
-                Privacy policy
+                processing of my personal data
+              </Link>{" "}
+              in accordance with{" "}
+              <Link
+                prefetch={false}
+                className="text-sm underline text-[#2A84EE]"
+                href="/regulations.pdf"
+                target="_blank"
+              >
+                ITMO University’s Policy regarding the processing of personal
+                data
               </Link>
+              .
             </Checkbox>
           </Form.Item>
           <Form.Item<RegisterFormValues>
