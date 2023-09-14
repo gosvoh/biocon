@@ -10,9 +10,9 @@ ${name}, thank you for registration for BIOCON 2023!
 
 Dear ${name},
 
-On behalf of the Organizing Committee, we are excited to welcome you to BIOCON: an international conference on industrial biotechnology held in the marvelous city of Almetyevsk, Republic of Tatarstan!
+We are happy to inform you that your registration has been received! Within a week the reviewing committee will let you know if your application is accepted.
 
-Over three days, December 18th—20th 2023, you will have the opportunity to share innovative ideas, research results, and experiences with like-minded biotech enthusiasts from around the world.
+Over three days, December 18th—20th 2023, we will have the opportunity to share innovative ideas, research results, and experiences with like-minded biotech enthusiasts from around the world.
 
 TED-style plenary talks from world-renowned researchers, parallel sessions on major spheres of biotechnology headlined by recognized keynote speakers, an exciting Science Slam and much more — all infused with unforgettable culture of Tatarstan — BIOCON, in one word.
 
@@ -25,7 +25,8 @@ We have collected some BIOCON trivia for our guests:
 • flight & hotel recommendations will also follow soon on the official website;
 • We will happily provide professional visa support for all participants if needed as well as a conference invitation letter
 
-Our managers will contact you in due time in order to guide you towards BIOCON:
+We are happy to assist you with any inquiries:
+
 Domestic support
 Elizaveta Punchenko
 punchenko@itmo.ru
@@ -33,8 +34,6 @@ punchenko@itmo.ru
 International support
 Sofia Antipova
 antipova@itmo.ru
-
-See you at BIOCON 2023!
 `;
 
 export async function GET(req: NextRequest) {

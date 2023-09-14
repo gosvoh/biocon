@@ -18,16 +18,12 @@ export const Mail = (name: string) => {
       />
       <p>Dear {name},</p>
       <p>
-        On behalf of the Organizing Committee, we are excited to welcome you to
-        BIOCON: an international conference on industrial biotechnology held in
-        the marvelous city of{" "}
-        <a href="https://en.wikipedia.org/wiki/Almetyevsk">
-          Almetyevsk, Republic of Tatarstan
-        </a>
-        !
+        We are happy to inform you that your registration has been received!
+        Within a week the reviewing committee will let you know if your
+        application is accepted.
       </p>
       <p>
-        Over three days, December 18th—20th 2023, you will have the opportunity
+        Over three days, December 18th—20th 2023, we will have the opportunity
         to share innovative ideas, research results, and experiences with
         like-minded biotech enthusiasts from around the world.
       </p>
@@ -68,10 +64,7 @@ export const Mail = (name: string) => {
           if needed as well as a conference invitation letter
         </li>
       </ul>
-      <p>
-        Our managers will contact you in due time in order to guide you towards
-        BIOCON:
-      </p>
+      <p>We are happy to assist you with any inquiries:</p>
       <p style={{ marginBottom: 0 }}>
         <strong>Domestic support</strong>
       </p>
