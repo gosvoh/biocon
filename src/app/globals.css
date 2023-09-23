@@ -105,3 +105,8 @@
 .ant-checkbox-inner {
   @apply !rounded-full;
 }
+
+span.anticon.anticon-idcard > svg {
+  width: 100%;
+  height: 100%;
+}

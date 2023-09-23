@@ -133,7 +133,7 @@ export default function RootLayout({
       <body
         className={cn(
           font.className,
-          "mx-auto",
+          "w-full",
           "overflow-x-hidden",
           "overflow-y-auto",
           "min-h-screen",

@@ -14,9 +14,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import { cn } from "@/lib/utils";
 
-import { TrophyFilled } from "@ant-design/icons";
+import { IdcardOutlined, TrophyFilled } from "@ant-design/icons";
 import { useAsync } from "@react-hookz/web";
-import { MapPin } from "lucide-react";
+import {
+  BusIcon,
+  HotelIcon,
+  MapPin,
+  PlaneIcon,
+  RussianRubleIcon,
+  UtensilsIcon,
+} from "lucide-react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import AboutProgram from "../../public/about&program.png";
@@ -24,6 +31,7 @@ import Logo from "../../public/logo_transparent.png";
 import OutlineCircle from "../../public/outline-circle.svg";
 import VenueImg from "../../public/venue.jpg";
 import Zilant from "../../public/zilant.png";
+import MapImg from "../../public/map.png";
 
 import Icon from "@/components/icon";
 import type { Organizers, Speakers } from "@prisma/client/biocon";
@@ -31,6 +39,8 @@ import FloatButton from "antd/es/float-button";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import AntdConfigProvider from "./ant.config.provider";
+import { Modal } from "antd";
 
 const RegistrationDialog = dynamic(() => import("./registration.dialog"));
 const ContactDialog = dynamic(() => import("./contact.dialog"));
@@ -161,16 +171,15 @@ const SpeakerCard = ({
 }: { speaker: Speakers } & React.HTMLProps<HTMLDivElement>) => {
   const [isValidImage, setIsValidImage] = useState(false);
   const imgUrl = `/images/${speaker.image}.webp`;
-
-  useEffect(() => {
-    if (!speaker.image) return;
-    fetch(imgUrl).then((res) => setIsValidImage(res.ok));
-  }, [speaker.image, imgUrl]);
-
   const baseUrl =
     process.env.NODE_ENV === "development"
       ? "https://biocon.international"
       : "";
+
+  useEffect(() => {
+    if (!speaker.image) return;
+    fetch(baseUrl + imgUrl).then((res) => setIsValidImage(res.ok));
+  }, [speaker.image, imgUrl, baseUrl]);
 
   const Img = isValidImage
     ? () => (
@@ -363,26 +372,44 @@ const OrganizersSkeleton = ({ ...props }: React.HTMLProps<HTMLDivElement>) => (
   </div>
 );
 
+const Section = ({
+  children,
+  className,
+  ...props
+}: { children: React.ReactNode } & React.HTMLProps<HTMLDivElement>) => (
+  <section
+    {...props}
+    className={cn(
+      "flex flex-col justify-center items-center w-full scroll-m-12 my-6 md:my-12 first:my-0",
+      className
+    )}
+  >
+    {children}
+  </section>
+);
+
 export default function Home() {
   const [openRegistration, setOpenRegistration] = useState(false);
   const [openContact, setOpenContact] = useState(false);
   const [openFollow, setOpenFollow] = useState(false);
-
-  const Section = ({
-    children,
-    className,
-    ...props
-  }: { children: React.ReactNode } & React.HTMLProps<HTMLDivElement>) => (
-    <section
-      {...props}
-      className={cn(
-        "flex flex-col justify-center items-center w-full scroll-m-12 my-6 md:my-12 first:my-0",
-        className
-      )}
-    >
-      {children}
-    </section>
+  const [speakersState, speakersAction] = useAsync<Speakers[]>(
+    async () =>
+      fetch("/api/speakers")
+        .then((res) => res.json())
+        .then((speakers: Speakers[]) =>
+          speakers.sort((a, b) => a.order - b.order)
+        ),
+    []
   );
+  const [organizersState, organizersAction] = useAsync<Organizers[]>(
+    async () => fetch("/api/organizers").then((res) => res.json()),
+    []
+  );
+
+  useEffect(() => {
+    speakersAction.execute();
+    organizersAction.execute();
+  }, [speakersAction, organizersAction]);
 
   const Header = () => (
     <div role="none" className="flex flex-col min-h-screen gap-8">
@@ -666,20 +693,6 @@ export default function Home() {
   };
 
   const SpeakersComp = () => {
-    const [speakersState, speakersAction] = useAsync<Speakers[]>(
-      async () =>
-        fetch("/api/speakers")
-          .then((res) => res.json())
-          .then((speakers: Speakers[]) =>
-            speakers.sort((a, b) => a.order - b.order)
-          ),
-      []
-    );
-
-    useEffect(() => {
-      speakersAction.execute();
-    }, [speakersAction]);
-
     const NormalWrapper = ({
       elements,
       className,
@@ -923,22 +936,222 @@ export default function Home() {
     </Section>
   );
 
-  const Organizers = () => {
-    const [organizersState, organizersAction] = useAsync<Organizers[]>(
-      async () => fetch("/api/organizers").then((res) => res.json()),
-      []
+  const Map = () => {
+    const [planeOpen, setPlaneOpen] = useState(false);
+    const [hotelOpen, setHotelOpen] = useState(false);
+
+    const iconClassName =
+      "aspect-square border-white border-2 rounded-md p-3 w-auto h-auto";
+
+    const Container = ({
+      icon,
+      text,
+      onClick,
+    }: {
+      text: string | React.ReactNode;
+      onClick?: () => void;
+      icon: React.ReactNode;
+    }) => {
+      return (
+        <div
+          className={cn(
+            "flex items-center gap-4",
+            onClick && "cursor-pointer",
+            componentsClassNames.base.className
+          )}
+          onClick={onClick}
+        >
+          <div className="basis-[15%] flex-shrink-0 grid w-full h-full items-center justify-items-stretch">
+            {icon}
+          </div>
+          {typeof text === "string" ? <p>{text}</p> : text}
+        </div>
+      );
+    };
+
+    return (
+      <>
+        <AntdConfigProvider>
+          <Modal
+            open={planeOpen}
+            onCancel={() => setPlaneOpen(false)}
+            className={cn(componentsClassNames.xl.className, "text-center")}
+            cancelButtonProps={{ className: "hidden" }}
+            onOk={() => setPlaneOpen(false)}
+            okButtonProps={{ type: "default" }}
+            title="Plane tickets"
+          >
+            <p className="mb-4 tex">
+              When buying tickets, please note that the conference will take
+              place on December 18-20.
+            </p>
+            <p className="font-bold">
+              We recommend arriving on December 17, 2023.
+            </p>
+            <p className="font-bold">
+              We recommend leaving on December 21, 2023.
+            </p>
+            <p className="mt-4 text-left">
+              Free transfer to the conference’s location will be organized from
+              the following points:
+            </p>
+            <ol className="list-decimal list-inside text-left">
+              <li>Kazan-Passazhirskaya (Kazan railway station)</li>
+              <li>Kazan-Passazhirskaya 2 (Kazan railway station)</li>
+              <li>Kazan (Airport)</li>
+              <li>Bugulma (Railway station)</li>
+              <li>Bugulma (Airport)</li>
+              <li>Begishevo (Airport Nizhnekamsk)</li>
+            </ol>
+            <p className="mt-4">
+              If you have any questions, write at{" "}
+              <Link
+                className="font-bold hover:underline"
+                href="mailto:biocon@itmo.ru"
+              >
+                biocon@itmo.ru
+              </Link>
+            </p>
+          </Modal>
+          <Modal
+            open={hotelOpen}
+            onCancel={() => setHotelOpen(false)}
+            className={cn(componentsClassNames.xl.className, "text-center")}
+            cancelButtonProps={{ className: "hidden" }}
+            onOk={() => setHotelOpen(false)}
+            okButtonProps={{ type: "default" }}
+            title="Accommodation"
+          >
+            <p className="mb-4">
+              You can find accommodation options in the city of Almetyevsk{" "}
+              <Link className="font-bold hover:underline" href="#">
+                here
+              </Link>{" "}
+              (the information will soon be updated).
+            </p>
+            <p className="mb-4">
+              When booking accommodation, please note that the conference will
+              take place on December 18-20.
+            </p>
+            <p className="font-bold">
+              We recommend arriving on December 17, 2023.
+            </p>
+            <p className="font-bold">
+              We recommend leaving on December 21, 2023.
+            </p>
+            <p className="mt-4">
+              You can book accommodation at a hotel by writing at{" "}
+              <Link className="font-bold hover:underline" href="mailto:">
+                __________
+              </Link>{" "}
+              or calling{" "}
+              <Link className="font-bold hover:underline" href="tel:">
+                __________
+              </Link>
+              .
+            </p>
+            <p>
+              If you experience any trouble, please write at{" "}
+              <Link
+                className="font-bold hover:underline"
+                href="mailto:biocon@itmo.ru"
+              >
+                biocon@itmo.ru
+              </Link>
+              .
+            </p>
+          </Modal>
+        </AntdConfigProvider>
+        <Section>
+          <H1>The terms of participation</H1>
+          <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-8")}>
+            <Container
+              icon={<RussianRubleIcon className={iconClassName} />}
+              text={
+                <p>
+                  Participation is <b>free</b> for all types of participants!
+                </p>
+              }
+            />
+            <Container
+              icon={<IdcardOutlined className={iconClassName} />}
+              text={
+                <p>
+                  Attendee participants will be selected based on their letters
+                  of motivation.
+                  <br />
+                  <br />
+                  Contributed speaker and Science Slammer participants will be
+                  selected based on their CVs, scientific background, and video
+                  presentations.
+                </p>
+              }
+            />
+            <Container
+              icon={<PlaneIcon className={iconClassName} />}
+              text={
+                <p>
+                  Participants <b>pay their own travel expenses</b> to transfer
+                  locations.
+                  <br />
+                  <br />
+                  Please note that we have special offers for the conference
+                  participants.
+                  <br />
+                  After registering, you can get <b>promo codes</b> for
+                  discounts at our partner airline companies.
+                </p>
+              }
+              onClick={() => setPlaneOpen(true)}
+            />
+            <Container
+              icon={<UtensilsIcon className={iconClassName} />}
+              text={
+                <p>
+                  During the days of the conference,{" "}
+                  <b>meals and coffee breaks</b> will be organized for all
+                  conference participants.
+                </p>
+              }
+            />
+            <Container
+              icon={<BusIcon className={iconClassName} />}
+              text={
+                "Free shuttle service to Almetyevsk will be organized from the points indicated on the map"
+              }
+            />
+            <Container
+              icon={<HotelIcon className={iconClassName} />}
+              text={
+                <p>
+                  Basic accommodation options at hotels that we recommend can be
+                  found{" "}
+                  <Link className="font-bold hover:underline" href="#">
+                    here
+                  </Link>
+                  .
+                  <br />
+                  <br />
+                  During the days of the conference, we will organize transfers
+                  from these hotels to the conference location.
+                </p>
+              }
+              onClick={() => setHotelOpen(true)}
+            />
+          </div>
+          <Image src={MapImg} alt="Map image" />
+        </Section>
+      </>
     );
+  };
 
-    useEffect(() => {
-      organizersAction.execute();
-    }, [organizersAction]);
-
+  const Organizers = () => {
     return (
       <Section
         className="flex flex-col justify-center items-center"
         id="organizers"
       >
-        <H1>Organizers</H1>
+        <H1 className="text-right">Organizers</H1>
         <div className="w-full flex flex-wrap gap-4 md:gap-10 justify-items-center justify-center">
           {organizersState.result.length === 0
             ? Array.from({ length: 5 }).map((_, i) => (
@@ -988,6 +1201,7 @@ export default function Home() {
       <Program />
       <Separator />
       <Venue />
+      <Map />
       <Separator />
       <Organizers />
       <Footer />
