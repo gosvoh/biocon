@@ -941,27 +941,35 @@ export default function Home() {
     const [hotelOpen, setHotelOpen] = useState(false);
 
     const iconClassName =
-      "aspect-square border-white border-2 rounded-md p-3 w-auto h-auto";
+      "aspect-square border-white border-2 rounded-md p-3 w-auto h-auto transition-all";
 
     const Container = ({
       icon,
       text,
       onClick,
+      className,
     }: {
       text: string | React.ReactNode;
       onClick?: () => void;
       icon: React.ReactNode;
+      className?: string;
     }) => {
       return (
         <div
           className={cn(
-            "flex items-center gap-4",
+            "flex items-start gap-4",
             onClick && "cursor-pointer",
-            componentsClassNames.base.className
+            componentsClassNames.base.className,
+            className,
+            "group"
           )}
           onClick={onClick}
         >
-          <div className="basis-[15%] flex-shrink-0 grid w-full h-full items-center justify-items-stretch">
+          <div
+            className={cn(
+              "basis-[15%] flex-shrink-0 grid w-full h-full items-start justify-items-stretch"
+            )}
+          >
             {icon}
           </div>
           {typeof text === "string" ? <p>{text}</p> : text}
@@ -1040,17 +1048,6 @@ export default function Home() {
               We recommend leaving on December 21, 2023.
             </p>
             <p className="mt-4">
-              You can book accommodation at a hotel by writing at{" "}
-              <Link className="font-bold hover:underline" href="mailto:">
-                __________
-              </Link>{" "}
-              or calling{" "}
-              <Link className="font-bold hover:underline" href="tel:">
-                __________
-              </Link>
-              .
-            </p>
-            <p>
               If you experience any trouble, please write at{" "}
               <Link
                 className="font-bold hover:underline"
@@ -1074,6 +1071,16 @@ export default function Home() {
               }
             />
             <Container
+              icon={<UtensilsIcon className={iconClassName} />}
+              text={
+                <p>
+                  During the days of the conference,{" "}
+                  <b>meals and coffee breaks</b> will be organized for all
+                  conference participants.
+                </p>
+              }
+            />
+            <Container
               icon={<IdcardOutlined className={iconClassName} />}
               text={
                 <p>
@@ -1088,7 +1095,14 @@ export default function Home() {
               }
             />
             <Container
-              icon={<PlaneIcon className={iconClassName} />}
+              icon={
+                <PlaneIcon
+                  className={cn(
+                    iconClassName,
+                    "group-hover:bg-white group-hover:text-black"
+                  )}
+                />
+              }
               text={
                 <p>
                   Participants <b>pay their own travel expenses</b> to transfer
@@ -1105,23 +1119,20 @@ export default function Home() {
               onClick={() => setPlaneOpen(true)}
             />
             <Container
-              icon={<UtensilsIcon className={iconClassName} />}
-              text={
-                <p>
-                  During the days of the conference,{" "}
-                  <b>meals and coffee breaks</b> will be organized for all
-                  conference participants.
-                </p>
-              }
-            />
-            <Container
               icon={<BusIcon className={iconClassName} />}
               text={
                 "Free shuttle service to Almetyevsk will be organized from the points indicated on the map"
               }
             />
             <Container
-              icon={<HotelIcon className={iconClassName} />}
+              icon={
+                <HotelIcon
+                  className={cn(
+                    iconClassName,
+                    "group-hover:bg-white group-hover:text-black"
+                  )}
+                />
+              }
               text={
                 <p>
                   Basic accommodation options at hotels that we recommend can be
