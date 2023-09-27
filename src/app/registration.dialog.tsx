@@ -146,7 +146,7 @@ export default function RegistrationDialog({
         >
           <Form.Item<RegisterFormValues>
             name="name"
-            label="Name"
+            label="Full name"
             rules={[
               { required: true, message: "Please enter your name" },
               { min: 3, message: "Name must be at least 3 characters" },
