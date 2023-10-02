@@ -663,7 +663,7 @@ export default function Home() {
                   S7 Airlines
                 </Link>{" "}
                 is the largest private airline in Russia, with the most modern
-                fleet in the Russian air transit market. Our extensive network
+                fleet in the Russian air transit market. Their extensive network
                 of routes allows our passengers to travel to 181 cities in 26
                 countries across the world.
               </P>
