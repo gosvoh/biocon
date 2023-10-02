@@ -1,24 +1,26 @@
-import VK from "../../public/vk.svg";
-import Telegram from "../../public/telegram.svg";
-import Facebook from "../../public/facebook.svg";
-import YouTube from "../../public/youtube.svg";
 import Link from "@/components/link";
-import Image from "next/image";
+import { Button as ShadButton } from "@/components/ui/button";
 import { socials } from "@/socials";
-import { Button, ConfigProvider, Form, Input, Modal, theme } from "antd";
-import type { ModalFuncProps } from "antd";
+import { Button, Form, Input, Modal } from "antd";
+import Image from "next/image";
 import { useState } from "react";
+import Facebook from "../../public/facebook.svg";
+import Telegram from "../../public/telegram.svg";
+import VK from "../../public/vk.svg";
+import YouTube from "../../public/youtube.svg";
+import { componentsClassNames } from "./classNames";
 
-export default function FollowDialog({
-  ...props
-}: {} & React.PropsWithoutRef<ModalFuncProps>) {
+export default function FollowDialog() {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+  const [openFollow, setOpenFollow] = useState(false);
 
   return (
-    <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
+    <>
       <Modal
-        {...props}
+        open={openFollow}
+        onOk={() => setOpenFollow(false)}
+        onCancel={() => setOpenFollow(false)}
         destroyOnClose
         width={600}
         title=""
@@ -69,7 +71,7 @@ export default function FollowDialog({
               .then((res) => {
                 if (res.ok) {
                   form.resetFields();
-                  props.onOk?.();
+                  setOpenFollow(false);
                 } else Promise.reject(res);
               })
               .catch(console.error)
@@ -92,6 +94,13 @@ export default function FollowDialog({
           </Form.Item>
         </Form>
       </Modal>
-    </ConfigProvider>
+      <ShadButton
+        variant="outline"
+        {...componentsClassNames.button.outline}
+        onClick={() => setOpenFollow(true)}
+      >
+        Follow us
+      </ShadButton>
+    </>
   );
 }

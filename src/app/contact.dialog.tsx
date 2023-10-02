@@ -1,17 +1,8 @@
+import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
+import { Button, Checkbox, Form, Input, Modal, Tag } from "antd";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import SuccessDialog from "./success.dialog";
-import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
-import Link from "next/link";
-import {
-  Modal,
-  Button,
-  Form,
-  Input,
-  Checkbox,
-  Tag,
-  ConfigProvider,
-  theme,
-} from "antd";
 
 export default function ContactDialog({
   open,
@@ -35,7 +26,7 @@ export default function ContactDialog({
   const turnstileRef = useRef<TurnstileInstance>(null);
 
   return (
-    <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
+    <>
       <SuccessDialog
         open={success}
         onOpenChange={setSuccess}
@@ -197,6 +188,6 @@ export default function ContactDialog({
           </Form.Item>
         </Form>
       </Modal>
-    </ConfigProvider>
+    </>
   );
 }

@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import SuccessDialog from "./success.dialog";
 import Link from "next/link";
 import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
+import { useCountries } from "./providers/countries.provider";
 
 type RegisterFormValues = {
   name: string;
@@ -72,9 +73,6 @@ export default function RegistrationDialog({
     "Other",
   ];
   const clothingSizes = ["S", "M", "L", "XL"];
-  const [countriesState, countriesAction] = useAsync<
-    { id: string; name: string }[]
-  >(() => fetch("/api/countries").then((res) => res.json()), []);
   const [citiesState, citiesAction] = useAsync<{ id: string; name: string }[]>(
     (id: any) => fetch(`/api/countries/${id}`).then((res) => res.json()),
     []
@@ -83,13 +81,10 @@ export default function RegistrationDialog({
   const [loading, setLoading] = useState(false);
   const roleWatcher = Form.useWatch("role", form);
   const turnstileRef = useRef<TurnstileInstance>(null);
-
-  useEffect(() => {
-    countriesAction.execute();
-  }, [countriesAction]);
+  const { countries, countriesReady } = useCountries();
 
   return (
-    <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
+    <>
       <SuccessDialog
         open={success}
         onOpenChange={setSuccess}
@@ -202,7 +197,8 @@ export default function RegistrationDialog({
             <Select
               placeholder="---"
               showSearch
-              options={countriesState.result.map((country) => ({
+              loading={!countriesReady}
+              options={countries.map((country) => ({
                 value: country.name,
                 label: country.name,
               }))}
@@ -211,9 +207,7 @@ export default function RegistrationDialog({
                 citiesAction.reset();
                 citiesAction
                   .execute(
-                    countriesState.result.find(
-                      (country) => country.name === value
-                    )?.id
+                    countries.find((country) => country.name === value)?.id
                   )
                   .finally(() => setCitiesLoading(false));
               }}
@@ -470,6 +464,6 @@ export default function RegistrationDialog({
           </Form.Item>
         </Form>
       </Modal>
-    </ConfigProvider>
+    </>
   );
 }
