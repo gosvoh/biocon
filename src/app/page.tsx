@@ -19,6 +19,7 @@ import Logo from "$/public/logo_transparent.png";
 import MapImg from "$/public/map.png";
 import OutlineCircle from "$/public/outline-circle.svg";
 import S7 from "$/public/s7.png";
+import S7Ad from "$/public/s7Ad.jpg";
 import VenueImg from "$/public/venue.jpg";
 import Zilant from "$/public/zilant.png";
 import { IdcardOutlined } from "@ant-design/icons";
@@ -226,7 +227,7 @@ export default function Home() {
           fill
           className="-z-10 opacity-25 object-cover lg:object-contain object-center"
         />
-        <H1 className="text-right">About</H1>
+        <H1>About</H1>
         <P className="my-8">
           Over three days, you will have the opportunity to share innovative
           ideas, research results, and experiences with like-minded biotech
@@ -493,7 +494,7 @@ export default function Home() {
         className="flex flex-col justify-center items-center"
         id="speakers"
       >
-        <H1>Speakers</H1>
+        <H1 className="text-right">Speakers</H1>
         <h2 className={cn(componentsClassNames.xl2.className, "mb-8")}>
           Plenary
         </h2>
@@ -527,7 +528,7 @@ export default function Home() {
       className="flex flex-col justify-center items-center relative"
       id="program"
     >
-      <H1 className="mb-20 text-right">Program</H1>
+      <H1 className="mb-20">Program</H1>
       <P>
         TED-style plenary talks from world-renowned researchers, parallel
         sessions on major spheres of biotechnology headlined by recognized
@@ -626,17 +627,18 @@ export default function Home() {
           okButtonProps={{ type: "default" }}
           title={<div className="text-center">{modalTitle}</div>}
           centered
+          width={1000}
         >
           {modalContent}
         </Modal>
-        <H1>Partners</H1>
+        <H1 className="text-right">Partners</H1>
         <div className="flex flex-col gap-12">
           <PartnerCard
             image={Aeroflot}
             alt="Aeroflot logo"
             setModalOpen={setModalOpen}
             text={
-              <p>
+              <P>
                 <Link
                   className="hover:underline"
                   href="https://www.aeroflot.ru/xx-en"
@@ -647,7 +649,7 @@ export default function Home() {
                 national carrier. Company was founded on 17 March 1923 and is
                 both one of the oldest airlines in the world and one of the most
                 recognisable Russian brands.
-              </p>
+              </P>
             }
             onClick={() => setNewModalContent("Aeroflot")}
           />
@@ -669,12 +671,17 @@ export default function Home() {
             onClick={() =>
               setNewModalContent(
                 "S7 Airlines",
-                <p className="text-center mt-8">
-                  To learn more about the terms of the promotion, follow{" "}
-                  <Link href="https://www.s7.ru/ru/vl/biocon-2023">
-                    the link
-                  </Link>
-                </p>
+                <Link
+                  href="https://www.s7.ru/ru/vl/biocon-2023"
+                  className="block mt-8"
+                >
+                  <Image
+                    src={S7Ad}
+                    alt="S7 Airlines ad"
+                    sizes="100vw"
+                    className="rounded-lg"
+                  />
+                </Link>
               )
             }
           />
@@ -986,7 +993,7 @@ export default function Home() {
         className="flex flex-col justify-center items-center"
         id="organizers"
       >
-        <H1 className="text-right">Organizers</H1>
+        <H1>Organizers</H1>
         <div className="w-full flex flex-wrap gap-4 md:gap-10 justify-items-center justify-center">
           {organizers.length === 0 || !organizersReady
             ? Array.from({ length: 5 }).map((_, i) => (
@@ -1026,11 +1033,11 @@ export default function Home() {
       <Separator />
       <Program />
       <Separator />
-      <Partners />
-      <Separator />
       <Venue />
       <Separator />
       <Map />
+      <Separator />
+      <Partners />
       <Separator />
       <Organizers />
       <Footer />
