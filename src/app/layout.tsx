@@ -5,6 +5,9 @@ import Image from "next/image";
 import Biocon from "../../public/biocon.png";
 import BG from "../../public/bg_orig.png";
 import type { Metadata } from "next";
+import { CountriesProvider } from "./providers/countries.provider";
+import { SpeakersProvider } from "./providers/speakers.provider";
+import { OrganizersProvider } from "./providers/organizers.provider";
 
 const font = Roboto({
   subsets: ["latin"],
@@ -156,7 +159,11 @@ export default function RootLayout({
           className="absolute top-0 left-0 -z-[50]"
           width={900}
         />
-        {children}
+        <CountriesProvider>
+          <SpeakersProvider>
+            <OrganizersProvider>{children}</OrganizersProvider>
+          </SpeakersProvider>
+        </CountriesProvider>
       </body>
     </html>
   );
