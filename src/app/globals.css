@@ -85,6 +85,10 @@
 }
 
 @layer components {
+  .text-balance {
+    text-wrap: balance;
+  }
+
   .stroke {
     -webkit-text-stroke: 1px;
     text-stroke: 1px;
