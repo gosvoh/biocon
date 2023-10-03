@@ -523,39 +523,67 @@ export default function Home() {
     );
   };
 
-  const Program = () => (
-    <Section
-      className="flex flex-col justify-center items-center relative"
-      id="program"
-    >
-      <H1 className="mb-20">Program</H1>
-      <P>
-        TED-style plenary talks from world-renowned researchers, parallel
-        sessions on major spheres of biotechnology headlined by recognized
-        keynote speakers, an exciting Science Slam and much more — all infused
-        with{" "}
-        <span className="font-bold">
-          unforgettable culture of Tatarstan — BIOCON, in one word.
-        </span>
-      </P>
-      <div className="relative flex flex-col items-center mt-6 w-full">
-        <Image
-          src={Zilant}
-          alt="Coming soon image with dragon"
-          className="w-3/4 md:w-1/3"
-        />
-        <p
-          className={cn(
-            componentsClassNames.xl3.className,
-            "stroke absolute translate-y-2/4 bottom-0",
-            StrokeFont.className
-          )}
-        >
-          coming soon...
-        </p>
-      </div>
-    </Section>
-  );
+  const Program = () => {
+    const Card = ({
+      text,
+      className,
+    }: {
+      text: string;
+      className?: string;
+    }) => (
+      <p
+        className={cn(
+          "border border-white w-full h-full grid place-content-center p-4 text-center text-balance rounded-lg",
+          className
+        )}
+      >
+        {text}
+      </p>
+    );
+
+    return (
+      <Section
+        className="flex flex-col justify-center items-center relative"
+        id="program"
+      >
+        <H1 className="mb-20">Program</H1>
+        <P>
+          TED-style plenary talks from world-renowned researchers, parallel
+          sessions on major spheres of biotechnology headlined by recognized
+          keynote speakers, an exciting Science Slam and much more — all infused
+          with{" "}
+          <span className="font-bold">
+            unforgettable culture of Tatarstan — BIOCON, in one word.
+          </span>
+        </P>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-fr mt-8">
+          <Card text="Sustainable agriculture" />
+          <Card text="Sustainable food production and food security" />
+          <Card text="Sustainable bioenergy" />
+          <Card text="Microbial biotechnology" />
+          <Card text="Nanobiotechnology" />
+          <Card text="Genetic and cellular engineering" />
+          <Card text="Bioinformatics" className="md:col-start-2 md:col-end-3" />
+        </div>
+        <div className="relative flex flex-col items-center mt-6 w-full">
+          <Image
+            src={Zilant}
+            alt="Coming soon image with dragon"
+            className="w-3/4 md:w-1/3"
+          />
+          <p
+            className={cn(
+              componentsClassNames.xl3.className,
+              "stroke absolute translate-y-2/4 bottom-0",
+              StrokeFont.className
+            )}
+          >
+            coming soon...
+          </p>
+        </div>
+      </Section>
+    );
+  };
 
   function PartnerCard({
     image,
@@ -582,7 +610,7 @@ export default function Home() {
           src={image}
           alt={alt}
           sizes="(max-width: 640px) 100vw, 20vw"
-          className="basis-1/5 object-contain"
+          className={cn("basis-1/5 object-contain rounded-lg")}
         />
         <div
           className={cn(
@@ -611,6 +639,10 @@ export default function Home() {
             We are pleased to announce that {company} is a partner of the
             conference and provides discounts on the purchase of air tickets for
             participants of the BIOCON 2023.
+          </p>
+          <p className="text-center mt-4">
+            In order to get a discount on the purchase of a ticket, you need to
+            register for the conference.
           </p>
           {additionalContent}
         </>
