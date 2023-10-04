@@ -703,17 +703,12 @@ export default function Home() {
             onClick={() =>
               setNewModalContent(
                 "S7 Airlines",
-                <Link
-                  href="https://www.s7.ru/ru/vl/biocon-2023"
-                  className="block mt-8"
-                >
-                  <Image
-                    src={S7Ad}
-                    alt="S7 Airlines ad"
-                    sizes="100vw"
-                    className="rounded-lg"
-                  />
-                </Link>
+                <Image
+                  src={S7Ad}
+                  alt="S7 Airlines ad"
+                  sizes="100vw"
+                  className="rounded-lg mt-8"
+                />
               )
             }
           />
