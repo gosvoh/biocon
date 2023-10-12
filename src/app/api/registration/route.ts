@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
   }: {
     captchaToken: string;
     personalData: boolean;
-    otherRole?: string;
+    customRole?: string;
   } & Registrations = await req.json();
 
   if (!(await checkCaptchaToken(captchaToken)))
@@ -70,7 +70,8 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
 
-  if (data.role === "Other" && data.otherRole) data.role = data.otherRole;
+  if (data.role === "Other" && data.customRole) data.role = data.customRole;
+  delete data.customRole;
 
   let createdRegistration: Registrations | null = null;
 
