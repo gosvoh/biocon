@@ -1,27 +1,24 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Roboto } from "next/font/google";
 import Image, { StaticImageData } from "next/image";
 import Script from "next/script";
 
 import React, { useState } from "react";
 
 import Link from "@/components/link";
-import { buttonVariants } from "@/components/ui/button";
 import { Separator as UiSeparator } from "@/components/ui/separator";
 
 import { cn } from "@/lib/utils";
 
-import AboutProgram from "$/public/about&program.png";
 import Aeroflot from "$/public/aeroflot.png";
+import Blasatim from "$/public/blastim.png";
 import Logo from "$/public/logo_transparent.png";
 import MapImg from "$/public/map.png";
 import OutlineCircle from "$/public/outline-circle.svg";
 import S7 from "$/public/s7.png";
 import S7Ad from "$/public/s7Ad.jpg";
 import VenueImg from "$/public/venue.jpg";
-import Zilant from "$/public/zilant.png";
 import { IdcardOutlined } from "@ant-design/icons";
 import {
   BusIcon,
@@ -31,37 +28,29 @@ import {
   RussianRubleIcon,
   UtensilsIcon,
 } from "lucide-react";
-import { Autoplay, Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 
-import Icon from "@/components/icon";
-import type { Speakers } from "@prisma/client/biocon";
 import FloatButton from "antd/es/float-button";
 
+import About from "@/components/about.section";
+import H1 from "@/components/h1";
 import OrganizerCard from "@/components/organizer.card";
+import P from "@/components/paragraph";
+import Program from "@/components/program.section";
 import Section from "@/components/section";
 import OrganizersSkeleton from "@/components/skeleton/orginizers";
-import SpeakerCardSkeleton from "@/components/skeleton/speaker.card";
-import SpeakerCard from "@/components/speaker.card";
 import { Modal } from "antd";
 import "swiper/css";
 import "swiper/css/pagination";
 import { componentsClassNames } from "./classNames";
 import AntdConfigProvider from "./providers/ant.config.provider";
 import { useOrganizers } from "./providers/organizers.provider";
-import { useSpeakers } from "./providers/speakers.provider";
-import Registration from "./registration";
+import SpeakersComp from "@/components/speakers.section";
 
+const Registration = dynamic(() => import("./registration"));
 const ContactDialog = dynamic(() => import("./contact.dialog"));
-const FollowDialog = dynamic(() => import("./follow.dialog"));
 const MainNav = dynamic(() => import("@/components/main-nav"));
 const MobileNav = dynamic(() => import("@/components/mobile-nav"));
 const Footer = dynamic(() => import("./footer"));
-
-const StrokeFont = Roboto({
-  weight: "700",
-  subsets: ["latin"],
-});
 
 function Navbar({
   setOpenContact,
@@ -84,48 +73,8 @@ function Navbar({
   );
 }
 
-function H1({
-  children,
-  className,
-  ...props
-}: { children: React.ReactNode } & React.HTMLProps<HTMLHeadingElement>) {
-  return (
-    <h1
-      {...props}
-      className={cn(
-        componentsClassNames.xl4.className,
-        "font-bold stroke text-left w-full uppercase mb-12",
-        StrokeFont.className,
-        className
-      )}
-    >
-      {children}
-    </h1>
-  );
-}
-
-function P({
-  children,
-  className,
-  ...props
-}: { children: React.ReactNode } & React.HTMLProps<HTMLParagraphElement>) {
-  return (
-    <p
-      {...props}
-      className={cn(
-        componentsClassNames.base.className,
-        "text-left w-full",
-        className
-      )}
-    >
-      {children}
-    </p>
-  );
-}
-
 export default function Home() {
   const [openContact, setOpenContact] = useState(false);
-  const { speakers, speakersReady } = useSpeakers();
   const { organizers, organizersReady } = useOrganizers();
 
   const Header = () => (
@@ -181,80 +130,6 @@ export default function Home() {
       </Section>
     </div>
   );
-
-  const About = () => {
-    const Card = ({
-      title,
-      description,
-    }: {
-      title: string;
-      description: string;
-    }) => {
-      return (
-        <div
-          className={cn(
-            "flex-grow",
-            "basis-[27.5%] flex flex-col",
-            "justify-center text-center",
-            "border-2 border-white",
-            "rounded-3xl hyphens-none",
-            "px-8 sm:px-10 md:px-12 py-10",
-            "hover:bg-white hover:text-black transition-colors"
-          )}
-        >
-          <h3
-            className={cn(
-              componentsClassNames.xl.className,
-              "mb-4",
-              "font-semibold"
-            )}
-          >
-            {title}
-          </h3>
-          <p>{description}</p>
-        </div>
-      );
-    };
-
-    return (
-      <Section
-        className="flex flex-col justify-center items-center relative mb-4"
-        id="about"
-      >
-        <Image
-          src={AboutProgram}
-          alt="About background image"
-          fill
-          className="-z-10 opacity-25 object-cover lg:object-contain object-center"
-        />
-        <H1>About</H1>
-        <P className="my-8">
-          Over three days, you will have the opportunity to share innovative
-          ideas, research results, and experiences with like-minded biotech
-          enthusiasts from around the world.
-        </P>
-        <P className="my-8">Choose your role:</P>
-        <div className="flex flex-wrap justify-center gap-6">
-          <Card
-            title="Attendee"
-            description="Participate in all conference events"
-          />
-          <Card
-            title="Contributed speaker"
-            description="Become part of one of the parallel sessions"
-          />
-          <Card
-            title="Science Slammer"
-            description="Present your research in an entertaining way in only 10 minutes"
-          />
-        </div>
-        <div className="flex flex-wrap justify-evenly items-center w-1/2 gap-6 whitespace-nowrap mt-8 md:mt-16 self-center">
-          <Registration />
-          <FollowDialog />
-        </div>
-      </Section>
-    );
-  };
 
   const ForWhom = () => {
     const circles = [
@@ -393,198 +268,6 @@ export default function Home() {
     );
   };
 
-  const SpeakersComp = () => {
-    const NormalWrapper = ({
-      elements,
-      className,
-    }: {
-      elements: Speakers[];
-      className?: React.HTMLProps<HTMLDivElement>["className"];
-    }) => (
-      <div
-        className={cn(
-          "w-full hidden md:flex flex-wrap gap-8 justify-items-center justify-around",
-          className
-        )}
-      >
-        {!speakersReady || elements.length === 0
-          ? Array.from({ length: 3 }).map((_, i) => (
-              <SpeakerCardSkeleton
-                key={i}
-                className="basis-[80%] md:basis-3/12"
-              />
-            ))
-          : elements.map((speaker) => (
-              <SpeakerCard
-                key={speaker.id}
-                speaker={speaker}
-                className="basis-[80%] md:basis-3/12"
-              />
-            ))}
-      </div>
-    );
-
-    const MobileWrapper = ({
-      elements,
-      className,
-    }: {
-      elements: Speakers[];
-      className?: React.HTMLProps<HTMLDivElement>["className"];
-    }) => (
-      <div
-        className={cn("w-full flex md:hidden gap-4 items-center", className)}
-      >
-        <div
-          className={cn(
-            buttonVariants({ variant: "outline", size: "icon" }),
-            "swiper-button-prev flex-1 aspect-square rounded-full border-white"
-          )}
-        >
-          <Icon name="chevron-left" className="w-4 h-4" />
-        </div>
-        <Swiper
-          modules={[Navigation, Autoplay]}
-          spaceBetween={50}
-          slidesPerView={1}
-          navigation={{
-            prevEl: ".swiper-button-prev",
-            nextEl: ".swiper-button-next",
-          }}
-          pagination={{ clickable: true, dynamicBullets: true }}
-          loop={true}
-          centeredSlides={true}
-          autoplay={{ delay: 3000 }}
-        >
-          {elements.length === 0
-            ? Array.from({ length: 3 }).map((_, i) => (
-                <SwiperSlide key={i}>
-                  <SpeakerCardSkeleton />
-                </SwiperSlide>
-              ))
-            : elements.map((speaker) => (
-                <SwiperSlide key={speaker.id}>
-                  <SpeakerCard
-                    key={speaker.id}
-                    speaker={speaker}
-                    className="text-center"
-                  />
-                </SwiperSlide>
-              ))}
-        </Swiper>
-        <div
-          className={cn(
-            buttonVariants({ variant: "outline", size: "icon" }),
-            "swiper-button-next flex-1 aspect-square rounded-full border-white"
-          )}
-        >
-          <Icon name="chevron-right" className="w-4 h-4" />
-        </div>
-      </div>
-    );
-
-    const Wrapper = ({ elements }: { elements: Speakers[] }) => (
-      <>
-        <NormalWrapper elements={elements} />
-        <MobileWrapper elements={elements} />
-      </>
-    );
-
-    return (
-      <Section
-        className="flex flex-col justify-center items-center"
-        id="speakers"
-      >
-        <H1 className="text-right">Speakers</H1>
-        <h2 className={cn(componentsClassNames.xl2.className, "mb-8")}>
-          Plenary
-        </h2>
-        <Wrapper
-          elements={speakers.filter(
-            (speaker) => speaker.speakerType === "plenary"
-          )}
-        />
-
-        {speakers.filter((speaker) => speaker.speakerType === "invited")
-          .length !== 0 && (
-          <>
-            <h2
-              className={cn(componentsClassNames.xl2.className, "mb-8 mt-32")}
-            >
-              Invited
-            </h2>
-            <Wrapper
-              elements={speakers.filter(
-                (speaker) => speaker.speakerType === "invited"
-              )}
-            />
-          </>
-        )}
-      </Section>
-    );
-  };
-
-  const Program = () => {
-    const Card = ({
-      text,
-      className,
-    }: {
-      text: string;
-      className?: string;
-    }) => (
-      <p
-        className={cn(
-          "border border-white w-full h-full grid place-content-center p-4 text-center text-balance rounded-lg",
-          className
-        )}
-      >
-        {text}
-      </p>
-    );
-
-    return (
-      <Section
-        className="flex flex-col justify-center items-center relative"
-        id="program"
-      >
-        <H1 className="mb-20">Program</H1>
-        <P>
-          TED-style plenary talks from world-renowned researchers, parallel
-          sessions on major spheres of biotechnology headlined by recognized
-          keynote speakers, an exciting Science Slam and much more — all infused
-          with{" "}
-          <span className="font-bold">
-            unforgettable culture of Tatarstan — BIOCON, in one word.
-          </span>
-        </P>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-fr mt-8">
-          <Card text="Sustainable agriculture" />
-          <Card text="Sustainable food production and food security" />
-          <Card text="Sustainable bioenergy" />
-          <Card text="Microbial biotechnology" />
-          <Card text="Nanobiotechnology" />
-          <Card text="Genetic and cellular engineering" />
-          <Card text="Bioinformatics" className="md:col-start-2 md:col-end-3" />
-        </div>
-        <div className="relative flex flex-col items-center mt-6 w-full">
-          <Image
-            src={Zilant}
-            alt="Coming soon image with dragon"
-            className="w-3/4 md:w-1/3"
-          />
-          <p
-            className={cn(
-              componentsClassNames.xl3.className,
-              "stroke absolute translate-y-2/4 bottom-0",
-              StrokeFont.className
-            )}
-          >
-            coming soon...
-          </p>
-        </div>
-      </Section>
-    );
-  };
-
   function PartnerCard({
     image,
     alt,
@@ -627,13 +310,13 @@ export default function Home() {
   const Partners = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
-    const [modalContent, setModalContent] = useState(<></>);
-    const setNewModalContent = (
+    const [modalContent, setMC] = useState(<></>);
+    const setModalContent = (
       company: string,
       additionalContent?: React.ReactNode
     ) => {
       setModalTitle(() => company);
-      setModalContent(() => (
+      setMC(() => (
         <>
           <p className="text-center">
             We are pleased to announce that {company} is a partner of the
@@ -683,7 +366,7 @@ export default function Home() {
                 recognisable Russian brands.
               </P>
             }
-            onClick={() => setNewModalContent("Aeroflot")}
+            onClick={() => setModalContent("Aeroflot")}
           />
           <PartnerCard
             image={S7}
@@ -701,7 +384,7 @@ export default function Home() {
               </P>
             }
             onClick={() =>
-              setNewModalContent(
+              setModalContent(
                 "S7 Airlines",
                 <Image
                   src={S7Ad}
@@ -711,6 +394,24 @@ export default function Home() {
                 />
               )
             }
+          />
+          <PartnerCard
+            image={Blasatim}
+            alt="Blastim logo"
+            setModalOpen={setModalOpen}
+            text={
+              <P>
+                <Link className="hover:underline" href="https://blastim.ru/">
+                  Blastim
+                </Link>{" "}
+                is an Edtech-company specializing in bioinformatics,
+                biochemistry, machine learning, and programming. Since 2015
+                Blastim has organized courses, webinars, job fairs to help
+                people with building a network and growing in a professional
+                field.
+              </P>
+            }
+            onClick={() => setModalContent("Blastim")}
           />
         </div>
       </Section>
@@ -891,7 +592,10 @@ export default function Home() {
         >
           <p className="mb-4">
             You can find accommodation options in the city of Almetyevsk{" "}
-            <Link className="font-bold hover:underline" href="#">
+            <Link
+              className="font-bold hover:underline"
+              href="/Hotels Almetyevsk for BIOCON 2023.pdf"
+            >
               here
             </Link>{" "}
             (the information will soon be updated).
@@ -995,7 +699,10 @@ export default function Home() {
                 <p>
                   Basic accommodation options at hotels that we recommend can be
                   found{" "}
-                  <Link className="font-bold hover:underline" href="#">
+                  <Link
+                    className="font-bold hover:underline"
+                    href="/Hotels Almetyevsk for BIOCON 2023.pdf"
+                  >
                     here
                   </Link>
                   .
