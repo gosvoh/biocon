@@ -12,6 +12,14 @@ import Section from "./section";
 const FollowDialog = dynamic(() => import("../app/follow.dialog"));
 const Registration = dynamic(() => import("../app/registration"));
 
+function ForTag({ children }: { children: React.ReactNode }) {
+  return <Tag color="purple">{children}</Tag>;
+}
+
+function MustTag({ children }: { children: React.ReactNode }) {
+  return <Tag color="green">{children}</Tag>;
+}
+
 export default function About() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
@@ -100,15 +108,15 @@ export default function About() {
                   wants to learn something new
                 </p>
                 <Space wrap>
-                  <Tag>Students</Tag>
-                  <Tag>Junior and young researchers</Tag>
-                  <Tag>Teachers</Tag>
-                  <Tag>Business representatives</Tag>
-                  <Tag>Biotech enthusiasts</Tag>
+                  <ForTag>Students</ForTag>
+                  <ForTag>Junior and young researchers</ForTag>
+                  <ForTag>Teachers</ForTag>
+                  <ForTag>Business representatives</ForTag>
+                  <ForTag>Biotech enthusiasts</ForTag>
                 </Space>
                 <p className="font-bold">You must specify when registering:</p>
                 <Space wrap>
-                  <Tag>Motivation letter</Tag>
+                  <MustTag>Motivation letter</MustTag>
                 </Space>
               </Space>
             );
@@ -128,18 +136,20 @@ export default function About() {
                   to share their scientific research
                 </p>
                 <Space wrap>
-                  <Tag>Recognised and established researchers</Tag>
-                  <Tag>Biotech experts</Tag>
-                  <Tag>Business representatives</Tag>
+                  <ForTag>Recognised and established researchers</ForTag>
+                  <ForTag>Biotech experts</ForTag>
+                  <ForTag>Business representatives</ForTag>
                 </Space>
                 <p className="font-bold">You must specify when registering:</p>
                 <Space wrap>
-                  <Tag>Your CV in English</Tag>
-                  <Tag>Short video with your self-presentation in English</Tag>
-                  <Tag>
+                  <MustTag>Your CV in English</MustTag>
+                  <MustTag>
+                    Short video with your self-presentation in English
+                  </MustTag>
+                  <MustTag>
                     Your Google Scholar, Scopus, ORCID or ResearchGate profile
-                  </Tag>
-                  <Tag>The preliminary title of your speech</Tag>
+                  </MustTag>
+                  <MustTag>The preliminary title of your speech</MustTag>
                 </Space>
               </Space>
             );
@@ -159,18 +169,18 @@ export default function About() {
                   format and tell interestingly about their research
                 </p>
                 <Space wrap>
-                  <Tag>Recognised and established researchers</Tag>
-                  <Tag>Biotech experts</Tag>
-                  <Tag>Biotech enthusiasts</Tag>
+                  <ForTag>Recognised and established researchers</ForTag>
+                  <ForTag>Biotech experts</ForTag>
+                  <ForTag>Biotech enthusiasts</ForTag>
                 </Space>
                 <p className="font-bold">You must specify when registering:</p>
                 <Space wrap>
-                  <Tag>
+                  <MustTag>
                     Short video with a teaser of your slam talk in English
-                  </Tag>
-                  <Tag>
+                  </MustTag>
+                  <MustTag>
                     Your Google Scholar, Scopus, ORCID or ResearchGate profile
-                  </Tag>
+                  </MustTag>
                 </Space>
               </Space>
             );
