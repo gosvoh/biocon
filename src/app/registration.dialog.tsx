@@ -58,9 +58,9 @@ export default function RegistrationDialog({
         "Contributed speaker. Become part of one of the parallel sessions!",
     },
     {
-      value: "Science Slammer",
+      value: "Participant of BioTech Open Mic",
       label:
-        "Science Slammer. Present your research in an entertaining way in only 10 minutes!",
+        "Participant of BioTech Open Mic. Present your research in an entertaining way in only 10 minutes!",
     },
   ];
   const selectedParticipationType = Form.useWatch("participationType", form);
@@ -403,7 +403,7 @@ export default function RegistrationDialog({
                     placeholder={
                       selectedParticipationType === "Contributed speaker"
                         ? "Provide a link to a short self-presentation video"
-                        : "Provide a link to a teaser of your slam talk"
+                        : "Provide a link to a teaser of your talk"
                     }
                   />
                 </Form.Item>

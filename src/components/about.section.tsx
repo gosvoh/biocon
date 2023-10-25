@@ -157,11 +157,11 @@ export default function About() {
           }}
         />
         <Card
-          title="Science Slammer"
-          description="Present your research in an entertaining way in only 10 minutes"
+          title="Biotech Open Mic"
+          description='Present your research in an entertaining way in only 10 minutes. A format in which there is no "framework".'
           onClick={() => {
             setModalContent(
-              "Attendee",
+              "Biotech Open Mic",
               <Space direction="vertical">
                 <p className="font-bold">Will be especially beneficial for:</p>
                 <p>
