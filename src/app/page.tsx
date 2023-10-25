@@ -19,6 +19,7 @@ import OutlineCircle from "$/public/outline-circle.svg";
 import S7 from "$/public/s7.png";
 import S7Ad from "$/public/s7Ad.jpg";
 import VenueImg from "$/public/venue.jpg";
+import PCR from "$/public/PCR.jpg";
 import { IdcardOutlined } from "@ant-design/icons";
 import {
   BusIcon,
@@ -278,16 +279,23 @@ export default function Home() {
     image: StaticImageData;
     alt: string;
     text: React.ReactNode;
-    onClick: () => void;
-    setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    onClick?: () => void;
+    setModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   }) {
     return (
       <div
-        className="flex flex-col md:flex-row gap-8 items-center group cursor-pointer"
-        onClick={() => {
-          onClick();
-          setModalOpen(true);
-        }}
+        className={cn(
+          "flex flex-col md:flex-row gap-8 items-center group",
+          onClick && setModalOpen && "cursor-pointer"
+        )}
+        onClick={
+          onClick && setModalOpen
+            ? () => {
+                onClick();
+                setModalOpen(true);
+              }
+            : undefined
+        }
       >
         <Image
           src={image}
@@ -299,7 +307,9 @@ export default function Home() {
           className={cn(
             "flex flex-col gap-4 ",
             "border border-white rounded-lg p-8",
-            "group-hover:text-black group-hover:bg-white transition-all"
+            onClick &&
+              setModalOpen &&
+              "group-hover:text-black group-hover:bg-white transition-all"
           )}
         >
           {text}
@@ -398,7 +408,6 @@ export default function Home() {
           <PartnerCard
             image={Blasatim}
             alt="Blastim logo"
-            setModalOpen={setModalOpen}
             text={
               <P>
                 <Link className="hover:underline" href="https://blastim.ru/">
@@ -411,7 +420,25 @@ export default function Home() {
                 field.
               </P>
             }
-            onClick={() => setModalContent("Blastim")}
+          />
+          <PartnerCard
+            image={PCR}
+            alt="PCR.NEWS logo"
+            text={
+              <P>
+                <Link className="hover:underline" href="https://pcr.news/">
+                  PCR.NEWS
+                </Link>{" "}
+                is a Russian-language information and analytical portal
+                concerning molecular diagnostics and related fields of science
+                and practice: molecular biology and medicine. Portal’s materials
+                are addressed to professional community of research scientists
+                specializing in molecular diagnostics, as well as for
+                specialists in laboratory diagnostics, clinicians,
+                biotechnologists, and graduate and undergraduate students in
+                Life sciences and medicine.
+              </P>
+            }
           />
         </div>
       </Section>
