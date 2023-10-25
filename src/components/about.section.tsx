@@ -34,7 +34,7 @@ export default function About() {
     description,
     onClick,
   }: {
-    title: string;
+    title: string | React.ReactNode;
     description: string;
     onClick: () => void;
   }) => {
@@ -157,7 +157,13 @@ export default function About() {
           }}
         />
         <Card
-          title="Biotech Open Mic"
+          title={
+            <>
+              Biotech
+              <br />
+              Open Mic
+            </>
+          }
           description='Present your research in an entertaining way in only 10 minutes. A format in which there is no "framework".'
           onClick={() => {
             setModalContent(
