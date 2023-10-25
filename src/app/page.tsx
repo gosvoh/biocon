@@ -19,7 +19,7 @@ import OutlineCircle from "$/public/outline-circle.svg";
 import S7 from "$/public/s7.png";
 import S7Ad from "$/public/s7Ad.jpg";
 import VenueImg from "$/public/venue.jpg";
-import PCR from "$/public/PCR.jpg";
+import PCR from "$/public/PCR.png";
 import { IdcardOutlined } from "@ant-design/icons";
 import {
   BusIcon,
@@ -301,12 +301,15 @@ export default function Home() {
           src={image}
           alt={alt}
           sizes="(max-width: 640px) 100vw, 20vw"
-          className={cn("basis-1/5 object-contain rounded-lg")}
+          className={cn(
+            "sm:max-md:w-9/12 flex-1 basis-1/5 object-contain rounded-lg"
+          )}
         />
         <div
           className={cn(
             "flex flex-col gap-4 ",
             "border border-white rounded-lg p-8",
+            "flex-1 basis-4/5",
             onClick &&
               setModalOpen &&
               "group-hover:text-black group-hover:bg-white transition-all"
