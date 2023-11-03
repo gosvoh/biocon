@@ -44,13 +44,11 @@ export default function Program() {
     >
       <H1 className="mb-20">Program</H1>
       <P>
-        TED-style plenary talks from world-renowned researchers, parallel
-        sessions on major spheres of biotechnology headlined by recognized
-        keynote speakers, an exciting Science Slam and much more — all infused
-        with{" "}
-        <span className="font-bold">
-          unforgettable culture of Tatarstan — BIOCON, in one word.
-        </span>
+        BIOCON 2023 focused on UNESCO Sustainable Development Goals. TED-style
+        plenary talks from world-renowned researchers, parallel sessions on
+        major spheres of biotechnology headlined by recognized keynote speakers,
+        an exciting BioTech Open Mic and much more — all infused with
+        unforgettable culture of Tatarstan — BIOCON, in one word.
       </P>
       <P
         className={cn(

@@ -172,7 +172,8 @@ export default function About() {
                 <p className="font-bold">Will be especially beneficial for:</p>
                 <p>
                   For scientists who want to try themselves in an unusual, witty
-                  format and tell interestingly about their research
+                  format and tell interestingly about their research, startups
+                  or failures — performance without limits!
                 </p>
                 <Space wrap>
                   <ForTag>Recognised and established researchers</ForTag>

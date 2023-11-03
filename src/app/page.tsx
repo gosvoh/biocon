@@ -12,14 +12,14 @@ import { Separator as UiSeparator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
 import Aeroflot from "$/public/aeroflot.png";
-import Blasatim from "$/public/blastim.png";
 import Logo from "$/public/logo_transparent.png";
 import MapImg from "$/public/map.png";
 import OutlineCircle from "$/public/outline-circle.svg";
 import S7 from "$/public/s7.png";
 import S7Ad from "$/public/s7Ad.jpg";
-import VenueImg from "$/public/venue.jpg";
-import PCR from "$/public/PCR.png";
+import VenueImg1 from "$/public/venue.jpg";
+import VenueImg2 from "$/public/venue2.jpg";
+import VenueImg3 from "$/public/venue3.jpg";
 import { IdcardOutlined } from "@ant-design/icons";
 import {
   BusIcon,
@@ -39,19 +39,19 @@ import P from "@/components/paragraph";
 import Program from "@/components/program.section";
 import Section from "@/components/section";
 import OrganizersSkeleton from "@/components/skeleton/orginizers";
+import SpeakersComp from "@/components/speakers.section";
 import { Modal } from "antd";
 import "swiper/css";
 import "swiper/css/pagination";
 import { componentsClassNames } from "./classNames";
 import AntdConfigProvider from "./providers/ant.config.provider";
 import { useOrganizers } from "./providers/organizers.provider";
-import SpeakersComp from "@/components/speakers.section";
 
 const Registration = dynamic(() => import("./registration"));
 const ContactDialog = dynamic(() => import("./contact.dialog"));
 const MainNav = dynamic(() => import("@/components/main-nav"));
 const MobileNav = dynamic(() => import("@/components/mobile-nav"));
-const Footer = dynamic(() => import("./footer"));
+const Footer = dynamic(() => import("../components/footer"));
 
 function Navbar({
   setOpenContact,
@@ -408,41 +408,6 @@ export default function Home() {
               )
             }
           />
-          <PartnerCard
-            image={Blasatim}
-            alt="Blastim logo"
-            text={
-              <P>
-                <Link className="hover:underline" href="https://blastim.ru/">
-                  Blastim
-                </Link>{" "}
-                is an Edtech-company specializing in bioinformatics,
-                biochemistry, machine learning, and programming. Since 2015
-                Blastim has organized courses, webinars, job fairs to help
-                people with building a network and growing in a professional
-                field.
-              </P>
-            }
-          />
-          <PartnerCard
-            image={PCR}
-            alt="PCR.NEWS logo"
-            text={
-              <P>
-                <Link className="hover:underline" href="https://pcr.news/">
-                  PCR.NEWS
-                </Link>{" "}
-                is a Russian-language information and analytical portal
-                concerning molecular diagnostics and related fields of science
-                and practice: molecular biology and medicine. Portal’s materials
-                are addressed to professional community of research scientists
-                specializing in molecular diagnostics, as well as for
-                specialists in laboratory diagnostics, clinicians,
-                biotechnologists, and graduate and undergraduate students in
-                Life sciences and medicine.
-              </P>
-            }
-          />
         </div>
       </Section>
     );
@@ -517,8 +482,40 @@ export default function Home() {
       </p>
       <div className="relative w-full h-[300px] md:h-[150%]">
         <Image
-          src={VenueImg}
-          alt="Venue image"
+          src={VenueImg1}
+          alt="Venue image 1"
+          className="rounded-3xl object-cover object-center"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          fill
+        />
+      </div>
+      <div className="relative w-full h-[300px] md:h-[150%]">
+        <Image
+          src={VenueImg2}
+          alt="Venue image 2"
+          className="rounded-3xl object-cover object-center"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          fill
+        />
+      </div>
+      <p className={cn(componentsClassNames.lg.className)}>
+        PJSC Tatneft, together with the Advanced Engineering School ITMO, is
+        developing the biotech industry in Almetyevsk.
+        <br />
+        <br /> AES ITMO is a training school for engineers with the necessary
+        level of competence for accelerated transfer of digital technologies to
+        the development of new business areas and industrial production.
+      </p>
+      <p className={cn(componentsClassNames.lg.className)}>
+        In April 2023, cellular, molecular, microbiological and chemical
+        laboratories equipped with advanced research equipment were launched on
+        the basis of the Laboratory and Research Building of the Petroleum High
+        School.
+      </p>
+      <div className="relative w-full h-[300px] md:h-[150%]">
+        <Image
+          src={VenueImg3}
+          alt="Venue image 3"
           className="rounded-3xl object-cover object-center"
           sizes="(max-width: 768px) 100vw, 50vw"
           fill
