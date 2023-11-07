@@ -13,6 +13,7 @@ import Telegram from "../../public/telegram.svg";
 import VK from "../../public/vk.svg";
 import Facebook from "../../public/facebook.svg";
 import YouTube from "../../public/youtube.svg";
+import FIC from "../../public/FIC.png";
 import { Modal } from "antd";
 import P from "./paragraph";
 import PCR from "$/public/PCR.png";
@@ -106,6 +107,14 @@ export default function Footer({}: {}) {
             )
           }
         />
+        <Link href="https://www.fbras.ru/en/">
+          <Image
+            src={FIC}
+            alt={"FIC logo"}
+            width={imgWidth}
+            className="rounded-lg cursor-pointer bg-white p-6"
+          />
+        </Link>
       </div>
       <p
         className={cn("text-center mt-8", componentsClassNames.base.className)}
