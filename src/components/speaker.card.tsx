@@ -83,17 +83,21 @@ export default function SpeakerCard({
           <span className="italic">h</span>-index
         </p>
       </div>
-      {speaker.thunderUrl ? (
-        <Link
-          href={speaker.thunderUrl}
-          className="text-center flex items-center justify-center gap-2 hover:underline mx-auto"
-        >
-          <TrophyFilled className="text-yellow-400" /> {speaker.thunder}
-        </Link>
-      ) : (
-        <p className="text-center flex items-center justify-center gap-2">
-          <TrophyFilled className="text-yellow-400" /> {speaker.thunder}
-        </p>
+      {speaker.thunder && (
+        <>
+          {speaker.thunderUrl ? (
+            <Link
+              href={speaker.thunderUrl}
+              className="text-center flex items-center justify-center gap-2 hover:underline mx-auto"
+            >
+              <TrophyFilled className="text-yellow-400" /> {speaker.thunder}
+            </Link>
+          ) : (
+            <p className="text-center flex items-center justify-center gap-2">
+              <TrophyFilled className="text-yellow-400" /> {speaker.thunder}
+            </p>
+          )}
+        </>
       )}
       {speaker.topic && <p>Lecture topic: {speaker.topic}</p>}
       {speaker.description && <p>{speaker.description}</p>}

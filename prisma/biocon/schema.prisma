@@ -48,7 +48,7 @@ model Speakers {
   universityUrl String
   topic         String?
   description   String?
-  thunder       String
+  thunder       String?
   thunderUrl    String?
   hIndex        Int
   speakerType   String

@@ -141,7 +141,7 @@ export default function AddSpeaker() {
     universityUrl: true,
     topic: false,
     description: false,
-    thunder: true,
+    thunder: false,
     thunderUrl: false,
     hIndex: true,
     speakerType: true,
@@ -176,7 +176,7 @@ export default function AddSpeaker() {
             values.topic && formData.append("topic", values.topic);
             values.description &&
               formData.append("description", values.description);
-            formData.append("thunder", values.thunder);
+            values.thunder && formData.append("thunder", values.thunder);
             values.thunderUrl &&
               formData.append("thunderUrl", values.thunderUrl);
             formData.append("hIndex", values.hIndex);
