@@ -83,7 +83,7 @@ export default function SpeakerCard({
           <span className="italic">h</span>-index
         </p>
       </div>
-      {speaker.thunder && (
+      {speaker.thunder?.length !== 0 && (
         <>
           {speaker.thunderUrl ? (
             <Link
