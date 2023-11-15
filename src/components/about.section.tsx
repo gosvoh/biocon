@@ -60,7 +60,7 @@ export default function About() {
         >
           {title}
         </h3>
-        <P>{description}</P>
+        <p>{description}</p>
       </div>
     );
   };
@@ -102,19 +102,19 @@ export default function About() {
             setModalContent(
               "Attendee",
               <Space direction="vertical">
-                <P className="font-bold">Will be especially beneficial for:</P>
-                <P>
+                <p className="font-bold">Will be especially beneficial for:</p>
+                <p>
                   For everyone who is immersed in the field of biotechnology and
                   wants to learn something new
-                </P>
+                </p>
                 <Space wrap>
                   <ForTag>Students</ForTag>
                   <ForTag>Junior and young researchers</ForTag>
                   <ForTag>Teachers</ForTag>
                   <ForTag>Business representatives</ForTag>
-                  <ForTag>BioTech enthusiasts</ForTag>
+                  <ForTag>Biotech enthusiasts</ForTag>
                 </Space>
-                <P className="font-bold">You must specify when registering:</P>
+                <p className="font-bold">You must specify when registering:</p>
                 <Space wrap>
                   <MustTag>Motivation letter</MustTag>
                 </Space>
@@ -130,18 +130,17 @@ export default function About() {
             setModalContent(
               "Contributed speaker",
               <Space direction="vertical">
-                <P>Performance time: 15-20 min</P>
-                <P className="font-bold">Will be especially beneficial for:</P>
-                <P>
+                <p className="font-bold">Will be especially beneficial for:</p>
+                <p>
                   For young researchers and scientists with experience who want
                   to share their scientific research
-                </P>
+                </p>
                 <Space wrap>
                   <ForTag>Recognised and established researchers</ForTag>
-                  <ForTag>BioTech experts</ForTag>
+                  <ForTag>Biotech experts</ForTag>
                   <ForTag>Business representatives</ForTag>
                 </Space>
-                <P className="font-bold">You must specify when registering:</P>
+                <p className="font-bold">You must specify when registering:</p>
                 <Space wrap>
                   <MustTag>Your CV in English</MustTag>
                   <MustTag>
@@ -160,7 +159,7 @@ export default function About() {
         <Card
           title={
             <>
-              BioTech
+              Biotech
               <br />
               Open Mic
             </>
@@ -168,20 +167,20 @@ export default function About() {
           description='Present your research in an entertaining way in only 10 minutes. A format in which there is no "framework".'
           onClick={() => {
             setModalContent(
-              "BioTech Open Mic",
+              "Biotech Open Mic",
               <Space direction="vertical">
-                <P className="font-bold">Will be especially beneficial for:</P>
-                <P>
+                <p className="font-bold">Will be especially beneficial for:</p>
+                <p>
                   For scientists who want to try themselves in an unusual, witty
                   format and tell interestingly about their research, startups
                   or failures — performance without limits!
-                </P>
+                </p>
                 <Space wrap>
                   <ForTag>Recognised and established researchers</ForTag>
-                  <ForTag>BioTech experts</ForTag>
-                  <ForTag>BioTech enthusiasts</ForTag>
+                  <ForTag>Biotech experts</ForTag>
+                  <ForTag>Biotech enthusiasts</ForTag>
                 </Space>
-                <P className="font-bold">You must specify when registering:</P>
+                <p className="font-bold">You must specify when registering:</p>
                 <Space wrap>
                   <MustTag>
                     Short video with a teaser of your slam talk in English
