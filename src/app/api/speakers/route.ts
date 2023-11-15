@@ -41,7 +41,6 @@ export async function POST(req: NextRequest) {
     !universityUrl ||
     !hIndex ||
     !img ||
-    !thunder ||
     !speakerType ||
     !country
   )

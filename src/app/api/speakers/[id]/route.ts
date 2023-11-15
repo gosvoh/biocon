@@ -54,7 +54,6 @@ export async function PATCH(
       !university ||
       !universityUrl ||
       !hIndex ||
-      !thunder ||
       !speakerType ||
       !country
     )
