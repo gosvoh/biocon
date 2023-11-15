@@ -112,7 +112,7 @@ export default function About() {
                   <ForTag>Junior and young researchers</ForTag>
                   <ForTag>Teachers</ForTag>
                   <ForTag>Business representatives</ForTag>
-                  <ForTag>Biotech enthusiasts</ForTag>
+                  <ForTag>BioTech enthusiasts</ForTag>
                 </Space>
                 <p className="font-bold">You must specify when registering:</p>
                 <Space wrap>
@@ -137,7 +137,7 @@ export default function About() {
                 </p>
                 <Space wrap>
                   <ForTag>Recognised and established researchers</ForTag>
-                  <ForTag>Biotech experts</ForTag>
+                  <ForTag>BioTech experts</ForTag>
                   <ForTag>Business representatives</ForTag>
                 </Space>
                 <p className="font-bold">You must specify when registering:</p>
@@ -159,7 +159,7 @@ export default function About() {
         <Card
           title={
             <>
-              Biotech
+              BioTech
               <br />
               Open Mic
             </>
@@ -167,7 +167,7 @@ export default function About() {
           description='Present your research in an entertaining way in only 10 minutes. A format in which there is no "framework".'
           onClick={() => {
             setModalContent(
-              "Biotech Open Mic",
+              "BioTech Open Mic",
               <Space direction="vertical">
                 <p className="font-bold">Will be especially beneficial for:</p>
                 <p>
@@ -177,8 +177,8 @@ export default function About() {
                 </p>
                 <Space wrap>
                   <ForTag>Recognised and established researchers</ForTag>
-                  <ForTag>Biotech experts</ForTag>
-                  <ForTag>Biotech enthusiasts</ForTag>
+                  <ForTag>BioTech experts</ForTag>
+                  <ForTag>BioTech enthusiasts</ForTag>
                 </Space>
                 <p className="font-bold">You must specify when registering:</p>
                 <Space wrap>
