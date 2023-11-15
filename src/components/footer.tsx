@@ -14,16 +14,20 @@ import VK from "../../public/vk.svg";
 import Facebook from "../../public/facebook.svg";
 import YouTube from "../../public/youtube.svg";
 import FIC from "../../public/FIC.png";
-import { Modal } from "antd";
+import { Modal, Typography } from "antd";
 import P from "./paragraph";
 import PCR from "$/public/PCR.png";
+import Colab from "$/public/colab.svg";
 import Blasatim from "$/public/blastim.png";
+import Biolabmix from "$/public/biolabmix.png";
+import SciTech from "$/public/scitech.png";
 import { cn } from "@/lib/utils";
 import { componentsClassNames } from "@/app/classNames";
 
 export default function Footer({}: {}) {
   const windowSize = useWindowSize();
   const [imgWidth, setImgWidth] = useState(150);
+  const [imgHeight, setImgHeight] = useState(75);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
@@ -35,32 +39,40 @@ export default function Footer({}: {}) {
   };
 
   useEffect(() => {
-    if (windowSize.width < 640) setImgWidth(150);
-    else setImgWidth(200);
+    if (windowSize.width < 640) {
+      setImgWidth(150);
+      setImgHeight(75);
+    } else {
+      setImgWidth(200);
+      setImgHeight(100);
+    }
   }, [windowSize]);
 
   return (
-    <footer className="flex flex-col mb-8 mt-16 gap-8">
+    <footer className="flex flex-col mb-8 mt-16 gap-8 items-stretch">
       <Modal
         open={modalOpen}
         onCancel={() => setModalOpen(false)}
         onOk={() => setModalOpen(false)}
         cancelButtonProps={{ className: "hidden" }}
         okButtonProps={{ type: "default" }}
-        title={<div className="text-center">{modalTitle}</div>}
+        title={
+          <Typography.Title className="text-center" level={3}>
+            {modalTitle}
+          </Typography.Title>
+        }
         centered
       >
         {modalContent}
       </Modal>
-      <p className={cn("text-center", componentsClassNames.base.className)}>
-        Media Partners
-      </p>
-      <div className="flex flex-wrap md:flex-nowrap flex-row justify-around items-center gap-8">
+      <P className="text-center">Partners</P>
+      <div className="flex flex-wrap md:flex-nowrap flex-row justify-around items-stretch gap-8">
         <Image
           src={Blasatim}
           alt={"Blastim logo"}
           width={imgWidth}
-          className="rounded-lg cursor-pointer transition-all"
+          height={imgHeight}
+          className="rounded-lg cursor-pointer object-contain"
           onClick={() =>
             setModalContent(
               "Blastim",
@@ -84,7 +96,8 @@ export default function Footer({}: {}) {
           src={PCR}
           alt={"PCR.NEWS logo"}
           width={imgWidth}
-          className="rounded-lg cursor-pointer transition-all"
+          height={imgHeight}
+          className="rounded-lg cursor-pointer transition-all object-contain bg-white"
           onClick={() =>
             setModalContent(
               "PCR.NEWS",
@@ -107,20 +120,89 @@ export default function Footer({}: {}) {
             )
           }
         />
-        <Link href="https://www.fbras.ru/en/">
+        <Link
+          href="https://www.fbras.ru/en/"
+          className="flex justify-center items-center rounded-lg bg-white"
+        >
           <Image
             src={FIC}
             alt={"FIC logo"}
-            width={imgWidth}
-            className="rounded-lg cursor-pointer bg-white p-6"
+            className="rounded-lg cursor-pointer bg-white p-6 object-contain"
           />
         </Link>
+        <Image
+          src={Colab}
+          alt={"CoLab logo"}
+          width={imgWidth}
+          height={imgHeight}
+          className="rounded-lg cursor-pointer bg-white p-6 object-contain"
+          onClick={() =>
+            setModalContent(
+              "CoLab",
+              <P>
+                <Link
+                  className="underline hover:underline"
+                  href="https://colab.ws/conferences/536"
+                >
+                  CoLab
+                </Link>{" "}
+                — search for information about the work of scientists,
+                laboratories and scientific organizations. The platform was
+                created within the framework of the federal project, the Decade
+                of Science and Technology.
+              </P>
+            )
+          }
+        />
+        <Image
+          src={Biolabmix}
+          alt={"Biolabmix logo"}
+          width={imgWidth}
+          height={imgHeight}
+          className="rounded-lg cursor-pointer bg-white object-contain"
+          onClick={() =>
+            setModalContent(
+              "Biolabmix",
+              <P>
+                <Link
+                  className="underline hover:underline"
+                  href="https://biolabmix.ru/en/"
+                >
+                  Biolabmix
+                </Link>{" "}
+                is a research and production company focusing on reagents for
+                molecular biology, biochemistry, genetic engineering and
+                biotechnologies and fundamental medicine.
+              </P>
+            )
+          }
+        />
+        <Image
+          src={SciTech}
+          alt={"The Decade of Science and Technology in Russia logo"}
+          width={imgWidth}
+          height={imgHeight}
+          className="rounded-lg cursor-pointer bg-white object-contain p-6"
+          onClick={() =>
+            setModalContent(
+              "The Decade of Science and Technology in Russia",
+              <P>
+                <Link
+                  className="underline hover:underline"
+                  href="https://xn--80aa3ak5a.xn--p1ai/news/konferentsiya-po-industrialnoy-biotekhnologii-biocon-2023-proydet-v-almetevske/"
+                >
+                  The Decade of Science and Technology in Russia
+                </Link>{" "}
+                includes a set of initiatives, projects and events. All of them
+                are aimed at strengthening the role of science and technology in
+                solving the most important tasks of the development of society
+                and the country.
+              </P>
+            )
+          }
+        />
       </div>
-      <p
-        className={cn("text-center mt-8", componentsClassNames.base.className)}
-      >
-        General Partners
-      </p>
+      <P className="text-center mt-8">General Partners</P>
       <div className="flex flex-wrap md:flex-nowrap flex-row justify-around md:justify-between items-center gap-8">
         <Link href="https://itmo.ru/">
           <Image src={Itmo} alt="Itmo" width={imgWidth} />
