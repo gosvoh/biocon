@@ -359,7 +359,13 @@ export default function Home() {
         >
           {modalContent}
         </Modal>
-        <H1 className="text-right">Partners</H1>
+        <H1 className="text-right inline-flex justify-end">
+          <PlaneIcon
+            strokeWidth={1}
+            className="text-right h-[2.25rem] sm:h-[3.75rem] md:h-[6rem] w-[2.25rem] sm:w-[3.75rem] md:w-[6rem]"
+          />
+          Partners
+        </H1>
         <div className="flex flex-col gap-12">
           <PartnerCard
             image={Aeroflot}
