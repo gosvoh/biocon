@@ -1,5 +1,5 @@
 import Link from "@/components/link";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { socials } from "@/socials";
 import { useWindowSize } from "@react-hookz/web";
 import { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ import { Modal, Typography } from "antd";
 import P from "./paragraph";
 import PCR from "$/public/PCR.png";
 import Colab from "$/public/colab.svg";
-import Blasatim from "$/public/blastim.png";
+import Blasatim from "$/public/blastim.jpg";
 import Biolabmix from "$/public/biolabmix.png";
 import SciTech from "$/public/scitech.png";
 import { cn } from "@/lib/utils";
@@ -48,6 +48,59 @@ export default function Footer({}: {}) {
     }
   }, [windowSize]);
 
+  const PartnerCard = ({
+    img,
+    link,
+    title,
+    description,
+    className,
+  }: {
+    title: string;
+    description?: React.ReactNode;
+    link: string;
+    img: StaticImageData;
+    className?: React.HTMLProps<HTMLDivElement>["className"];
+  }) => {
+    const classes = `rounded-lg basis-[200px] bg-white cursor-pointer flex justify-center`;
+
+    if (description)
+      return (
+        <div
+          className={cn(classes, className)}
+          onClick={() =>
+            setModalContent(
+              title,
+              <P>
+                <Link className="underline hover:underline" href={link}>
+                  {title}
+                </Link>{" "}
+                {description}
+              </P>
+            )
+          }
+        >
+          <Image
+            src={img}
+            alt={`${title} logo`}
+            width={imgWidth}
+            height={imgHeight}
+            className="object-contain rounded-lg"
+          />
+        </div>
+      );
+    return (
+      <Link href={link} className={cn(classes, className)}>
+        <Image
+          src={img}
+          alt={`${title} logo`}
+          width={imgWidth}
+          height={imgHeight}
+          className="object-contain rounded-lg"
+        />
+      </Link>
+    );
+  };
+
   return (
     <footer className="flex flex-col mb-8 mt-16 gap-8 items-stretch">
       <Modal
@@ -66,158 +119,101 @@ export default function Footer({}: {}) {
         {modalContent}
       </Modal>
       <P className="text-center">Partners</P>
-      <div className="flex flex-wrap md:flex-nowrap flex-row justify-around items-stretch gap-8">
-        <Image
-          src={Blasatim}
-          alt={"Blastim logo"}
-          width={imgWidth}
-          height={imgHeight}
-          className="rounded-lg cursor-pointer object-contain"
-          onClick={() =>
-            setModalContent(
-              "Blastim",
-              <P>
-                <Link
-                  className="underline hover:underline"
-                  href="https://blastim.ru/"
-                >
-                  Blastim
-                </Link>{" "}
-                is an Edtech-company specializing in bioinformatics,
-                biochemistry, machine learning, and programming. Since 2015
-                Blastim has organized courses, webinars, job fairs to help
-                people with building a network and growing in a professional
-                field.
-              </P>
-            )
+      <div className="flex flex-wrap md:flex-nowrap flex-row justify-around gap-8">
+        <PartnerCard
+          title="Blastim"
+          link="https://blastim.ru/"
+          img={Blasatim}
+          description={
+            <>
+              is an Edtech-company specializing in bioinformatics, biochemistry,
+              machine learning, and programming. Since 2015 Blastim has
+              organized courses, webinars, job fairs to help people with
+              building a network and growing in a professional field.
+            </>
+          }
+          className="p-6"
+        />
+        <PartnerCard
+          title="PCR.NEWS"
+          link="https://pcr.news/"
+          img={PCR}
+          description={
+            <>
+              is a Russian-language information and analytical portal concerning
+              molecular diagnostics and related fields of science and practice:
+              molecular biology and medicine. Portal’s materials are addressed
+              to professional community of research scientists specializing in
+              molecular diagnostics, as well as for specialists in laboratory
+              diagnostics, clinicians, biotechnologists, and graduate and
+              undergraduate students in Life sciences and medicine.
+            </>
           }
         />
-        <Image
-          src={PCR}
-          alt={"PCR.NEWS logo"}
-          width={imgWidth}
-          height={imgHeight}
-          className="rounded-lg cursor-pointer transition-all object-contain bg-white"
-          onClick={() =>
-            setModalContent(
-              "PCR.NEWS",
-              <P>
-                <Link
-                  className="underline hover:underline"
-                  href="https://pcr.news/"
-                >
-                  PCR.NEWS
-                </Link>{" "}
-                is a Russian-language information and analytical portal
-                concerning molecular diagnostics and related fields of science
-                and practice: molecular biology and medicine. Portal’s materials
-                are addressed to professional community of research scientists
-                specializing in molecular diagnostics, as well as for
-                specialists in laboratory diagnostics, clinicians,
-                biotechnologists, and graduate and undergraduate students in
-                Life sciences and medicine.
-              </P>
-            )
-          }
+        <PartnerCard
+          title="FIC"
+          link="https://www.fbras.ru/en/"
+          img={FIC}
+          className="p-6"
         />
-        <Link
-          href="https://www.fbras.ru/en/"
-          className="flex justify-center items-center rounded-lg bg-white"
-        >
-          <Image
-            src={FIC}
-            alt={"FIC logo"}
-            className="rounded-lg cursor-pointer bg-white p-6 object-contain"
-          />
-        </Link>
-        <Image
-          src={Colab}
-          alt={"CoLab logo"}
-          width={imgWidth}
-          height={imgHeight}
-          className="rounded-lg cursor-pointer bg-white p-6 object-contain"
-          onClick={() =>
-            setModalContent(
-              "CoLab",
-              <P>
-                <Link
-                  className="underline hover:underline"
-                  href="https://colab.ws/conferences/536"
-                >
-                  CoLab
-                </Link>{" "}
-                — search for information about the work of scientists,
-                laboratories and scientific organizations. The platform was
-                created within the framework of the federal project, the Decade
-                of Science and Technology.
-              </P>
-            )
+        <PartnerCard
+          title="CoLab"
+          link="https://colab.ws/conferences/536"
+          img={Colab}
+          description={
+            <>
+              — search for information about the work of scientists,
+              laboratories and scientific organizations. The platform was
+              created within the framework of the federal project, the Decade of
+              Science and Technology.
+            </>
           }
+          className="p-6"
         />
-        <Image
-          src={Biolabmix}
-          alt={"Biolabmix logo"}
-          width={imgWidth}
-          height={imgHeight}
-          className="rounded-lg cursor-pointer bg-white object-contain"
-          onClick={() =>
-            setModalContent(
-              "Biolabmix",
-              <P>
-                <Link
-                  className="underline hover:underline"
-                  href="https://biolabmix.ru/en/"
-                >
-                  Biolabmix
-                </Link>{" "}
-                is a research and production company focusing on reagents for
-                molecular biology, biochemistry, genetic engineering and
-                biotechnologies and fundamental medicine.
-              </P>
-            )
+        <PartnerCard
+          title="Biolabmix"
+          link="https://biolabmix.ru/en/"
+          img={Biolabmix}
+          description={
+            <>
+              is a research and production company focusing on reagents for
+              molecular biology, biochemistry, genetic engineering and
+              biotechnologies and fundamental medicine.
+            </>
           }
+          className="py-6"
         />
-        <Image
-          src={SciTech}
-          alt={"The Decade of Science and Technology in Russia logo"}
-          width={imgWidth}
-          height={imgHeight}
-          className="rounded-lg cursor-pointer bg-white object-contain p-6"
-          onClick={() =>
-            setModalContent(
-              "The Decade of Science and Technology in Russia",
-              <P>
-                <Link
-                  className="underline hover:underline"
-                  href="https://xn--80aa3ak5a.xn--p1ai/news/konferentsiya-po-industrialnoy-biotekhnologii-biocon-2023-proydet-v-almetevske/"
-                >
-                  The Decade of Science and Technology in Russia
-                </Link>{" "}
-                includes a set of initiatives, projects and events. All of them
-                are aimed at strengthening the role of science and technology in
-                solving the most important tasks of the development of society
-                and the country.
-              </P>
-            )
+        <PartnerCard
+          title="The Decade of Science and Technology in Russia"
+          link="https://xn--80aa3ak5a.xn--p1ai/news/konferentsiya-po-industrialnoy-biotekhnologii-biocon-2023-proydet-v-almetevske/"
+          img={SciTech}
+          description={
+            <>
+              includes a set of initiatives, projects and events. All of them
+              are aimed at strengthening the role of science and technology in
+              solving the most important tasks of the development of society and
+              the country.
+            </>
           }
+          className="p-6"
         />
       </div>
       <P className="text-center mt-8">General Partners</P>
       <div className="flex flex-wrap md:flex-nowrap flex-row justify-around md:justify-between items-center gap-8">
         <Link href="https://itmo.ru/">
-          <Image src={Itmo} alt="Itmo" width={imgWidth} />
+          <Image src={Itmo} alt="Itmo" width={imgWidth * 1.5} />
         </Link>
         <Link href="https://en.itmo.ru/en/faculty/98/Faculty_of_Biotechnologies.htm">
-          <Image src={Biotech} alt="Biotech" width={imgWidth} />
+          <Image src={Biotech} alt="Biotech" width={imgWidth * 1.5} />
         </Link>
         <Link href="https://www.tatneft.ru/">
-          <Image src={Tatneft} alt="Tatneft" width={imgWidth} />
+          <Image src={Tatneft} alt="Tatneft" width={imgWidth * 1.5} />
         </Link>
         <Link href="https://pish.itmo.ru/">
-          <Image src={Pish} alt="Pish" width={imgWidth} />
+          <Image src={Pish} alt="Pish" width={imgWidth * 1.5} />
         </Link>
         <Link href="https://agni-rt.ru/">
-          <Image src={Agni} alt="Agni" width={imgWidth} />
+          <Image src={Agni} alt="Agni" width={imgWidth * 1.5} />
         </Link>
       </div>
       <div className="flex flex-col sm:flex-row justify-between items-center gap-8">
