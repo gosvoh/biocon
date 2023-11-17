@@ -83,7 +83,7 @@ export async function PATCH(
           topic: topic || "",
           description: description || "",
           thunder,
-          thunderUrl: thunderUrl || "",
+          thunderUrl: thunderUrl,
           hIndex: parseInt(hIndex),
           speakerType,
           country,
