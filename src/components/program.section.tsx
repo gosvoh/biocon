@@ -44,7 +44,7 @@ export default function Program() {
     >
       <H1 className="mb-20">Program</H1>
       <P>
-        BIOCON 2023 focused on UNESCO Sustainable Development Goals. TED-style
+        BIOCON 2023 focuses on UNESCO Sustainable Development Goals. TED-style
         plenary talks from world-renowned researchers, parallel sessions on
         major spheres of biotechnology headlined by recognized keynote speakers,
         an exciting BioTech Open Mic and much more — all infused with

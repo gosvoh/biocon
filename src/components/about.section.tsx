@@ -170,7 +170,7 @@ export default function About() {
             setModalContent(
               "BioTech Open Mic",
               <Space direction="vertical">
-                <p>Performance time: 15-20 min</p>
+                <p>Performance time: 7-10 min</p>
                 <p className="font-bold">Will be especially beneficial for:</p>
                 <p>
                   For scientists who want to try themselves in an unusual, witty
