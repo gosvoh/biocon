@@ -75,14 +75,16 @@ export default function SpeakerCard({
       >
         {speaker.country}
       </p>
-      <div className="border border-white rounded-lg text-center px-4 py-2 w-full">
-        <p className={cn(componentsClassNames.lg.className, "font-semibold")}>
-          {speaker.hIndex}
-        </p>
-        <p>
-          <span className="italic">h</span>-index
-        </p>
-      </div>
+      {speaker.hIndex && (
+        <div className="border border-white rounded-lg text-center px-4 py-2 w-full">
+          <p className={cn(componentsClassNames.lg.className, "font-semibold")}>
+            {speaker.hIndex}
+          </p>
+          <p>
+            <span className="italic">h</span>-index
+          </p>
+        </div>
+      )}
       {speaker.thunder && speaker.thunder.length !== 0 && (
         <>
           {speaker.thunderUrl ? (
