@@ -50,7 +50,7 @@ model Speakers {
   description   String?
   thunder       String?
   thunderUrl    String?
-  hIndex        Int
+  hIndex        Int?
   speakerType   String
   country       String
   order         Int     @default(autoincrement())
