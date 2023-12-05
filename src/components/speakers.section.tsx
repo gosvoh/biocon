@@ -106,32 +106,46 @@ export default function SpeakersComp() {
     </>
   );
 
+  const plenarySpeakers = speakers.filter(
+    (speaker) => speaker.speakerType === "plenary"
+  );
+  const invitedSpeakers = speakers.filter(
+    (speaker) => speaker.speakerType === "invited"
+  );
+  const chairpersonSpeakers = speakers.filter(
+    (speaker) => speaker.speakerType === "chairperson"
+  );
+
   return (
     <Section
       className="flex flex-col justify-center items-center"
       id="speakers"
     >
       <H1 className="text-right">Speakers</H1>
-      <h2 className={cn(componentsClassNames.xl2.className, "mb-8")}>
-        Plenary
-      </h2>
-      <Wrapper
-        elements={speakers.filter(
-          (speaker) => speaker.speakerType === "plenary"
-        )}
-      />
+      {plenarySpeakers.length !== 0 && (
+        <>
+          <h2 className={cn(componentsClassNames.xl2.className, "mb-8")}>
+            Plenary
+          </h2>
+          <Wrapper elements={plenarySpeakers} />
+        </>
+      )}
 
-      {speakers.filter((speaker) => speaker.speakerType === "invited")
-        .length !== 0 && (
+      {invitedSpeakers.length !== 0 && (
         <>
           <h2 className={cn(componentsClassNames.xl2.className, "mb-8 mt-32")}>
             Invited
           </h2>
-          <Wrapper
-            elements={speakers.filter(
-              (speaker) => speaker.speakerType === "invited"
-            )}
-          />
+          <Wrapper elements={invitedSpeakers} />
+        </>
+      )}
+
+      {chairpersonSpeakers.length !== 0 && (
+        <>
+          <h2 className={cn(componentsClassNames.xl2.className, "mb-8 mt-32")}>
+            Chairperson
+          </h2>
+          <Wrapper elements={chairpersonSpeakers} />
         </>
       )}
     </Section>
