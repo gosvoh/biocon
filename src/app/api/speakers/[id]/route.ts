@@ -53,7 +53,6 @@ export async function PATCH(
       !nameUrl ||
       !university ||
       !universityUrl ||
-      !hIndex ||
       !speakerType ||
       !country
     )
@@ -84,7 +83,7 @@ export async function PATCH(
           description: description || "",
           thunder,
           thunderUrl: thunderUrl,
-          hIndex: parseInt(hIndex),
+          hIndex: hIndex ? parseInt(hIndex) : null,
           speakerType,
           country,
         },

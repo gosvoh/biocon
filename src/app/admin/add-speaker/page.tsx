@@ -143,7 +143,7 @@ export default function AddSpeaker() {
     description: false,
     thunder: false,
     thunderUrl: false,
-    hIndex: true,
+    hIndex: false,
     speakerType: true,
     country: true,
   };
@@ -179,7 +179,7 @@ export default function AddSpeaker() {
             values.thunder && formData.append("thunder", values.thunder);
             values.thunderUrl &&
               formData.append("thunderUrl", values.thunderUrl);
-            formData.append("hIndex", values.hIndex);
+            values.hIndex && formData.append("hIndex", values.hIndex);
             formData.append("speakerType", values.speakerType);
             formData.append("country", values.country);
             if (values.image)

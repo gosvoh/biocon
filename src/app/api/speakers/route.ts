@@ -39,7 +39,6 @@ export async function POST(req: NextRequest) {
     !nameUrl ||
     !university ||
     !universityUrl ||
-    !hIndex ||
     !img ||
     !speakerType ||
     !country
@@ -68,7 +67,7 @@ export async function POST(req: NextRequest) {
       description,
       thunder,
       thunderUrl,
-      hIndex: parseInt(hIndex),
+      hIndex: hIndex ? parseInt(hIndex) : null,
       image: uuid,
       speakerType,
       country,
