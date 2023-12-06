@@ -10,7 +10,7 @@ import P from "./paragraph";
 import Section from "./section";
 
 const FollowDialog = dynamic(() => import("../app/follow.dialog"));
-const Registration = dynamic(() => import("../app/registration"));
+// const Registration = dynamic(() => import("../app/registration"));
 
 function ForTag({ children }: { children: React.ReactNode }) {
   return <Tag color="purple">{children}</Tag>;
@@ -198,7 +198,7 @@ export default function About() {
         />
       </div>
       <div className="flex flex-wrap justify-evenly items-center w-1/2 gap-6 whitespace-nowrap mt-8 md:mt-16 self-center">
-        <Registration />
+        {/* <Registration /> */}
         <FollowDialog />
       </div>
     </Section>

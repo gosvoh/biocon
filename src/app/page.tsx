@@ -47,7 +47,7 @@ import { componentsClassNames } from "./classNames";
 import AntdConfigProvider from "./providers/ant.config.provider";
 import { useOrganizers } from "./providers/organizers.provider";
 
-const Registration = dynamic(() => import("./registration"));
+// const Registration = dynamic(() => import("./registration"));
 const ContactDialog = dynamic(() => import("./contact.dialog"));
 const MainNav = dynamic(() => import("@/components/main-nav"));
 const MobileNav = dynamic(() => import("@/components/mobile-nav"));
@@ -126,7 +126,7 @@ export default function Home() {
           >
             More info
           </Link>
-          <Registration />
+          {/* <Registration /> */}
         </div>
       </Section>
     </div>
