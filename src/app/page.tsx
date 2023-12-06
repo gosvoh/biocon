@@ -741,8 +741,9 @@ export default function Home() {
                   .
                   <br />
                   <br />
-                  During the days of the conference, we will organize transfers
-                  from these hotels to the conference location.
+                  We also recommend nonresident guests to stay at the
+                  &quot;Yunost&quot; Hotel. There will be a daily shuttle
+                  service from the hotel to the conference venue
                 </p>
               }
               onClick={() => setHotelOpen(true)}
