@@ -284,7 +284,7 @@ export default function AddSpeaker() {
               options={[
                 { label: "Planary", value: "plenary" },
                 { label: "Invited", value: "invited" },
-                { label: "Chairperson", value: "chairperson" },
+                { label: "Moderator", value: "moderator" },
               ]}
             />
           </Form.Item>

@@ -112,8 +112,8 @@ export default function SpeakersComp() {
   const invitedSpeakers = speakers.filter(
     (speaker) => speaker.speakerType === "invited"
   );
-  const chairpersonSpeakers = speakers.filter(
-    (speaker) => speaker.speakerType === "chairperson"
+  const moderatorSpeakers = speakers.filter(
+    (speaker) => speaker.speakerType === "moderator"
   );
 
   return (
@@ -140,12 +140,12 @@ export default function SpeakersComp() {
         </>
       )}
 
-      {chairpersonSpeakers.length !== 0 && (
+      {moderatorSpeakers.length !== 0 && (
         <>
           <h2 className={cn(componentsClassNames.xl2.className, "mb-8 mt-32")}>
-            Chairperson
+            Moderators
           </h2>
-          <Wrapper elements={chairpersonSpeakers} />
+          <Wrapper elements={moderatorSpeakers} />
         </>
       )}
     </Section>
