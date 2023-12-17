@@ -33,7 +33,12 @@ export const componentsClassNames = {
     className: "px-8 py-4 text-base sm:text-lg md:text-xl font-normal",
     get accent() {
       return {
-        className: cn("sm:py-5 md:py-6", "w-full sm:w-auto", this.className),
+        className: cn(
+          "sm:py-5 md:py-6",
+          "w-full sm:w-auto",
+          this.className,
+          buttonVariants({ variant: "default" })
+        ),
       };
     },
     get outline() {

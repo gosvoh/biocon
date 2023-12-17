@@ -126,6 +126,12 @@ export default function Home() {
           >
             More info
           </Link>
+          <Link
+            href="/Program BIOCON 2023.pdf"
+            {...componentsClassNames.button.accent}
+          >
+            Program
+          </Link>
           {/* <Registration /> */}
         </div>
       </Section>

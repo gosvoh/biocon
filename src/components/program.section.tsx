@@ -1,18 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import { Tooltip } from "antd";
 
-import { cn } from "@/lib/utils";
 import { componentsClassNames } from "@/app/classNames";
 import Section from "@/components/section";
-
-import Zilant from "$/public/zilant.png";
+import { cn } from "@/lib/utils";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
-import H1, { StrokeFont } from "./h1";
+import H1 from "./h1";
+import Link from "./link";
 import P from "./paragraph";
 
 export default function Program() {
@@ -188,21 +186,13 @@ export default function Program() {
           <Card text="Bioinformatics" className="md:col-start-2 md:col-end-3" />
         </Tooltip>
       </div>
-      <div className="relative flex flex-col items-center mt-6 w-full">
-        <Image
-          src={Zilant}
-          alt="Coming soon image with dragon"
-          className="w-3/4 md:w-1/3"
-        />
-        <p
-          className={cn(
-            componentsClassNames.xl3.className,
-            "stroke absolute translate-y-2/4 bottom-0",
-            StrokeFont.className
-          )}
+      <div className="flex flex-wrap justify-evenly items-center w-1/2 gap-6 whitespace-nowrap mt-8 md:mt-16 self-center">
+        <Link
+          href="/Program BIOCON 2023.pdf"
+          {...componentsClassNames.button.accent}
         >
-          coming soon...
-        </p>
+          Program
+        </Link>
       </div>
     </Section>
   );

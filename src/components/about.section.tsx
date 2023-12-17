@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useState } from "react";
 import H1 from "./h1";
+import Link from "./link";
 import P from "./paragraph";
 import Section from "./section";
 
@@ -199,6 +200,12 @@ export default function About() {
       </div>
       <div className="flex flex-wrap justify-evenly items-center w-1/2 gap-6 whitespace-nowrap mt-8 md:mt-16 self-center">
         {/* <Registration /> */}
+        <Link
+          href="/Program BIOCON 2023.pdf"
+          {...componentsClassNames.button.accent}
+        >
+          Program
+        </Link>
         <FollowDialog />
       </div>
     </Section>
