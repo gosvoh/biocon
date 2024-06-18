@@ -1,13 +1,8 @@
-import "./globals.css";
-import { Inter, Heebo, Roboto } from "next/font/google";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import Biocon from "../../public/biocon.png";
-import BG from "../../public/bg_orig.png";
-import type { Metadata } from "next";
-import { CountriesProvider } from "./providers/countries.provider";
-import { SpeakersProvider } from "./providers/speakers.provider";
-import { OrganizersProvider } from "./providers/organizers.provider";
+import type { Metadata, Viewport } from "next";
+import { Roboto } from "next/font/google";
+import "./globals.css";
+import AntdConfigProvider from "./providers/ant.config.provider";
 
 const font = Roboto({
   subsets: ["latin"],
@@ -15,9 +10,8 @@ const font = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "BIOCON 2023",
-  description:
-    "International Industrial Biotechnology Conference in Almetyevsk (Republic of Tatarstan), december 18-20, 2023",
+  title: "BIOCON 2024",
+  description: "BIOCON 2024 - Updates very soon!",
   keywords: [
     "Конференция",
     "Биотехнологии",
@@ -94,7 +88,7 @@ export const metadata: Metadata = {
     { name: "Aleksey Vokhmin", url: "https://github.com/gosvoh" },
     { name: "Advanced Engineering School ITMO", url: "https://pish-itmo.ru" },
   ],
-  icons: "https://biocon.international/logo.png",
+  icons: "https://biocon.international/logo.jpg",
   robots: {
     index: true,
     follow: false,
@@ -102,26 +96,26 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://biocon.international"),
   openGraph: {
     type: "website",
-    description:
-      "International Industrial Biotechnology Conference in Almetyevsk (Republic of Tatarstan), december 18-20, 2023",
+    description: "BIOCON 2024 - Updates very soon!",
     locale: "en_US",
     url: "https://biocon.international",
-    siteName: "BIOCON 2023",
+    siteName: "BIOCON 2024",
     images: {
-      url: "https://biocon.international/banner.png",
-      secureUrl: "https://biocon.international/banner.png",
+      url: "https://biocon.international/logo.jpg",
+      secureUrl: "https://biocon.international/logo.jpg",
       width: 1920,
       height: 768,
-      alt: "BIOCON 2023",
-      type: "image/png",
+      alt: "BIOCON 2024",
+      type: "image/jpeg",
     },
-    title: "BIOCON 2023",
+    title: "BIOCON 2024",
   },
   creator: "Aleksey Vokhmin",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -129,41 +123,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const randomBg = Math.floor(Math.random() * 3) + 1;
-
   return (
-    <html lang="en" className="scroll-smooth dark">
-      <body
-        className={cn(
-          font.className,
-          "w-full",
-          "overflow-x-hidden",
-          "overflow-y-auto",
-          "min-h-screen",
-          "relative",
-          "flex flex-col gap-8"
-        )}
-      >
-        <div className="absolute bottom-0 left-0 right-0 h-screen bg-gradient-to-t from-black to-transparent -z-[49]"></div>
-        <div className="absolute top-0 left-0 right-0 h-[35vh] bg-gradient-to-b from-black to-transparent -z-[49]"></div>
-        <Image
-          src={BG}
-          alt="Background image"
-          fill
-          className="-z-[50]"
-          priority
-        />
-        <Image
-          src={Biocon}
-          alt="Biocon"
-          className="absolute top-0 left-0 -z-[50]"
-          width={900}
-        />
-        <CountriesProvider>
-          <SpeakersProvider>
-            <OrganizersProvider>{children}</OrganizersProvider>
-          </SpeakersProvider>
-        </CountriesProvider>
+    <html lang="en">
+      <body className={font.className}>
+        <AntdConfigProvider>{children}</AntdConfigProvider>
       </body>
     </html>
   );

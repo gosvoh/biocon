@@ -13,9 +13,6 @@ const nextConfig = {
       },
     ];
   },
-  experimental: {
-    legacyBrowsers: false,
-  },
   images: {
     remotePatterns: [
       {

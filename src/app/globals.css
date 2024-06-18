@@ -4,39 +4,6 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --ring: 0 0% 63.9%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
 
@@ -65,6 +32,8 @@
     --destructive-foreground: 0 85.7% 97.3%;
 
     --ring: 0 0% 14.9%;
+
+    --radius: 0.5rem;
   }
 }
 
@@ -72,15 +41,29 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply bg-background text-foreground;
+    @apply flex flex-col h-screen;
+    @apply overflow-x-hidden overflow-y-auto min-h-screen;
   }
-  section,
-  header,
-  footer,
-  .separator,
-  .timeline {
-    @apply px-8 md:px-16 lg:px-32 xl:px-64;
+  h1,
+  h2 {
+    @apply text-white text-balance text-center;
+  }
+  h1 {
+    @apply font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl;
+  }
+  h2 {
+    @apply font-thin italic text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl;
+  }
+  main {
+    @apply mx-auto max-w-fit md:mx-0 md:max-w-full;
+    @apply md:border md:border-white rounded-3xl;
+    @apply flex flex-col justify-center items-center h-full;
+    @apply md:m-20;
   }
 }
 
@@ -88,29 +71,4 @@
   .text-balance {
     text-wrap: balance;
   }
-
-  .stroke {
-    -webkit-text-stroke: 1px;
-    text-stroke: 1px;
-    -webkit-text-fill-color: transparent;
-    text-fill-color: transparent;
-  }
-
-  @screen md {
-    .stroke {
-      -webkit-text-stroke: 2px;
-      text-stroke: 2px;
-    }
-  }
-}
-
-.ant-checkbox,
-.ant-checkbox-input,
-.ant-checkbox-inner {
-  @apply !rounded-full;
-}
-
-span.anticon.anticon-idcard > svg {
-  width: 100%;
-  height: 100%;
 }
