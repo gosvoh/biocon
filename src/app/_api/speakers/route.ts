@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import sharp from "sharp";
 import { randomUUID } from "crypto";
-import { checkAuthToken } from "../utils";
 
 // export const dynamic = "force-dynamic";
 export const revalidate = 600;
@@ -13,9 +12,6 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  if (!(await checkAuthToken(req)))
-    return NextResponse.json({ error: "Unauthorized", status: 401 });
-
   const data = await req.formData();
   const name = data.get("name") as string | null;
   const nameUrl = data.get("nameUrl") as string | null;
@@ -78,9 +74,6 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PATCH(req: NextRequest) {
-  if (!(await checkAuthToken(req)))
-    return NextResponse.json({ error: "Unauthorized", status: 401 });
-
   try {
     const {
       topId,
