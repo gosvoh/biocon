@@ -6,13 +6,13 @@ import { sendMail } from "../mailer";
 import { Mail } from "./mail";
 
 const mailText = (name: string) => `
-${name}, thank you for registration for BIOCON 2023!
+${name}, thank you for registration for BIOCON 2024!
 
 Dear ${name},
 
 We are happy to inform you that your registration has been received! Within a week the reviewing committee will let you know if your application is accepted.
 
-Over three days, December 18th—20th 2023, we will have the opportunity to share innovative ideas, research results, and experiences with like-minded biotech enthusiasts from around the world.
+Over three days, November 11th—13th 2024, we will have the opportunity to share innovative ideas, research results, and experiences with like-minded biotech enthusiasts from around the world.
 
 TED-style plenary talks from world-renowned researchers, parallel sessions on major spheres of biotechnology headlined by recognized keynote speakers, an exciting Science Slam and much more — all infused with unforgettable culture of Tatarstan — BIOCON, in one word.
 
@@ -28,12 +28,8 @@ We have collected some BIOCON trivia for our guests:
 We are happy to assist you with any inquiries:
 
 Domestic support
-Elizaveta Punchenko
-punchenko@itmo.ru
-
-International support
-Sofia Antipova
-antipova@itmo.ru
+Anastasia Kim
+biocon@itmo.ru
 `;
 
 export async function GET(req: NextRequest) {

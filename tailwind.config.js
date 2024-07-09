@@ -1,13 +1,13 @@
-const defaultConfig = require("tailwindcss/defaultConfig")
+const defaultConfig = require("tailwindcss/defaultConfig");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   theme: {
     screens: {
@@ -22,6 +22,25 @@ module.exports = {
       },
     },
     extend: {
+      fontSize: {
+        "3xl": ["2rem", "2.5rem"],
+        "4xl": ["2.75rem", "3rem"],
+      },
+      textColor: {
+        secondary: "hsl(var(--text-secondary))",
+        disabled: "hsl(var(--text-disabled))",
+      },
+      maxWidth: {
+        "1/2": "50%",
+        "1/3": "33.333333%",
+        "2/3": "66.666667%",
+        "3/4": "75%",
+        "3/8": "37.5%",
+      },
+      backgroundColor: {
+        default: "hsl(var(--background))",
+        hover: "hsl(var(--background-hover))",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -79,4 +98,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

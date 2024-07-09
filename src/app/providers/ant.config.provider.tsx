@@ -1,9 +1,24 @@
-import { AntdRegistry } from "@ant-design/nextjs-registry";
+"use client";
+
+import { ConfigProvider, theme } from "antd";
 
 export default function AntdConfigProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <AntdRegistry>{children}</AntdRegistry>;
+  return (
+    <ConfigProvider
+      theme={{
+        algorithm: theme.darkAlgorithm,
+        components: {
+          Timeline: {
+            lineType: "dotted",
+          },
+        },
+      }}
+    >
+      {children}
+    </ConfigProvider>
+  );
 }

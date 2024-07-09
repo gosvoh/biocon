@@ -1,7 +1,7 @@
 export const Mail = (name: string) => {
   return (
     <>
-      <h1>{name}, Thank you for registration for BIOCON 2023!</h1>
+      <h1>{name}, Thank you for registration for BIOCON 2024!</h1>
       <img
         src={`${
           process.env.NODE_ENV === "development"
@@ -23,15 +23,15 @@ export const Mail = (name: string) => {
         application is accepted.
       </p>
       <p>
-        Over three days, December 18th—20th 2023, we will have the opportunity
+        Over three days, November 11th—13th 2024, we will have the opportunity
         to share innovative ideas, research results, and experiences with
         like-minded biotech enthusiasts from around the world.
       </p>
       <p>
         TED-style plenary talks from world-renowned researchers, parallel
         sessions on major spheres of biotechnology headlined by recognized
-        keynote speakers, an exciting Science Slam and much more — all infused
-        with unforgettable culture of Tatarstan — BIOCON, in one word.
+        keynote speakers, an exciting BioTech Open Mic and much more — all
+        infused with unforgettable culture of Tatarstan — BIOCON, in one word.
       </p>
       <p style={{ textDecoration: "underline", fontWeight: "bold" }}>
         We have collected some BIOCON trivia for our guests:
@@ -68,16 +68,9 @@ export const Mail = (name: string) => {
       <p style={{ marginBottom: 0 }}>
         <strong>Domestic support</strong>
       </p>
-      <p style={{ margin: 0 }}>Elizaveta Punchenko</p>
-      <a style={{ marginTop: 0 }} href="mailto:punchenko@itmo.ru">
-        punchenko@itmo.ru
-      </a>
-      <p style={{ marginBottom: 0 }}>
-        <strong>International support</strong>
-      </p>
-      <p style={{ margin: 0 }}>Svetlana Sultanova</p>
-      <a style={{ marginTop: 0 }} href="mailto:sysultanova@itmo.ru">
-        sysultanova@itmo.ru
+      <p style={{ margin: 0 }}>Anastasia Kim</p>
+      <a style={{ marginTop: 0 }} href="mailto:biocon@itmo.ru">
+        biocon@itmo.ru
       </a>
       <p style={{ textAlign: "center" }}>See you at BIOCON 2023!</p>
     </>

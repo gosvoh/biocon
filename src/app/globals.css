@@ -4,17 +4,17 @@
 
 @layer base {
   :root {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 10%;
+    --foreground: 0 0% 100%;
 
     --muted: 0 0% 14.9%;
     --muted-foreground: 0 0% 63.9%;
 
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 100%;
 
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 268 67% 44%;
+    --card-foreground: 0 0% 100%;
 
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
@@ -33,13 +33,20 @@
 
     --ring: 0 0% 14.9%;
 
-    --radius: 0.5rem;
+    --radius: 1.5rem;
+
+    --text-secondary: 0 0% 71%;
+    --text-disabled: 0 0% 30%;
+
+    --background-hover: 5 99% 69%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    @apply transition-colors duration-300;
+    @apply motion-reduce:!transition-none;
   }
   html {
     @apply scroll-smooth;
@@ -49,26 +56,72 @@
     @apply flex flex-col h-screen;
     @apply overflow-x-hidden overflow-y-auto min-h-screen;
   }
+   {
+    @apply text-center;
+  }
   h1,
   h2 {
-    @apply text-white text-balance text-center;
-  }
-  h1 {
-    @apply font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl;
+    @apply text-balance;
+    @apply font-bold text-2xl md:text-4xl;
   }
   h2 {
-    @apply font-thin italic text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl;
+    @apply mb-6 md:mb-10;
+  }
+  h3 {
+    @apply font-bold text-base md:text-3xl;
   }
   main {
-    @apply mx-auto max-w-fit md:mx-0 md:max-w-full;
-    @apply md:border md:border-white rounded-3xl;
-    @apply flex flex-col justify-center items-center h-full;
-    @apply md:m-20;
+    @apply text-sm md:text-xl;
+
+    & > section {
+      @apply py-20 wrapper;
+    }
+  }
+  section {
+    @apply scroll-mt-10 overflow-x-clip;
+  }
+  nav a {
+    @apply text-secondary hover:text-primary;
+    @apply text-3xl md:text-lg font-bold;
+    @apply hover:underline;
   }
 }
 
 @layer components {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .text-big {
+    @apply font-bold text-2xl md:text-4xl;
+  }
+
+  .wrapper {
+    @apply px-10 md:px-12 lg:px-16 max-w-[1920px] mx-auto w-full;
+  }
+
+  .fcol {
+    @apply flex flex-col;
+  }
+
+  .timeline {
+    .dot,
+    .dotted {
+      @apply max-md:col-[1];
+    }
+
+    .dotted {
+      @apply border-l-2 border-dotted border-foreground;
+      @apply md:border-l-0 md:border-t-2;
+      @apply w-[1px] h-full min-h-10 md:min-h-0 md:w-full md:h-[1px];
+    }
+
+    .dot {
+      @apply rounded-lg border-[3px] border-white w-16 h-16 md:w-36 md:h-36 text-big flex items-center justify-center;
+    }
+
+    .mob-col {
+      @apply col-[2] fcol md:flex-1 justify-self-start md:hidden;
+    }
   }
 }

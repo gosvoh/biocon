@@ -1,0 +1,76 @@
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import React from "react";
+
+export default function Timeline({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <section className="flex flex-row md:flex-col gap-4 timeline">
+      <div
+        className={cn(
+          "grid grid-cols-[auto,1fr] max-md:gap-x-6 grid-rows-[auto,1fr,auto,1fr,auto] justify-center items-center justify-items-center hyphens-auto",
+          "md:grid-cols-[auto,1fr,auto,1fr,auto] md:max-w-[72.5%] md:mx-auto md:w-full"
+        )}
+      >
+        <div className="dot">1</div>
+        <div className="dotted" />
+        <div className="dot">2</div>
+        <div className="dotted" />
+        <div className="dot bg-white text-black">3</div>
+
+        <div className="row-[1] mob-col">
+          <p className="font-bold">September 1</p>
+          <p>
+            Registration ends for participants from from{" "}
+            <Link
+              className="underline"
+              href="https://electronic-visa.kdmid.ru/country_en.html"
+            >
+              non-listed countries
+            </Link>{" "}
+            who do not already hold a Russian visa
+          </p>
+        </div>
+        <div className="row-[3] mob-col">
+          <p className="font-bold">October 25</p>
+          <p>Registration ends for all participants</p>
+        </div>
+        <div className="row-[5] mob-col">
+          <p className="font-bold">November 11-13</p>
+          <p>See you in Almetyevsk!</p>
+        </div>
+      </div>
+
+      <div className="hidden md:flex flex-row text-center justify-around flex-1">
+        <div className="fcol md:flex-1">
+          <p className={cn("font-bold")}>September 1</p>
+          <p>
+            Registration ends for participants from from{" "}
+            <Link
+              className="underline"
+              href="https://electronic-visa.kdmid.ru/country_en.html"
+            >
+              non-listed countries
+            </Link>{" "}
+            who do not already hold a Russian visa
+          </p>
+        </div>
+        <div className="fcol md:flex-1">
+          <p className={cn("font-bold")}>October 25</p>
+          <p>Registration ends for all participants</p>
+        </div>
+        <div className="fcol md:flex-1">
+          <p className={cn("font-bold")}>November 11-13</p>
+          <p>See you in Almetyevsk!</p>
+        </div>
+      </div>
+
+      {children}
+    </section>
+  );
+}
