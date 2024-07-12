@@ -38,14 +38,16 @@
     --text-secondary: 0 0% 71%;
     --text-disabled: 0 0% 30%;
 
-    --background-hover: 5 99% 69%;
+    --accent: 268 67% 44%;
+    --hover: 5 99% 69%;
+    --active: 5 98% 59%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
-    @apply transition-colors duration-300;
+    @apply transition-colors duration-300 ease-in-out;
     @apply motion-reduce:!transition-none;
   }
   html {
@@ -74,7 +76,7 @@
     @apply text-sm md:text-xl;
 
     & > section {
-      @apply py-20 wrapper;
+      @apply py-20 lg:py-[100px] wrapper;
     }
   }
   section {
@@ -107,21 +109,33 @@
   .timeline {
     .dot,
     .dotted {
-      @apply max-md:col-[1];
+      @apply max-lg:col-[1];
     }
 
     .dotted {
       @apply border-l-2 border-dotted border-foreground;
-      @apply md:border-l-0 md:border-t-2;
-      @apply w-[1px] h-full min-h-10 md:min-h-0 md:w-full md:h-[1px];
+      @apply lg:border-l-0 lg:border-t-2;
+      @apply w-[1px] h-full min-h-10 lg:min-h-0 lg:w-full lg:h-[1px];
     }
 
     .dot {
-      @apply rounded-lg border-[3px] border-white w-16 h-16 md:w-36 md:h-36 text-big flex items-center justify-center;
+      @apply rounded-lg border-[3px] border-white w-16 h-16 text-big flex items-center justify-center;
+      @apply md:max-lg:w-24 md:max-lg:h-24 lg:w-36 lg:h-36;
     }
 
     .mob-col {
-      @apply col-[2] fcol md:flex-1 justify-self-start md:hidden;
+      @apply col-[2] fcol lg:flex-1 justify-self-start lg:hidden;
+    }
+  }
+
+  .card-icon {
+    @apply absolute right-2 bottom-2;
+
+    & > * {
+      @apply rounded-full bg-white text-accent w-[50px] h-[50px] p-[12px];
+      @apply cursor-pointer;
+      @apply hover:text-hover;
+      @apply active:bg-active active:text-white;
     }
   }
 }

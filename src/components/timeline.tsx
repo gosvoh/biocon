@@ -10,11 +10,11 @@ export default function Timeline({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="flex flex-row md:flex-col gap-4 timeline">
+    <div className={cn("flex flex-row lg:flex-col gap-4 timeline", className)}>
       <div
         className={cn(
-          "grid grid-cols-[auto,1fr] max-md:gap-x-6 grid-rows-[auto,1fr,auto,1fr,auto] justify-center items-center justify-items-center hyphens-auto",
-          "md:grid-cols-[auto,1fr,auto,1fr,auto] md:max-w-[72.5%] md:mx-auto md:w-full"
+          "grid grid-cols-[auto,1fr] max-lg:gap-x-6 grid-rows-[auto,1fr,auto,1fr,auto] justify-center items-center justify-items-center hyphens-auto",
+          "lg:grid-cols-[auto,1fr,auto,1fr,auto] lg:max-w-3/4 lg:mx-auto lg:w-full"
         )}
       >
         <div className="dot">1</div>
@@ -46,8 +46,8 @@ export default function Timeline({
         </div>
       </div>
 
-      <div className="hidden md:flex flex-row text-center justify-around flex-1">
-        <div className="fcol md:flex-1">
+      <div className="hidden lg:flex flex-row text-center justify-around flex-1">
+        <div className="fcol lg:flex-1">
           <p className={cn("font-bold")}>September 1</p>
           <p>
             Registration ends for participants from from{" "}
@@ -60,17 +60,17 @@ export default function Timeline({
             who do not already hold a Russian visa
           </p>
         </div>
-        <div className="fcol md:flex-1">
+        <div className="fcol lg:flex-1">
           <p className={cn("font-bold")}>October 25</p>
           <p>Registration ends for all participants</p>
         </div>
-        <div className="fcol md:flex-1">
+        <div className="fcol lg:flex-1">
           <p className={cn("font-bold")}>November 11-13</p>
           <p>See you in Almetyevsk!</p>
         </div>
       </div>
 
       {children}
-    </section>
+    </div>
   );
 }

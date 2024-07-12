@@ -29,6 +29,7 @@ module.exports = {
       textColor: {
         secondary: "hsl(var(--text-secondary))",
         disabled: "hsl(var(--text-disabled))",
+        hover: "hsl(var(--hover))",
       },
       maxWidth: {
         "1/2": "50%",
@@ -36,10 +37,14 @@ module.exports = {
         "2/3": "66.666667%",
         "3/4": "75%",
         "3/8": "37.5%",
+        "5/12": "41.666667%",
+        "7/12": "58.333333%",
       },
       backgroundColor: {
         default: "hsl(var(--background))",
-        hover: "hsl(var(--background-hover))",
+        accent: "hsl(var(--accent))",
+        hover: "hsl(var(--hover))",
+        active: "hsl(var(--active))",
       },
       colors: {
         border: "hsl(var(--border))",
