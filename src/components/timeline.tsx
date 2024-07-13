@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React from "react";
 
 export default function Timeline({
   className,
@@ -11,7 +11,6 @@ export default function Timeline({
   className?: string;
   children?: React.ReactNode;
 }) {
-  const elRef = useRef(null);
   return (
     <div className={cn("flex flex-row lg:flex-col gap-4 timeline", className)}>
       <div

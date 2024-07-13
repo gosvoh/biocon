@@ -92,21 +92,23 @@ export default function Home() {
         />
         <div className="wrapper fcol gap-8 md: lg:gap-8 xl:gap-[50px]">
           <Image
-            src={LogoDesktop}
-            alt="Biocon"
-            className="hidden md:block w-[80%] mx-auto"
+              src={LogoDesktop}
+              alt="Biocon"
+              className="hidden md:block w-[80%] mx-auto"
           />
           <Image
-            src={LogoMobile}
-            alt="Biocon"
-            className="block md:hidden w-full"
+              src={LogoMobile}
+              alt="Biocon"
+              className="block md:hidden w-full"
           />
-          <h1>International Industrial Biotechnology Conference</h1>
-          <p>November 11-13, 2024</p>
+          <div className="flex flex-col gap-4 md:gap-4 lg:gap-4 xl:gap-[25px]">
+            <h1>International Industrial Biotechnology Conference</h1>
+            <p className="text-3xl">November 11-13, 2024</p>
+          </div>
           <p>Almetyevsk, Republic of Tatarstan</p>
         </div>
         <div className="wrapper">
-          <ButtonRegistration />
+          <ButtonRegistration/>
         </div>
       </section>
 
