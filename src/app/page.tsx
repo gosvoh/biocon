@@ -31,6 +31,8 @@ import Polyansky from "@public/humans/Polyansky.jpg";
 import Tracey from "@public/humans/Tracey.jpg";
 
 import Media1 from "@public/media/1.png";
+import CardChoose from "@/components/card.choose";
+import Tag from "@/components/ui/tag";
 
 const LeftGlow = ({
   className,
@@ -109,7 +111,7 @@ export default function Home() {
 
       <section className="relative max-w-none px-0 pb-0">
         <div className="wrapper fcol lg:flex-row justify-between lg:grid grid-cols-12 grid-rows-1">
-          <div className="w-full pb-32 space-y-6 md:space-y-9 col-start-1 col-end-5 row-[1]">
+          <div className="w-full space-y-6 md:space-y-9 col-start-1 col-end-5 row-[1]">
             <h2>What is BIOCON?</h2>
             <div className="md:space-y-6 text-base md:text-xl">
               <p>
@@ -130,7 +132,7 @@ export default function Home() {
           <Image
             src={Dude}
             alt=""
-            className="col-start-3 -col-end-1 md:max-lg:mx-auto px-0 mr-0 hidden lg:block self-end object-cover row-[1] translate-x-[20%]"
+            className="col-start-3 -col-end-1 md:max-lg:mx-auto px-0 mr-0 hidden lg:block self-end object-cover row-[1] translate-x-[15%] h-[110%]"
           />
           <div className="lg:absolute bottom-10 left-1/2 lg:-translate-x-1/2 md:max-lg:my-10">
             <ButtonRegistration className="mx-auto" text="Recap BIOCON 2023" />
@@ -204,23 +206,103 @@ export default function Home() {
       <section className="relative space-y-6 lg:space-y-9">
         <h2>Choose your role</h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-5">
-          {/* <Card onClick={() => {}} className="space-y-4" icon>
-            <h3>Attendee</h3>
-            <p>Full-time participation in conference events</p>
-          </Card>
-          <Card onClick={() => {}} className="space-y-4" icon>
-            <h3>Invited Speaker</h3>
-            <p>
-              A talk during one of the parallel sessions in conference events
-            </p>
-          </Card>
-          <Card onClick={() => {}} className="space-y-4" icon>
-            <h3>BioTech Open Mic</h3>
-            <p>
-              Present your research in less than 10 minutes in an entertaining
-              way. A format in which there is no limits
-            </p>
-          </Card> */}
+          <CardChoose
+            title="Attendee"
+            description="Full-time participation in conference events"
+            modalContent={
+              <div className="fcol gap-4">
+                <p className="font-bold">Will be especially beneficial for:</p>
+                <p>
+                  For everyone who is immersed in the field of biotechnology and
+                  wants to learn something new
+                </p>
+                <div className="tags">
+                  <Tag text="Students" color="orange" />
+                  <Tag text="Junior and young researchers" color="orange" />
+                  <Tag text="Teachers" color="orange" />
+                  <Tag text="Business representatives" color="orange" />
+                  <Tag text="BioTech enthusiasts" color="orange" />
+                </div>
+                <p className="font-bold">You must specify when registering:</p>
+                <div className="tags">
+                  <Tag text="Motivation letter" color="green" />
+                </div>
+              </div>
+            }
+          />
+          <CardChoose
+            title="Contributed speaker"
+            description="Become part of one of the parallel sessions"
+            modalContent={
+              <div className="fcol gap-4">
+                <p>Performance time: 15-20 min</p>
+                <p className="font-bold">Will be especially beneficial for:</p>
+                <p>
+                  For young researchers and scientists with experience who want
+                  to share their scientific research
+                </p>
+                <div className="tags">
+                  <Tag
+                    text="Recognised and established researchers"
+                    color="orange"
+                  />
+                  <Tag text="BioTech experts" color="orange" />
+                  <Tag text="Business representatives" color="orange" />
+                </div>
+                <p className="font-bold">You must specify when registering:</p>
+                <div className="tags">
+                  <Tag text="Your CV in English" color="green" />
+                  <Tag
+                    text="Short video with your self-presentation in English"
+                    color="green"
+                  />
+                  <Tag
+                    text="Your Google Scholar, Scopus, ORCID or ResearchGate profile"
+                    color="green"
+                  />
+                  <Tag
+                    text="The preliminary title of your speech"
+                    color="green"
+                  />
+                </div>
+              </div>
+            }
+          />
+          <CardChoose
+            title="BioTech Open Mic"
+            description={`Present your research in an entertaining way in only 10 minutes. A format in which there is no "framework"`}
+            modalContent={
+              <div className="fcol gap-4">
+                <p>Performance time: 7-10 min</p>
+                <p className="font-bold">Will be especially beneficial for:</p>
+                <p>
+                  For scientists who want to try themselves in an unusual, witty
+                  format and tell interestingly about their research, startups
+                  or failures — performance without limits!
+                </p>
+                <div className="tags">
+                  <Tag
+                    text="Recognised and established researchers"
+                    color="orange"
+                  />
+                  <Tag text="BioTech experts" color="orange" />
+                  <Tag text="BioTech enthusiasts" color="orange" />
+                </div>
+                <p className="font-bold">You must specify when registering:</p>
+                <div className="tags">
+                  <Tag text="Your CV in English" color="green" />
+                  <Tag
+                    text="Short video with a teaser of your slam talk in English"
+                    color="green"
+                  />
+                  <Tag
+                    text="Your Google Scholar, Scopus, ORCID or ResearchGate profile"
+                    color="green"
+                  />
+                </div>
+              </div>
+            }
+          />
         </div>
         <RightGlow big className="lg:hidden h-[300%]" />
       </section>

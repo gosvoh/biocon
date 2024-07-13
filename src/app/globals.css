@@ -49,6 +49,7 @@
     --accent: 268 67% 44%;
     --hover: 5 99% 69%;
     --active: 5 98% 59%;
+    --green: 136 49% 61%;
   }
 }
 
@@ -157,5 +158,9 @@
         @apply text-ellipsis line-clamp-6;
       }
     }
+  }
+
+  .tags {
+    @apply flex flex-wrap gap-4;
   }
 }

@@ -33,7 +33,7 @@ export default function CarouselFeedback({
                 <Image
                   src={content.icon}
                   alt={content.name}
-                  className="aspect-square md:w-16 object-cover rounded-full object-center"
+                  className="aspect-square w-20 object-cover rounded-full object-center"
                   sizes="6rem"
                 />
                 <h3>{content.name}</h3>

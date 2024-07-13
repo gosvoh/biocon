@@ -46,6 +46,7 @@ module.exports = {
         accent: "hsl(var(--accent))",
         hover: "hsl(var(--hover))",
         active: "hsl(var(--active))",
+        green: "hsl(var(--green))",
       },
       colors: {
         border: "hsl(var(--border))",
