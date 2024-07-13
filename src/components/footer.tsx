@@ -40,14 +40,13 @@ export default function Footer() {
             <Image src={NavLogo} alt="Biocon" className="h-full" />
             <Socials className="max-lg:hidden" />
           </div>
-          <div className="grid grid-rows-3 grid-flow-col gap-6">
+          <div className="grid grid-rows-3 grid-flow-col gap-6 lg:max-w-1/3 md: max-w-3/4">
             {links.map((x, i) => (
               <Link href={x.href} key={`footer-link-${i}`}>
                 <p>{x.title}</p>
               </Link>
             ))}
           </div>
-          <div></div>
           <Socials className="lg:hidden" />
         </div>
         <YandexMap className="hidden lg:block flex-1" />

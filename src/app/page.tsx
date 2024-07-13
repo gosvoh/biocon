@@ -92,14 +92,14 @@ export default function Home() {
         />
         <div className="wrapper fcol gap-8 md: lg:gap-8 xl:gap-[50px]">
           <Image
-              src={LogoDesktop}
-              alt="Biocon"
-              className="hidden md:block w-[80%] mx-auto"
+            src={LogoDesktop}
+            alt="Biocon"
+            className="hidden md:block w-[80%] mx-auto"
           />
           <Image
-              src={LogoMobile}
-              alt="Biocon"
-              className="block md:hidden w-full"
+            src={LogoMobile}
+            alt="Biocon"
+            className="block md:hidden w-full"
           />
           <div className="flex flex-col gap-4 md:gap-4 lg:gap-4 xl:gap-[25px]">
             <h1>International Industrial Biotechnology Conference</h1>
@@ -108,7 +108,7 @@ export default function Home() {
           <p>Almetyevsk, Republic of Tatarstan</p>
         </div>
         <div className="wrapper">
-          <ButtonRegistration/>
+          <ButtonRegistration />
         </div>
       </section>
 
@@ -158,9 +158,10 @@ export default function Home() {
         </div>
         <div className="lg:absolute bottom-16 left-0 lg:wrapper lg:max-w-1/2 space-y-6 max-lg:pt-8 z-10">
           <p>
-            Over three days, you will have the opportunity to share innovative
-            ideas, research results, and experiences with like-minded biotech
-            enthusiasts from around the world.
+            BIOCON is everyone’s spotlight: whether you are a schoolkid or a
+            leading researcher, the talk is plenary. Your aspirations, endeavors
+            and achievements create a unique scientific fusion called BIOCON.
+            Come together. Almetyevsk. November 2024.
           </p>
           <p className="font-bold">
             Mikhail Kurushkin
