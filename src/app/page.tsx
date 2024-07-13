@@ -33,6 +33,7 @@ import Tracey from "@public/humans/Tracey.jpg";
 import Media1 from "@public/media/1.png";
 import CardChoose from "@/components/card.choose";
 import Tag from "@/components/ui/tag";
+import Modal from "@/components/ui/modal";
 
 const LeftGlow = ({
   className,
@@ -394,32 +395,64 @@ export default function Home() {
       <section className="relative space-y-6 md:space-y-9">
         <h2>Partners</h2>
         <div className="fcol md:flex-row gap-20">
-          <div className="fcol gap-8 flex-1 items-center">
-            <Image
-              src={Aeroflot}
-              alt="Aeroflot"
-              className="h-full w-fit object-contain"
-            />
-            <p>
-              Aeroflot is the leading company in Russian commercial aviation and
-              the national carrier. Company was founded on 17 March 1923 and is
-              both one of the oldest airlines in the world and one of the most
-              recognisable Russian brands.
-            </p>
-          </div>
-          <div className="fcol gap-8 flex-1 items-center">
-            <Image
-              src={S7}
-              alt="S7"
-              className="h-full w-fit object-contain max-w-1/2"
-            />
-            <p>
-              S7 Airlines is the largest private airline in Russia, with the
-              most modern fleet in the Russian air transit market. Their
-              extensive network of routes allows our passengers to travel to 181
-              cities in 26 countries across the world.
-            </p>
-          </div>
+          <Modal
+            title="Aeroflot"
+            trigger={
+              <div className="fcol gap-8 flex-1 items-center cursor-pointer">
+                <Image src={Aeroflot} alt="Aeroflot" className="h-full w-fit" />
+                <p>
+                  Aeroflot is the leading company in Russian commercial aviation
+                  and the national carrier. Company was founded on 17 March 1923
+                  and is both one of the oldest airlines in the world and one of
+                  the most recognisable Russian brands.
+                </p>
+              </div>
+            }
+            modalContent={
+              <div className="space-y-8">
+                <p>
+                  We are pleased to announce that Aeroflot is a partner of the
+                  conference and provides discounts on the purchase of air
+                  tickets for participants of the BIOCON 2024.
+                </p>
+                <p>
+                  In order to get a discount on the purchase of a ticket, you
+                  need to register for the conference.
+                </p>
+              </div>
+            }
+          />
+          <Modal
+            title="S7 Airlines"
+            trigger={
+              <div className="fcol gap-8 flex-1 items-center cursor-pointer">
+                <Image
+                  src={S7}
+                  alt="S7"
+                  className="h-full w-fit max-w-[40%] object-contain"
+                />
+                <p>
+                  S7 Airlines is the largest private airline in Russia, with the
+                  most modern fleet in the Russian air transit market. Their
+                  extensive network of routes allows our passengers to travel to
+                  181 cities in 26 countries across the world.
+                </p>
+              </div>
+            }
+            modalContent={
+              <div className="space-y-8">
+                <p>
+                  We are pleased to announce that S7 Airlines is a partner of
+                  the conference and provides discounts on the purchase of air
+                  tickets for participants of the BIOCON 2024.
+                </p>
+                <p>
+                  In order to get a discount on the purchase of a ticket, you
+                  need to register for the conference.
+                </p>
+              </div>
+            }
+          />
         </div>
         <Image
           src={BottomGlow}
