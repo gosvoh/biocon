@@ -26,7 +26,7 @@ export default function Card({
     >
       {children}
       {icon && (
-        <div className="card-icon">
+        <div className="card-icon text-accent group-hover:text-hover group-active:text-active">
           {typeof icon === "boolean" ? <EllipsisIcon /> : icon}
         </div>
       )}

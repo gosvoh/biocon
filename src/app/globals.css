@@ -57,6 +57,7 @@
   * {
     @apply border-border;
     @apply motion-reduce:!transition-none;
+    /* @apply outline outline-1 outline-red-400; */
   }
   html {
     @apply scroll-smooth;
@@ -143,10 +144,8 @@
       @apply absolute right-2 bottom-2;
 
       & > * {
-        @apply rounded-full bg-white text-accent w-[50px] h-[50px] p-[12px];
+        @apply rounded-full bg-white w-[50px] h-[50px] p-[12px];
         @apply duration-0;
-        @apply group-hover:text-hover;
-        @apply group-active:text-active;
       }
     }
 
