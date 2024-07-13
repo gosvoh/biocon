@@ -38,14 +38,14 @@ export async function GET(req: NextRequest) {
     `<html>
     <head><meta name="encoding" charset="utf-8" /></head>
     <body>${ReactDomServer.renderToString(
-      Mail(req.nextUrl.searchParams.get("name") || "NAME")
+      Mail(req.nextUrl.searchParams.get("name") || "NAME"),
     )}</body></html>`,
     {
       status: 200,
       headers: {
         "Content-Type": "text/html",
       },
-    }
+    },
   );
 }
 
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
   if (!(await checkCaptchaToken(captchaToken)))
     return NextResponse.json(
       { message: "Captcha verification failed" },
-      { status: 400 }
+      { status: 400 },
     );
 
   if (data.role === "Other" && data.customRole) data.role = data.customRole;
@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
       createdRegistration.email,
       "Biocon International Registration",
       mailText(createdRegistration.name),
-      ReactDomServer.renderToString(Mail(createdRegistration.name))
+      ReactDomServer.renderToString(Mail(createdRegistration.name)),
     );
     if (!msg.rejected) throw new Error("Email was not sent");
     return NextResponse.json({ createdRegistration, msg });

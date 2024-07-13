@@ -16,7 +16,7 @@ const Socials = ({ className }: { className?: string }) => (
     className={cn(
       "flex flex-row max-md:w-full max-md:justify-between",
       "md:gap-10 py-4",
-      className
+      className,
     )}
   >
     <Link href={"#"}>

@@ -45,7 +45,7 @@ export default function CarouselFeedback({
                   href={`https://t.me/${content.tg.replace("@", "")}`}
                   className={cn(
                     "flex flex-row gap-2 items-center !mt-auto mb-0",
-                    "text-white/60 hover:text-white max-w-fit"
+                    "text-white/60 hover:text-white max-w-fit",
                   )}
                   target="_blank"
                 >

@@ -19,7 +19,7 @@ export const sendMail = async (
   to: string,
   subject: string,
   text: string,
-  html: React.ReactNode
+  html: React.ReactNode,
 ) => {
   return await transporter.sendMail({
     to,

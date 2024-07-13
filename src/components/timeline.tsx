@@ -1,6 +1,8 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import React from "react";
+import React, { useRef } from "react";
 
 export default function Timeline({
   className,
@@ -9,12 +11,13 @@ export default function Timeline({
   className?: string;
   children?: React.ReactNode;
 }) {
+  const elRef = useRef(null);
   return (
     <div className={cn("flex flex-row lg:flex-col gap-4 timeline", className)}>
       <div
         className={cn(
           "grid grid-cols-[auto,1fr] max-lg:gap-x-6 grid-rows-[auto,1fr,auto,1fr,auto] justify-center items-center justify-items-center hyphens-auto",
-          "lg:grid-cols-[auto,1fr,auto,1fr,auto] lg:max-w-3/4 lg:mx-auto lg:w-full"
+          "lg:grid-cols-[auto,1fr,auto,1fr,auto] lg:max-w-3/4 lg:mx-auto lg:w-full",
         )}
       >
         <div className="dot">1</div>

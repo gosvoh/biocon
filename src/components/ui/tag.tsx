@@ -12,7 +12,7 @@ export default function Tag({
       className={cn(
         "px-6 py-4 text-white rounded-full",
         color === "green" ? "bg-green" : "bg-hover",
-        "md:whitespace-nowrap max-md:text-center"
+        "md:whitespace-nowrap max-md:text-center",
       )}
     >
       {text}

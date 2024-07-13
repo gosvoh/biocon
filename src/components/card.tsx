@@ -18,15 +18,17 @@ export default function Card({
     <div
       className={cn(
         "card",
-        onClick ? "cursor-pointer hover:bg-hover active:bg-active group" : "",
+        onClick
+          ? "cursor-pointer transition-all duration-300 hover:bg-hover active:bg-active group"
+          : "",
         "relative",
-        className
+        className,
       )}
       onClick={() => onClick?.()}
     >
       {children}
       {icon && (
-        <div className="card-icon text-accent group-hover:text-hover group-active:text-active">
+        <div className="card-icon text-accent transition-all duration-300 group-hover:text-hover group-active:text-active">
           {typeof icon === "boolean" ? <EllipsisIcon /> : icon}
         </div>
       )}

@@ -5,7 +5,7 @@ import sharp from "sharp";
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: number } }
+  { params }: { params: { id: number } },
 ) {
   const auth = req.headers.get("authorization");
   if (!auth) return NextResponse.json({ error: "Unauthorized", status: 401 });
@@ -25,7 +25,7 @@ export async function DELETE(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: number } }
+  { params }: { params: { id: number } },
 ) {
   const auth = req.headers.get("authorization");
   if (!auth) return NextResponse.json({ error: "Unauthorized", status: 401 });
@@ -49,13 +49,13 @@ export async function PATCH(
     if (!organizer)
       return NextResponse.json(
         { error: "Organizer not found" },
-        { status: 404 }
+        { status: 404 },
       );
 
     if (img) {
       if (!fs.existsSync("./uploads")) fs.mkdirSync("./uploads");
       await sharp(await img.arrayBuffer()).toFile(
-        `./uploads/${organizer.image}.webp`
+        `./uploads/${organizer.image}.webp`,
       );
     }
 
@@ -67,7 +67,7 @@ export async function PATCH(
           email,
           position,
         },
-      })
+      }),
     );
   } catch (error: any) {
     return NextResponse.json({ error: error.message, status: 500 });

@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     console.error(error);
     return NextResponse.json(
       { message: "Error while processing image", error },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -101,7 +101,7 @@ export async function PATCH(req: NextRequest) {
             where: { id: currentId },
             data: { order: topOrder },
           }),
-        ])
+        ]),
       );
     if (bottomId)
       return NextResponse.json(
@@ -114,12 +114,12 @@ export async function PATCH(req: NextRequest) {
             where: { id: currentId },
             data: { order: bottomOrder },
           }),
-        ])
+        ]),
       );
   } catch (error) {
     return NextResponse.json(
       { message: "Error changing order", error },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 140px;
+  border-radius: 28px;
+  border: 2px solid white;
+  margin: 0 141px; /* Половина от 282px */
+  position: relative;
+}
+
+.wrapper .square:nth-child(2)::before,
+.wrapper .square:nth-child(2)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 2px;
+  border-top: 2px dotted white;
+  width: 282px;
+}
+
+.wrapper .square:nth-child(2)::before {
+  left: -282px;
+}
+
+.wrapper .square:nth-child(2)::after {
+  right: -282px;
+}

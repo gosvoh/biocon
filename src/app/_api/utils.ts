@@ -9,7 +9,7 @@ export const checkCaptchaToken = (token: string): Promise<boolean> =>
   fetch(verifyEndpoint, {
     method: "POST",
     body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(
-      token
+      token,
     )}`,
     headers: {
       "content-type": "application/x-www-form-urlencoded",

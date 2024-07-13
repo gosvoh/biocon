@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
   if (!(await checkCaptchaToken(captchaToken))) {
     return NextResponse.json(
       { message: "Invalid captcha token" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
       "biocon@itmo.ru",
       `[${data.subject}]`,
       textMessage(data.name, data.email, data.message),
-      htmlMessage(data.name, data.email, data.message)
+      htmlMessage(data.name, data.email, data.message),
     );
     return NextResponse.json({ message: "Success" });
   } catch (error) {

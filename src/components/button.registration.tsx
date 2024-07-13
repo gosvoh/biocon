@@ -12,7 +12,7 @@ export default function ButtonRegistration({
       className={cn(
         "rounded-full text-white bg-accent hover:bg-hover px-[52px] py-3 text-base md:text-xl",
         "block mx-auto w-full md:w-fit",
-        className
+        className,
       )}
     >
       {text}

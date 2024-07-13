@@ -47,7 +47,7 @@ const LeftGlow = ({
     alt=""
     className={cn(
       "absolute top-1/2 -left-14 -z-10 h-[125%] w-fit px-0 -translate-y-1/2 max-w-none rotate-180",
-      className
+      className,
     )}
   />
 );
@@ -64,7 +64,7 @@ const RightGlow = ({
     alt=""
     className={cn(
       "absolute top-1/2 -right-14 -z-10 h-[125%] w-fit px-0 -translate-y-1/2 max-w-none",
-      className
+      className,
     )}
   />
 );
@@ -78,7 +78,7 @@ export default function Home() {
           "text-base md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl",
           "py-8",
           "max-w-none px-0",
-          "space-y-[42px] md:space-y-[80px]"
+          "space-y-[42px] md:space-y-[80px]",
         )}
       >
         <Image
@@ -87,7 +87,7 @@ export default function Home() {
           className={cn(
             "absolute -rotate-[7.61deg] top-1/3 left-1/2 w-fit h-[150%] -z-10",
             "-translate-x-1/2 -translate-y-1/2",
-            "max-w-none max-h-none"
+            "max-w-none max-h-none",
           )}
         />
         <div className="wrapper fcol gap-8 md: lg:gap-10 xl:gap-[50px]">

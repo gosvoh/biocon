@@ -3,7 +3,7 @@ import fs from "fs";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { path: string } }
+  { params }: { params: { path: string } },
 ) {
   if (!fs.existsSync("./uploads") || !fs.existsSync(`./uploads/${params.path}`))
     return NextResponse.json({ error: "Image not found" }, { status: 404 });

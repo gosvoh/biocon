@@ -60,7 +60,7 @@ export default function Carousel({ items = [] }: { items: React.ReactNode[] }) {
               className={cn(
                 "w-2 h-2 bg-gray-300 rounded-full",
                 "hover:bg-gray-400 cursor-pointer",
-                currentSlide === i && "bg-gray-700"
+                currentSlide === i && "bg-gray-700",
               )}
               onClick={() => api?.scrollTo(i)}
             />

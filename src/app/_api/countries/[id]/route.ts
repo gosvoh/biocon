@@ -5,7 +5,7 @@ export const revalidate = 3600;
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   const cities = await world.cities.findMany({
     where: { country_id: params.id },
