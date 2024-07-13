@@ -43,10 +43,13 @@ export default function Footer() {
           <div className="grid grid-rows-3 grid-flow-col gap-6">
             {links.map((x, i) => (
               <Link href={x.href} key={`footer-link-${i}`}>
+                <p>
                 {x.title}
+                </p>
               </Link>
             ))}
           </div>
+          <div></div>
           <Socials className="lg:hidden" />
         </div>
         <YandexMap className="hidden lg:block flex-1" />
@@ -64,7 +67,10 @@ export default function Footer() {
         <Link href={"https://pish.itmo.ru/"} target={"_blank"}>
           <Image src={PISH} alt="PISH" />
         </Link>
-        <Link href={"https://xn----7sbhc6c1ah6b.xn--p1ai/en/"} target={"_blank"}>
+        <Link
+          href={"https://xn----7sbhc6c1ah6b.xn--p1ai/en/"}
+          target={"_blank"}
+        >
           <Image src={PHS} alt="PHS" />
         </Link>
       </div>
