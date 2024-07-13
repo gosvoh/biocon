@@ -293,7 +293,7 @@ export default function Home() {
                 <div className="tags">
                   <Tag text="Your CV in English" color="green" />
                   <Tag
-                    text="Short video with a teaser of your slam talk in English"
+                    text="Short video with a teaser of your talk in English"
                     color="green"
                   />
                   <Tag
