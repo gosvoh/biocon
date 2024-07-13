@@ -90,7 +90,7 @@ export default function Home() {
             "max-w-none max-h-none",
           )}
         />
-        <div className="wrapper fcol gap-8 md: lg:gap-10 xl:gap-[50px]">
+        <div className="wrapper fcol gap-8 md: lg:gap-8 xl:gap-[50px]">
           <Image
             src={LogoDesktop}
             alt="Biocon"
@@ -399,7 +399,12 @@ export default function Home() {
             title="Aeroflot"
             trigger={
               <div className="fcol gap-8 flex-1 items-center cursor-pointer">
-                <Image src={Aeroflot} alt="Aeroflot"  sizes={"170%"}  className="h-full"/>
+                <Image
+                  src={Aeroflot}
+                  alt="Aeroflot"
+                  sizes={"170%"}
+                  className="h-full"
+                />
                 <p>
                   Aeroflot is the leading company in Russian commercial aviation
                   and the national carrier. Company was founded on 17 March 1923

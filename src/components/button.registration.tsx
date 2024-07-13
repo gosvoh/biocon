@@ -11,7 +11,8 @@ export default function ButtonRegistration({
     <button
       className={cn(
         "rounded-full text-white bg-accent hover:bg-hover px-[52px] py-3 text-base md:text-xl",
-        "block mx-auto w-full md:w-fit",
+        "block mx-auto w-full md:w-fit ",
+        "transition-all duration-300",
         className,
       )}
     >

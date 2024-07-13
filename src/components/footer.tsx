@@ -43,9 +43,7 @@ export default function Footer() {
           <div className="grid grid-rows-3 grid-flow-col gap-6">
             {links.map((x, i) => (
               <Link href={x.href} key={`footer-link-${i}`}>
-                <p>
-                {x.title}
-                </p>
+                <p>{x.title}</p>
               </Link>
             ))}
           </div>
