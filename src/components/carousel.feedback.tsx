@@ -1,77 +1,92 @@
 "use client";
 
-import {
-  Carousel as ShadCarousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselApi,
-} from "@/components/ui/carousel";
-import { useState } from "react";
-import {
-  ChevronLeft,
-  ChevronRight,
-  ArrowLeft,
-  ArrowRight,
-  MoveUpRight,
-} from "lucide-react";
-import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
+import { SiTelegram } from "@icons-pack/react-simple-icons";
+import { Modal } from "antd";
+import { MoveUpRight } from "lucide-react";
+import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 import Card from "./card";
-import Image from "next/image";
-import Gurchenko from "@public/humans/Gurchenko.png";
+import Carousel from "./carousel";
 
-export default function CarouselFeedback() {
-  const [api, setApi] = useState<CarouselApi>();
+export default function CarouselFeedback({
+  cardContent = [],
+}: {
+  cardContent: {
+    icon: StaticImageData;
+    name: string;
+    affiliation: string;
+    description: string;
+    tg: string;
+  }[];
+}) {
+  const [modal, context] = Modal.useModal();
 
   return (
-    <div className="w-full flex flex-row justify-center items-center gap-[18px] lg:gap-16">
-      <Button
-        size={"icon"}
-        variant={"ghost"}
-        className="flex-shrink-0 flex-grow-1"
-        onClick={() => api?.scrollPrev()}
-      >
-        <ChevronLeft className="w-4 h-4 lg:hidden" />
-        <ArrowLeft className="w-6 h-6 max-lg:hidden" />
-      </Button>
-      <ShadCarousel className="w-full" setApi={setApi} opts={{ loop: true }}>
-        <CarouselContent>
-          {Array.from({ length: 5 }).map((_, i) => (
-            <CarouselItem
-              key={`carousel-item-${i}`}
-              className="md:basis-1/2 xl:basis-1/3"
+    <>
+      {context}
+      <Carousel
+        items={cardContent.map((content, i) => {
+          const CardContent = ({ tgLink }: { tgLink?: boolean }) => (
+            <>
+              <div className="flex flex-row gap-4 md:gap-6 items-center max-w-none">
+                <Image
+                  src={content.icon}
+                  alt={content.name}
+                  className="aspect-square md:w-16 object-cover rounded-full object-center"
+                  sizes="6rem"
+                />
+                <h3>{content.name}</h3>
+              </div>
+              <p>{content.affiliation}</p>
+              <p>{content.description}</p>
+              {tgLink ? (
+                <Link
+                  href={`https://t.me/${content.tg.replace("@", "")}`}
+                  className={cn(
+                    "flex flex-row gap-2 items-center !mt-auto mb-0",
+                    "text-white/60 hover:text-white max-w-fit"
+                  )}
+                  target="_blank"
+                >
+                  <SiTelegram />
+                  <span>{content.tg}</span>
+                </Link>
+              ) : (
+                <span className="flex flex-row gap-2 items-center !mt-auto mb-0">
+                  <SiTelegram />
+                  <span>{content.tg}</span>
+                </span>
+              )}
+            </>
+          );
+
+          return (
+            <Card
+              key={`feedback-card-${i}`}
+              icon={<MoveUpRight />}
+              onClick={() => {
+                modal.info({
+                  icon: null,
+                  closable: true,
+                  maskClosable: true,
+                  width: 800,
+                  centered: true,
+                  okButtonProps: { style: { boxShadow: "none" } },
+                  content: (
+                    <div className="fcol gap-4">
+                      <CardContent tgLink />
+                    </div>
+                  ),
+                });
+              }}
+              className="feedback-card"
             >
-              <Card
-                icon={<MoveUpRight />}
-                className="space-y-2 lg:space-y-6 max-md:[&>*]:max-w-none max-md:pb-[60px]"
-              >
-                <div className="flex flex-row gap-4 md:gap-6 items-center">
-                  <Image
-                    src={Gurchenko}
-                    alt="Gurchenko Elena"
-                    className="min-w-[50px] h-full w-fit"
-                  />
-                  <h3>Gurchenko Elena</h3>
-                </div>
-                <p>
-                  It should not be forgotten, however, that consultation with
-                  the wider community largely determines the creation of systems
-                  of mass participation. The significance of these problems is
-                  so obvious that the implementation
-                </p>
-              </Card>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </ShadCarousel>
-      <Button
-        size={"icon"}
-        variant={"ghost"}
-        className="flex-shrink-0"
-        onClick={() => api?.scrollNext()}
-      >
-        <ChevronRight className="w-4 h-4 lg:hidden" />
-        <ArrowRight className="w-6 h-6 max-lg:hidden" />
-      </Button>
-    </div>
+              <CardContent />
+            </Card>
+          );
+        })}
+      />
+    </>
   );
 }

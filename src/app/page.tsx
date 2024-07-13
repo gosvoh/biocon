@@ -1,21 +1,36 @@
 import Image from "next/image";
-import HeroGlow from "@public/HeroGlow.svg";
-import LogoDesktop from "@public/LogoDesktop.svg";
-import LogoMobile from "@public/LogoMobile.svg";
+import Link from "next/link";
+
 import { cn } from "@/lib/utils";
-import Lines from "@public/lines.png";
-import Dude from "@public/Dude.png";
-import SideGlow from "@public/SideGlow.svg";
-import Cite from "@public/cite.png";
 import Card from "@/components/card";
-import Timeline from "@/components/timeline";
-import Aeroflot from "@public/aeroflot.png";
-import S7 from "@public/s7.png";
-import BottomGlow from "@public/BottomGlow.svg";
 import ButtonRegistration from "@/components/button.registration";
 import CarouselFeedback from "@/components/carousel.feedback";
-import CarouselMedia from "@/components/carousel.media";
+import Timeline from "@/components/timeline";
+import Carousel from "@/components/carousel";
+
+import HeroGlow from "@public/HeroGlow.svg";
+import SideGlow from "@public/SideGlow.svg";
 import BigSideGlow from "@public/BigSideGlow.svg";
+import BottomGlow from "@public/BottomGlow.svg";
+
+import LogoDesktop from "@public/LogoDesktop.png";
+import LogoMobile from "@public/LogoMobile.png";
+
+import Lines from "@public/lines.png";
+import Dude from "@public/Dude.png";
+import Cite from "@public/cite.png";
+
+import Aeroflot from "@public/aeroflot.png";
+import S7 from "@public/s7.png";
+
+import Barua from "@public/humans/Barua.jpg";
+import Gavrilenko from "@public/humans/Gavrilenko.jpg";
+import Kalinikin from "@public/humans/Kalinikin.jpg";
+import Khayrova from "@public/humans/Khayrova.jpg";
+import Polyansky from "@public/humans/Polyansky.jpg";
+import Tracey from "@public/humans/Tracey.jpg";
+
+import Media1 from "@public/media/1.png";
 
 const LeftGlow = ({
   className,
@@ -58,7 +73,7 @@ export default function Home() {
         className={cn(
           "relative text-center",
           "text-base md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl",
-          "py-8 md:py-32 lg:py-36 xl:py-40 2xl:py-44",
+          "py-8",
           "max-w-none px-0",
           "space-y-[42px] md:space-y-[80px]"
         )}
@@ -93,8 +108,8 @@ export default function Home() {
       </section>
 
       <section className="relative max-w-none px-0 pb-0">
-        <div className="wrapper fcol lg:flex-row justify-between">
-          <div className="w-full lg:max-w-5/12 pb-32 space-y-6 md:space-y-9">
+        <div className="wrapper fcol lg:flex-row justify-between lg:grid grid-cols-12 grid-rows-1">
+          <div className="w-full pb-32 space-y-6 md:space-y-9 col-start-1 col-end-5 row-[1]">
             <h2>What is BIOCON?</h2>
             <div className="md:space-y-6 text-base md:text-xl">
               <p>
@@ -112,9 +127,11 @@ export default function Home() {
             alt=""
             className="block md:hidden px-0 -translate-x-14"
           />
-          <div className="h-fit max-w-7/12 md:max-lg:mx-auto px-0 mr-0 hidden lg:block self-end">
-            <Image src={Dude} alt="" className="object-cover" />
-          </div>
+          <Image
+            src={Dude}
+            alt=""
+            className="col-start-3 -col-end-1 md:max-lg:mx-auto px-0 mr-0 hidden lg:block self-end object-cover row-[1] translate-x-[20%]"
+          />
           <div className="lg:absolute bottom-10 left-1/2 lg:-translate-x-1/2 md:max-lg:my-10">
             <ButtonRegistration className="mx-auto" text="Recap BIOCON 2023" />
           </div>
@@ -187,7 +204,7 @@ export default function Home() {
       <section className="relative space-y-6 lg:space-y-9">
         <h2>Choose your role</h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-5">
-          <Card onClick={() => {}} className="space-y-4" icon>
+          {/* <Card onClick={() => {}} className="space-y-4" icon>
             <h3>Attendee</h3>
             <p>Full-time participation in conference events</p>
           </Card>
@@ -203,7 +220,7 @@ export default function Home() {
               Present your research in less than 10 minutes in an entertaining
               way. A format in which there is no limits
             </p>
-          </Card>
+          </Card> */}
         </div>
         <RightGlow big className="lg:hidden h-[300%]" />
       </section>
@@ -214,13 +231,81 @@ export default function Home() {
 
       <section className="relative">
         <h2>Feedback from participants</h2>
-        <CarouselFeedback />
+        <CarouselFeedback
+          cardContent={[
+            {
+              icon: Kalinikin,
+              name: "Danila Kalinikin",
+              affiliation: "AI Talent Hub",
+              description:
+                "BIOCON is a platform with a high concentration of expertise in the field of biotech and new technologies. For me, as a person from the entrepreneurial environment, BIOCON has become a reference point in forming new connections with industry representatives. I can confidently say that BIOCON is a place of attraction of opportunities and biotech content of high quality.",
+              tg: "@Chem_Dan",
+            },
+            {
+              icon: Tracey,
+              name: "Chantal Tracey",
+              affiliation: "SCAMT, ITMO University",
+              description:
+                "BIOCON 2023 was absolutely electric. Every day was jam packed with interesting presentations that describe highly innovative approaches to solving many of the sustainability challenges of the twenty-first century. The little 'mini excursions' to interesting places around Almetyevsk were nice interludes between the conference sessions. The conference was also an excellent networking opportunity, where everyone from bachelor's students to highly cited leading biotechnologists were able to converse and share ideas and entertain potential collaboration. I highly recommend attending BIOCON 2024.",
+              tg: "@Chantalena",
+            },
+            {
+              icon: Gavrilenko,
+              name: "Alexander Gavrilenko",
+              affiliation: "????????????",
+              description:
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam quam dignissimos molestias. Dolor quibusdam possimus animi! Architecto ab quae officia atque, debitis nisi quaerat!",
+              tg: "???????????????????",
+            },
+            {
+              icon: Khayrova,
+              name: "Adelya Khayrova",
+              affiliation: "Russian Academy of Sciences",
+              description:
+                "I really enjoyed the BIOCON 2023 conference held in Almetyevsk last year. It was exceptionally well-organised, featuring fun and engaging formats like TED-style presentations. The networking opportunities were fantastic, allowing me to meet and connect with leading experts from the biotech industry. The laboratory tour and discussions with established foreign researchers were particularly enriching, providing valuable insights and fostering meaningful professional connections. I highly recommend this conference for industry professionals, academics, and young students considering a career in biotechnology",
+              tg: "@adelya_khayrova",
+            },
+            {
+              icon: Barua,
+              name: "Subhrajit Barua",
+              affiliation: "ITMO University",
+              description:
+                "BIOCON 2023 made me an integral part of the Faculty of Biotechnologies at ITMO University. I made some invaluable connections and expanded my networ",
+              tg: "@subhrajit_barua",
+            },
+            {
+              icon: Polyansky,
+              name: "Dmitriy Polyansky",
+              affiliation:
+                "N.F. Gamaleya National Research Center for Epidemiology and Microbiology",
+              description:
+                "BIOCON 2023 is a great opportunity to prove yourself. This event allowed me to learn in more detail about the most promising and sought-after areas in biotechnology. It is worth noting that the organizers did a great job. Everything from the meeting at the airport to the closing of the conference was at the highest level. This show will forever remain in my memory.",
+              tg: "@Dmitriy_Polyansky",
+            },
+          ]}
+        />
         <RightGlow />
       </section>
 
       <section className="relative space-y-6 lg:space-y-9">
         <h2>Media about us</h2>
-        <CarouselMedia />
+        <Carousel
+          items={Array.from({ length: 5 }).map((_, i) => (
+            <div
+              key={`media-item-${i}`}
+              className="md:basis-1/2 xl:basis-1/3 fcol gap-6"
+            >
+              <Image src={Media1} alt="" className="w-full flex-1" />
+              <p>
+                Registration for BIOCON 2024 is now open! Read 5 reasons why you
+                need to become a conference participant
+              </p>
+              <Link href="#" className="underline">
+                Read more
+              </Link>
+            </div>
+          ))}
+        />
         <LeftGlow />
       </section>
 
