@@ -12,8 +12,8 @@ import {
 import { Button } from "./ui/button";
 import { MenuIcon, X } from "lucide-react";
 import Image from "next/image";
-import TelegramLogo from "@public/Telegram.svg";
 import links from "@/lib/links";
+import { SiTelegram } from "@icons-pack/react-simple-icons";
 
 const MobileNav = () => (
   <Sheet>
@@ -69,7 +69,7 @@ export default function Header() {
         <MobileNav />
         <DesktopNav />
         <Link href="#" className="hidden lg:block">
-          <Image src={TelegramLogo} alt="Telegram" className="h-10" />
+          <SiTelegram className="w-10 h-10" />
         </Link>
       </div>
     </header>
