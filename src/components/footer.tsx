@@ -53,19 +53,19 @@ export default function Footer() {
       </div>
       <div className="py-10 md:py-16 flex flex-wrap wrapper gap-8 justify-evenly [&>a>*]:h-20 [&>a>*]:w-fit">
         <Link href={"#"}>
-          <Image src={Tatneft} alt="Tatneft" />
-        </Link>
-        <Link href={"#"}>
-          <Image src={PHS} alt="PHS" />
+          <Image src={ITMO} alt="ITMO" />
         </Link>
         <Link href={"#"}>
           <Image src={Biotech} alt="Biotech" className=" invert" />
         </Link>
         <Link href={"#"}>
-          <Image src={ITMO} alt="ITMO" />
+          <Image src={Tatneft} alt="Tatneft" />
         </Link>
         <Link href={"#"}>
           <Image src={PISH} alt="PISH" />
+        </Link>
+        <Link href={"#"}>
+          <Image src={PHS} alt="PHS" />
         </Link>
       </div>
     </footer>
