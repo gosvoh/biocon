@@ -51,12 +51,16 @@ export default function Footer() {
         </div>
         <YandexMap className="hidden lg:block flex-1" />
       </div>
-      <div className="py-10 md:py-16 flex flex-wrap wrapper gap-8 justify-evenly [&>a>*]:h-20 [&>a>*]:w-fit">
+      <div className="py-10 md:py-16 flex flex-wrap wrapper gap-8 justify-evenly [&>a>*]:h-20 [&>a>*]:w-fit ">
         <Link href={"https://en.itmo.ru/"} target={"_blank"}>
           <Image src={ITMO} alt="ITMO" />
         </Link>
         <Link href={"#"} target={"_blank"}>
-          <Image src={Biotech} alt="Biotech" className=" invert" />
+          <Image
+            src={Biotech}
+            alt="Biotech"
+            className="invert transform scale-150"
+          />
         </Link>
         <Link href={"https://www.tatneft.ru/en"} target={"_blank"}>
           <Image src={Tatneft} alt="Tatneft" />

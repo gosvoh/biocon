@@ -34,6 +34,7 @@ import Media1 from "@public/media/1.png";
 import CardChoose from "@/components/card.choose";
 import Tag from "@/components/ui/tag";
 import Modal from "@/components/ui/modal";
+import { MapPin } from "lucide-react";
 
 const LeftGlow = ({
   className,
@@ -103,9 +104,20 @@ export default function Home() {
           />
           <div className="flex flex-col gap-4 md:gap-4 lg:gap-4 xl:gap-[25px]">
             <h1>International Industrial Biotechnology Conference</h1>
-            <p className="text-3xl">November 11-13, 2024</p>
+            <p className={"lg:text-3xl"}>November 11-13, 2024</p>
           </div>
-          <p>Almetyevsk, Republic of Tatarstan</p>
+          <Link
+            className={"underline"}
+            href={"https://en.wikipedia.org/wiki/Almetyevsk"}
+            target={"_blank"}
+          >
+            <div className="flex gap-2 justify-center items-center">
+              <div className="lg:w-10 lg:h-10">
+                <MapPin className="w-full h-full" />
+              </div>
+              <p> Almetyevsk, Republic of Tatarstan</p>
+            </div>
+          </Link>
         </div>
         <div className="wrapper">
           <ButtonRegistration />
