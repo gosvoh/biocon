@@ -30,6 +30,7 @@ module.exports = {
         secondary: "hsl(var(--text-secondary))",
         disabled: "hsl(var(--text-disabled))",
         hover: "hsl(var(--hover))",
+        active: "hsl(var(--active))",
       },
       maxWidth: {
         "1/2": "50%",

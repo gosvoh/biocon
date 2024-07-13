@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import React from "react";
 import { EllipsisIcon } from "lucide-react";
@@ -15,11 +17,12 @@ export default function Card({
   return (
     <div
       className={cn(
-        "bg-card p-8 md:p-12 rounded-lg flex-1 [&>*]:max-w-2/3",
-        onClick ? "cursor-pointer hover:bg-hover" : "",
+        "card",
+        onClick ? "cursor-pointer hover:bg-hover active:bg-active group" : "",
         "relative",
         className
       )}
+      onClick={() => onClick?.()}
     >
       {children}
       {icon && (

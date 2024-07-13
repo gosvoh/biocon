@@ -11,10 +11,10 @@ export default function AntdConfigProvider({
     <ConfigProvider
       theme={{
         algorithm: theme.darkAlgorithm,
-        components: {
-          Timeline: {
-            lineType: "dotted",
-          },
+        token: {
+          colorPrimary: "hsl(268 67% 44%)",
+          colorBgBase: "hsl(0 0% 10%)",
+          boxShadow: "none",
         },
       }}
     >

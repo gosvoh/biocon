@@ -2,7 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+@layer tailwind-base, antd;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+@tailwind components;
+@tailwind utilities;
+
+@layer tailwind-base {
   :root {
     --background: 0 0% 10%;
     --foreground: 0 0% 100%;
@@ -44,10 +52,9 @@
   }
 }
 
-@layer base {
+@layer tailwind-base {
   * {
     @apply border-border;
-    @apply transition-colors duration-300 ease-in-out;
     @apply motion-reduce:!transition-none;
   }
   html {
@@ -128,14 +135,27 @@
     }
   }
 
-  .card-icon {
-    @apply absolute right-2 bottom-2;
+  .card {
+    @apply bg-card p-8 md:p-12 rounded-lg flex-1 [&>*]:max-w-2/3;
 
-    & > * {
-      @apply rounded-full bg-white text-accent w-[50px] h-[50px] p-[12px];
-      @apply cursor-pointer;
-      @apply hover:text-hover;
-      @apply active:bg-active active:text-white;
+    .card-icon {
+      @apply absolute right-2 bottom-2;
+
+      & > * {
+        @apply rounded-full bg-white text-accent w-[50px] h-[50px] p-[12px];
+        @apply duration-0;
+        @apply group-hover:text-hover;
+        @apply group-active:text-active;
+      }
+    }
+
+    &.feedback-card {
+      @apply max-md:[&>*]:max-w-none max-md:pb-[60px] h-full;
+      @apply fcol gap-2 lg:gap-6;
+
+      & > p {
+        @apply text-ellipsis line-clamp-6;
+      }
     }
   }
 }
