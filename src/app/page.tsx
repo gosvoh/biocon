@@ -371,7 +371,7 @@ export default function Home() {
       </section>
 
       <section className="relative space-y-6 lg:space-y-9">
-        <h2>Media about us</h2>
+        <h2>NEWS</h2>
         <Carousel
           items={Array.from({ length: 5 }).map((_, i) => (
             <div
@@ -399,7 +399,7 @@ export default function Home() {
             title="Aeroflot"
             trigger={
               <div className="fcol gap-8 flex-1 items-center cursor-pointer">
-                <Image src={Aeroflot} alt="Aeroflot" className="h-full w-fit" />
+                <Image src={Aeroflot} alt="Aeroflot" className="h-full w-fit"/>
                 <p>
                   Aeroflot is the leading company in Russian commercial aviation
                   and the national carrier. Company was founded on 17 March 1923
