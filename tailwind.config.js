@@ -22,6 +22,10 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"Museo Sans"', "sans-serif"],
+        architect: ['"Architects Daughter"', "cursive"],
+      },
       fontSize: {
         "3xl": ["2rem", "2.5rem"],
         "4xl": ["2.75rem", "3rem"],
