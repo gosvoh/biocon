@@ -414,12 +414,7 @@ export default function Home() {
             title="Aeroflot"
             trigger={
               <div className="fcol gap-8 flex-1 items-center cursor-pointer">
-                <Image
-                  src={Aeroflot}
-                  alt="Aeroflot"
-                  sizes={"170%"}
-                  className="h-full"
-                />
+                <Image src={Aeroflot} alt="Aeroflot" className="h-full" />
                 <p>
                   Aeroflot is the leading company in Russian commercial aviation
                   and the national carrier. Company was founded on 17 March 1923
@@ -449,7 +444,6 @@ export default function Home() {
                 <Image
                   src={S7}
                   alt="S7"
-                  sizes={"170%"}
                   className="h-full max-w-[45%] object-contain"
                 />
                 <p>
