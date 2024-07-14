@@ -9,7 +9,7 @@
     "lint": "next lint",
     "db:biocon": "prisma generate --schema prisma/biocon/schema.prisma",
     "db:world": "prisma generate --schema prisma/world/schema.prisma",
-    "prettier --write": "prettier --write ."
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
