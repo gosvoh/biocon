@@ -69,6 +69,7 @@ const PreviousPage = () => {
           </h2>
         </div>
       </section>
+
       <section className={"relative flex flex-col gap-8"}>
         <Image
           src={leftglow}
@@ -78,11 +79,11 @@ const PreviousPage = () => {
             "max-w-none max-h-none",
           )}
         />
-        <div className={"lg:flex lg:flex-row hidden md:block relative"}>
+        <div className={"lg:flex lg:flex-row hidden relative"}>
           <Image
             src={boom_right}
             alt={"boom"}
-            className="absolute -right-[3rem] -top-[6rem] w-[4rem]"
+            className="absolute -right-12 -top-24 w-16"
           />
           <div className="grid grid-cols-[2.11fr_1fr] gap-6">
             <div className="grid grid-rows-2 gap-6">
@@ -130,10 +131,10 @@ const PreviousPage = () => {
           <Image
             src={boom_down}
             alt={"boom"}
-            className="absolute -left-[3rem] -bottom-[4.5rem] w-[4rem]"
+            className="absolute -left--right-12 -bottom-[4.5rem] w-16"
           />
         </div>
-        <div className={"relative flex flex-col gap-4  lg:hidden"}>
+        <div className={"relative flex flex-col gap-4 lg:hidden"}>
           <div className={"relative flex justify-between"}>
             <Image
               src={boom_left}
@@ -155,6 +156,7 @@ const PreviousPage = () => {
         </div>
         <ButtonRegistration text={"View full photo report"} />
       </section>
+
       <section>
         <h2 className="font-normal">Conference results</h2>
         <div className={"flex flex-col gap-10"}>
@@ -216,6 +218,7 @@ const PreviousPage = () => {
           </div>
         </div>
       </section>
+
       <section className="relative flex flex-col gap-4">
         <h2 className="font-normal m-0">BIOCON’23 speakers</h2>
         <p className="font-light">Plenary speakers</p>
