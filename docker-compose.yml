@@ -4,7 +4,7 @@ name: biocon
 
 services:
   web:
-    build: .
+    image: gosvoh/biocon:latest
     container_name: biocon-dev
     restart: always
     networks:

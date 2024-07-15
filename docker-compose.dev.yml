@@ -1,18 +1,13 @@
 version: "3.9"
 
-name: biocon dev
+name: biocon-dev
 
 services:
-  web:
-    build: .
-    container_name: biocon-dev
-    restart: always
-    volumes:
-      - uploads:/app/uploads
   database:
     image: postgres:16
     container_name: biocon-db
     restart: always
+    user: root
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -23,6 +18,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    ports:
+      - "5432:5432"
 
 volumes:
   db-data:
