@@ -34,22 +34,29 @@ const Socials = ({ className }: { className?: string }) => (
 export default function Footer() {
   return (
     <footer className="bg-default">
-      <div className="bg-secondary wrapper px-0 flex flex-row">
-        <div className="px-10 md:px-12 lg:px-16 py-10 md:py-16 fcol gap-8 md:gap-16 flex-1">
-          <div className="flex flex-row justify-between">
-            <Image src={NavLogo} alt="Biocon" className="h-full" />
-            <Socials className="max-lg:hidden" />
+      <div className="bg-secondary">
+        <div className="wrapper px-0 flex flex-row">
+          <div className="px-10 md:px-12 lg:px-16 py-10 md:py-16 fcol gap-8 md:gap-16 flex-1 max-w-1/2">
+            <div className="flex flex-row justify-between">
+              <Image src={NavLogo} alt="Biocon" className="h-full" />
+              <Socials className="max-lg:hidden" />
+            </div>
+            <div className="grid grid-rows-3 grid-flow-col gap-6 lg:max-w-1/3 md: max-w-3/4">
+              {links.map((x, i) => (
+                <Link href={x.href} key={`footer-link-${i}`}>
+                  <p>{x.title}</p>
+                </Link>
+              ))}
+            </div>
+            <Socials className="lg:hidden" />
+            <div className="fcol 2xl:flex-row justify-between gap-6">
+              <p>ITMO University</p>
+              <Link href="mailto:biocon@itmo.ru">biocon@itmo.ru</Link>
+              <Link href="/policy.pdf">Privacy policy</Link>
+            </div>
           </div>
-          <div className="grid grid-rows-3 grid-flow-col gap-6 lg:max-w-1/3 md: max-w-3/4">
-            {links.map((x, i) => (
-              <Link href={x.href} key={`footer-link-${i}`}>
-                <p>{x.title}</p>
-              </Link>
-            ))}
-          </div>
-          <Socials className="lg:hidden" />
+          <YandexMap className="hidden lg:block flex-1 max-w-1/2" />
         </div>
-        <YandexMap className="hidden lg:block flex-1" />
       </div>
       <div className="py-10 md:py-16 flex flex-wrap wrapper gap-8 justify-evenly [&>a>*]:h-20 [&>a>*]:w-fit ">
         <Link href={"https://en.itmo.ru/"} target={"_blank"}>
