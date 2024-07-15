@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../../node_modules/@prisma/client/biocon"
+  output   = "../../node_modules/.prisma/client/biocon"
 }
 
 datasource db {
@@ -32,13 +32,6 @@ model Registrations {
   registrationDate  DateTime @default(now())
 }
 
-model Newsletters {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
-}
-
 model Speakers {
   id            Int     @id @default(autoincrement())
   name          String
@@ -62,8 +55,4 @@ model Organizers {
   position String
   image    String
   email    String
-}
-
-model Auth {
-  token String @id @default(cuid())
 }
