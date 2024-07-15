@@ -1,10 +1,11 @@
 {
   "name": "biocon",
-  "version": "2.2.8",
+  "version": "2.3.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run db:biocon && npm run db:world && next build",
+    "build": "next build",
+    "build:old": "npm run db:biocon && npm run db:world && next build",
     "start": "next start",
     "lint": "next lint",
     "db:biocon": "prisma generate --schema prisma/biocon/schema.prisma",
