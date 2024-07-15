@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { Architects_Daughter } from "next/font/google";
 import LogoDesktop from "@public/LogoDesktop.png";
 import LogoMobile from "@public/LogoMobile.png";
 import boom_right from "@public/boom_right.svg";
@@ -18,9 +19,9 @@ import speaker3_square from "@public/previous_biocon/speaker2_square.jpeg";
 import mirza_pc from "@public/previous_biocon/mirza_pc.jpeg";
 
 // glows
-import leftglow from "@public/previous_biocon/glow/left.svg";
-import lowerglow from "@public/previous_biocon/glow/lower.svg";
-import upperglow from "@public/previous_biocon/glow/upper.svg";
+import SideGlow from "@public/SideGlow.svg";
+import BigSideGlow from "@public/BigSideGlow.svg";
+import BottomGlow from "@public/BottomGlow.svg";
 
 // plenary speakers
 import meisam_plenary from "@public/previous_biocon/BioconPlenarySpeakers/Meisam.jpeg";
@@ -28,9 +29,31 @@ import amin_plenary from "@public/previous_biocon/BioconPlenarySpeakers/amin.jpe
 import mirza_plenary from "@public/previous_biocon/BioconPlenarySpeakers/mirza.jpeg";
 import mukesh_plenary from "@public/previous_biocon/BioconPlenarySpeakers/wzDozYDXwi4.jpg";
 
+const font = Architects_Daughter({
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+const LeftGlow = ({
+  className,
+  big = false,
+}: {
+  className?: string;
+  big?: boolean;
+}) => (
+  <Image
+    src={big ? BigSideGlow : SideGlow}
+    alt=""
+    className={cn(
+      "absolute top-1/2 -left-20 -z-10 h-fit w-full px-0 -translate-y-1/2 max-w-none rotate-180",
+      className,
+    )}
+  />
+);
+
 const PreviousPage = () => {
   return (
-    <main>
+    <main className="relative">
       <section
         className={cn(
           "relative text-center",
@@ -40,14 +63,6 @@ const PreviousPage = () => {
           "space-y-[42px] md:space-y-[80px]",
         )}
       >
-        <Image
-          src={upperglow}
-          alt=""
-          className={cn(
-            "absolute top-0  w-full -z-10 h-fit -translate-y-[10%]",
-            "max-w-none max-h-none",
-          )}
-        />
         <div className="wrapper fcol gap-8 md: lg:gap-8 xl:gap-[50px]">
           <Image
             src={LogoDesktop}
@@ -63,7 +78,10 @@ const PreviousPage = () => {
         <div className="flex flex-col text-center">
           <h1 className="font-[500]">BIOCON 2023</h1>
           <h2
-            className={"lg:text-3xl font-architect font-normal text-[#7DEB9A]"}
+            className={cn(
+              "lg:text-3xl font-normal text-[#7DEB9A]",
+              font.className,
+            )}
           >
             How was it?
           </h2>
@@ -71,14 +89,6 @@ const PreviousPage = () => {
       </section>
 
       <section className={"relative flex flex-col gap-8"}>
-        <Image
-          src={leftglow}
-          alt=""
-          className={cn(
-            "absolute -translate-y-20 left-0 w-full -z-10",
-            "max-w-none max-h-none",
-          )}
-        />
         <div className={"lg:flex lg:flex-row hidden relative"}>
           <Image
             src={boom_right}
@@ -172,9 +182,10 @@ const PreviousPage = () => {
           <div className="grid grid-cols-2 grid-rows-2 gap-12 text-center font-light lg:grid-cols-4 lg:grid-rows-1 lg:text-2xl">
             <div className={"flex flex-col gap-1 lg:gap-3"}>
               <h1
-                className={
-                  "font-architect m-0  text-[#A659FF] font-light text-3xl lg:text-4xl"
-                }
+                className={cn(
+                  "m-0 text-[#A659FF] font-light text-3xl lg:text-4xl",
+                  font.className,
+                )}
               >
                 17
               </h1>
@@ -185,9 +196,10 @@ const PreviousPage = () => {
             </div>
             <div className={"flex flex-col gap-1 lg:gap-3"}>
               <h2
-                className={
-                  "font-architect m-0  text-[#7DEB9A] font-light text-3xl lg:text-4xl"
-                }
+                className={cn(
+                  "m-0  text-[#7DEB9A] font-light text-3xl lg:text-4xl",
+                  font.className,
+                )}
               >
                 250+
               </h2>
@@ -195,9 +207,10 @@ const PreviousPage = () => {
             </div>
             <div className={"flex flex-col lg:gap-3"}>
               <h2
-                className={
-                  "font-architect m-0 text-[#7DEB9A] lg:text-[#A659FF] font-light text-3xl lg:text-4xl"
-                }
+                className={cn(
+                  "m-0 text-[#7DEB9A] lg:text-[#A659FF] font-light text-3xl lg:text-4xl",
+                  font.className,
+                )}
               >
                 50+
               </h2>
@@ -207,9 +220,10 @@ const PreviousPage = () => {
             </div>
             <div className={"flex flex-col gap-1 lg:gap-3"}>
               <h2
-                className={
-                  "font-architect m-0 text-[#A659FF] lg:text-[#7DEB9A] font-light text-3xl lg:text-4xl"
-                }
+                className={cn(
+                  "m-0 text-[#A659FF] lg:text-[#7DEB9A] font-light text-3xl lg:text-4xl",
+                  font.className,
+                )}
               >
                 90+
               </h2>
@@ -284,12 +298,20 @@ const PreviousPage = () => {
             </div>
           </div>
         </div>
-        <Image
-          src={lowerglow}
-          alt=""
-          className="absolute w-full h-auto bottom-0 left-0 -z-10 translate-y-[15%]"
-        />
       </section>
+
+      <LeftGlow className="max-xl:hidden" />
+      <LeftGlow big className="xl:hidden" />
+      <Image
+        src={BottomGlow}
+        alt=""
+        className="absolute h-[150%] w-fit md:w-[125%] md:h-fit max-w-none -translate-x-1/2 -top-10 left-1/2 -z-10 rotate-180"
+      />
+      <Image
+        src={BottomGlow}
+        alt=""
+        className="absolute h-[150%] w-fit md:w-[125%] md:h-fit max-w-none -translate-x-1/2 -bottom-10 left-1/2 -z-10"
+      />
     </main>
   );
 };
