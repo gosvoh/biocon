@@ -51,7 +51,7 @@ const LeftGlow = ({
   />
 );
 
-const PreviousPage = () => {
+export default function PreviousPage() {
   return (
     <main className="relative">
       <section
@@ -314,6 +314,4 @@ const PreviousPage = () => {
       />
     </main>
   );
-};
-
-export default PreviousPage;
+}

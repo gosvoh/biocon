@@ -5,7 +5,7 @@ const links: {
   href: React.ComponentPropsWithoutRef<typeof Link>["href"];
 }[] = [
   { title: "About", href: "/" },
-  { title: "Biocon 2023", href: "#" },
+  { title: "Biocon 2023", href: "/biocon2023" },
   { title: "Speakers", href: "#" },
   // { title: "Program", href: "#" },
   // { title: "Venue", href: "#" },
