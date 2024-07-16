@@ -16,6 +16,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
 
   web:
     image: gosvoh/biocon:latest
@@ -28,6 +32,8 @@ services:
       - uploads:/app/uploads
     depends_on:
       - database
+    environment:
+      - DATABASE_URL
 
 networks:
   nginx:
