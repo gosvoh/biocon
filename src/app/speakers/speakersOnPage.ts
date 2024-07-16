@@ -1,4 +1,5 @@
 import speaker1 from "@public/previous_biocon/mirza.jpeg";
+import ba from "@public/speakers_page/countries/ba.png";
 
 const speakersOnPage = [
   {
@@ -12,6 +13,7 @@ const speakersOnPage = [
     name: "Ashok Pandey",
     photo: speaker1,
     hIndex: 87,
+    flag: ba,
   },
   {
     university: "Sher-e-Bangla Agricultural University, Bangladesh",
@@ -24,6 +26,7 @@ const speakersOnPage = [
     name: "Ashok Pandey",
     photo: speaker1,
     hIndex: 87,
+    flag: ba,
   },
 ];
 

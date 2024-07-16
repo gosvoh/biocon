@@ -9,7 +9,7 @@ import ButtonRegistration from "@/components/button.registration";
 import BottomGlow from "@public/BottomGlow.svg";
 import { speakersOnPage } from "@/app/speakers/speakersOnPage";
 import Card from "@/components/card";
-import { MapPin, Trophy } from "lucide-react";
+import { Trophy } from "lucide-react";
 
 export default function SpeakersPage() {
   return (
@@ -51,8 +51,13 @@ export default function SpeakersPage() {
       <section className="relative space-y-6 md:space-y-9">
         <div className={"hidden flex-col gap-5 lg:flex"}>
           {speakersOnPage.map((speaker, index) => (
-            <Card key={index} className="p-0">
-              <div className={"grid grid-cols-[1.25fr_1.5fr] "}>
+            <Card key={index} className="p-0 relative">
+              <Image
+                src={speaker.flag}
+                alt={""}
+                className={"absolute right-7 top-7"}
+              />
+              <div className={"grid grid-cols-[1.5fr_2.4fr] "}>
                 <Image
                   src={speaker.photo}
                   alt={""}
@@ -60,18 +65,18 @@ export default function SpeakersPage() {
                 />
                 <div
                   className={
-                    "flex flex-col gap-6 p-9 pt-7 font-light w-full text-lg"
+                    "flex flex-col gap-5 p-12 pt-7 font-light w-full text-lg"
                   }
                 >
                   <p className={"text-2xl font-normal"}>{speaker.name}</p>
-                  <div className={"flex flex-col gap-3"}>
+                  <div className={"flex flex-col gap-2 font-normal"}>
                     <p>{speaker.university}</p>
-                    <p className={"flex gap-2 items-center"}>
+                    <div className={"flex gap-2 items-center"}>
                       <div className="lg:w-5 lg:h-5">
                         <Trophy className="w-full h-full" />
                       </div>
-                      {speaker.subtitle}
-                    </p>
+                      <p>{speaker.subtitle}</p>
+                    </div>
                   </div>
                   <div className="p-3 border border-white rounded-full w-[50%] text-center">
                     h-index: {speaker.hIndex}
@@ -89,6 +94,11 @@ export default function SpeakersPage() {
               className="rounded-[16px] grid grid-rows-[auto, auto] bg-[#6B2DAD] gap-7"
             >
               <div className="relative">
+                <Image
+                  src={speaker.flag}
+                  alt={""}
+                  className={"absolute right-3 top-3"}
+                />
                 <Image
                   src={speaker.photo}
                   alt={""}
