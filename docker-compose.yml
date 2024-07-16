@@ -18,7 +18,7 @@ services:
       retries: 5
 
   web:
-    build: .
+    image: gosvoh/biocon:latest
     container_name: biocon-dev
     restart: always
     networks:
