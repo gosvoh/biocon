@@ -182,11 +182,11 @@ export default function PreviousPage() {
               allowFullScreen
             ></iframe>
           </div>
-          <div className="grid grid-cols-2 grid-rows-2 gap-12 text-center font-light lg:grid-cols-4 lg:grid-rows-1 lg:text-2xl">
-            <div className={"flex flex-col gap-1 lg:gap-3"}>
+          <div className="grid grid-cols-2 grid-rows-2 gap-12 text-center font-light lg:grid-cols-4 lg:grid-rows-1 lg:text-2xl text-xl ">
+            <div className={"flex flex-col gap-2 lg:gap-3"}>
               <h1
                 className={cn(
-                  "m-0 text-[#A659FF] font-light text-3xl lg:text-7xl",
+                  "m-0 text-[#A659FF] font-light text-4xl lg:text-7xl",
                   font.className,
                 )}
               >
@@ -200,7 +200,7 @@ export default function PreviousPage() {
             <div className={"flex flex-col gap-1 lg:gap-3"}>
               <h2
                 className={cn(
-                  "m-0  text-[#7DEB9A] font-light text-3xl lg:text-7xl",
+                  "m-0  text-[#7DEB9A] font-light text-4xl lg:text-7xl",
                   font.className,
                 )}
               >
@@ -208,10 +208,10 @@ export default function PreviousPage() {
               </h2>
               <p>participants</p>
             </div>
-            <div className={"flex flex-col lg:gap-3"}>
+            <div className={"flex flex-col gap-1 lg:gap-3"}>
               <h2
                 className={cn(
-                  "m-0 text-[#7DEB9A] lg:text-[#A659FF] font-light text-3xl lg:text-7xl",
+                  "m-0 text-[#7DEB9A] lg:text-[#A659FF] font-light text-4xl lg:text-7xl",
                   font.className,
                 )}
               >
@@ -224,7 +224,7 @@ export default function PreviousPage() {
             <div className={"flex flex-col gap-1 lg:gap-3"}>
               <h2
                 className={cn(
-                  "m-0 text-[#A659FF] lg:text-[#7DEB9A] font-light text-3xl lg:text-7xl",
+                  "m-0 text-[#A659FF] lg:text-[#7DEB9A] font-light text-4xl lg:text-7xl",
                   font.className,
                 )}
               >

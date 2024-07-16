@@ -38,7 +38,8 @@ const plenary_speakers = [
   {
     src: amin_plenary,
     name: "Amin Mousavi Khaneghah",
-    university: "Institute of Agricultural and Food Biotechnology",
+    university:
+      "Institute of Agricultural and Food Biotechnology Institute of Agricultural and Food Biotechnology",
   },
   {
     src: mukesh_plenary,

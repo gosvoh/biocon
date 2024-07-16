@@ -14,8 +14,8 @@ import PISH from "@public/pish.png";
 const Socials = ({ className }: { className?: string }) => (
   <div
     className={cn(
-      "flex flex-row max-md:w-full max-md:justify-between",
-      "md:gap-10 py-4",
+      "flex flex-row max-md:w-full max-md:justify-between ",
+      "gap-4 lg:gap-10 py-4",
       className,
     )}
   >
