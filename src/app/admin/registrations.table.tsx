@@ -1,17 +1,17 @@
 "use client";
 
-import type { Registrations } from ".prisma/client/biocon";
 import { Button, Table } from "antd";
 import { PlusCircle } from "lucide-react";
 import { add, remove } from "./actions";
 import dayjs from "dayjs";
+import type { Registrations } from "@/db/schema";
 
 export const dynamic = "force-dynamic";
 
 export default function RegistrationsTable({
   data,
 }: {
-  data: Registrations[];
+  data: (typeof Registrations.$inferSelect)[];
 }) {
   return (
     <Table
@@ -40,11 +40,11 @@ export default function RegistrationsTable({
         {
           title: "Registration date",
           dataIndex: "registrationDate",
-          render: (x: Date) => dayjs(x).format("L"),
+          render: (x: Date) => dayjs(x).format("DD.MM.YYYY HH:mm:ss"),
         },
         {
           title: "Actions",
-          render: (x: Registrations) => (
+          render: (x: typeof Registrations.$inferSelect) => (
             <Button danger onClick={() => remove(x.id)}>
               Remove
             </Button>

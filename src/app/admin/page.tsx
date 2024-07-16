@@ -1,12 +1,12 @@
-import { biocon } from "@/lib/prisma";
-import type { Registrations } from ".prisma/client/biocon";
 import RegistrationsTable from "./registrations.table";
+import { biocon, pool } from "@/db/db";
+import { Registrations } from "@/db/schema";
 
 export default async function Admin() {
-  let data: Registrations[] = [];
+  let data: (typeof Registrations.$inferSelect)[] = [];
 
   try {
-    data = await biocon.registrations.findMany();
+    data = await biocon.select().from(Registrations);
   } catch (e) {
     console.error(e);
   }
