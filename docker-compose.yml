@@ -3,22 +3,12 @@ version: "3.9"
 name: biocon
 
 services:
-  web:
-    image: gosvoh/biocon:latest
-    container_name: biocon-dev
-    restart: always
-    networks:
-      - nginx
-    volumes:
-      - uploads:/app/uploads
   database:
     image: postgres:16
     container_name: biocon-db
     restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: biocon
+    networks:
+      - default
     volumes:
       - db-data:/var/lib/postgresql/data
     healthcheck:
@@ -26,6 +16,18 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  web:
+    build: .
+    container_name: biocon-dev
+    restart: always
+    networks:
+      - default
+      - nginx
+    volumes:
+      - uploads:/app/uploads
+    depends_on:
+      - database
 
 networks:
   nginx:
