@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run db:generate && npm run db:migrate && next build",
+    "build": "next build",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "build:old": "npm run db:biocon && npm run db:world && next build",
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write ."
@@ -31,8 +30,8 @@
     "lucide-react": "^0.408.0",
     "next": "^14.2.4",
     "nodemailer": "^6.9.13",
-    "pg": "^8.12.0",
     "postcss": "^8.4.38",
+    "postgres": "^3.4.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.0",
@@ -48,7 +47,6 @@
   "devDependencies": {
     "@types/node": "^20.14.5",
     "@types/nodemailer": "^6.4.15",
-    "@types/pg": "^8.11.6",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@yandex/ymaps3-types": "^0.0.27",

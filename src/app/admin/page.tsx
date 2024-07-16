@@ -1,6 +1,8 @@
 import RegistrationsTable from "./registrations.table";
-import { biocon, pool } from "@/db/db";
+import { biocon } from "@/db/db";
 import { Registrations } from "@/db/schema";
+
+export const dynamic = "force-dynamic";
 
 export default async function Admin() {
   let data: (typeof Registrations.$inferSelect)[] = [];
