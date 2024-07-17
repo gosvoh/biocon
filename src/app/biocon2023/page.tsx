@@ -29,6 +29,8 @@ import mirza_pc from "@public/previous_biocon/mirza_pc.jpeg";
 import SideGlow from "@public/SideGlow.svg";
 import BigSideGlow from "@public/BigSideGlow.svg";
 import BottomGlow from "@public/BottomGlow.svg";
+import "./noise.css";
+
 import { plenary_speakers } from "@/app/biocon2023/speakers";
 
 const font = Architects_Daughter({
@@ -43,14 +45,16 @@ const LeftGlow = ({
   className?: string;
   big?: boolean;
 }) => (
-  <Image
-    src={big ? BigSideGlow : SideGlow}
-    alt=""
-    className={cn(
-      "absolute top-1/2 -left-20 -z-10 h-fit w-full px-0 -translate-y-1/2 max-w-none rotate-180",
-      className,
-    )}
-  />
+  <div className={"image-container"}>
+    <Image
+      src={big ? BigSideGlow : SideGlow}
+      alt=""
+      className={cn(
+        "absolute top-1/2 -left-40 -z-10 h-fit w-full px-0 -translate-y-1/2 max-w-none rotate-180",
+        className,
+      )}
+    />
+  </div>
 );
 
 export default function PreviousPage() {
@@ -236,12 +240,12 @@ export default function PreviousPage() {
         </div>
       </section>
 
-      <section className="relative flex flex-col gap-4">
+      <section className="relative flex flex-col gap-1">
         <h2 className="font-normal m-0">BIOCON’23 speakers</h2>
-        <p className="font-light mb-6">Plenary speakers</p>
+        <p className="font-light mb-10 text-lg lg:text-xl">Plenary speakers</p>
         <div className="hidden grid-cols-4 gap-14 lg:grid">
           {plenary_speakers.map((speaker, index) => (
-            <div key={index} className="grid grid-rows-[1fr,0.4fr] gap-5">
+            <div key={index} className="grid grid-rows-[1fr,0.5fr] gap-5">
               <Image
                 className="rounded-[28px] h-full object-cover aspect-square"
                 src={speaker.src}
@@ -286,17 +290,16 @@ export default function PreviousPage() {
         </div>
       </section>
 
-      <LeftGlow className="max-xl:hidden" />
-      <LeftGlow big className="xl:hidden" />
+      <LeftGlow big className={"lg:block hidden"} />
       <Image
         src={BottomGlow}
         alt=""
-        className="absolute h-[150%] w-fit md:w-[125%] md:h-fit max-w-none -translate-x-1/2 -top-10 left-1/2 -z-10 rotate-180"
+        className="absolute w-fit md:w-[125%] md:h-fit max-w-none -translate-x-1/2 -top-20 left-1/2 -z-10 rotate-180"
       />
       <Image
         src={BottomGlow}
         alt=""
-        className="absolute h-[150%] w-fit md:w-[125%] md:h-fit max-w-none -translate-x-1/2 -bottom-10 left-1/2 -z-10"
+        className="absolute w-fit md:h-fit max-w-none -translate-x-1/2 -bottom-10 left-1/2 -z-10"
       />
     </main>
   );

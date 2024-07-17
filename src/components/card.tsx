@@ -9,10 +9,12 @@ export default function Card({
   className,
   icon,
   onClick,
+  vertical = false,
 }: React.PropsWithChildren<{
   className?: string;
   icon?: boolean | React.ReactNode;
   onClick?: () => void;
+  vertical?: boolean;
 }>) {
   return (
     <div
@@ -23,6 +25,7 @@ export default function Card({
           : "",
         "relative",
         className,
+        vertical ? "flex flex-col" : "flex",
       )}
       onClick={() => onClick?.()}
     >
