@@ -7,12 +7,15 @@ import {
   Input,
   Modal,
   Popconfirm,
+  Space,
   Table,
 } from "antd";
-import { PlusCircleIcon } from "lucide-react";
-import { add, remove } from "./actions";
+import { ArrowLeft, EditIcon, PlusCircleIcon } from "lucide-react";
+import { add, remove, update } from "./actions";
 import dayjs from "dayjs";
 import type { Registrations } from "@/db/schema";
+import Link from "next/link";
+import { modalProps } from "@/components/ui/modal";
 
 const EditForm = ({
   form,
@@ -135,8 +138,8 @@ export default function RegistrationsTable({
 }: {
   data: (typeof Registrations.$inferSelect)[];
 }) {
-  const [modal, context] = Modal.useModal();
   const [form] = Form.useForm();
+  const [modal, context] = Modal.useModal();
 
   return (
     <>
@@ -146,20 +149,29 @@ export default function RegistrationsTable({
         rowKey={(x) => x.id}
         className="wrapper py-10"
         title={() => (
-          <Button
-            icon={<PlusCircleIcon />}
-            onClick={() => {
-              const mod = modal.confirm({
-                title: "Add registration",
-                closable: true,
-                maskClosable: true,
-                width: 800,
-                okButtonProps: { style: { boxShadow: "none" }, loading: false },
-                icon: null,
-                content: <EditForm form={form} />,
-              });
-            }}
-          />
+          <Space>
+            <Link href="/admin">
+              <Button icon={<ArrowLeft />}>Back</Button>
+            </Link>
+            <Button
+              icon={<PlusCircleIcon />}
+              onClick={() =>
+                modal.confirm({
+                  ...modalProps,
+                  content: <EditForm form={form} />,
+                  title: "Add registration",
+                  onOk: async () => {
+                    try {
+                      const values = await form.validateFields();
+                      return add(values).then(() => form.resetFields());
+                    } catch (e) {
+                      return Promise.reject(e);
+                    }
+                  },
+                })
+              }
+            />
+          </Space>
         )}
         scroll={{ x: "max-content" }}
         columns={[
@@ -168,6 +180,26 @@ export default function RegistrationsTable({
             render: (x: typeof Registrations.$inferSelect) => (
               <Popconfirm onConfirm={() => remove(x.id)} title="Are you sure?">
                 <Button danger>Remove</Button>
+                <Button
+                  icon={<EditIcon />}
+                  onClick={() =>
+                    modal.confirm({
+                      ...modalProps,
+                      content: <EditForm form={form} data={x} />,
+                      title: "Edit registration",
+                      onOk: async () => {
+                        try {
+                          const values = await form.validateFields();
+                          return update(x.id, values).then(() =>
+                            form.resetFields(),
+                          );
+                        } catch (e) {
+                          return Promise.reject(e);
+                        }
+                      },
+                    })
+                  }
+                />
               </Popconfirm>
             ),
           },

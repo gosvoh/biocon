@@ -2,6 +2,15 @@
 
 import { Modal as AntdModal, ModalProps } from "antd";
 
+export const modalProps = {
+  centered: true,
+  closable: true,
+  maskClosable: true,
+  width: 800,
+  okButtonProps: { style: { boxShadow: "none" } },
+  icon: null,
+};
+
 export default function Modal({
   trigger,
   modalContent,
@@ -19,13 +28,8 @@ export default function Modal({
   trigger.props.onClick = () => {
     modal[type]({
       content: modalContent,
-      centered: true,
-      closable: true,
-      maskClosable: true,
-      width: 800,
-      okButtonProps: { style: { boxShadow: "none" } },
-      icon: null,
       title: <p className="text-center">{title}</p>,
+      ...modalProps,
       ...props,
     });
   };

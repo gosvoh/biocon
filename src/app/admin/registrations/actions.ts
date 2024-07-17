@@ -16,3 +16,11 @@ export async function remove(id: number) {
   await biocon.delete(Registrations).where(eq(Registrations.id, id));
   revalidatePath("/admin");
 }
+
+export async function update(
+  id: number,
+  user: Omit<typeof Registrations.$inferInsert, "id" | "registrationDate">,
+) {
+  await biocon.update(Registrations).set(user).where(eq(Registrations.id, id));
+  revalidatePath("/admin");
+}
