@@ -8,6 +8,13 @@
       "when": 1721141129127,
       "tag": "0000_flat_johnny_blaze",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1721246907818,
+      "tag": "0001_wide_micromax",
+      "breakpoints": true
     }
   ]
 }

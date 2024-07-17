@@ -9,6 +9,7 @@ import {
   Input,
   Modal,
   Popconfirm,
+  Select,
   Space,
   Table,
   Upload,
@@ -23,6 +24,17 @@ import {
 import { add, remove, update } from "./actions";
 import Link from "next/link";
 
+const selectOptions = [
+  "Plenary speakers",
+  "Agriculture & Environment",
+  "Biomaterials",
+  "Viruses & Vaccines",
+  "Genomics and structural biology",
+  "Food biotechnology",
+  "Gene therapy",
+  "Biotech Open Mic",
+];
+
 const EditForm = ({
   form,
   data,
@@ -34,7 +46,11 @@ const EditForm = ({
     labelCol={{ span: 8 }}
     wrapperCol={{ span: 16 }}
     form={form}
-    initialValues={{ ...data, image: undefined }}
+    initialValues={{
+      ...data,
+      image: undefined,
+      type: data?.type || selectOptions[0],
+    }}
   >
     <Form.Item<typeof Speakers2023.$inferInsert>
       name="name"
@@ -49,6 +65,13 @@ const EditForm = ({
       rules={[{ required: true }]}
     >
       <Input />
+    </Form.Item>
+    <Form.Item<typeof Speakers2023.$inferInsert>
+      name="type"
+      label="Type"
+      rules={[{ required: true }]}
+    >
+      <Select options={selectOptions.map((x) => ({ label: x, value: x }))} />
     </Form.Item>
     <Form.Item<typeof Speakers2023.$inferInsert>
       name="image"
@@ -109,6 +132,7 @@ export default function Speakers2023Table({
                       formData.append("name", val.name);
                       formData.append("university", val.university);
                       formData.append("image", val.image[0].originFileObj);
+                      formData.append("type", val.type);
                       return await add(formData).then(() => form.resetFields());
                     } catch (e) {
                       return Promise.reject(e);
@@ -154,6 +178,7 @@ export default function Speakers2023Table({
                           const formData = new FormData();
                           formData.append("name", val.name);
                           formData.append("university", val.university);
+                          formData.append("type", val.type);
                           val.image &&
                             formData.append(
                               "image",
@@ -174,6 +199,7 @@ export default function Speakers2023Table({
           },
           { title: "Name", dataIndex: "name" },
           { title: "University", dataIndex: "university" },
+          { title: "Type", dataIndex: "type" },
           {
             title: "Image",
             dataIndex: "image",

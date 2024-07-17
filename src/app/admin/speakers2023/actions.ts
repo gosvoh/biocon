@@ -32,8 +32,7 @@ export async function add(formData: FormData) {
   const name = formData.get("name") as string;
   const university = formData.get("university") as string;
   const img = formData.get("image") as File;
-
-  console.log(name, university, img);
+  const type = formData.get("type") as string;
 
   if (!fs.existsSync("./uploads")) fs.mkdirSync("./uploads");
   const uuid = randomUUID();
@@ -48,6 +47,7 @@ export async function add(formData: FormData) {
     name: name,
     university: university,
     image: `${uuid}.webp`,
+    type: type,
   });
   revalidatePath("/admin/speakers2023");
 }
@@ -56,6 +56,7 @@ export async function update(id: number, formData: FormData) {
   const name = formData.get("name") as string;
   const university = formData.get("university") as string;
   const img = formData.get("image") as File | null;
+  const type = formData.get("type") as string;
 
   let newImagePath;
   if (img) {
@@ -72,7 +73,7 @@ export async function update(id: number, formData: FormData) {
 
   await biocon
     .update(Speakers2023)
-    .set({ name, university, image: newImagePath })
+    .set({ name, university, image: newImagePath, type })
     .where(eq(Speakers2023.id, id));
 
   revalidatePath("/admin/speakers2023");

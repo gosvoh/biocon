@@ -6,6 +6,7 @@ export const Organizers = pgTable("Organizers", {
   position: text("position").notNull(),
   image: text("image").notNull(),
   email: text("email").notNull(),
+  order: serial("order").notNull(),
 });
 
 export const Speakers2023 = pgTable("Speakers2023", {
@@ -13,6 +14,7 @@ export const Speakers2023 = pgTable("Speakers2023", {
   name: text("name").notNull(),
   university: text("university").notNull(),
   image: text("image").notNull(),
+  type: text("type").notNull(),
 });
 
 export const Speakers = pgTable("Speakers", {
@@ -20,7 +22,6 @@ export const Speakers = pgTable("Speakers", {
   name: text("name").notNull(),
   image: text("image").notNull(),
   university: text("university").notNull(),
-  topic: text("topic"),
   description: text("description"),
   thunder: text("thunder"),
   hIndex: integer("hIndex"),
