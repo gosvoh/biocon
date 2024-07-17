@@ -1,17 +1,16 @@
-import RegistrationsTable from "./registrations.table";
-import { biocon } from "@/db/db";
-import { Registrations } from "@/db/schema";
+import { Button, Space } from "antd";
+import { Mic2Icon, TicketCheckIcon } from "lucide-react";
+import Link from "next/link";
 
-export const dynamic = "force-dynamic";
-
-export default async function Admin() {
-  let data: (typeof Registrations.$inferSelect)[] = [];
-
-  try {
-    data = await biocon.select().from(Registrations);
-  } catch (e) {
-    console.error(e);
-  }
-
-  return <RegistrationsTable data={data} />;
+export default function Admin() {
+  return (
+    <Space className="wrapper py-20">
+      <Link href="/admin/registrations">
+        <Button icon={<TicketCheckIcon />}>Registrations</Button>
+      </Link>
+      <Link href="/admin/speakers2023">
+        <Button icon={<Mic2Icon />}>Speakers 2023</Button>
+      </Link>
+    </Space>
+  );
 }
