@@ -45,7 +45,7 @@ const LeftGlow = ({
   className?: string;
   big?: boolean;
 }) => (
-  <div className={"image-container"}>
+  <div>
     <Image
       src={big ? BigSideGlow : SideGlow}
       alt=""

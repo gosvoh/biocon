@@ -22,6 +22,9 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        noise: "url('/noise.png')",
+      },
       fontFamily: {
         sans: ['"Museo Sans"', "sans-serif"],
         architect: ['"Architects Daughter"', "cursive"],
