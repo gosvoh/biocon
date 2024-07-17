@@ -93,14 +93,14 @@ export default function Speakers2023Table({
               icon={<PlusCircleIcon />}
               onClick={() => {
                 modal.confirm({
-                  title: "Add registration",
+                  title: "Add speaker",
                   closable: true,
                   maskClosable: true,
                   width: 800,
                   centered: true,
                   okButtonProps: { style: { boxShadow: "none" } },
                   icon: null,
-                  onOk: async (_) => {
+                  onOk: async () => {
                     try {
                       const val: typeof Speakers2023.$inferInsert & {
                         image: any;
@@ -138,7 +138,7 @@ export default function Speakers2023Table({
                   icon={<EditIcon />}
                   onClick={() =>
                     modal.confirm({
-                      title: "Edit",
+                      title: "Edit speaker",
                       closable: true,
                       maskClosable: true,
                       width: 800,

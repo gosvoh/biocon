@@ -9,7 +9,22 @@ import sharp from "sharp";
 import { randomUUID } from "crypto";
 
 export async function remove(id: number) {
-  await biocon.delete(Speakers2023).where(eq(Speakers2023.id, id));
+  try {
+    const deleted = await biocon
+      .delete(Speakers2023)
+      .where(eq(Speakers2023.id, id))
+      .returning();
+
+    if (deleted.length === 0)
+      return Promise.reject({ message: "Speaker not found" });
+
+    if (deleted[0].image) {
+      fs.unlinkSync(`./uploads/${deleted[0].image}`);
+    }
+  } catch (error) {
+    console.error(error);
+    return Promise.reject({ message: "Error while deleting speaker", error });
+  }
   revalidatePath("/admin/speakers2023");
 }
 
@@ -25,7 +40,7 @@ export async function add(formData: FormData) {
   try {
     await sharp(await img.arrayBuffer()).toFile(`./uploads/${uuid}.webp`);
   } catch (error) {
-    // console.error(error);
+    console.error(error);
     return Promise.reject({ message: "Error while processing image", error });
   }
 
@@ -49,7 +64,7 @@ export async function update(id: number, formData: FormData) {
     try {
       await sharp(await img.arrayBuffer()).toFile(`./uploads/${uuid}.webp`);
     } catch (error) {
-      // console.error(error);
+      console.error(error);
       return Promise.reject({ message: "Error while processing image", error });
     }
     newImagePath = `${uuid}.webp`;
