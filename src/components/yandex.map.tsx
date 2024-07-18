@@ -24,7 +24,7 @@ const Map = ({ api }: { api: ReactifyApi | null }) => {
 
   return (
     <YMap
-      location={{ center: [30.339, 59.927259], zoom: 17 }}
+      location={{ center: [52.289424, 54.897868], zoom: 17 }}
       behaviors={["drag"]}
       className="grayscale"
     >
@@ -32,7 +32,7 @@ const Map = ({ api }: { api: ReactifyApi | null }) => {
       <YMapDefaultFeaturesLayer />
       <YMapControls position="left" />
 
-      <YMapMarker coordinates={[30.338403, 59.927259]}>
+      <YMapMarker coordinates={[52.289424, 54.898]}>
         <Link href={"https://itmo.ru"} target="_blank">
           <div className="bg-black hover:bg-slate-700 transition-all text-white rounded-full px-4 py-2 flex flex-row gap-2 text-nowrap items-center text-xl md:text-2xl">
             <GraduationCap className="w-5 h-5 md:w-10 md:h-10" />
@@ -53,7 +53,7 @@ export default function YandexMap(props: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <>
       <Script
-        src={`https://api-maps.yandex.ru/v3/?apikey=${apiKey}&lang=ru_RU`}
+        src={`https://api-maps.yandex.com/v3/?apikey=${apiKey}&lang=en_US`}
         onLoad={async () => {}}
         onReady={() => {
           Promise.all([
