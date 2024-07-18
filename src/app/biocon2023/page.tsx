@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import Image, {StaticImageData} from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { Architects_Daughter } from "next/font/google";
 import LogoDesktop from "@public/LogoDesktop.png";
 import LogoMobile from "@public/LogoMobile.png";
@@ -67,19 +67,19 @@ const LeftGlow = ({
   </div>
 );
 
-const getSpeakers = async () =>{
+const getSpeakers = async () => {
   let speakers: (typeof Speakers2023.$inferSelect)[] = [];
   try {
     speakers = await biocon.select().from(Speakers2023);
   } catch (e) {
     console.error(e);
   }
-  return speakers
-}
+  return speakers;
+};
 
 export default function PreviousPage() {
   return (
-    <main className="relative">
+    <main className="relative noise">
       <section
         className={cn(
           "relative text-center",
@@ -329,18 +329,22 @@ export default function PreviousPage() {
         <div className={"lg:hidden"}>
           <Carousel>
             <CarouselContent>
-              {getSpeakers().then((speakers)=>speakers.map((speaker, index) => (
+              {getSpeakers().then((speakers) =>
+                speakers.map((speaker, index) => (
                   <CarouselItem
-                      key={index}
-                      className={"md:basis-1/2 xl:basis-1/3"}
+                    key={index}
+                    className={"md:basis-1/2 xl:basis-1/3"}
                   >
-                    <div key={index} className="grid grid-rows-[1fr,0.4fr] gap-5">
+                    <div
+                      key={index}
+                      className="grid grid-rows-[1fr,0.4fr] gap-5"
+                    >
                       <Image
-                          className="rounded-[28px] h-full object-cover aspect-square"
-                          src={"/" + speaker.image}
-                          alt="Description of the image"
-                          layout="fill"
-                          objectFit="cover"
+                        className="rounded-[28px] h-full object-cover aspect-square"
+                        src={"/" + speaker.image}
+                        alt="Description of the image"
+                        layout="fill"
+                        objectFit="cover"
                       />
                       <div>
                         <p className={"text-center"}>{speaker.name}</p>
@@ -350,7 +354,8 @@ export default function PreviousPage() {
                       </div>
                     </div>
                   </CarouselItem>
-              )))}
+                )),
+              )}
             </CarouselContent>
             <CarouselPrevious />
             <CarouselNext />
