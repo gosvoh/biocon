@@ -107,7 +107,7 @@ export default function Home() {
             <p className={"lg:text-3xl"}>November 11-13, 2024</p>
           </div>
           <Link
-            className={"underline"}
+            className={"underline w-fit mx-auto"}
             href={"https://en.wikipedia.org/wiki/Almetyevsk"}
             target={"_blank"}
           >
