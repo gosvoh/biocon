@@ -2,7 +2,7 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import type { Metadata, Viewport } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import AntdConfigProvider from "./providers/ant.config.provider";
+import AntdConfigProvider from "@/components/providers/ant.config.provider";
 import Header from "@/components/header";
 import Script from "next/script";
 import Footer from "@/components/footer";
