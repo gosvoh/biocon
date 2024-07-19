@@ -1,5 +1,10 @@
 import { Button, Space } from "antd";
-import { Mic2Icon, MicIcon, TicketCheckIcon } from "lucide-react";
+import {
+  Mic2Icon,
+  MicIcon,
+  NewspaperIcon,
+  TicketCheckIcon,
+} from "lucide-react";
 import Link from "next/link";
 
 export default function Admin() {
@@ -13,6 +18,9 @@ export default function Admin() {
       </Link>
       <Link href="/admin/speakers">
         <Button icon={<MicIcon />}>Speakers</Button>
+      </Link>
+      <Link href="/admin/news">
+        <Button icon={<NewspaperIcon />}>News</Button>
       </Link>
     </Space>
   );

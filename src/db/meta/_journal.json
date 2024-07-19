@@ -15,6 +15,13 @@
       "when": 1721246907818,
       "tag": "0001_wide_micromax",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1721416918027,
+      "tag": "0002_zippy_johnny_storm",
+      "breakpoints": true
     }
   ]
 }
