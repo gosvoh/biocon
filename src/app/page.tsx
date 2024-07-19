@@ -6,7 +6,6 @@ import Card from "@/components/card";
 import ButtonRegistration from "@/components/button.registration";
 import CarouselFeedback from "@/components/carousel.feedback";
 import Timeline from "@/components/timeline";
-import Carousel from "@/components/carousel";
 
 import HeroGlow from "@public/HeroGlow.svg";
 import SideGlow from "@public/SideGlow.svg";
@@ -30,11 +29,14 @@ import Khayrova from "@public/humans/Khayrova.jpg";
 import Polyansky from "@public/humans/Polyansky.jpg";
 import Tracey from "@public/humans/Tracey.jpg";
 
-import Media1 from "@public/media/1.png";
 import CardChoose from "@/components/card.choose";
 import Tag from "@/components/ui/tag";
 import Modal from "@/components/ui/modal";
 import { MapPin } from "lucide-react";
+import { Suspense } from "react";
+import NewsCarousel, { NewsSkeleton } from "@/components/news";
+
+export const dynamic = "force-dynamic";
 
 const LeftGlow = ({
   className,
@@ -259,7 +261,7 @@ export default function Home() {
                 </p>
                 <div className="tags">
                   <Tag
-                    text="Recognised and established researchers"
+                    text="Recognized and established researchers"
                     color="orange"
                   />
                   <Tag text="BioTech experts" color="orange" />
@@ -298,7 +300,7 @@ export default function Home() {
                 </p>
                 <div className="tags">
                   <Tag
-                    text="Recognised and established researchers"
+                    text="Recognized and established researchers"
                     color="orange"
                   />
                   <Tag text="BioTech experts" color="orange" />
@@ -368,7 +370,7 @@ export default function Home() {
               name: "Subhrajit Barua",
               affiliation: "ITMO University",
               description:
-                "BIOCON 2023 made me an integral part of the Faculty of Biotechnologies at ITMO University. I made some invaluable connections and expanded my networ",
+                "BIOCON 2023 made me an integral part of the Faculty of Biotechnologies at ITMO University. I made some invaluable connections and expanded my network",
               tg: "@subhrajit_barua",
             },
             {
@@ -387,23 +389,9 @@ export default function Home() {
 
       <section className="relative space-y-6 lg:space-y-9">
         <h2>NEWS</h2>
-        <Carousel
-          items={Array.from({ length: 5 }).map((_, i) => (
-            <div
-              key={`media-item-${i}`}
-              className="md:basis-1/2 xl:basis-1/3 fcol gap-6"
-            >
-              <Image src={Media1} alt="" className="w-full flex-1" />
-              <p>
-                Registration for BIOCON 2024 is now open! Read 5 reasons why you
-                need to become a conference participant
-              </p>
-              <Link href="#" className="underline">
-                Read more
-              </Link>
-            </div>
-          ))}
-        />
+        <Suspense fallback={<NewsSkeleton />}>
+          <NewsCarousel />
+        </Suspense>
         <LeftGlow />
       </section>
 
@@ -419,7 +407,7 @@ export default function Home() {
                   Aeroflot is the leading company in Russian commercial aviation
                   and the national carrier. Company was founded on 17 March 1923
                   and is both one of the oldest airlines in the world and one of
-                  the most recognisable Russian brands.
+                  the most recognizable Russian brands.
                 </p>
               </div>
             }
