@@ -40,8 +40,6 @@ import BigSideGlow from "@public/BigSideGlow.svg";
 import BottomGlow from "@public/BottomGlow.svg";
 import "./noise.css";
 
-import { plenary_speakers } from "@/app/biocon2023/speakers";
-
 const font = Architects_Daughter({
   subsets: ["latin"],
   weight: ["400"],
@@ -82,7 +80,7 @@ const LeftGlow = ({
   </div>
 );
 
-export default function MainPage({
+export default function Biocon2023Component({
   data,
 }: {
   data: (typeof Speakers2023.$inferSelect)[];
@@ -332,7 +330,7 @@ export default function MainPage({
                     >
                       <Image
                         className={"object-cover"}
-                        src={"/images" + speaker.image}
+                        src={"/images/" + speaker.image}
                         alt=""
                         fill
                       />
@@ -371,7 +369,7 @@ export default function MainPage({
                         >
                           <Image
                             className={"object-cover"}
-                            src={"/images" + speaker.image}
+                            src={"/images/" + speaker.image}
                             alt=""
                             fill
                           />

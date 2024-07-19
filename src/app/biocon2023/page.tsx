@@ -1,6 +1,6 @@
 import { biocon } from "@/db/db";
 import { Speakers2023 } from "@/db/schema";
-import MainPage from "@/app/biocon2023/MainPage";
+import Biocon2023Component from "@/app/biocon2023/biocon2023.component";
 
 export const dynamic = "force-dynamic";
 
@@ -13,5 +13,5 @@ export default async function PreviousBiocon() {
     console.error(e);
   }
 
-  return <MainPage data={data} />;
+  return <Biocon2023Component data={data} />;
 }
