@@ -30,7 +30,7 @@ export default function CardChoose({
             okButtonProps: { style: { boxShadow: "none" } },
           });
         }}
-        className="space-y-4"
+        className="space-y-4 gap-2 fcol"
         icon
       >
         <h3>{title}</h3>

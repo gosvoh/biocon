@@ -102,7 +102,7 @@ export default function PreviousPage() {
             className="block md:hidden w-full"
           />
         </div>
-        <div className="flex flex-col text-center">
+        <div className="fcol text-center">
           <h1 className="font-[500]">BIOCON 2023</h1>
           <h2
             className={cn(
@@ -115,7 +115,7 @@ export default function PreviousPage() {
         </div>
       </section>
 
-      <section className={"relative flex flex-col gap-8"}>
+      <section className={"relative fcol gap-8"}>
         <div className={"lg:flex lg:flex-col hidden relative gap-8"}>
           <Image
             src={boom_right}
@@ -214,7 +214,7 @@ export default function PreviousPage() {
             className="absolute -left-12 -bottom-[6rem] w-16"
           />
         </div>
-        <div className={"relative flex flex-col gap-4 lg:hidden"}>
+        <div className={"relative fcol gap-4 lg:hidden"}>
           <div className={"relative flex justify-between"}>
             <Image
               src={boom_left}
@@ -239,7 +239,7 @@ export default function PreviousPage() {
 
       <section>
         <h2 className="font-normal">Conference results</h2>
-        <div className={"flex flex-col gap-10"}>
+        <div className={"fcol gap-10"}>
           <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
             <iframe
               className="absolute top-0 left-0 w-full h-full rounded-[16px]"
@@ -250,7 +250,7 @@ export default function PreviousPage() {
             ></iframe>
           </div>
           <div className="grid grid-cols-2 grid-rows-2 gap-12 text-center font-light lg:grid-cols-4 lg:grid-rows-1 lg:text-2xl text-xl ">
-            <div className={"flex flex-col gap-2 lg:gap-3"}>
+            <div className={"fcol gap-2 lg:gap-3"}>
               <h1
                 className={cn(
                   "m-0 text-[#A659FF] font-light text-4xl lg:text-7xl",
@@ -264,7 +264,7 @@ export default function PreviousPage() {
                 countries
               </p>
             </div>
-            <div className={"flex flex-col gap-1 lg:gap-3"}>
+            <div className={"fcol gap-1 lg:gap-3"}>
               <h2
                 className={cn(
                   "m-0  text-[#7DEB9A] font-light text-4xl lg:text-7xl",
@@ -275,7 +275,7 @@ export default function PreviousPage() {
               </h2>
               <p>participants</p>
             </div>
-            <div className={"flex flex-col gap-1 lg:gap-3"}>
+            <div className={"fcol gap-1 lg:gap-3"}>
               <h2
                 className={cn(
                   "m-0 text-[#7DEB9A] lg:text-[#A659FF] font-light text-4xl lg:text-7xl",
@@ -288,7 +288,7 @@ export default function PreviousPage() {
                 speakers <br /> and experts
               </p>
             </div>
-            <div className={"flex flex-col gap-1 lg:gap-3"}>
+            <div className={"fcol gap-1 lg:gap-3"}>
               <h2
                 className={cn(
                   "m-0 text-[#A659FF] lg:text-[#7DEB9A] font-light text-4xl lg:text-7xl",
@@ -303,7 +303,7 @@ export default function PreviousPage() {
         </div>
       </section>
 
-      <section className="relative flex flex-col gap-3 lg:gap-6">
+      <section className="relative fcol gap-3 lg:gap-6">
         <h2 className="font-normal m-0">BIOCON’23 speakers</h2>
         <h3 className="font-normal lg:mb-6 mb-2">Plenary speakers</h3>
         <div className="hidden grid-cols-4 gap-14 lg:grid">
