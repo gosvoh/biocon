@@ -55,10 +55,12 @@ const prepareSpeakers = (speakers: (typeof Speakers2023.$inferSelect)[]) => {
     return accumulator;
   }, [] as string[]);
 
-  return typesOfSpeakers.map((type) => {
-    const typeData = speakers.filter((speaker) => speaker.type === type);
-    return { type, speakersData: typeData };
-  });
+  return typesOfSpeakers
+    .map((type) => {
+      const typeData = speakers.filter((speaker) => speaker.type === type);
+      return { type, speakersData: typeData };
+    })
+    .reverse();
 };
 
 const LeftGlow = ({
@@ -313,61 +315,82 @@ export default function MainPage({
 
       <section className="relative fcol gap-3 lg:gap-6">
         <h2 className="font-normal m-0">BIOCON’23 speakers</h2>
-        {preparedData.map((speakerData) => (
-          <>
-            <h3 className="font-normal lg:mb-6 mb-2">{speakerData.type}</h3>
-            <div className="hidden grid-cols-4 gap-14 lg:grid">
-              {speakerData.speakersData.map((speaker, index) => (
-                <div
-                  key={index}
-                  className="grid grid-rows-[1fr,0.5fr] xl:grid-rows-[1fr,0.3fr] gap-5"
-                >
-                  <Image
-                    className="rounded-[28px] h-full object-cover aspect-square"
-                    src={"/" + speaker.image}
-                    alt=""
-                    layout="fill"
-                  />
-                  <div>
-                    <p className={"text-center"}>{speaker.name}</p>
-                    <p className={"font-light text-lg text-center"}>
-                      {speaker.university}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </>
-        ))}
-        <div className={"lg:hidden"}>
-          <Carousel>
-            <CarouselContent>
-              {data.map((speaker, index) => (
-                <CarouselItem
-                  key={index}
-                  className={"md:basis-1/2 xl:basis-1/3"}
-                >
-                  <div key={index} className="grid grid-rows-[1fr,0.4fr] gap-5">
-                    <Image
-                      className="rounded-[28px] h-full object-cover aspect-square"
-                      src={"/" + speaker.image}
-                      alt=""
-                      layout="fill"
-                      objectFit="cover"
-                    />
+        <div className={"hidden lg:block"}>
+          {preparedData.map((speakerData) => (
+            <>
+              <h3 className="font-normal mb-6">{speakerData.type}</h3>
+              <div className="grid-cols-4 gap-14 grid">
+                {speakerData.speakersData.map((speaker, index) => (
+                  <div
+                    key={index}
+                    className="grid grid-rows-[1fr,0.5fr] xl:grid-rows-[1fr,0.3fr] gap-5"
+                  >
+                    <div
+                      className={
+                        "relative rounded-[28px] overflow-hidden aspect-square w-full"
+                      }
+                    >
+                      <Image
+                        className={"object-cover"}
+                        src={"/images" + speaker.image}
+                        alt=""
+                        fill
+                      />
+                    </div>
                     <div>
                       <p className={"text-center"}>{speaker.name}</p>
-                      <p className={"font-light lg:text-lg text-center"}>
+                      <p className={"font-light text-lg text-center"}>
                         {speaker.university}
                       </p>
                     </div>
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+                ))}
+              </div>
+            </>
+          ))}
+        </div>
+        <div className={"lg:hidden"}>
+          {preparedData.map((speakerData) => (
+            <>
+              <h3 className="font-normal mb-6">{speakerData.type}</h3>
+              <Carousel>
+                <CarouselContent>
+                  {speakerData.speakersData.map((speaker, index) => (
+                    <CarouselItem
+                      key={index}
+                      className={"md:basis-1/2 xl:basis-1/3"}
+                    >
+                      <div
+                        key={index}
+                        className="grid grid-rows-[1fr,0.3fr] gap-5"
+                      >
+                        <div
+                          className={
+                            "relative rounded-[28px] overflow-hidden aspect-square w-full"
+                          }
+                        >
+                          <Image
+                            className={"object-cover"}
+                            src={"/images" + speaker.image}
+                            alt=""
+                            fill
+                          />
+                        </div>
+                        <div>
+                          <p className={"text-center"}>{speaker.name}</p>
+                          <p className={"font-light lg:text-lg text-center"}>
+                            {speaker.university}
+                          </p>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            </>
+          ))}
         </div>
       </section>
       <LeftGlow className={"ml-20 w-[150%] h-fit"} />
