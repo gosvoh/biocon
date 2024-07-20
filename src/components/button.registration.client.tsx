@@ -15,6 +15,7 @@ import { use, useEffect, useMemo, useRef, useState } from "react";
 import type { Cities, Registrations } from "@/db/schema";
 import Link from "next/link";
 import { modalProps } from "./ui/modal";
+import { register } from "./button.registration.actions";
 
 type RegisterFormValues = typeof Registrations.$inferInsert & {
   captchaToken: string;
@@ -459,8 +460,14 @@ export default function ButtonRegistrationClient({
             okText: "Send",
             cancelText: "Cancel",
             className: "max-h-[90vh] overflow-y-auto",
-            onOk: () => {
-              form.submit();
+            onOk: async () => {
+              try {
+                const values = await form.validateFields();
+                await register(values);
+              } catch (e) {
+                console.error(e);
+                return Promise.reject(e);
+              }
             },
             onCancel: () => {
               form.resetFields();
