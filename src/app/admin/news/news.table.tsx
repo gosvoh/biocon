@@ -58,6 +58,7 @@ const EditForm = ({
       name="image"
       label="Image"
       valuePropName="fileList"
+      rules={[{ required: !!data ? false : true }]}
       getValueFromEvent={(e) => e.fileList}
     >
       <Upload
