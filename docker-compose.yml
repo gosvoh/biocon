@@ -8,7 +8,7 @@ services:
     container_name: biocon-db
     restart: always
     networks:
-      - default
+      - nginx
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
@@ -22,7 +22,6 @@ services:
     restart: always
     networks:
       - nginx
-      - default
     volumes:
       - uploads:/app/uploads
     depends_on:
