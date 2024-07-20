@@ -29,12 +29,12 @@ export default function CarouselFeedback({
         items={cardContent.map((content, i) => {
           const CardContent = ({ tgLink }: { tgLink?: boolean }) => (
             <>
-              <div className={"fcol gap-4 w-full"}>
-                <div className="flex flex-row gap-6 md:gap-6 items-center max-w-none">
+              <div className={"fcol gap-4  w-full"}>
+                <div className="flex flex-row gap-6 items-center max-w-none">
                   <Image
                     src={content.icon}
                     alt={content.name}
-                    className="aspect-square w-20 lg:w-24 object-cover rounded-full object-center"
+                    className="aspect-square w-16 lg:w-24 object-cover rounded-full object-center"
                     sizes="6rem"
                   />
                   <h3>
