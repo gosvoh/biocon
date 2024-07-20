@@ -69,27 +69,5 @@ export const News = pgTable("News", {
 export const Cities = pgTable("Cities", {
   geoname_id: integer("geoname_id").primaryKey().notNull(),
   name: text("name").notNull(),
-  ascii_name: text("ascii_name").notNull(),
-  alternate_names: text("alternate_names").notNull(),
-  feature_class: text("feature_class").notNull(),
-  feature_code: text("feature_code").notNull(),
   country_code: text("country_code").notNull(),
-  cou_name_en: text("cou_name_en").notNull(),
-  country_code_2: text("country_code_2").notNull(),
-  admin1_code: text("admin1_code").notNull(),
-  admin2_code: text("admin2_code").notNull(),
-  admin3_code: text("admin3_code").notNull(),
-  admin4_code: text("admin4_code").notNull(),
-  population: integer("population").notNull(),
-  elevation: integer("elevation").notNull(),
-  dem: integer("dem").notNull(),
-  timezone: text("timezone").notNull(),
-  modification_date: timestamp("modification_date", {
-    precision: 3,
-    mode: "string",
-  })
-    .defaultNow()
-    .notNull(),
-  label_en: text("label_en").notNull(),
-  coordinates: text("coordinates").notNull(),
 });
