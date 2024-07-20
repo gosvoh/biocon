@@ -1,5 +1,6 @@
 import { Button, Space } from "antd";
 import {
+  ContactIcon,
   Mic2Icon,
   MicIcon,
   NewspaperIcon,
@@ -21,6 +22,9 @@ export default function Admin() {
       </Link>
       <Link href="/admin/news">
         <Button icon={<NewspaperIcon />}>News</Button>
+      </Link>
+      <Link href="/admin/organizers">
+        <Button icon={<ContactIcon />}>Organizers</Button>
       </Link>
     </Space>
   );
