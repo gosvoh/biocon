@@ -125,6 +125,29 @@
     @apply flex flex-col;
   }
 
+  /* custom.css */
+  .link-hover-underline {
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .link-hover-underline::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: currentColor; /* Используем текущий цвет текста */
+    transition: width 0.3s ease-in-out;
+  }
+
+  .link-hover-underline:hover::after {
+    width: 100%;
+  }
+
+
   .timeline {
     .dot,
     .dotted {

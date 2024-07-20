@@ -35,7 +35,7 @@ import Modal from "@/components/ui/modal";
 import { MapPin } from "lucide-react";
 import { Suspense } from "react";
 import NewsCarousel, { NewsSkeleton } from "@/components/news";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 export const dynamic = "force-dynamic";
 

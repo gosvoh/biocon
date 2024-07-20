@@ -46,7 +46,6 @@ const font = Architects_Daughter({
 });
 
 const prepareSpeakers = (speakers: (typeof Speakers2023.$inferSelect)[]) => {
-
   const typeOrder = [
     "Plenary speakers",
     "Genomics and structural biology",
@@ -58,14 +57,17 @@ const prepareSpeakers = (speakers: (typeof Speakers2023.$inferSelect)[]) => {
     "Biotech Open Mic",
   ];
 
-  const typesOfSpeakers = speakers.reduce((accumulator, currentValue) => {
-    if (accumulator.indexOf(currentValue.type) == -1) {
-      accumulator.push(currentValue.type);
-    }
-    return accumulator;
-  }, [] as string[]).sort((a,b)=>{
-    return typeOrder.indexOf(a)-typeOrder.indexOf(b)
-  }).reverse();
+  const typesOfSpeakers = speakers
+    .reduce((accumulator, currentValue) => {
+      if (accumulator.indexOf(currentValue.type) == -1) {
+        accumulator.push(currentValue.type);
+      }
+      return accumulator;
+    }, [] as string[])
+    .sort((a, b) => {
+      return typeOrder.indexOf(a) - typeOrder.indexOf(b);
+    })
+    .reverse();
 
   return typesOfSpeakers
     .map((type) => {

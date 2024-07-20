@@ -19,13 +19,13 @@ const Socials = ({ className }: { className?: string }) => (
       className,
     )}
   >
-    <Link href={"#"}>
+    <Link href={"https://www.youtube.com/@BIOCON_2023"} target={"_blank"}>
       <SiYoutube className="w-10 h-10" />
     </Link>
-    <Link href={"#"}>
+    <Link href={"https://t.me/BIOCON_2023"} target={"_blank"}>
       <SiTelegram className="w-10 h-10" />
     </Link>
-    <Link href={"#"}>
+    <Link href={"https://vk.com/biocon"} target={"_blank"}>
       <SiVk className="w-10 h-10" />
     </Link>
   </div>
@@ -41,18 +41,27 @@ export default function Footer() {
               <Image src={NavLogo} alt="Biocon" className="h-full" />
               <Socials className="max-lg:hidden" />
             </div>
-            <div className="grid grid-rows-3 grid-flow-col gap-6 lg:max-w-1/3 md: max-w-3/4">
+            <div className="grid grid-rows-3 grid-flow-col gap-6 lg:max-w-1/3 md:max-w-3/4">
               {links.map((x, i) => (
-                <Link href={x.href} key={`footer-link-${i}`}>
-                  <p>{x.title}</p>
-                </Link>
+                <div key={`footer-link-${i}`}>
+                  <Link className="link-hover-underline" href={x.href}>
+                    {x.title}
+                  </Link>
+                </div>
               ))}
             </div>
             <Socials className="lg:hidden" />
             <div className="fcol 2xl:flex-row justify-between gap-6">
               <p>ITMO University</p>
-              <Link href="mailto:biocon@itmo.ru">biocon@itmo.ru</Link>
-              <Link href="/policy.pdf">Privacy policy</Link>
+              <Link
+                className="link-hover-underline"
+                href="mailto:biocon@itmo.ru"
+              >
+                biocon@itmo.ru
+              </Link>
+              <Link className="link-hover-underline" href="/policy.pdf">
+                Privacy policy
+              </Link>
             </div>
           </div>
           <YandexMap className="hidden lg:block flex-1 max-w-1/2" />

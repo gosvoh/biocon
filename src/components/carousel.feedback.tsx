@@ -29,16 +29,21 @@ export default function CarouselFeedback({
         items={cardContent.map((content, i) => {
           const CardContent = ({ tgLink }: { tgLink?: boolean }) => (
             <>
-              <div className="flex flex-row gap-4 md:gap-6 items-center max-w-none">
-                <Image
-                  src={content.icon}
-                  alt={content.name}
-                  className="aspect-square w-20 object-cover rounded-full object-center"
-                  sizes="6rem"
-                />
-                <h3>{content.name}</h3>
+              <div className={"fcol gap-4 w-full"}>
+                <div className="flex flex-row gap-6 md:gap-6 items-center max-w-none">
+                  <Image
+                    src={content.icon}
+                    alt={content.name}
+                    className="aspect-square w-20 lg:w-24 object-cover rounded-full object-center"
+                    sizes="6rem"
+                  />
+                  <h3>
+                    {content.name.split(" ")[0]} <br />{" "}
+                    {content.name.split(" ")[1]}
+                  </h3>
+                </div>
+                <p className={"lg:text-base"}>{content.affiliation}</p>
               </div>
-              <p>{content.affiliation}</p>
               <p>{content.description}</p>
               {tgLink ? (
                 <Link

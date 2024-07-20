@@ -64,7 +64,15 @@ export default async function SpeakersPage() {
         <div className={"hidden flex-col gap-5 lg:flex"}>
           {speakers.map((speaker, index) => (
             <Card key={index} className="p-0 relative">
-                  <Image alt={""} width={"90"} height={"180"} src={findCountryFlagByName(speaker.country)} className={"absolute right-10 top-10 border-white border-[1px] rounded-[10px]"}/>
+              <Image
+                alt={""}
+                width={"90"}
+                height={"180"}
+                src={findCountryFlagByName(speaker.country)}
+                className={
+                  "absolute right-10 top-10 border-white border-[1px] rounded-[10px]"
+                }
+              />
               <div className={"grid grid-cols-[1fr_2fr] "}>
                 <div
                   className={
@@ -113,7 +121,15 @@ export default async function SpeakersPage() {
                   "relative rounded-t-[16px] overflow-hidden aspect-[5/4] w-full"
                 }
               >
-                <Image alt={""} width={"70"} height={"140"} src={findCountryFlagByName("India")} className={"absolute right-5 top-5 z-20 border-white border-[1px] rounded-[10px]"}/>
+                <Image
+                  alt={""}
+                  width={"70"}
+                  height={"140"}
+                  src={findCountryFlagByName("India")}
+                  className={
+                    "absolute right-5 top-5 z-20 border-white border-[1px] rounded-[10px]"
+                  }
+                />
                 <Image
                   className={"object-cover z-10 aspect-auto"}
                   src={"/images/" + speaker.image}

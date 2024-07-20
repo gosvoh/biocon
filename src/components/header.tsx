@@ -52,7 +52,11 @@ const MobileNav = () => (
 const DesktopNav = () => (
   <nav className="hidden lg:inline-flex gap-6 text-left bg-secondary py-5 px-10 rounded-full">
     {links.map(({ href, title }, i) => (
-      <Link key={`link-${i}`} href={href}>
+      <Link
+        className={"link-hover-underline no-underline hover:no-underline"}
+        key={`link-${i}`}
+        href={href}
+      >
         {title}
       </Link>
     ))}
@@ -68,7 +72,11 @@ export default function Header() {
         </Link>
         <MobileNav />
         <DesktopNav />
-        <Link href="#" className="hidden lg:block">
+        <Link
+          href="https://t.me/BIOCON_2023"
+          className="hidden lg:block"
+          target={"_blank"}
+        >
           <SiTelegram className="w-10 h-10" />
         </Link>
       </div>
