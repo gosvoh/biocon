@@ -9,6 +9,7 @@ import {
   Input,
   InputRef,
   Modal,
+  Radio,
   Select,
 } from "antd";
 import { use, useEffect, useMemo, useRef, useState } from "react";
@@ -252,124 +253,136 @@ const RegForm = ({
           },
         ]}
       >
-        <Select
-          placeholder="Participation Type"
-          options={[
+        <Radio.Group>
+          <Radio value="Attendee">
+            Attendee. Participate in all conference events!
+          </Radio>
+          <Radio value="Contributed speaker">
+            Contributed speaker. Become part of one of the parallel sessions!
+          </Radio>
+          <Radio value="Participant of BioTech Open Mic">
+            Participant of BioTech Open Mic. Present your research in an
+            entertaining way in only 10 minutes!
+          </Radio>
+        </Radio.Group>
+      </Form.Item>
+
+      {selectedParticipationType === "Attendee" && (
+        <Form.Item<RegisterFormValues>
+          name="motivationLetter"
+          label="Motivation letter"
+          tooltip="Please write in English"
+          rules={[
             {
-              value: "Attendee",
-              label: "Attendee. Participate in all conference events!",
-            },
-            {
-              value: "Contributed speaker",
-              label:
-                "Contributed speaker. Become part of one of the parallel sessions!",
-            },
-            {
-              value: "Participant of BioTech Open Mic",
-              label:
-                "Participant of BioTech Open Mic. Present your research in an entertaining way in only 10 minutes!",
+              required: selectedParticipationType === "Attendee",
+              message: "Please enter your motivation letter",
             },
           ]}
-        />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="motivationLetter"
-        label="Motivation letter"
-        tooltip="Please write in English"
-        rules={[
-          {
-            required: selectedParticipationType === "Attendee",
-            message: "Please enter your motivation letter",
-          },
-        ]}
-      >
-        <Input.TextArea
-          rows={4}
-          placeholder={`Questions to be answered in the motivation letter (volume: 1-2 pages):
+        >
+          <Input.TextArea
+            rows={4}
+            placeholder={`Questions to be answered in the motivation letter (volume: 1-2 pages):
 - Why would your participation be valuable to the conference and its participants?
 - Describe your experience in the field of biotechnology (study / work / projects)
 - What are your expectations from the conference?`}
-        />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="researchInterests"
-        label="Research interests"
-        rules={[
-          {
-            required:
-              !!selectedParticipationType &&
-              selectedParticipationType !== "Attendee",
-            message: "Please enter your research interests",
-          },
-        ]}
-      >
-        <Input placeholder="Enter your research interest(s) here" />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="tentativeTitle"
-        label="Tentative title"
-        rules={[
-          {
-            required: selectedParticipationType === "Contributed speaker",
-            message: "Please enter your tentative title",
-          },
-        ]}
-      >
-        <Input placeholder="Enter the tentative title of your talk here" />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="resume"
-        label="Resume"
-        tooltip="Please write in English"
-        rules={[
-          {
-            required: selectedParticipationType === "Contributed speaker",
-            message: "Please provide a link to your resume",
-          },
-          { type: "url", message: "Please enter a valid url" },
-        ]}
-      >
-        <Input placeholder="Provide a link to your resume in PDF format" />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="scienceProfile"
-        label="Science profile"
-        rules={[
-          {
-            required:
-              !!selectedParticipationType &&
-              selectedParticipationType !== "Attendee",
-            message:
-              "Please enter your Google Scholar, Scopus or ORCID profile",
-          },
-          { type: "url", message: "Please enter a valid url" },
-        ]}
-      >
-        <Input placeholder="Provide a link to your Google Scholar, Scopus or ORCID profile" />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="video"
-        label="Video"
-        rules={[
-          {
-            required:
-              !!selectedParticipationType &&
-              selectedParticipationType !== "Attendee",
-            message: "Please enter your video",
-          },
-          { type: "url", message: "Please enter a valid url" },
-        ]}
-      >
-        <Input
-          placeholder={
-            ["Contributed speaker", "Attendee"].includes(
-              selectedParticipationType,
-            )
-              ? "Provide a link to a short self-presentation video"
-              : "Provide a link to a teaser of your talk"
-          }
-        />
-      </Form.Item>
+          />
+        </Form.Item>
+      )}
+
+      {!!selectedParticipationType &&
+        selectedParticipationType !== "Attendee" && (
+          <Form.Item<RegisterFormValues>
+            name="researchInterests"
+            label="Research interests"
+            rules={[
+              {
+                required:
+                  !!selectedParticipationType &&
+                  selectedParticipationType !== "Attendee",
+                message: "Please enter your research interests",
+              },
+            ]}
+          >
+            <Input placeholder="Enter your research interest(s) here" />
+          </Form.Item>
+        )}
+
+      {selectedParticipationType === "Contributed speaker" && (
+        <>
+          <Form.Item<RegisterFormValues>
+            name="tentativeTitle"
+            label="Tentative title"
+            rules={[
+              {
+                required: selectedParticipationType === "Contributed speaker",
+                message: "Please enter your tentative title",
+              },
+            ]}
+          >
+            <Input placeholder="Enter the tentative title of your talk here" />
+          </Form.Item>
+          <Form.Item<RegisterFormValues>
+            name="resume"
+            label="Resume"
+            tooltip="Please write in English"
+            rules={[
+              {
+                required: selectedParticipationType === "Contributed speaker",
+                message: "Please provide a link to your resume",
+              },
+              { type: "url", message: "Please enter a valid url" },
+            ]}
+          >
+            <Input placeholder="Provide a link to your resume in PDF format" />
+          </Form.Item>
+        </>
+      )}
+
+      {!!selectedParticipationType &&
+        selectedParticipationType !== "Attendee" && (
+          <>
+            <Form.Item<RegisterFormValues>
+              name="scienceProfile"
+              label="Science profile"
+              rules={[
+                {
+                  required:
+                    !!selectedParticipationType &&
+                    selectedParticipationType !== "Attendee",
+                  message:
+                    "Please enter your Google Scholar, Scopus or ORCID profile",
+                },
+                { type: "url", message: "Please enter a valid url" },
+              ]}
+            >
+              <Input placeholder="Provide a link to your Google Scholar, Scopus or ORCID profile" />
+            </Form.Item>
+            <Form.Item<RegisterFormValues>
+              name="video"
+              label="Video"
+              rules={[
+                {
+                  required:
+                    !!selectedParticipationType &&
+                    selectedParticipationType !== "Attendee",
+                  message: "Please enter your video",
+                },
+                { type: "url", message: "Please enter a valid url" },
+              ]}
+            >
+              <Input
+                placeholder={
+                  ["Contributed speaker", "Attendee"].includes(
+                    selectedParticipationType,
+                  )
+                    ? "Provide a link to a short self-presentation video"
+                    : "Provide a link to a teaser of your talk"
+                }
+              />
+            </Form.Item>
+          </>
+        )}
+
       <Form.Item<RegisterFormValues>
         name="personalData"
         valuePropName="checked"
