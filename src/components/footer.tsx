@@ -9,7 +9,7 @@ import YandexMap from "./yandex.map";
 import { SiYoutube, SiVk, SiTelegram } from "@icons-pack/react-simple-icons";
 import PHS from "@public/agni.png";
 import ITMO from "@public/itmo.png";
-import PISH from "@public/pish.png";
+import PISH from "@public/pish.svg";
 
 const Socials = ({ className }: { className?: string }) => (
   <div
@@ -78,7 +78,7 @@ export default function Footer() {
             className="invert transform scale-150"
           />
         </Link>
-        <Link href={"https://www.tatneft.ru/en"} target={"_blank"}>
+        <Link href={"https://www.tatneft.ru/en"} target={"_blank"} className={"mb-4 lg:-mt-4 "}>
           <Image src={Tatneft} alt="Tatneft" />
         </Link>
         <Link href={"https://pish.itmo.ru/"} target={"_blank"}>

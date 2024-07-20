@@ -44,7 +44,7 @@ export default async function NewsCarousel() {
           key={`media-item-${i}`}
           className="md:basis-1/2 xl:basis-1/3 fcol gap-6"
         >
-          <Image src={`/images/${x.image}`} alt="" className="w-full flex-1" />
+          <Image src={`/images/${x.image}`} alt="" className="w-full flex-1 rounded-[16px] lg:rounded-[28px]"/>
           <p>{x.title}</p>
           <Link href={x.href} className="underline">
             Read more
