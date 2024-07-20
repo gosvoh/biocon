@@ -65,3 +65,10 @@ export const News = pgTable("News", {
   href: text("href").notNull(),
   image: text("image").notNull(),
 });
+
+export const Cities = pgTable("Cities", {
+  geoname_id: integer("geoname_id").primaryKey().notNull(),
+  ascii_name: text("name").notNull(),
+  cou_name_en: text("cou_name_en").notNull(),
+  country_code: text("country_code").notNull(),
+});
