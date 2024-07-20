@@ -4,7 +4,7 @@ interface FlagMap {
 
 const NoFlag = "https://www.svgrepo.com/show/398539/unknown-flag.svg";
 
-const flags: FlagMap = {
+export const flags: FlagMap = {
   Afghanistan:
     "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Afghanistan.svg",
   Albania:

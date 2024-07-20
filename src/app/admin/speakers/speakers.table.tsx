@@ -7,6 +7,7 @@ import {
   FormInstance,
   Image,
   Input,
+  MenuProps,
   Modal,
   Popconfirm,
   Select,
@@ -26,6 +27,7 @@ import {
 import { add, remove, update } from "./actions";
 import Link from "next/link";
 import { useMemo } from "react";
+import { flags } from "@/app/speakers/country.flags";
 
 const EditForm = ({
   form,
@@ -98,7 +100,11 @@ const EditForm = ({
       label="Country"
       rules={[{ required: true }]}
     >
-      <Input />
+      <Select
+        options={Object.keys(flags).map((country) => {
+          return { value: country, label: country };
+        })}
+      />
     </Form.Item>
     <Form.Item<typeof Speakers.$inferInsert>
       name="image"
