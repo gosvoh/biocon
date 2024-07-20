@@ -78,7 +78,11 @@ export default function Footer() {
             className="invert transform scale-150"
           />
         </Link>
-        <Link href={"https://www.tatneft.ru/en"} target={"_blank"} className={"mb-4 lg:-mt-4 "}>
+        <Link
+          href={"https://www.tatneft.ru/en"}
+          target={"_blank"}
+          className={"mb-4 lg:-mt-4 "}
+        >
           <Image src={Tatneft} alt="Tatneft" />
         </Link>
         <Link href={"https://pish.itmo.ru/"} target={"_blank"}>

@@ -1,11 +1,11 @@
 "use client";
 
 import { ReactifiedModule } from "@yandex/ymaps3-types/reactify";
-import { GraduationCap } from "lucide-react";
-import Link from "next/link";
+import Image from "next/image";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import Biocon2024Logo from "@public/biocon2024logo.png";
 
 export type ReactifyApi = ReactifiedModule<
   typeof import("@yandex/ymaps3-types")
@@ -26,19 +26,14 @@ const Map = ({ api }: { api: ReactifyApi | null }) => {
     <YMap
       location={{ center: [52.289424, 54.897868], zoom: 17 }}
       behaviors={["drag"]}
-      className="grayscale"
     >
       <YMapDefaultSchemeLayer />
       <YMapDefaultFeaturesLayer />
       <YMapControls position="left" />
-
-      <YMapMarker coordinates={[52.289424, 54.898]}>
-        <Link href={"https://itmo.ru"} target="_blank">
-          <div className="bg-black hover:bg-slate-700 transition-all text-white rounded-full px-4 py-2 flex flex-row gap-2 text-nowrap items-center text-xl md:text-2xl">
-            <GraduationCap className="w-5 h-5 md:w-10 md:h-10" />
-            Университет ИТМО
-          </div>
-        </Link>
+      <YMapMarker coordinates={[52.289424, 54.898]} >
+        <div className={"w-64"}>
+          <Image src={Biocon2024Logo} alt={""}/>
+        </div>
       </YMapMarker>
     </YMap>
   );
