@@ -10,7 +10,12 @@ import {
   Space,
   Table,
 } from "antd";
-import { ArrowLeft, EditIcon, PlusCircleIcon } from "lucide-react";
+import {
+  ArrowLeft,
+  DownloadIcon,
+  EditIcon,
+  PlusCircleIcon,
+} from "lucide-react";
 import { add, remove, update } from "./actions";
 import dayjs from "dayjs";
 import type { Registrations } from "@/db/schema";
@@ -171,6 +176,12 @@ export default function RegistrationsTable({
                 })
               }
             />
+            <Button
+              icon={<DownloadIcon />}
+              href="/admin/registrations/download"
+            >
+              Download
+            </Button>
           </Space>
         )}
         scroll={{ x: "max-content" }}
