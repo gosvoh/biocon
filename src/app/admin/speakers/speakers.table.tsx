@@ -30,9 +30,11 @@ import { useMemo } from "react";
 const EditForm = ({
   form,
   data,
+  countries,
 }: {
   form: FormInstance;
   data?: typeof Speakers.$inferInsert;
+  countries: string[];
 }) => (
   <Form<typeof Speakers.$inferInsert>
     labelCol={{ span: 8 }}
@@ -98,7 +100,16 @@ const EditForm = ({
       label="Country"
       rules={[{ required: true }]}
     >
-      <Input />
+      <Select
+        options={countries.map((x) => ({ label: x, value: x }))}
+        showSearch
+        filterSort={(a, b) => a.value.localeCompare(b.value)}
+        filterOption={(input, option) =>
+          !option
+            ? false
+            : option.value.toLowerCase().includes(input.toLowerCase())
+        }
+      />
     </Form.Item>
     <Form.Item<typeof Speakers.$inferInsert>
       name="image"
@@ -121,8 +132,10 @@ const EditForm = ({
 
 export default function SpeakersTable({
   data,
+  countries,
 }: {
   data: (typeof Speakers.$inferSelect)[];
+  countries: string[];
 }) {
   const [modal, context] = Modal.useModal();
   const [form] = Form.useForm<typeof Speakers.$inferInsert>();
@@ -174,7 +187,7 @@ export default function SpeakersTable({
                       return Promise.reject(e);
                     }
                   },
-                  content: <EditForm form={form} />,
+                  content: <EditForm countries={countries} form={form} />,
                 });
               }}
             />
@@ -214,7 +227,9 @@ export default function SpeakersTable({
                       centered: true,
                       icon: null,
                       okButtonProps: { style: { boxShadow: "none" } },
-                      content: <EditForm form={form} data={x} />,
+                      content: (
+                        <EditForm countries={countries} form={form} data={x} />
+                      ),
                       onOk: async (_) => {
                         try {
                           const val: typeof Speakers.$inferInsert & {

@@ -103,6 +103,12 @@
 }
 
 @layer components {
+  .main-button {
+    @apply rounded-full text-white bg-accent hover:bg-hover px-[52px] py-3 text-base md:text-xl;
+    @apply block mx-auto w-full md:w-fit;
+    @apply transition-all duration-300;
+  }
+
   .text-balance {
     text-wrap: balance;
   }

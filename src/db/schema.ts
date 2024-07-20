@@ -68,6 +68,7 @@ export const News = pgTable("News", {
 
 export const Cities = pgTable("Cities", {
   geoname_id: integer("geoname_id").primaryKey().notNull(),
-  name: text("name").notNull(),
+  ascii_name: text("name").notNull(),
+  cou_name_en: text("cou_name_en").notNull(),
   country_code: text("country_code").notNull(),
 });

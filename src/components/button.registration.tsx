@@ -1,22 +1,32 @@
-import { cn } from "@/lib/utils";
+import { Cities } from "@/db/schema";
+import ButtonRegistrationClient from "./button.registration.client";
+import { biocon } from "@/db/db";
 
-export default function ButtonRegistration({
+export default async function ButtonRegistration({
   className,
   text = "Registration",
 }: {
   className?: string;
   text?: string;
 }) {
+  let cities: (typeof Cities.$inferSelect)[] = [];
+  let countries: { name: string; code: string }[] = [];
+
+  try {
+    cities = await biocon.select().from(Cities);
+    countries = await biocon
+      .selectDistinct({ name: Cities.cou_name_en, code: Cities.country_code })
+      .from(Cities);
+  } catch (e) {
+    console.error(e);
+  }
+
   return (
-    <button
-      className={cn(
-        "rounded-full text-white bg-accent hover:bg-hover px-[52px] py-3 text-base md:text-xl",
-        "block mx-auto w-full md:w-fit ",
-        "transition-all duration-300",
-        className,
-      )}
-    >
-      {text}
-    </button>
+    <ButtonRegistrationClient
+      cities={cities}
+      countries={countries}
+      className={className}
+      text={text}
+    />
   );
 }
