@@ -35,6 +35,7 @@ import Modal from "@/components/ui/modal";
 import { MapPin } from "lucide-react";
 import { Suspense } from "react";
 import NewsCarousel, { NewsSkeleton } from "@/components/news";
+import {Button} from "@/components/ui/button";
 
 export const dynamic = "force-dynamic";
 
@@ -152,9 +153,9 @@ export default function Home() {
             className="col-start-3 -col-end-1 md:max-lg:mx-auto px-0 mr-0 hidden lg:block self-end object-cover row-[1] translate-x-[15%] h-[110%]"
           />
           <div className="lg:absolute bottom-10 left-1/2 lg:-translate-x-1/2 md:max-lg:my-10">
-            <Link className="mx-auto" href={"/biocon2023"}>
-              Recap BIOCON 2023
-            </Link>
+            <button className={cn("main-button")}>
+              <a href={"/biocon2023"}>Recap BIOCON 2023</a>
+            </button>
           </div>
         </div>
         <RightGlow className="max-lg:hidden h-[150%]" />

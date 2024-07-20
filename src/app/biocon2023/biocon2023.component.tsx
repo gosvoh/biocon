@@ -335,7 +335,7 @@ export default function Biocon2023Component({
                 {speakerData.speakersData.map((speaker, index) => (
                   <div
                     key={index}
-                    className="grid grid-rows-[1fr,0.5fr] xl:grid-rows-[1fr,0.3fr] gap-5"
+                    className="grid grid-rows-[1fr,0.5fr] xl:grid-rows-[1fr,0.3fr] gap-6"
                   >
                     <div
                       className={

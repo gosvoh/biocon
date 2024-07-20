@@ -64,14 +64,8 @@ export default async function SpeakersPage() {
         <div className={"hidden flex-col gap-5 lg:flex"}>
           {speakers.map((speaker, index) => (
             <Card key={index} className="p-0 relative">
-              <Avatar className={"absolute right-12 top-12 w-16 h-16"}>
-                <AvatarImage
-                  src={findCountryFlagByName(speaker.country)}
-                  alt={""}
-                  className={"scale-150 aspect-square"}
-                />
-              </Avatar>
-              <div className={"grid grid-cols-[1.5fr_2.4fr] "}>
+                  <Image alt={""} width={"90"} height={"180"} src={findCountryFlagByName(speaker.country)} className={"absolute right-10 top-10 border-white border-[1px] rounded-[10px]"}/>
+              <div className={"grid grid-cols-[1fr_2fr] "}>
                 <div
                   className={
                     "relative rounded-l-[25px] overflow-hidden aspect-[3/4] w-full"
@@ -116,17 +110,12 @@ export default async function SpeakersPage() {
             >
               <div
                 className={
-                  "relative rounded-t-[16px] overflow-hidden aspect-[4/3] w-full"
+                  "relative rounded-t-[16px] overflow-hidden aspect-[5/4] w-full"
                 }
               >
-                <Avatar className={"absolute z-20 right-5 top-5"}>
-                  <AvatarImage
-                    className={"scale-150"}
-                    src={findCountryFlagByName(speaker.country)}
-                  />
-                </Avatar>
+                <Image alt={""} width={"70"} height={"140"} src={findCountryFlagByName("India")} className={"absolute right-5 top-5 z-20 border-white border-[1px] rounded-[10px]"}/>
                 <Image
-                  className={"object-cover z-10"}
+                  className={"object-cover z-10 aspect-auto"}
                   src={"/images/" + speaker.image}
                   alt=""
                   fill
