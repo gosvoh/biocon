@@ -125,7 +125,7 @@ export default async function SpeakersPage() {
                   alt={""}
                   width={"70"}
                   height={"140"}
-                  src={findCountryFlagByName("India")}
+                  src={findCountryFlagByName(speaker.country)}
                   className={
                     "absolute right-5 top-5 z-20 border-white border-[1px] rounded-[10px]"
                   }
