@@ -26,7 +26,8 @@ export default function Timeline({
         <div className="dot bg-white text-black">3</div>
 
         <div className="row-[1] mob-col">
-          <p className="font-bold">September 1</p>
+          <div className={"flex flex-col gap-1"}>
+          <h3 className="font-bold">September 1</h3>
           <p>
             Registration ends for participants from from{" "}
             <Link
@@ -37,22 +38,27 @@ export default function Timeline({
             </Link>{" "}
             who do not already hold a Russian visa
           </p>
+          </div>
         </div>
         <div className="row-[3] mob-col">
-          <p className="font-bold">October 25</p>
+          <div className={"flex flex-col gap-1"}>
+          <h3 className="font-bold">October 25</h3>
           <p>Registration ends for all participants</p>
+          </div>
         </div>
         <div className="row-[5] mob-col">
-          <p className="font-bold">November 11-13</p>
+          <div className={"flex flex-col gap-1"}>
+          <h3 className="font-bold">November 11-13</h3>
           <p>See you in Almetyevsk!</p>
+          </div>
         </div>
       </div>
 
       <div className="hidden lg:flex flex-row text-center justify-around flex-1">
-        <div className="fcol lg:flex-1">
-          <p className={cn("font-bold")}>September 1</p>
-          <p>
-            Registration ends for participants from from{" "}
+        <div className="fcol lg:flex-1 gap-3 items-center mt-4">
+          <h3 className={cn("font-bold")}>September 1</h3>
+          <p className={"w-[55%]"}>
+            Registration ends for participants from{" "}
             <Link
               className="underline"
               href="https://electronic-visa.kdmid.ru/country_en.html"
@@ -62,12 +68,12 @@ export default function Timeline({
             who do not already hold a Russian visa
           </p>
         </div>
-        <div className="fcol lg:flex-1">
-          <p className={cn("font-bold")}>October 25</p>
+        <div className="fcol lg:flex-1 gap-3 mt-4">
+          <h3 className={cn("font-bold")}>October 25</h3>
           <p>Registration ends for all participants</p>
         </div>
-        <div className="fcol lg:flex-1">
-          <p className={cn("font-bold")}>November 11-13</p>
+        <div className="fcol lg:flex-1 gap-3 mt-4">
+          <h3 className={cn("font-bold")}>November 11-13</h3>
           <p>See you in Almetyevsk!</p>
         </div>
       </div>

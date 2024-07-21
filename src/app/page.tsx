@@ -353,14 +353,6 @@ export default function Home() {
               tg: "@Chantalena",
             },
             {
-              icon: Gavrilenko,
-              name: "Alexander Gavrilenko",
-              affiliation: "????????????",
-              description:
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam quam dignissimos molestias. Dolor quibusdam possimus animi! Architecto ab quae officia atque, debitis nisi quaerat!",
-              tg: "???????????????????",
-            },
-            {
               icon: Khayrova,
               name: "Adelya Khayrova",
               affiliation: "Russian Academy of Sciences",

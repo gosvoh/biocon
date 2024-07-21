@@ -11,7 +11,6 @@ import BottomGlow from "@public/BottomGlow.svg";
 import Card from "@/components/card";
 import { Trophy } from "lucide-react";
 import { findCountryFlagByName } from "@/app/speakers/country.flags";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 export const dynamic = "force-dynamic";
 
