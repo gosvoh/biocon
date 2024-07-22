@@ -285,10 +285,7 @@ export default function Home() {
                     text="The preliminary title of your speech"
                     color="green"
                   />
-                  <Tag
-                    text="Abstracts"
-                    color="green"
-                  />
+                  <Tag text="Abstracts" color="green" />
                 </div>
               </div>
             }

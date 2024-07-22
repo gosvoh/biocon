@@ -337,9 +337,11 @@ export default function Biocon2023Component({
       <section className="relative fcol gap-3 lg:gap-6">
         <h2 className="font-normal m-0">BIOCON’23 speakers</h2>
         <div className={"hidden lg:block"}>
-          {preparedData.map((speakerData) => (
+          {preparedData.map((speakerData, index) => (
             <>
-              <h3 className="font-normal mb-6">{speakerData.type}</h3>
+              <h3 className={`font-normal mb-6 ${index !== 0 ? "mt-8" : ""}`}>
+                {speakerData.type}
+              </h3>
               <div className="grid-cols-4 gap-14 grid">
                 {speakerData.speakersData.map((speaker, index) => (
                   <div

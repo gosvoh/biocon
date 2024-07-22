@@ -33,7 +33,12 @@ const Map = ({ api }: { api: ReactifyApi | null }) => {
       <YMapControls position="left" />
       <YMapMarker coordinates={[52.289424, 54.898]}>
         <div className={"w-64"}>
-          <Link href={"https://yandex.ru/maps/org/almet/176211252091/?ll=52.289424%2C54.897868&z=16"} target={"_blank"}>
+          <Link
+            href={
+              "https://yandex.ru/maps/org/almet/176211252091/?ll=52.289424%2C54.897868&z=16"
+            }
+            target={"_blank"}
+          >
             <Image src={Biocon2024Logo} alt={""} />
           </Link>
         </div>
