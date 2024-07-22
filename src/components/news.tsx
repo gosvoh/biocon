@@ -39,20 +39,29 @@ export default async function NewsCarousel() {
 
   return (
     <Carousel
-      items={data.map((x, i) => (
+      items={data.reverse().map((x, i) => (
         <div
           key={`media-item-${i}`}
           className="md:basis-1/2 xl:basis-1/3 fcol gap-6"
         >
+          <div
+            className={
+              "relative overflow-hidden  w-full aspect-[6/4]"
+            }
+          >
           <Image
             src={`/images/${x.image}`}
             alt=""
-            className="w-full flex-1 rounded-[16px] lg:rounded-[28px]"
+            fill
+            className="rounded-[16px] lg:rounded-[28px] object-fill"
           />
-          <p>{x.title}</p>
-          <Link href={x.href} className="underline">
-            Read more
-          </Link>
+          </div>
+              <p>{x.title}</p>
+            <div>
+              <Link href={x.href} className="underline" target={"_blank"}>
+                Read more
+              </Link>
+            </div>
         </div>
       ))}
     />

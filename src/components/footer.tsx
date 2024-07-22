@@ -71,7 +71,7 @@ export default function Footer() {
         <Link href={"https://en.itmo.ru/"} target={"_blank"}>
           <Image src={ITMO} alt="ITMO" />
         </Link>
-        <Link href={"#"} target={"_blank"}>
+        <Link href={"https://biotech.industries/"} target={"_blank"}>
           <Image
             src={Biotech}
             alt="Biotech"
