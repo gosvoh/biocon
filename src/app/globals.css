@@ -125,7 +125,6 @@
     @apply flex flex-col;
   }
 
-  /* custom.css */
   .link-hover-underline {
     position: relative;
     text-decoration: none;
@@ -139,7 +138,7 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: currentColor; /* Используем текущий цвет текста */
+    background: currentColor;
     transition: width 0.3s ease-in-out;
   }
 

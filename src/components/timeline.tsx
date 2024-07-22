@@ -27,29 +27,29 @@ export default function Timeline({
 
         <div className="row-[1] mob-col">
           <div className={"flex flex-col gap-1"}>
-          <h3 className="font-bold">September 1</h3>
-          <p>
-            Registration ends for participants from from{" "}
-            <Link
-              className="underline"
-              href="https://electronic-visa.kdmid.ru/country_en.html"
-            >
-              non-listed countries
-            </Link>{" "}
-            who do not already hold a Russian visa
-          </p>
+            <h3 className="font-bold">September 1</h3>
+            <p>
+              Registration ends for participants from from{" "}
+              <Link
+                className="underline"
+                href="https://electronic-visa.kdmid.ru/country_en.html"
+              >
+                non-listed countries
+              </Link>{" "}
+              who do not already hold a Russian visa
+            </p>
           </div>
         </div>
         <div className="row-[3] mob-col">
           <div className={"flex flex-col gap-1"}>
-          <h3 className="font-bold">October 25</h3>
-          <p>Registration ends for all participants</p>
+            <h3 className="font-bold">October 25</h3>
+            <p>Registration ends for all participants</p>
           </div>
         </div>
         <div className="row-[5] mob-col">
           <div className={"flex flex-col gap-1"}>
-          <h3 className="font-bold">November 11-13</h3>
-          <p>See you in Almetyevsk!</p>
+            <h3 className="font-bold">November 11-13</h3>
+            <p>See you in Almetyevsk!</p>
           </div>
         </div>
       </div>

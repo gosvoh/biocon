@@ -11,6 +11,7 @@ import BottomGlow from "@public/BottomGlow.svg";
 import Card from "@/components/card";
 import { Trophy } from "lucide-react";
 import { findCountryFlagByName } from "@/app/speakers/country.flags";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -90,14 +91,47 @@ export default async function SpeakersPage() {
                     "flex flex-col gap-5 p-12 pt-7 font-light w-full text-lg"
                   }
                 >
-                  <p className={"text-2xl font-normal"}>{speaker.name}</p>
-                  <div className={"flex flex-col gap-2 font-normal"}>
-                    <p>{speaker.university}</p>
-                    <div className={"flex gap-2 items-center"}>
-                      <div className="lg:w-5 lg:h-5">
-                        <Trophy className="w-full h-full" />
-                      </div>
-                      <p>{speaker.thunder}</p>
+                  <div>
+                    <Link
+                      href={speaker.nameUrl}
+                      target={"_blank"}
+                      className={"link-hover-underline"}
+                    >
+                      <p className={"text-2xl font-normal"}>{speaker.name}</p>
+                    </Link>
+                  </div>
+                  <div className={"flex flex-col gap-3 font-normal"}>
+                    <div>
+                      <Link
+                        href={speaker.universityUrl}
+                        target={"_blank"}
+                        className={"link-hover-underline"}
+                      >
+                        <p>{speaker.university}</p>
+                      </Link>
+                    </div>
+                    <div>
+                      {speaker.thunderUrl ? (
+                        <Link
+                          href={speaker.thunderUrl}
+                          target={"_blank"}
+                          className={"link-hover-underline"}
+                        >
+                          <div className={"flex gap-2 items-center"}>
+                            <div className="lg:w-5 lg:h-5">
+                              <Trophy className="w-full h-full" />
+                            </div>
+                            <p>{speaker.thunder}</p>
+                          </div>
+                        </Link>
+                      ) : (
+                        <div className={"flex gap-2 items-center"}>
+                          <div className="lg:w-5 lg:h-5">
+                            <Trophy className="w-full h-full" />
+                          </div>
+                          <p>{speaker.thunder}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="p-3 border border-white rounded-[66px] w-[30%] text-center">
@@ -137,11 +171,36 @@ export default async function SpeakersPage() {
                 />
               </div>
               <div className="p-9 pt-0 flex flex-col gap-5 text-center font-light justify-center items-center">
-                <p className={"font-normal text-lg"}>{speaker.name}</p>
-                <p className={"font-normal"}>{speaker.university}</p>
-                <p className={"font-normal flex gap-2 items-center"}>
-                  <Trophy /> {speaker.thunder}{" "}
-                </p>
+                <Link
+                  href={speaker.nameUrl}
+                  className={"underline"}
+                  target={"_blank"}
+                >
+                  <p className={"font-normal text-lg"}>{speaker.name}</p>
+                </Link>
+                <Link
+                  href={speaker.universityUrl}
+                  className={"underline"}
+                  target={"_blank"}
+                >
+                  <p className={"font-normal"}>{speaker.university}</p>
+                </Link>
+
+                {speaker.thunderUrl ? (
+                  <Link
+                    href={speaker.thunderUrl}
+                    className={"underline"}
+                    target={"_blank"}
+                  >
+                    <p className={"font-normal flex gap-2 items-center"}>
+                      <Trophy /> {speaker.thunder}{" "}
+                    </p>
+                  </Link>
+                ) : (
+                  <p className={"font-normal flex gap-2 items-center"}>
+                    <Trophy /> {speaker.thunder}{" "}
+                  </p>
+                )}
                 <div className="p-2 border border-white rounded-full w-[60%]">
                   h-index: {speaker.hIndex}
                 </div>

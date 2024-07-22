@@ -30,9 +30,9 @@ const Map = ({ api }: { api: ReactifyApi | null }) => {
       <YMapDefaultSchemeLayer />
       <YMapDefaultFeaturesLayer />
       <YMapControls position="left" />
-      <YMapMarker coordinates={[52.289424, 54.898]} >
+      <YMapMarker coordinates={[52.289424, 54.898]}>
         <div className={"w-64"}>
-          <Image src={Biocon2024Logo} alt={""}/>
+          <Image src={Biocon2024Logo} alt={""} />
         </div>
       </YMapMarker>
     </YMap>

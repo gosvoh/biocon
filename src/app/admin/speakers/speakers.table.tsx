@@ -26,6 +26,7 @@ import {
 import { add, remove, update } from "./actions";
 import Link from "next/link";
 import { useMemo } from "react";
+import { flags } from "@/app/speakers/country.flags";
 
 const EditForm = ({
   form,
@@ -101,7 +102,7 @@ const EditForm = ({
       rules={[{ required: true }]}
     >
       <Select
-        options={countries.map((x) => ({ label: x, value: x }))}
+        options={Object.keys(flags).map((x) => ({ label: x, value: x }))}
         showSearch
         filterSort={(a, b) => a.value.localeCompare(b.value)}
         filterOption={(input, option) =>

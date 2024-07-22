@@ -258,7 +258,14 @@ export default function Biocon2023Component({
           </div>
           <Image className={"rounded-[16px]"} src={img4} alt={"GL"} />
         </div>
-        <button className={"main-button"}><a href={"https://vk.com/album-221897115_300549037"} target={"_blank"}>View full photo report</a></button>
+        <button className={"main-button"}>
+          <a
+            href={"https://vk.com/album-221897115_300549037"}
+            target={"_blank"}
+          >
+            View full photo report
+          </a>
+        </button>
       </section>
 
       <section>
