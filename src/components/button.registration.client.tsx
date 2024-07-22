@@ -75,7 +75,6 @@ const RegForm = ({
       preserve={false}
       form={form}
       layout="vertical"
-      onFinish={(values) => {}}
     >
       <Form.Item<RegisterFormValues>
         name="name"
@@ -124,7 +123,7 @@ const RegForm = ({
           { required: true, message: "Please enter your mobile" },
           {
             pattern:
-              /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+              /^[+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
             message: "Invalid mobile",
           },
         ]}
@@ -382,7 +381,26 @@ const RegForm = ({
             </Form.Item>
           </>
         )}
-
+      {selectedParticipationType == "Contributed speaker" && (
+        <Form.Item<RegisterFormValues>
+          name="abstract"
+          label="Abstracts (Requirements for abstract formatting)"
+          rules={[
+            {
+              required: true ,
+              message: "Please enter your abstract",
+            },
+            { type: "url", message: "Please enter a valid url" },
+          ]}
+        >
+          <Input
+            placeholder={
+              "Provide a link to the abstract in English"
+            }
+          />
+        </Form.Item>
+      )
+      }
       <Form.Item<RegisterFormValues>
         name="personalData"
         valuePropName="checked"

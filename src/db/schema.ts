@@ -57,6 +57,7 @@ export const Registrations = pgTable("Registrations", {
     .notNull(),
   howToKnow: text("howToKnow").notNull(),
   clothingSize: text("clothingSize").notNull(),
+  abstract: text("abstract"),
 });
 
 export const News = pgTable("News", {

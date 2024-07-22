@@ -6,6 +6,7 @@ import Script from "next/script";
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Biocon2024Logo from "@public/biocon2024logo.png";
+import Link from "next/link";
 
 export type ReactifyApi = ReactifiedModule<
   typeof import("@yandex/ymaps3-types")
@@ -32,7 +33,9 @@ const Map = ({ api }: { api: ReactifyApi | null }) => {
       <YMapControls position="left" />
       <YMapMarker coordinates={[52.289424, 54.898]}>
         <div className={"w-64"}>
-          <Image src={Biocon2024Logo} alt={""} />
+          <Link href={"https://yandex.ru/maps/org/almet/176211252091/?ll=52.289424%2C54.897868&z=16"} target={"_blank"}>
+            <Image src={Biocon2024Logo} alt={""} />
+          </Link>
         </div>
       </YMapMarker>
     </YMap>
