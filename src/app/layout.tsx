@@ -1,15 +1,40 @@
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import type { Metadata, Viewport } from "next";
-import { Roboto } from "next/font/google";
+import localfont from "next/font/local";
 import "./globals.css";
 import AntdConfigProvider from "@/components/providers/ant.config.provider";
 import Header from "@/components/header";
 import Script from "next/script";
 import Footer from "@/components/footer";
 
-const font = Roboto({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700", "900"],
+const font = localfont({
+  src: [
+    {
+      path: "/fonts/Museo_Sans_100.otf",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Museo_Sans_300.otf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Museo_Sans_500.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Museo_Sans_700.otf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Museo_Sans_900.otf",
+      weight: "900",
+      style: "normal",
+    },
+  ],
 });
 
 export const metadata: Metadata = {

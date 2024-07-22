@@ -190,27 +190,29 @@ export default function RegistrationsTable({
             title: "Actions",
             render: (x: typeof Registrations.$inferSelect) => (
               <Popconfirm onConfirm={() => remove(x.id)} title="Are you sure?">
-                <Button danger>Remove</Button>
-                <Button
-                  icon={<EditIcon />}
-                  onClick={() =>
-                    modal.confirm({
-                      ...modalProps,
-                      content: <EditForm form={form} data={x} />,
-                      title: "Edit registration",
-                      onOk: async () => {
-                        try {
-                          const values = await form.validateFields();
-                          return update(x.id, values).then(() =>
-                            form.resetFields(),
-                          );
-                        } catch (e) {
-                          return Promise.reject(e);
-                        }
-                      },
-                    })
-                  }
-                />
+                <div className={"flex items-center"}>
+                  <Button danger>Remove</Button>
+                  <Button
+                    icon={<EditIcon />}
+                    onClick={() =>
+                      modal.confirm({
+                        ...modalProps,
+                        content: <EditForm form={form} data={x} />,
+                        title: "Edit registration",
+                        onOk: async () => {
+                          try {
+                            const values = await form.validateFields();
+                            return update(x.id, values).then(() =>
+                              form.resetFields(),
+                            );
+                          } catch (e) {
+                            return Promise.reject(e);
+                          }
+                        },
+                      })
+                    }
+                  />
+                </div>
               </Popconfirm>
             ),
           },
@@ -218,6 +220,7 @@ export default function RegistrationsTable({
           { title: "Email", dataIndex: "email" },
           { title: "How to know", dataIndex: "howToKnow" },
           { title: "Mobile", dataIndex: "mobile" },
+          { title: "Abstract", dataIndex: "abstract" },
           { title: "Country", dataIndex: "country" },
           { title: "City", dataIndex: "city" },
           { title: "Affiliation", dataIndex: "affiliation" },
