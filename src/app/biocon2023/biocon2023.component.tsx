@@ -15,7 +15,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/carousel.speakers";
+} from "@/components/carousel.speakers.organizers";
 
 // gallery
 import img1 from "@public/previous_biocon/BXrm3Nh1_AI.jpg";
