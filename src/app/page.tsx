@@ -105,8 +105,8 @@ export default function Home() {
             alt="Biocon"
             className="block md:hidden w-full"
           />
-          <div className="flex flex-col gap-4 md:gap-4 lg:gap-4 xl:gap-[25px]">
-            <h1>International Industrial Biotechnology Conference</h1>
+          <div className="flex flex-col gap-4 xl:gap-[25px]">
+            <h1 className={"xl:text-6xl lg:text-5xl font-normal"}>International Industrial Biotechnology Conference</h1>
             <p className={"lg:text-3xl"}>November 11-13, 2024</p>
           </div>
           <Link
@@ -118,7 +118,7 @@ export default function Home() {
               <div className="lg:w-10 lg:h-10">
                 <MapPin className="w-full h-full" />
               </div>
-              <p> Almetyevsk, Republic of Tatarstan</p>
+              <p className={"lg:text-3xl"}> Almetyevsk, Republic of Tatarstan</p>
             </div>
           </Link>
         </div>
