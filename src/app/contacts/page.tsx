@@ -1,10 +1,13 @@
 import Card from "@/components/card";
 import Image from "next/image";
 import BigSideGlow from "@public/BigSideGlow.svg";
-import SideGlow from "@public/SideGlow.svg";
+import SideGlow from "@public/contacts/LeftGlow.svg";
 import { cn } from "@/lib/utils";
-import BottomGlow from "@public/BottomGlow.svg";
+import BottomGlow from "@public/contacts/BottomGlow.svg";
+import BottomGlowMobile from "@public/contacts/BottomGlowMobile.svg";
 import { CarouselComponent } from "@/app/contacts/carousel.component";
+import HeroGlow from "@public/HeroGlow.svg";
+import { ContactUsForm } from "@/app/contacts/contact.us.form";
 
 const mockContacts = [
   {
@@ -100,7 +103,7 @@ const LeftGlow = ({
     src={big ? BigSideGlow : SideGlow}
     alt=""
     className={cn(
-      "absolute top-1/2 h-[125%] -left-16 -z-10 w-fit px-0 -translate-y-1/2 max-w-none rotate-180",
+      "absolute top-[90%] h-[120%] -left-0 -z-10 px-0 w-fit -translate-y-1/2 max-w-none blur-md",
       className,
     )}
   />
@@ -117,7 +120,7 @@ const RightGlow = ({
     src={big ? BigSideGlow : SideGlow}
     alt=""
     className={cn(
-      "absolute top-1/2 -right-14 -z-10 h-[125%] w-fit px-0 -translate-y-1/2 max-w-none",
+      "absolute top-[80%] -right-20 -z-10 h-[150%] w-fit px-0 -translate-y-1/2 max-w-none",
       className,
     )}
   />
@@ -165,6 +168,15 @@ export default function ContactsPage() {
   return (
     <main>
       <section className={"fcol lg:gap-14 gap-7 relative"}>
+        <Image
+          src={HeroGlow}
+          alt=""
+          className={cn(
+            "absolute rotate-[40deg] top-1/4 left-[70%] w-fit h-[140%] -z-10 scale-75 blur-xl lg:hidden",
+            "-translate-x-1/2 -translate-y-1/2",
+            "max-w-none max-h-none",
+          )}
+        />
         <h2 className={"font-normal m-0"}>Contacts</h2>
         <div className={"hidden lg:grid grid-cols-4 gap-x-8 gap-y-16 "}>
           {mockContacts.map((mockContact, index) => (
@@ -193,9 +205,9 @@ export default function ContactsPage() {
         <div className={"block lg:hidden"}>
           <CarouselComponent organizersArray={mockContacts} />
         </div>
-        <LeftGlow big className="" />
+        <LeftGlow className="hidden lg:block" />
       </section>
-      <section className={"relative"}>
+      <section className={" relative"}>
         <h2 className={"font-normal"}>For our partners</h2>
         <RenderPartnersInfoCards
           infoArray={[
@@ -217,13 +229,22 @@ export default function ContactsPage() {
             },
           ]}
         />
+        <RightGlow big className=" w-[180%] lg:hidden" />
       </section>
       <section className="relative">
-        <h2 className={"font-normal"}>Contact us</h2>
+        <div className={"lg:fcol lg:items-center"}>
+          <h2 className={"font-normal"}>Contact us</h2>
+          <ContactUsForm />
+        </div>
         <Image
           src={BottomGlow}
           alt=""
-          className="absolute h-[150%] w-fit md:w-[150%] md:h-fit max-w-none -translate-x-1/2 -bottom-10 left-1/2 -z-10"
+          className="absolute h-[90%] -bottom-32 right-0 w-full -z-10 hidden lg:block"
+        />
+        <Image
+          src={BottomGlowMobile}
+          alt=""
+          className="absolute h-fit w-[100%] max-w-none -bottom-16 left-0 -z-10 lg:hidden"
         />
       </section>
     </main>

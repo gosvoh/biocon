@@ -47,7 +47,7 @@ export const CarouselComponent = ({
           {organizersArray.map((mockContact, index) => (
             <CarouselItem key={index}>
               <div className={"fcol gap-5 text-center"}>
-                <div className={"relative w-full aspect-[5/3]"}>
+                <div className={"relative w-full aspect-[4/3]"}>
                   <Image
                     src={"/humans/Barua.jpg"}
                     alt={""}
@@ -73,8 +73,8 @@ export const CarouselComponent = ({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className={"left-0 pb-4"} />
-        <CarouselNext className={"right-0 pb-4"} />
+        <CarouselPrevious className={"left-0"} />
+        <CarouselNext className={"right-0"} />
       </Carousel>
       <p>
         {current} / {count}

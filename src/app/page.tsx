@@ -23,7 +23,6 @@ import Aeroflot from "@public/aeroflot.png";
 import S7 from "@public/s7.png";
 
 import Barua from "@public/humans/Barua.jpg";
-import Gavrilenko from "@public/humans/Gavrilenko.jpg";
 import Kalinikin from "@public/humans/Kalinikin.jpg";
 import Khayrova from "@public/humans/Khayrova.jpg";
 import Polyansky from "@public/humans/Polyansky.jpg";
@@ -35,7 +34,6 @@ import Modal from "@/components/ui/modal";
 import { MapPin } from "lucide-react";
 import { Suspense } from "react";
 import NewsCarousel, { NewsSkeleton } from "@/components/news";
-import { Button } from "@/components/ui/button";
 
 export const dynamic = "force-dynamic";
 
