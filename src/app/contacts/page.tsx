@@ -239,12 +239,12 @@ export default function ContactsPage() {
         <Image
           src={BottomGlow}
           alt=""
-          className="absolute h-[90%] -bottom-32 right-0 w-full -z-10 hidden lg:block"
+          className="absolute h-[90%] -bottom-32 right-0 w-[150%] -z-10 hidden lg:block blur-md"
         />
         <Image
           src={BottomGlowMobile}
           alt=""
-          className="absolute h-fit w-[100%] max-w-none -bottom-16 left-0 -z-10 lg:hidden"
+          className="absolute h-fit w-[100%] max-w-none -bottom-16 left-0 -z-10 lg:hidden "
         />
       </section>
     </main>

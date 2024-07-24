@@ -27,7 +27,7 @@ const StyledInput = ({
         rows={7}
         placeholder={placeholder}
         className={
-          "bg-[#1A1A1A] rounded-lg border-white border-[1px] p-3 text-center lg:text-left lg:p-5 lg:pl-7"
+          "bg-[#1A1A1A] rounded-lg border-white border-[1px] p-5 text-center lg:text-left lg:pl-7 resize-none"
         }
         onChange={(event) => setState(event.target.value)}
       />
@@ -85,25 +85,38 @@ export const ContactUsForm = () => {
     >
       <div className={"fcol gap-7 lg:gap-10"}>
         <div className={containerCn}>
-          <p className={textCn}>Subject *</p>
+          <div className={"flex gap-1"}>
+            <p className={textCn}>Subject</p>
+            <p className={"text-[#888888]"}>*</p>
+          </div>
           <RenderTags state={tagsStatus} setState={setTagsStatus} />
         </div>
         <div className={containerCn}>
-          <p className={textCn}>Name *</p>
+          <div className={"flex gap-1"}>
+            <p className={textCn}>Name</p>
+            <p className={"text-[#888888]"}>*</p>
+          </div>
           <StyledInput
             setState={setNameInputState}
             placeholder={"Enter your name"}
           />
         </div>
         <div className={containerCn}>
-          <p className={textCn}>Email *</p>
+          <div className={"flex gap-1"}>
+            <p className={textCn}>Email</p>
+            <p className={"text-[#888888]"}>*</p>
+          </div>
+
           <StyledInput
             setState={setEmailInputState}
             placeholder={"Enter your email"}
           />
         </div>
         <div className={containerCn}>
-          <p className={textCn}>Message *</p>
+          <div className={"flex gap-1"}>
+            <p className={textCn}>Message</p>
+            <p className={"text-[#888888]"}>*</p>
+          </div>
           <StyledInput
             textarea
             setState={setMessageInputState}
@@ -138,7 +151,7 @@ export const ContactUsForm = () => {
             </Link>
           </div>
         </div>
-        <button className={"main-button mt-4"}>Submit</button>
+        <button className={"main-button mt-4 mb-6"}>Submit</button>
       </div>
     </div>
   );
