@@ -27,7 +27,7 @@ const StyledInput = ({
         rows={7}
         placeholder={placeholder}
         className={
-          "bg-[#1A1A1A] rounded-lg border-white border-[1px] p-5 text-center lg:text-left lg:pl-7 resize-none"
+          "bg-[#1A1A1A] rounded-lg border-white border-[1px] p-5 text-center lg:text-left lg:pl-7 resize-none focus:outline-none"
         }
         onChange={(event) => setState(event.target.value)}
       />
@@ -36,7 +36,7 @@ const StyledInput = ({
         type="text"
         onChange={(event) => setState(event.target.value)}
         className={
-          "bg-[#1A1A1A] rounded-full border-white border-[1px] p-2 pr-5 pl-5 lg:p-5 lg:pr-8 lg:pl-8"
+          "bg-[#1A1A1A] rounded-full border-white border-[1px] p-2 pr-5 pl-5 lg:p-5 lg:pr-8 lg:pl-8 focus:outline-none"
         }
         placeholder={placeholder}
       />
@@ -76,6 +76,47 @@ export const ContactUsForm = () => {
   const [messageInputState, setMessageInputState] = useState<string | null>(
     null,
   );
+  const [isPrivacyPolicyChecked, setIsPrivacyPolicyChecked] = useState<
+    boolean | null
+  >(null);
+
+  const sendData = async () => {
+    if (
+      !(
+        tagsStatus &&
+        nameInputState &&
+        emailInputState &&
+        messageInputState &&
+        isPrivacyPolicyChecked
+      )
+    ) {
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/sendFeedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: nameInputState,
+          email: emailInputState,
+          message: messageInputState,
+          subject: subjects[tagsStatus],
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Success:", data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <div
@@ -126,6 +167,9 @@ export const ContactUsForm = () => {
         <div className={"flex gap-4 items-center"}>
           <input
             type="checkbox"
+            onChange={(event) =>
+              setIsPrivacyPolicyChecked(event.target.checked)
+            }
             className="appearance-none w-8 h-8 border-[1px] border-white rounded-full bg-[#1A1A1A] checked:bg-[#FE6F61] checked:transition-colors checked:duration-300"
           />
           <div className={"fcol gap-2 lg:hidden"}>
@@ -151,7 +195,9 @@ export const ContactUsForm = () => {
             </Link>
           </div>
         </div>
-        <button className={"main-button mt-4 mb-6"}>Submit</button>
+        <button onClick={() => sendData()} className={"main-button mt-4 mb-6"}>
+          Submit
+        </button>
       </div>
     </div>
   );

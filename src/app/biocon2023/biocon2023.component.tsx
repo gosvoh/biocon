@@ -89,7 +89,7 @@ const LeftGlow = ({
       src={big ? BigSideGlow : SideGlow}
       alt=""
       className={cn(
-        "absolute top-1/2 -left-40 -z-10 h-fit w-full px-0 -translate-y-1/2 max-w-none rotate-180",
+        "absolute top-1/2 -left-40 lg:-left-60 -z-10 h-fit w-full px-0 -translate-y-1/2 max-w-none rotate-180",
         className,
       )}
     />
@@ -416,7 +416,7 @@ export default function Biocon2023Component({
           ))}
         </div>
       </section>
-      <LeftGlow className={"ml-20 w-[150%] h-fit"} />
+      <LeftGlow big className={" w-[150%] h-fit lg:hidden"} />
       <LeftGlow big className={"lg:block hidden"} />
       <Image
         src={BottomGlow}
