@@ -2,6 +2,7 @@
 
 import { Dispatch, SetStateAction, useState } from "react";
 import Link from "next/link";
+import { notification } from "antd";
 
 const subjects = [
   "Difficulties with registration",
@@ -70,6 +71,7 @@ export const ContactUsForm = () => {
   const containerCn = "fcol gap-3 lg:gap-5";
   const textCn = "font-normal lg:text-3xl";
 
+  const [api, contextHolder] = notification.useNotification();
   const [tagsStatus, setTagsStatus] = useState<number | null>(null);
   const [nameInputState, setNameInputState] = useState<string | null>(null);
   const [emailInputState, setEmailInputState] = useState<string | null>(null);
@@ -90,7 +92,10 @@ export const ContactUsForm = () => {
         isPrivacyPolicyChecked
       )
     ) {
-      return;
+      return api.error({
+        message: "Not all fields are filled",
+        description: "Please fill all required fileds.",
+      });
     }
 
     try {
@@ -108,13 +113,18 @@ export const ContactUsForm = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
+        return api.error({
+          message: "Server error",
+          description: `Status code: ${response.status}`,
+        });
       }
-
-      const data = await response.json();
-      console.log("Success:", data);
     } catch (error) {
-      console.error("Error:", error);
+      let message = "Unknown Error";
+      if (error instanceof Error) message = error.message;
+      return api.error({
+        message: "Something went wrong",
+        description: `Error data: ${message}`,
+      });
     }
   };
 
@@ -124,6 +134,7 @@ export const ContactUsForm = () => {
         "rounded-[16px] bg-[#1A1A1A] w-full h-full p-7 lg:p-12 lg:w-[75%] z-20"
       }
     >
+      {contextHolder}
       <div className={"fcol gap-7 lg:gap-10"}>
         <div className={containerCn}>
           <div className={"flex gap-1"}>

@@ -73,8 +73,8 @@ export const CarouselComponent = ({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className={"left-0"} />
-        <CarouselNext className={"right-0"} />
+        <CarouselPrevious className={"left-0"} speakers={false} />
+        <CarouselNext className={"right-0"} speakers={false} />
       </Carousel>
       <p>
         {current} / {count}
