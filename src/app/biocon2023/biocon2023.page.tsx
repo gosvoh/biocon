@@ -113,7 +113,7 @@ export default function Biocon2023Page({
         <Image
           src={UpperGlow}
           alt={""}
-          className={"absolute w-full -top-24 right-0 -z-10 lg:hidden blur-md"}
+          className={"absolute w-full -top-1/4 right-0 -z-10 lg:hidden blur-md"}
         />
         <Image
           src={UpperGlowPC}
@@ -274,7 +274,7 @@ export default function Biocon2023Page({
         src={LeftGlowPC}
         alt={""}
         className={
-          "absolute -z-10 -left-0 w-full top-1/4 blur-md hidden lg:block"
+          "absolute -z-10 -left-0 w-full top-[20%] blur-md hidden lg:block"
         }
       />
       <section>
@@ -428,12 +428,12 @@ export default function Biocon2023Page({
       <Image
         src={BottomGlowPC}
         alt={""}
-        className={"absolute -z-10 -bottom-16 w-full hidden lg:block"}
+        className={"absolute -z-10 -bottom-[3%] w-full hidden lg:block"}
       />
       <Image
         src={BottomGlow}
         alt={""}
-        className={"absolute -bottom-14 -z-10 w-full lg:hidden"}
+        className={"absolute -bottom-[5%] -z-10 w-full lg:hidden"}
       />
     </main>
   );
