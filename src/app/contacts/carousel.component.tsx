@@ -10,18 +10,15 @@ import {
 } from "@/components/carousel.speakers.organizers";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { Organizers } from "@/db/schema";
+import Link from "next/link";
+import GradientR from "@public/contacts/gradientr.png";
+import GradientL from "@public/contacts/gradientl.png";
 
 export const CarouselComponent = ({
   organizersArray,
 }: {
-  organizersArray: Array<{
-    id: number;
-    name: string;
-    position: string;
-    email: string;
-    phone: string | null;
-    image: string;
-  }>;
+  organizersArray: (typeof Organizers.$inferSelect)[];
 }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -44,37 +41,51 @@ export const CarouselComponent = ({
     <div className={"fcol gap-4 text-center"}>
       <Carousel setApi={setApi}>
         <CarouselContent>
-          {organizersArray.map((mockContact, index) => (
+          {organizersArray.map((organizer, index) => (
             <CarouselItem key={index}>
               <div className={"fcol gap-5 text-center"}>
                 <div className={"relative w-full aspect-[4/3]"}>
                   <Image
-                    src={"/humans/Barua.jpg"}
+                    src={`/images/${organizer.image}`}
                     alt={""}
                     fill={true}
-                    className={"object-cover rounded-[16px]"}
+                    className={"object-cover rounded-[21px]"}
                   />
+                  <div className="absolute top-0 -right-0 h-full w-[15%] overflow-hidden">
+                    <Image
+                      src={GradientR}
+                      alt=""
+                      fill={true}
+                      objectFit="cover"
+                    />
+                  </div>
+                  <div className="absolute top-0 -left-0 h-full w-[15%] overflow-hidden">
+                    <Image
+                      src={GradientL}
+                      alt=""
+                      fill={true}
+                      objectFit="cover"
+                    />
+                  </div>
                 </div>
                 <div className={"fcol gap-3"}>
-                  <div className={"fcol gap-2"}>
-                    <h3 className={"font-normal"}>{mockContact.name}</h3>
-                    <p className={"font-light"}>{mockContact.position}</p>
-                  </div>
                   <div className={"fcol gap-1"}>
-                    <h3 className={"font-normal underline"}>
-                      {mockContact.email}
-                    </h3>
-                    {mockContact.phone && (
-                      <h3 className={"font-normal"}>{mockContact.phone}</h3>
-                    )}
+                    <h3 className={"font-normal"}>{organizer.name}</h3>
+                    <p className={"font-light"}>{organizer.position}</p>
                   </div>
+                  <Link
+                    href={`mailto:${organizer.email}`}
+                    className={"underline"}
+                  >
+                    <h3 className={"font-normal"}>{organizer.email}</h3>
+                  </Link>
                 </div>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className={"left-0"} speakers={false} />
-        <CarouselNext className={"right-0"} speakers={false} />
+        <CarouselPrevious speakers={false} />
+        <CarouselNext speakers={false} />
       </Carousel>
       <p>
         {current} / {count}

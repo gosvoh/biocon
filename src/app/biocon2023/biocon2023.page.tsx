@@ -96,7 +96,7 @@ const LeftGlow = ({
   </div>
 );
 
-export default function Biocon2023Component({
+export default function Biocon2023Page({
   data,
 }: {
   data: (typeof Speakers2023.$inferSelect)[];
