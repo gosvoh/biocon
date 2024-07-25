@@ -17,12 +17,19 @@ import {
   CarouselPrevious,
 } from "@/components/carousel.speakers.organizers";
 
+// glows
+import UpperGlow from "@public/previous_biocon/glow/upper.svg";
+import LeftGlow from "@public/previous_biocon/glow/left.svg";
+import BottomGlow from "@public/previous_biocon/glow/lower.svg";
+import UpperGlowPC from "@public/previous_biocon/glow/upperPC.svg";
+import LeftGlowPC from "@public/previous_biocon/glow/leftPC.svg";
+import BottomGlowPC from "@public/previous_biocon/glow/lowerPC.svg";
+
 // gallery
 import img1 from "@public/previous_biocon/BXrm3Nh1_AI.jpg";
 import speaker1 from "@public/previous_biocon/KH05oj8MpPo.jpg";
 import speaker2 from "@public/previous_biocon/mirza.jpeg";
 import img4 from "@public/previous_biocon/D-BUvQriEfw.jpg";
-import ButtonRegistration from "@/components/button.registration";
 import speaker1_square from "@public/previous_biocon/speaker_square.jpg";
 import speaker3_square from "@public/previous_biocon/speaker2_square.jpeg";
 import mirzamob from "@public/previous_biocon/mirzamob.jpeg";
@@ -34,10 +41,6 @@ import lower_woman_speaker from "@public/previous_biocon/ZZZ_7525.jpg";
 import lower_man_affiliation_speaker from "@public/previous_biocon/ZZZ_9953.jpg";
 import lower_man_with_glasses_speaker from "@public/previous_biocon/ZZZ_2148.jpg";
 
-// glows
-import SideGlow from "@public/SideGlow.svg";
-import BigSideGlow from "@public/BigSideGlow.svg";
-import BottomGlow from "@public/BottomGlow.svg";
 import "./noise.css";
 
 const font = Architects_Daughter({
@@ -77,25 +80,6 @@ const prepareSpeakers = (speakers: (typeof Speakers2023.$inferSelect)[]) => {
     .reverse();
 };
 
-const LeftGlow = ({
-  className,
-  big = false,
-}: {
-  className?: string;
-  big?: boolean;
-}) => (
-  <div>
-    <Image
-      src={big ? BigSideGlow : SideGlow}
-      alt=""
-      className={cn(
-        "absolute top-1/2 -left-40 lg:-left-60 -z-10 h-fit w-full px-0 -translate-y-1/2 max-w-none rotate-180",
-        className,
-      )}
-    />
-  </div>
-);
-
 export default function Biocon2023Page({
   data,
 }: {
@@ -126,6 +110,18 @@ export default function Biocon2023Page({
             className="block md:hidden w-full"
           />
         </div>
+        <Image
+          src={UpperGlow}
+          alt={""}
+          className={"absolute w-full -top-24 right-0 -z-10 lg:hidden blur-md"}
+        />
+        <Image
+          src={UpperGlowPC}
+          alt={""}
+          className={
+            "absolute -top-1/3 w-full h-[300%] -z-10 hidden lg:block blur-md"
+          }
+        />
         <div className="fcol text-center">
           <h1 className="font-[500]">BIOCON 2023</h1>
           <h2
@@ -266,8 +262,21 @@ export default function Biocon2023Page({
             View full photo report
           </a>
         </button>
+        <Image
+          src={LeftGlow}
+          alt={""}
+          className={
+            "absolute -z-10 left-0 w-full h-[150%] top-[10%] lg:hidden blur-md"
+          }
+        />
       </section>
-
+      <Image
+        src={LeftGlowPC}
+        alt={""}
+        className={
+          "absolute -z-10 -left-0 w-full top-1/4 blur-md hidden lg:block"
+        }
+      />
       <section>
         <h2 className="font-normal">Conference results</h2>
         <div className={"fcol gap-10"}>
@@ -409,24 +418,22 @@ export default function Biocon2023Page({
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+                <CarouselPrevious speakers />
+                <CarouselNext speakers />
               </Carousel>
             </>
           ))}
         </div>
       </section>
-      <LeftGlow big className={" w-[150%] h-fit lg:hidden"} />
-      <LeftGlow big className={"lg:block hidden"} />
       <Image
-        src={BottomGlow}
-        alt=""
-        className="absolute w-fit md:w-fit md:h-fit max-w-none -translate-x-1/2 -top-20 left-1/2 -z-10 rotate-180"
+        src={BottomGlowPC}
+        alt={""}
+        className={"absolute -z-10 -bottom-16 w-full hidden lg:block"}
       />
       <Image
         src={BottomGlow}
-        alt=""
-        className="absolute w-fit md:h-fit max-w-none -translate-x-1/2 -bottom-10 left-1/2 -z-10"
+        alt={""}
+        className={"absolute -bottom-14 -z-10 w-full lg:hidden"}
       />
     </main>
   );
