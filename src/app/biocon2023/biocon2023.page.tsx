@@ -274,7 +274,7 @@ export default function Biocon2023Page({
         src={LeftGlowPC}
         alt={""}
         className={
-          "absolute -z-10 -left-0 w-full top-[20%] blur-md hidden lg:block"
+          "absolute -z-10 -left-0 w-full top-[15%] blur-md hidden lg:block"
         }
       />
       <section>
@@ -424,6 +424,12 @@ export default function Biocon2023Page({
             </>
           ))}
         </div>
+        {preparedData.length && preparedData.length >=3 && (
+          <>
+          <Image src={LeftGlowPC} alt={""} className={"absolute blur-md rotate-180 right-0 -z-10 bottom-[10%] w-[150%] h-full hidden lg:block max-w-none"}/>
+          <Image src={LeftGlow} alt={""} className={"absolute blur-md block lg:hidden rotate-180 right-0 -z-10 w-[150%] h-fit top-0 max-w-none"}/>
+          </>
+        )}
       </section>
       <Image
         src={BottomGlowPC}
