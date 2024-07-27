@@ -42,7 +42,7 @@ const Map = ({ api }: { api: ReactifyApi | null }) => {
             <Image
               src={Biocon2024Logo}
               alt={""}
-              className="transition-transform duration-300 hover:scale-110"
+              className="scale-animation"
             />
           </Link>
         </div>

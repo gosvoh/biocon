@@ -19,13 +19,13 @@ const Socials = ({ className }: { className?: string }) => (
       className,
     )}
   >
-    <Link href={"https://www.youtube.com/@BIOCON_2023"} target={"_blank"}>
+    <Link href={"https://www.youtube.com/@BIOCON_2023"} className={"scale-animation"} target={"_blank"}>
       <SiYoutube className="w-10 h-10" />
     </Link>
-    <Link href={"https://t.me/BIOCON_2023"} target={"_blank"}>
+    <Link href={"https://t.me/BIOCON_2023"} className={"scale-animation"} target={"_blank"}>
       <SiTelegram className="w-10 h-10" />
     </Link>
-    <Link href={"https://vk.com/biocon"} target={"_blank"}>
+    <Link href={"https://vk.com/biocon"} className={"scale-animation"} target={"_blank"}>
       <SiVk className="w-10 h-10" />
     </Link>
   </div>
@@ -53,15 +53,19 @@ export default function Footer() {
             <Socials className="lg:hidden" />
             <div className="fcol 2xl:flex-row justify-between gap-6">
               <p>ITMO University</p>
-              <Link
-                className="link-hover-underline"
-                href="mailto:biocon@itmo.ru"
-              >
-                biocon@itmo.ru
-              </Link>
-              <Link className="link-hover-underline" href="/policy.pdf">
-                Privacy policy
-              </Link>
+              <div>
+                <Link
+                  className="link-hover-underline"
+                  href="mailto:biocon@itmo.ru"
+                >
+                  biocon@itmo.ru
+                </Link>
+              </div>
+              <div>
+                <Link className="link-hover-underline" href="/policy.pdf">
+                  Privacy policy
+                </Link>
+              </div>
             </div>
           </div>
           <YandexMap className="hidden lg:block flex-1 max-w-1/2" />

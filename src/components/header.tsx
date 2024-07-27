@@ -74,7 +74,7 @@ export default function Header() {
         <DesktopNav />
         <Link
           href="https://t.me/BIOCON_2023"
-          className="hidden lg:block"
+          className="hidden lg:block scale-animation"
           target={"_blank"}
         >
           <SiTelegram className="w-10 h-10" />

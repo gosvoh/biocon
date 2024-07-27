@@ -136,7 +136,7 @@ export default function Home() {
             <h2>What is BIOCON?</h2>
             <div className="md:space-y-6 text-base md:text-xl">
               <p>
-                BIOCON is International Industrial Biotechnology Conference.
+                BIOCON is International Biotechnology Conference.
               </p>
               <p>
                 Over three days, you will have the opportunity to share

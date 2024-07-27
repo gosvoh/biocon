@@ -103,6 +103,15 @@
 }
 
 @layer components {
+  .scale-animation{
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+  .scale-animation:hover{
+    transform: scale(110%);
+  }
+
   .main-button {
     @apply rounded-full text-white bg-accent hover:bg-hover px-[52px] py-3 text-base md:text-xl;
     @apply block mx-auto w-full md:w-fit;
