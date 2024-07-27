@@ -105,7 +105,7 @@ export default function Home() {
           />
           <div className="flex flex-col gap-4 xl:gap-[25px]">
             <h1 className={"xl:text-6xl lg:text-5xl font-normal"}>
-              International Industrial Biotechnology Conference
+              International Biotechnology Conference
             </h1>
             <p className={"lg:text-3xl"}>November 11-13, 2024</p>
           </div>

@@ -10,6 +10,7 @@ import HeroGlow from "@public/HeroGlow.svg";
 import { ContactUsForm } from "@/app/contacts/contact.us.form";
 import { Organizers } from "@/db/schema";
 import Link from "next/link";
+import { ContactsCard } from "@/app/contacts/contacts.card";
 
 const LeftGlow = ({
   className,
@@ -52,33 +53,11 @@ const RenderPartnersInfoCards = ({
 }) => (
   <div className={"fcol gap-5 lg:grid lg:grid-cols-4"}>
     {infoArray.map((infoElem, index) => (
-      <Card
-        moveIcon
-        icon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#6A25BA"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M12 17V3" />
-            <path d="m6 11 6 6 6-6" />
-            <path d="M19 21H5" />
-          </svg>
-        }
+      <ContactsCard
         key={index}
-        className={"relative lg:rounded-[28px] rounded-[16px] p-7 lg:p-11"}
-      >
-        <div className={"grid grid-rows-[1fr,0.5fr] gap-3 "}>
-          <div className={"fcol gap-5"}>
-            <h3 className={"font-normal"}>{infoElem.title}</h3>
-            <p className={"font-light"}>{infoElem.description}</p>
-          </div>
-        </div>
-      </Card>
+        title={infoElem.title}
+        description={infoElem.description}
+      />
     ))}
   </div>
 );
@@ -90,14 +69,14 @@ export default function ContactsPage({
 }) {
   return (
     <main>
-      <section className={"fcol lg:gap-14 gap-7"}>
+      <section className={"fcol lg:gap-14 gap-7 relative"}>
         <Image
           src={HeroGlow}
           alt=""
           className={cn(
             "absolute rotate-[40deg] top-1/4 left-[70%] w-fit h-[140%] -z-10 scale-75 blur-xl lg:hidden",
             "-translate-x-1/2 -translate-y-1/2",
-            "max-w-none max-h-none",
+            "max-w-none max-h-none overflow-x-hidden",
           )}
         />
         <h2 className={"font-normal m-0"}>Contacts</h2>

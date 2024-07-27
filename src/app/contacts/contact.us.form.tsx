@@ -57,7 +57,7 @@ const RenderTags = ({
       {subjects.map((subject, index) => (
         <div
           key={index}
-          className={`w-fit lg:w-full border-white border-[1px] p-4 pl-12 pr-12 text-center rounded-[66px] cursor-pointer ${index == state && "bg-[#FE6F61]"} transition-colors duration-300`}
+          className={`flex items-center justify-center w-fit lg:w-full border-white border-[1px] p-4 lg:pl-12 lg:pr-12 pr-8 pl-8 text-center rounded-[66px] cursor-pointer ${index == state && "bg-[#FE6F61]"} transition-colors duration-300`}
           onClick={() => setState(index)}
         >
           {subject}

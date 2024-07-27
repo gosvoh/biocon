@@ -10,13 +10,13 @@ export default function Card({
   icon,
   onClick,
   vertical = false,
-  moveIcon = false,
+  isContactsPage = false,
 }: React.PropsWithChildren<{
   className?: string;
   icon?: boolean | React.ReactNode;
   onClick?: () => void;
   vertical?: boolean;
-  moveIcon?: boolean;
+  isContactsPage?: boolean;
 }>) {
   return (
     <div
@@ -34,7 +34,7 @@ export default function Card({
       {children}
       {icon && (
         <div
-          className={`card-icon text-accent transition-all duration-300 group-hover:text-hover group-active:text-active ${moveIcon && "lg:p-9"}`}
+          className={`card-icon text-accent transition-all duration-300 group-hover:text-hover group-active:text-active ${isContactsPage && "lg:p-9 lg:hover:scale-[130%] lg:scale-110"}`}
         >
           {typeof icon === "boolean" ? <EllipsisIcon /> : icon}
         </div>
