@@ -424,10 +424,22 @@ export default function Biocon2023Page({
             </>
           ))}
         </div>
-        {preparedData.length && preparedData.length >=3 && (
+        {preparedData.length && preparedData.length >= 3 && (
           <>
-          <Image src={LeftGlowPC} alt={""} className={"absolute blur-md rotate-180 right-0 -z-10 bottom-[10%] w-[150%] h-full hidden lg:block max-w-none"}/>
-          <Image src={LeftGlow} alt={""} className={"absolute blur-md block lg:hidden rotate-180 right-0 -z-10 w-[150%] h-fit top-0 max-w-none"}/>
+            <Image
+              src={LeftGlowPC}
+              alt={""}
+              className={
+                "absolute blur-md rotate-180 right-0 -z-10 bottom-[10%] w-[150%] h-full hidden lg:block max-w-none"
+              }
+            />
+            <Image
+              src={LeftGlow}
+              alt={""}
+              className={
+                "absolute blur-md block lg:hidden rotate-180 right-0 -z-10 w-[150%] h-fit top-0 max-w-none"
+              }
+            />
           </>
         )}
       </section>

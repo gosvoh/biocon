@@ -39,11 +39,7 @@ const Map = ({ api }: { api: ReactifyApi | null }) => {
             }
             target={"_blank"}
           >
-            <Image
-              src={Biocon2024Logo}
-              alt={""}
-              className="scale-animation"
-            />
+            <Image src={Biocon2024Logo} alt={""} className="scale-animation" />
           </Link>
         </div>
       </YMapMarker>

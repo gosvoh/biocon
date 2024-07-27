@@ -19,13 +19,25 @@ const Socials = ({ className }: { className?: string }) => (
       className,
     )}
   >
-    <Link href={"https://www.youtube.com/@BIOCON_2023"} className={"scale-animation"} target={"_blank"}>
+    <Link
+      href={"https://www.youtube.com/@BIOCON_2023"}
+      className={"scale-animation"}
+      target={"_blank"}
+    >
       <SiYoutube className="w-10 h-10" />
     </Link>
-    <Link href={"https://t.me/BIOCON_2023"} className={"scale-animation"} target={"_blank"}>
+    <Link
+      href={"https://t.me/BIOCON_2023"}
+      className={"scale-animation"}
+      target={"_blank"}
+    >
       <SiTelegram className="w-10 h-10" />
     </Link>
-    <Link href={"https://vk.com/biocon"} className={"scale-animation"} target={"_blank"}>
+    <Link
+      href={"https://vk.com/biocon"}
+      className={"scale-animation"}
+      target={"_blank"}
+    >
       <SiVk className="w-10 h-10" />
     </Link>
   </div>
