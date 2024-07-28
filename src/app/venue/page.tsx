@@ -1,8 +1,11 @@
 import { Architects_Daughter } from "next/font/google";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+
+// logo
 import VenueLogoMobile from "@public/venue/VENUE.svg";
 import VenueLogoPC from "@public/venue/LogoPC.svg";
+import PhotoGradient from "@public/venue/glow/photogradient.svg";
 
 // gallery
 import SkiResort from "@public/venue/photos/ski_resort.jpg";
@@ -40,21 +43,84 @@ import LeftGlowPC from "@public/venue/glow/desktop/leftglowPC.svg";
 import RightGlowPC from "@public/venue/glow/desktop/rightglowPC.svg";
 
 // background
-import VenueBG from "@public/venue/venue_bg.png";
 import VenueBGPC from "@public/venue/BG_desktop.jpg";
+
+
+import { RenderHotelsInfo } from "@/app/venue/hotel.info.render";
+import { RenderIcons } from "@/app/venue/render.icons";
 
 const font = Architects_Daughter({
   subsets: ["latin"],
   weight: ["400"],
 });
 
+const hotels = [
+  {
+    image: DeluxeHotel,
+    name: "DeLuxe hotel chain",
+    description:
+      "Two cozy hotels of European level in the central district of Almetyevsk. Prices start from 2500 rubles per night.",
+    link2Booking: "https://otel-deluxe.ru/",
+  },
+  {
+    image: FrissonHotel,
+    name: "Frisson",
+    description:
+      "Cozy hotel with single and double accommodation in the city center. Prices from 3200 rubles per day.",
+    link2Booking: "https://almet-hotel.turbo.site/",
+  },
+  {
+    image: ApartsHotel,
+    name: "Apartments",
+    description:
+      "In Almetyevsk you can also use classic ways of booking accommodation: book apartments on the Yandex.Travel, Ostrovok, 101Hotels and others.",
+    link2Booking: "https://101hotels.com/main/cities/almetevsk/apartments",
+  },
+];
+
+const icons = [
+  {
+    description: "Participation is free for all types of participants!",
+    description2: "",
+    icon: ConferenceIcon,
+  },
+  {
+    description:
+      "Attendee participants will be selected based on their letters of motivation.",
+    description2:
+      "Contributed speaker and Science Slammer participants will be selected based on their CVs, scientific background, and video presentations.",
+    icon: FuelIcon,
+  },
+  {
+    description:
+      "Free shuttle service to Almetyevsk will be organized from the points indicated on the map",
+    description2: "",
+    icon: BusIcon,
+  },
+  {
+    description:
+      "During the days of the conference, meals and coffee breaks will be organized for all conference participants.",
+    description2: "",
+    icon: CupIcon,
+  },
+  {
+    description:
+      "Participants pay their own travel expenses to transfer locations.",
+    description2:
+      "Please note that we have special offers for the conference participants. After registering, you can get promo codes for discounts at our partner airline companies.",
+    icon: PlaneIcon,
+  },
+  {
+    description:
+      "Basic accommodation options at hotels that we recommend can be found here.",
+    description2:
+      "During the days of the conference, we will organize transfers from these hotels to the conference location.",
+    icon: CardStopIcon,
+  },
+];
 export default function VenuePage() {
   const gallerySection =
     "fcol gap-5  lg:grid lg:grid-cols-2 lg:items-center lg:gap-9";
-  const hotelCard =
-    "fcol lg:grid lg:grid-cols-2 gap-4 lg:gap-24 items-center text-center lg:items-start relative ";
-  const hotelImage =
-    "rounded-[16px] lg:rounded-[28px] aspect-[4/3] lg:aspect-[7/4] object-cover w-full";
   const galleryImage =
     "rounded-[16px] lg:rounded-[28px] lg:object-cover lg:aspect-[8/4] w-full lg:object-top";
 
@@ -73,12 +139,7 @@ export default function VenuePage() {
           <Image
             src={VenueBGPC}
             alt=""
-            className="w-full h-full object-cover hidden lg:block"
-          />
-          <Image
-            src={VenueBG}
-            alt=""
-            className="w-full h-full object-cover lg:hidden"
+            className="w-full h-full object-cover object-top"
           />
         </div>
         <div className="wrapper fcol gap-8 md: lg:gap-8 xl:gap-[50px] justify-center">
@@ -91,6 +152,13 @@ export default function VenuePage() {
             src={VenueLogoPC}
             alt={""}
             className={" w-[50%] mx-auto hidden lg:block"}
+          />
+        </div>
+        <div className="absolute bottom-0 w-full h-[20%]">
+          <Image
+            src={PhotoGradient}
+            alt=""
+            className="w-full h-full object-cover blur-sm"
           />
         </div>
       </section>
@@ -247,75 +315,12 @@ export default function VenuePage() {
         <Image
           src={LeftGlow}
           alt={""}
-          className={"absolute -z-10 left-0 w-full -top-12 lg:hidden"}
+          className={"absolute -z-10 left-0 w-fit -top-12 lg:hidden"}
         />
-        <h2 className={"font-normal text-start"}>The terms of participation</h2>
-        <div
-          className={"text-start fcol gap-7 lg:grid lg:grid-cols-2 lg:gap-x-24"}
-        >
-          <div className={"grid grid-cols-[0.5fr_4fr] gap-6 items-center"}>
-            <Image src={ConferenceIcon} alt={""} className={"lg:w-[150%]"} />
-            <p className={"font-light"}>
-              Participation is free for all types of participants!
-            </p>
-          </div>
-          <div className={"grid grid-cols-[0.5fr_4fr] gap-6 items-center"}>
-            <Image src={FuelIcon} alt={""} className={"lg:w-[150%]"} />
-            <div className={"fcol gap-3"}>
-              <p className={"font-light"}>
-                Attendee participants will be selected based on their letters of
-                motivation.
-              </p>
-              <p className={"font-light"}>
-                Attendee participants will be selected based on their letters of
-                motivation. Contributed speaker and Science Slammer participants
-                will be selected based on their CVs, scientific background, and
-                video presentations.
-              </p>
-            </div>
-          </div>
-          <div className={"grid grid-cols-[0.5fr_4fr] gap-6 items-center"}>
-            <Image src={BusIcon} alt={""} className={"lg:w-[150%]"} />
-            <p className={"font-light"}>
-              Free shuttle service to Almetyevsk will be organized from the
-              points indicated on the map
-            </p>
-          </div>
-          <div className={"grid grid-cols-[0.5fr_4fr] gap-6 items-center"}>
-            <Image src={CupIcon} alt={""} className={"lg:w-[150%]"} />
-            <p className={"font-light"}>
-              During the days of the conference, meals and coffee breaks will be
-              organized for all conference participants.
-            </p>
-          </div>
-          <div className={"grid grid-cols-[0.5fr_4fr] gap-6 items-center"}>
-            <Image src={PlaneIcon} alt={""} className={"lg:w-[150%]"} />
-            <div className={"fcol gap-2"}>
-              <p className={"font-light"}>
-                Participants pay their own travel expenses to transfer
-                locations.
-              </p>
-              <p className={"font-light"}>
-                {" "}
-                Please note that we have special offers for the conference
-                participants.
-              </p>
-              <p className={"font-light"}>
-                {" "}
-                After registering, you can get promo codes for discounts at our
-                partner airline companies.
-              </p>
-            </div>
-          </div>
-          <div className={"grid grid-cols-[0.5fr_4fr] gap-6 items-center"}>
-            <Image src={CardStopIcon} alt={""} className={"lg:w-[150%]"} />
-            <p className={"font-light"}>
-              Basic accommodation options at hotels that we recommend can be
-              found here. During the days of the conference, we will organize
-              transfers from these hotels to the conference location.
-            </p>
-          </div>
-        </div>
+        <h2 className={"font-normal lg:text-start text-center"}>
+          The terms of participation
+        </h2>
+        <RenderIcons icons={icons} />
       </section>
       <section className={"relative mb-24"}>
         <h2 className={"font-normal"}>Accommodation options</h2>
@@ -324,59 +329,7 @@ export default function VenuePage() {
           days. Key locations have been marked on an interactive map.
         </p>
         <div className={"fcol gap-16 lg:gap-24"}>
-          <div className={hotelCard}>
-            <Image src={DeluxeHotel} alt={""} className={hotelImage} />
-            <div
-              className={
-                "fcol gap-4 lg:items-start lg:text-start lg:justify-start"
-              }
-            >
-              <h3 className={"font-normal"}>DeLuxe hotel chain</h3>
-              <p className={"font-light"}>
-                Two cozy hotels of European level in the central district of
-                Almetyevsk. Prices start from 2500 rubles per night.
-              </p>
-              <button className={"main-button mt-2 lg:absolute lg:bottom-0"}>
-                {" "}
-                Go to booking
-              </button>
-            </div>
-          </div>
-          <div className={hotelCard}>
-            <Image src={FrissonHotel} alt={""} className={hotelImage} />
-            <div
-              className={
-                "fcol gap-4 lg:items-start lg:text-start lg:justify-start"
-              }
-            >
-              <h3 className={"font-normal"}>Frisson</h3>
-              <p className={"font-light"}>
-                Cozy hotel with single and double accommodation in the city
-                center. Prices from 3200 rubles per day.
-              </p>
-              <button className={"main-button mt-2 lg:absolute lg:bottom-0"}>
-                Go to booking
-              </button>
-            </div>
-          </div>
-          <div className={hotelCard}>
-            <Image src={ApartsHotel} alt={""} className={hotelImage} />
-            <div
-              className={
-                "fcol gap-4 lg:items-start lg:text-start lg:justify-start"
-              }
-            >
-              <h3 className={"font-normal"}>Apartments</h3>
-              <p className={"font-light"}>
-                In Almetyevsk you can also use classic ways of booking
-                accommodation: book apartments on the Yandex.Travel, Ostrovok,
-                101Hotels and others.
-              </p>
-              <button className={"main-button mt-2 lg:absolute lg:bottom-0"}>
-                Go to booking
-              </button>
-            </div>
-          </div>
+          <RenderHotelsInfo hotels={hotels} />
         </div>
         <Image
           src={BottomGlow2}
