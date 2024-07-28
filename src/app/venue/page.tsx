@@ -2,16 +2,17 @@ import VenueBG from "@public/venue/venue_bg.png";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import VenueLogoMobile from "@public/venue/VENUE.svg";
+import VenueLogoPC from "@public/venue/LogoPC.svg";
 
 // gallery
-import SkiResort from "@public/venue/photos/ski_resort.png";
-import PeopleTatneft from "@public/venue/photos/people.png";
-import PeoplePHS from "@public/venue/photos/PeoplePHS.png";
-import PeopleBiocon from "@public/venue/photos/PeopleBiocon2023.png";
+import SkiResort from "@public/venue/photos/ski_resort.jpg";
+import PeopleTatneft from "@public/venue/photos/people.jpg";
+import PeoplePHS from "@public/venue/photos/PeoplePHS.jpg";
+import PeopleBiocon from "@public/venue/photos/PeopleBiocon2023.jpg";
 
 // Conference Venue
 import MapPhoto from "@public/venue/photos/map.png";
-import Conference from "@public/venue/photos/conference.png";
+import ConferencePC from "@public/venue/photos/conferencePC.jpg";
 
 // icons
 import ConferenceIcon from "@public/venue/icons/0.svg";
@@ -21,7 +22,19 @@ import CupIcon from "@public/venue/icons/3.svg";
 import PlaneIcon from "@public/venue/icons/4.svg";
 import CardStopIcon from "@public/venue/icons/5.svg";
 
+// hotels
+import DeluxeHotel from "@public/venue/hotels/deluxe.jpg";
+import ApartsHotel from "@public/venue/hotels/aparts.jpeg";
+import FrissonHotel from "@public/venue/hotels/frisson.jpeg";
+
 import { Architects_Daughter } from "next/font/google";
+
+// mobile glows
+import BottomGlow1 from "@public/venue/glow/mobile/bottomglow.svg";
+import BottomGlow2 from "@public/venue/glow/mobile/bottomglow2.svg";
+import LeftGlow from "@public/venue/glow/mobile/leftglow.svg";
+import RightGlow from "@public/venue/glow/mobile/rightglow.svg";
+
 const font = Architects_Daughter({
   subsets: ["latin"],
   weight: ["400"],
@@ -29,6 +42,10 @@ const font = Architects_Daughter({
 
 export default function VenuePage() {
   const gallerySection = "fcol gap-5";
+  const hotelCard =
+    "fcol lg:grid lg:grid-cols-2 gap-4 lg:gap-24 items-center text-center lg:items-start relative";
+  const hotelImage =
+    "rounded-[16px] lg:rounded-[28px] aspect-[4/3] lg:aspect-[7/4] object-cover w-full";
 
   return (
     <main>
@@ -38,14 +55,33 @@ export default function VenuePage() {
           "text-base md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl",
           "py-8",
           "max-w-none px-0",
-          "space-y-[42px] md:space-y-[80px]",
+          "space-y-[42px] md:space-y-[80px] h-[43rem]",
         )}
       >
-        <div className="wrapper fcol gap-8 md: lg:gap-8 xl:gap-[50px]">
-          <Image src={VenueLogoMobile} alt="Biocon" className={"w-full"} />
+        <Image
+          src={VenueBG}
+          alt={""}
+          className={"absolute -z-10 top-0 right-0 w-full"}
+        />
+        <div className="wrapper fcol gap-8 md: lg:gap-8 xl:gap-[50px] justify-center">
+          <Image
+            src={VenueLogoMobile}
+            alt="Biocon"
+            className={"w-full lg:hidden"}
+          />
+          <Image
+            src={VenueLogoPC}
+            alt={""}
+            className={" w-[80%] mx-auto hidden lg:block"}
+          />
         </div>
       </section>
-      <section className={"fcol gap-5"}>
+      <section className={"fcol gap-5 relative"}>
+        <Image
+          src={RightGlow}
+          alt={""}
+          className={"absolute -z-10 right-0 h-fit w-full top-0"}
+        />
         <h1 className={"font-normal"}>Almetyevsk</h1>
         <h3 className={"font-normal"}>
           Альметьевск (Russian)
@@ -126,7 +162,7 @@ export default function VenuePage() {
             briefing.
           </p>
         </div>
-        <div className={"fcol gap-14 items-center justify-center"}>
+        <div className={"fcol gap-14 items-center justify-center lg:hidden"}>
           <Image src={MapPhoto} alt={""} className={"w-full"} />
           <div className={cn(gallerySection, "items-center")}>
             <h1
@@ -140,23 +176,60 @@ export default function VenuePage() {
             <p>Almetyevsk, Russia</p>
           </div>
           <Image
-            src={Conference}
+            src={ConferencePC}
             alt={""}
             className={"w-full rounded-[16px]"}
           />
         </div>
+        <div className={"hidden lg:block"}>
+          <div className={"grid grid-rows-2 gap-6"}>
+            <div className={"grid grid-cols-2 gap-6"}>
+              <Image src={MapPhoto} alt={""} className={"w-full"} />
+              <div
+                className={
+                  "bg-[#1A1A1A] rounded-[28px] fcol items-center justify-center gap-3"
+                }
+              >
+                <h1
+                  className={cn(
+                    " font-normal text-[#7DEB9A] text-[80px]",
+                    font.className,
+                  )}
+                >
+                  +18 °C
+                </h1>
+                <p>Almetyevsk, Russia</p>
+              </div>
+            </div>
+            <div className={"relative"}>
+              <Image
+                src={ConferencePC}
+                alt={""}
+                fill={true}
+                className={"object-cover aspect-[5/3] rounded-[28px]"}
+              />
+            </div>
+          </div>
+        </div>
       </section>
-      <section className={"text-center"}>
-        <h2 className={"font-normal"}>The terms of participation</h2>
-        <div className={"text-start fcol gap-7"}>
+      <section className={"text-center relative"}>
+        <Image
+          src={LeftGlow}
+          alt={""}
+          className={"absolute -z-10 left-0 w-full -top-12 lg:hidden"}
+        />
+        <h2 className={"font-normal text-start"}>The terms of participation</h2>
+        <div
+          className={"text-start fcol gap-7 lg:grid lg:grid-cols-2 lg:gap-x-24"}
+        >
           <div className={"grid grid-cols-[0.5fr_4fr] gap-6 items-center"}>
-            <Image src={ConferenceIcon} alt={""} />
+            <Image src={ConferenceIcon} alt={""} className={"lg:w-[150%]"} />
             <p className={"font-light"}>
               Participation is free for all types of participants!
             </p>
           </div>
           <div className={"grid grid-cols-[0.5fr_4fr] gap-6 items-center"}>
-            <Image src={FuelIcon} alt={""} />
+            <Image src={FuelIcon} alt={""} className={"lg:w-[150%]"} />
             <div className={"fcol gap-3"}>
               <p className={"font-light"}>
                 Attendee participants will be selected based on their letters of
@@ -171,21 +244,21 @@ export default function VenuePage() {
             </div>
           </div>
           <div className={"grid grid-cols-[0.5fr_4fr] gap-6 items-center"}>
-            <Image src={BusIcon} alt={""} />
+            <Image src={BusIcon} alt={""} className={"lg:w-[150%]"} />
             <p className={"font-light"}>
               Free shuttle service to Almetyevsk will be organized from the
               points indicated on the map
             </p>
           </div>
           <div className={"grid grid-cols-[0.5fr_4fr] gap-6 items-center"}>
-            <Image src={CupIcon} alt={""} />
+            <Image src={CupIcon} alt={""} className={"lg:w-[150%]"} />
             <p className={"font-light"}>
               During the days of the conference, meals and coffee breaks will be
               organized for all conference participants.
             </p>
           </div>
           <div className={"grid grid-cols-[0.5fr_4fr] gap-6 items-center"}>
-            <Image src={PlaneIcon} alt={""} />
+            <Image src={PlaneIcon} alt={""} className={"lg:w-[150%]"} />
             <div className={"fcol gap-2"}>
               <p className={"font-light"}>
                 Participants pay their own travel expenses to transfer
@@ -204,7 +277,7 @@ export default function VenuePage() {
             </div>
           </div>
           <div className={"grid grid-cols-[0.5fr_4fr] gap-6 items-center"}>
-            <Image src={CardStopIcon} alt={""} />
+            <Image src={CardStopIcon} alt={""} className={"lg:w-[150%]"} />
             <p className={"font-light"}>
               Basic accommodation options at hotels that we recommend can be
               found here. During the days of the conference, we will organize
@@ -212,6 +285,80 @@ export default function VenuePage() {
             </p>
           </div>
         </div>
+      </section>
+      <section className={"relative"}>
+        <h2 className={"font-normal"}>Accommodation options</h2>
+        <p className={"font-light mb-10 lg:mb-24"}>
+          We have gathered several accommodation options for the conference
+          days. Key locations have been marked on an interactive map.
+        </p>
+        <div className={"fcol gap-16 lg:gap-24"}>
+          <div className={hotelCard}>
+            <Image src={DeluxeHotel} alt={""} className={hotelImage} />
+            <div
+              className={
+                "fcol gap-4 lg:items-start lg:text-start lg:justify-start"
+              }
+            >
+              <h3 className={"font-normal"}>DeLuxe hotel chain</h3>
+              <p className={"font-light"}>
+                Two cozy hotels of European level in the central district of
+                Almetyevsk. Prices start from 2500 rubles per night.
+              </p>
+              <button className={"main-button mt-2 lg:absolute lg:bottom-0"}>
+                {" "}
+                Go to booking
+              </button>
+            </div>
+          </div>
+          <div className={hotelCard}>
+            <Image src={FrissonHotel} alt={""} className={hotelImage} />
+            <div
+              className={
+                "fcol gap-4 lg:items-start lg:text-start lg:justify-start"
+              }
+            >
+              <h3 className={"font-normal"}>Frisson</h3>
+              <p className={"font-light"}>
+                Cozy hotel with single and double accommodation in the city
+                center. Prices from 3200 rubles per day.
+              </p>
+              <button className={"main-button mt-2 lg:absolute lg:bottom-0"}>
+                Go to booking
+              </button>
+            </div>
+          </div>
+          <div className={hotelCard}>
+            <Image src={ApartsHotel} alt={""} className={hotelImage} />
+            <div
+              className={
+                "fcol gap-4 lg:items-start lg:text-start lg:justify-start"
+              }
+            >
+              <h3 className={"font-normal"}>Apartments</h3>
+              <p className={"font-light"}>
+                In Almetyevsk you can also use classic ways of booking
+                accommodation: book apartments on the Yandex.Travel, Ostrovok,
+                101Hotels and others.
+              </p>
+              <button className={"main-button mt-2 lg:absolute lg:bottom-0"}>
+                Go to booking
+              </button>
+            </div>
+          </div>
+        </div>
+        <Image
+          src={BottomGlow2}
+          alt={""}
+          className={"absolute -z-10 bottom-32 w-full right-0 lg:hidden"}
+        />
+        <Image
+          src={BottomGlow1}
+          alt={""}
+          className={
+            "absolute -bottom-24 -z-10 w-full blur-md left-0 lg:hidden"
+          }
+        />
       </section>
     </main>
   );
