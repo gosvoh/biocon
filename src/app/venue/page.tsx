@@ -1,4 +1,4 @@
-import VenueBG from "@public/venue/venue_bg.png";
+import { Architects_Daughter } from "next/font/google";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import VenueLogoMobile from "@public/venue/VENUE.svg";
@@ -21,13 +21,12 @@ import BusIcon from "@public/venue/icons/2.svg";
 import CupIcon from "@public/venue/icons/3.svg";
 import PlaneIcon from "@public/venue/icons/4.svg";
 import CardStopIcon from "@public/venue/icons/5.svg";
+import TatarCat from "@public/venue/icons/TatarCat.svg";
 
 // hotels
 import DeluxeHotel from "@public/venue/hotels/deluxe.jpg";
 import ApartsHotel from "@public/venue/hotels/aparts.jpeg";
 import FrissonHotel from "@public/venue/hotels/frisson.jpeg";
-
-import { Architects_Daughter } from "next/font/google";
 
 // mobile glows
 import BottomGlow1 from "@public/venue/glow/mobile/bottomglow.svg";
@@ -35,17 +34,29 @@ import BottomGlow2 from "@public/venue/glow/mobile/bottomglow2.svg";
 import LeftGlow from "@public/venue/glow/mobile/leftglow.svg";
 import RightGlow from "@public/venue/glow/mobile/rightglow.svg";
 
+// desktop glows
+import BottomGlowPC from "@public/venue/glow/desktop/bottomglowPC.svg";
+import LeftGlowPC from "@public/venue/glow/desktop/leftglowPC.svg";
+import RightGlowPC from "@public/venue/glow/desktop/rightglowPC.svg";
+
+// background
+import VenueBG from "@public/venue/venue_bg.png";
+import VenueBGPC from "@public/venue/BG_desktop.jpg";
+
 const font = Architects_Daughter({
   subsets: ["latin"],
   weight: ["400"],
 });
 
 export default function VenuePage() {
-  const gallerySection = "fcol gap-5";
+  const gallerySection =
+    "fcol gap-5  lg:grid lg:grid-cols-2 lg:items-center lg:gap-9";
   const hotelCard =
-    "fcol lg:grid lg:grid-cols-2 gap-4 lg:gap-24 items-center text-center lg:items-start relative";
+    "fcol lg:grid lg:grid-cols-2 gap-4 lg:gap-24 items-center text-center lg:items-start relative ";
   const hotelImage =
     "rounded-[16px] lg:rounded-[28px] aspect-[4/3] lg:aspect-[7/4] object-cover w-full";
+  const galleryImage =
+    "rounded-[16px] lg:rounded-[28px] lg:object-cover lg:aspect-[8/4] w-full lg:object-top";
 
   return (
     <main>
@@ -58,11 +69,18 @@ export default function VenuePage() {
           "space-y-[42px] md:space-y-[80px] h-[43rem]",
         )}
       >
-        <Image
-          src={VenueBG}
-          alt={""}
-          className={"absolute -z-10 top-0 right-0 w-full"}
-        />
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src={VenueBGPC}
+            alt=""
+            className="w-full h-full object-cover hidden lg:block"
+          />
+          <Image
+            src={VenueBG}
+            alt=""
+            className="w-full h-full object-cover lg:hidden"
+          />
+        </div>
         <div className="wrapper fcol gap-8 md: lg:gap-8 xl:gap-[50px] justify-center">
           <Image
             src={VenueLogoMobile}
@@ -72,40 +90,46 @@ export default function VenuePage() {
           <Image
             src={VenueLogoPC}
             alt={""}
-            className={" w-[80%] mx-auto hidden lg:block"}
+            className={" w-[50%] mx-auto hidden lg:block"}
           />
         </div>
       </section>
-      <section className={"fcol gap-5 relative"}>
+      <section className={"relative lg:grid lg:grid-cols-[1fr_1fr]"}>
         <Image
           src={RightGlow}
           alt={""}
-          className={"absolute -z-10 right-0 h-fit w-full top-0"}
+          className={"absolute -z-10 right-0 h-fit w-full top-0 lg:hidden"}
         />
-        <h1 className={"font-normal"}>Almetyevsk</h1>
-        <h3 className={"font-normal"}>
-          Альметьевск (Russian)
-          <br />
-          Әлмәт (Tatar)
-        </h3>
-        <div className={"fcol gap-3"}>
+        <div className={"fcol gap-5 lg:w-[75%]"}>
+          <h1 className={"font-normal"}>Almetyevsk</h1>
+          <h3 className={"font-normal"}>
+            Альметьевск (Russian)
+            <br />
+            Әлмәт (Tatar)
+          </h3>
           <p className={"font-light"}>
             In the Republic of Tatarstan, Almetyevsk is often called “The Oil
             Capital” the city is home to the headquarters of Tatneft and 80% of
             its population is employed by the oil sector:
           </p>
-          <p className={"font-light"}>
-            Almetyevsk boasts its own ski resort, a 150 km network of bike
-            paths, the “Almet” community center (Complete with Renaissance-era
-            art and Shostakovich’s grand piano) and 30 art ofjects and murals
-            spread throughout the city.
-          </p>
         </div>
+        <Image
+          src={TatarCat}
+          alt={""}
+          className={"hidden lg:block justify-self-center"}
+        />
       </section>
-      <section className={"fcol gap-16 text-center"}>
+      <section className={"fcol gap-16 text-center relative"}>
+        <Image
+          src={LeftGlowPC}
+          alt={""}
+          className={
+            "absolute left-0 -z-10 blur-md bottom-[10%] hidden lg:block"
+          }
+        />
         <div className={gallerySection}>
-          <Image src={SkiResort} alt={""} className={"rounded-[16px] w-full"} />
-          <p className={"font-light"}>
+          <Image src={SkiResort} alt={""} className={galleryImage} />
+          <p className={"font-light lg:text-left"}>
             Almetyevsk boasts its own ski resort, a 150 km network of bike
             paths, the “Almet” community center (complete with Renaissance-era
             art and Shostakovich’s grand piano), and 30 art objects and murals
@@ -116,9 +140,9 @@ export default function VenuePage() {
           <Image
             src={PeopleTatneft}
             alt={""}
-            className={"rounded-[16px] w-full"}
+            className={cn(galleryImage, "lg:order-2")}
           />
-          <p className={"font-light"}>
+          <p className={"font-light lg:text-left"}>
             PJSC Tatneft, together with the Advanced Engineering School ITMO, is
             developing the biotech industry in Almetyevsk.
             <br /> <br />
@@ -128,8 +152,8 @@ export default function VenuePage() {
           </p>
         </div>
         <div className={gallerySection}>
-          <Image src={PeoplePHS} alt={""} className={"rounded-[16px] w-full"} />
-          <p className={"font-light"}>
+          <Image src={PeoplePHS} alt={""} className={galleryImage} />
+          <p className={"font-light lg:text-left"}>
             In April 2023, cellular, molecular, microbiological and chemical
             laboratories equipped with advanced research equipment were launched
             on the basis of the Laboratory and Research Building of the
@@ -140,9 +164,9 @@ export default function VenuePage() {
           <Image
             src={PeopleBiocon}
             alt={""}
-            className={"rounded-[16px] w-full"}
+            className={cn(galleryImage, "lg:order-2")}
           />
-          <p className={"font-light"}>
+          <p className={"font-light  lg:text-left"}>
             In December 2023, the first international biotechnology conference,
             BIOCON 2023, was held at the Almet Cultural Center. The conference
             took place over three days and brought together the most advanced
@@ -151,7 +175,7 @@ export default function VenuePage() {
           </p>
         </div>
       </section>
-      <section className={"fcol gap-10"}>
+      <section className={"fcol gap-10 relative"}>
         <div>
           <h2 className={"font-normal"}>Conference venue</h2>
           <p className={"font-light"}>
@@ -211,6 +235,13 @@ export default function VenuePage() {
             </div>
           </div>
         </div>
+        <Image
+          src={RightGlowPC}
+          alt={""}
+          className={
+            "absolute -z-10 right-0 top-[10%] w-full blur-md hidden lg:block"
+          }
+        />
       </section>
       <section className={"text-center relative"}>
         <Image
@@ -286,7 +317,7 @@ export default function VenuePage() {
           </div>
         </div>
       </section>
-      <section className={"relative"}>
+      <section className={"relative mb-24"}>
         <h2 className={"font-normal"}>Accommodation options</h2>
         <p className={"font-light mb-10 lg:mb-24"}>
           We have gathered several accommodation options for the conference
@@ -356,7 +387,14 @@ export default function VenuePage() {
           src={BottomGlow1}
           alt={""}
           className={
-            "absolute -bottom-24 -z-10 w-full blur-md left-0 lg:hidden"
+            "absolute -bottom-[10%] -z-10 w-full blur-md left-0 lg:hidden"
+          }
+        />
+        <Image
+          src={BottomGlowPC}
+          alt={""}
+          className={
+            "absolute -z-10 -bottom-[15%] left-0 w-full hidden lg:block"
           }
         />
       </section>
