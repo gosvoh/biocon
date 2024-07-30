@@ -4,7 +4,7 @@ import Biocon2023Page from "@/app/biocon2023/biocon2023.page";
 
 export const dynamic = "force-dynamic";
 
-export default async function PreviousBiocon() {
+export default async function PreviousBioconLoader() {
   let data: (typeof Speakers2023.$inferSelect)[] = [];
 
   try {

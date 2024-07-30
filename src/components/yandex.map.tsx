@@ -31,7 +31,7 @@ const Map = ({ api }: { api: ReactifyApi | null }) => {
       <YMapDefaultSchemeLayer />
       <YMapDefaultFeaturesLayer />
       <YMapControls position="left" />
-      <YMapMarker coordinates={[52.289424, 54.898]}>
+      <YMapMarker coordinates={[52.289495, 54.8984]}>
         <div className={"w-64"}>
           <Link
             href={

@@ -1,6 +1,6 @@
-import { Architects_Daughter } from "next/font/google";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import Head from "next/head";
 
 // logo
 import VenueLogoMobile from "@public/venue/VENUE.svg";
@@ -17,19 +17,7 @@ import PeopleBiocon from "@public/venue/photos/PeopleBiocon2023.jpg";
 import MapPhoto from "@public/venue/photos/map.png";
 import ConferencePC from "@public/venue/photos/conferencePC.jpg";
 
-// icons
-import ConferenceIcon from "@public/venue/icons/0.svg";
-import FuelIcon from "@public/venue/icons/1.svg";
-import BusIcon from "@public/venue/icons/2.svg";
-import CupIcon from "@public/venue/icons/3.svg";
-import PlaneIcon from "@public/venue/icons/4.svg";
-import CardStopIcon from "@public/venue/icons/5.svg";
 import TatarCat from "@public/venue/icons/TatarCat.svg";
-
-// hotels
-import DeluxeHotel from "@public/venue/hotels/deluxe.jpg";
-import ApartsHotel from "@public/venue/hotels/aparts.jpeg";
-import FrissonHotel from "@public/venue/hotels/frisson.jpeg";
 
 // mobile glows
 import BottomGlow1 from "@public/venue/glow/mobile/bottomglow.svg";
@@ -47,76 +35,8 @@ import VenueBGPC from "@public/venue/BG_desktop.jpg";
 
 import { RenderHotelsInfo } from "@/app/venue/hotel.info.render";
 import { RenderIcons } from "@/app/venue/render.icons";
+import { RenderTemperature } from "@/app/venue/render.temperature";
 
-const font = Architects_Daughter({
-  subsets: ["latin"],
-  weight: ["400"],
-});
-
-const hotels = [
-  {
-    image: DeluxeHotel,
-    name: "DeLuxe hotel chain",
-    description:
-      "Two cozy hotels of European level in the central district of Almetyevsk. Prices start from 2500 rubles per night.",
-    link2Booking: "https://otel-deluxe.ru/",
-  },
-  {
-    image: FrissonHotel,
-    name: "Frisson",
-    description:
-      "Cozy hotel with single and double accommodation in the city center. Prices from 3200 rubles per day.",
-    link2Booking: "https://almet-hotel.turbo.site/",
-  },
-  {
-    image: ApartsHotel,
-    name: "Apartments",
-    description:
-      "In Almetyevsk you can also use classic ways of booking accommodation: book apartments on the Yandex.Travel, Ostrovok, 101Hotels and others.",
-    link2Booking: "https://101hotels.com/main/cities/almetevsk/apartments",
-  },
-];
-
-const icons = [
-  {
-    description: "Participation is free for all types of participants!",
-    description2: "",
-    icon: ConferenceIcon,
-  },
-  {
-    description:
-      "Attendee participants will be selected based on their letters of motivation.",
-    description2:
-      "Contributed speaker and Science Slammer participants will be selected based on their CVs, scientific background, and video presentations.",
-    icon: FuelIcon,
-  },
-  {
-    description:
-      "Free shuttle service to Almetyevsk will be organized from the points indicated on the map",
-    description2: "",
-    icon: BusIcon,
-  },
-  {
-    description:
-      "During the days of the conference, meals and coffee breaks will be organized for all conference participants.",
-    description2: "",
-    icon: CupIcon,
-  },
-  {
-    description:
-      "Participants pay their own travel expenses to transfer locations.",
-    description2:
-      "Please note that we have special offers for the conference participants. After registering, you can get promo codes for discounts at our partner airline companies.",
-    icon: PlaneIcon,
-  },
-  {
-    description:
-      "Basic accommodation options at hotels that we recommend can be found here.",
-    description2:
-      "During the days of the conference, we will organize transfers from these hotels to the conference location.",
-    icon: CardStopIcon,
-  },
-];
 export default function VenuePage() {
   const gallerySection =
     "fcol gap-5  lg:grid lg:grid-cols-2 lg:items-center lg:gap-9";
@@ -125,6 +45,9 @@ export default function VenuePage() {
 
   return (
     <main>
+      <Head>
+        <meta property="og:image" content="/metadata/Venue.jpg" />
+      </Head>
       <section
         className={cn(
           "relative text-center",
@@ -167,7 +90,7 @@ export default function VenuePage() {
           alt={""}
           className={"absolute -z-10 right-0 h-fit w-full top-0 lg:hidden"}
         />
-        <div className={"fcol gap-5 lg:w-[75%]"}>
+        <div className={"fcol gap-5 lg:gap-8 lg:w-[75%]"}>
           <h1 className={"font-normal"}>Almetyevsk</h1>
           <h3 className={"font-normal"}>
             Альметьевск (Russian)
@@ -183,7 +106,7 @@ export default function VenuePage() {
         <Image
           src={TatarCat}
           alt={""}
-          className={"hidden lg:block justify-self-center"}
+          className={"hidden lg:block justify-self-center w-fit h-[125%]"}
         />
       </section>
       <section className={"fcol gap-16 text-center relative"}>
@@ -255,21 +178,7 @@ export default function VenuePage() {
         </div>
         <div className={"grid grid-rows-3 gap-5 lg:hidden"}>
           <Image src={MapPhoto} alt={""} className={"w-full"} />
-          <div
-            className={
-              "bg-[#1A1A1A] rounded-[28px] w-full h-full fcol items-center justify-center gap-3"
-            }
-          >
-            <h1
-              className={cn(
-                " font-normal text-[#7DEB9A] text-[2.5rem]",
-                font.className,
-              )}
-            >
-              +18 °C
-            </h1>
-            <p>Almetyevsk, Russia</p>
-          </div>
+          <RenderTemperature />
           <Image
             src={ConferencePC}
             alt={""}
@@ -280,21 +189,7 @@ export default function VenuePage() {
           <div className={"grid grid-rows-2 gap-6"}>
             <div className={"grid grid-cols-2 gap-6"}>
               <Image src={MapPhoto} alt={""} className={"w-full"} />
-              <div
-                className={
-                  "bg-[#1A1A1A] rounded-[28px] fcol items-center justify-center gap-3"
-                }
-              >
-                <h1
-                  className={cn(
-                    " font-normal text-[#7DEB9A] text-[80px]",
-                    font.className,
-                  )}
-                >
-                  +18 °C
-                </h1>
-                <p>Almetyevsk, Russia</p>
-              </div>
+              <RenderTemperature />
             </div>
             <div className={"relative"}>
               <Image
@@ -317,7 +212,7 @@ export default function VenuePage() {
           src={LeftGlow}
           alt={""}
           className={
-            "absolute -z-10 left-0 w-full h-fit top-1/4 lg:hidden scale-[140%]"
+            "absolute -z-10 left-0 w-full h-fit top-1/4 lg:hidden blur-md"
           }
         />
       </section>
@@ -325,7 +220,7 @@ export default function VenuePage() {
         <h2 className={"font-normal lg:text-start text-center"}>
           The terms of participation
         </h2>
-        <RenderIcons icons={icons} />
+        <RenderIcons />
       </section>
       <section className={"relative mb-24"}>
         <h2 className={"font-normal"}>Accommodation options</h2>
@@ -334,7 +229,7 @@ export default function VenuePage() {
           days. Key locations have been marked on an interactive map.
         </p>
         <div className={"fcol gap-16 lg:gap-24"}>
-          <RenderHotelsInfo hotels={hotels} />
+          <RenderHotelsInfo />
         </div>
         <Image
           src={BottomGlow2}

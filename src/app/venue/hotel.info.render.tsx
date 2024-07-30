@@ -1,17 +1,34 @@
 import Image, { StaticImageData } from "next/image";
-import FrissonHotel from "@public/venue/hotels/frisson.jpeg";
 import Link from "next/link";
+import DeluxeHotel from "@public/venue/hotels/deluxe.jpg";
+import NeftyanikHotel from "@public/venue/hotels/neftyanik.jpg";
+import ApartsHotel from "@public/venue/hotels/aparts.jpeg";
 
-export const RenderHotelsInfo = ({
-  hotels,
-}: {
-  hotels: Array<{
-    name: string;
-    image: StaticImageData;
-    description: string;
-    link2Booking: string;
-  }>;
-}) => {
+const hotels = [
+  {
+    image: DeluxeHotel,
+    name: "DeLuxe hotel chain",
+    description:
+      "Two cozy hotels of European level in the central district of Almetyevsk. Prices start from 2500 rubles per night.",
+    link2Booking: "https://otel-deluxe.ru/",
+  },
+  {
+    image: NeftyanikHotel,
+    name: "Neftyanik Business Hotel",
+    description:
+      "Located on a quiet street, the hotel offers rooms of different price segments and a good breakfast is included in the price. Price from 3500 rubles per day.",
+    link2Booking: "https://www.hotel-neftyanik.ru/",
+  },
+  {
+    image: ApartsHotel,
+    name: "Apartments",
+    description:
+      "In Almetyevsk you can also use classic ways of booking accommodation: book apartments on the Yandex.Travel, Ostrovok, 101Hotels and others.",
+    link2Booking: "https://101hotels.com/main/cities/almetevsk/apartments",
+  },
+];
+
+export const RenderHotelsInfo = () => {
   const hotelCard =
     "fcol lg:grid lg:grid-cols-2 gap-4 lg:gap-24 items-center text-center lg:items-start relative ";
   const hotelImage =
