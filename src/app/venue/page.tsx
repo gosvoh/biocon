@@ -45,7 +45,6 @@ import RightGlowPC from "@public/venue/glow/desktop/rightglowPC.svg";
 // background
 import VenueBGPC from "@public/venue/BG_desktop.jpg";
 
-
 import { RenderHotelsInfo } from "@/app/venue/hotel.info.render";
 import { RenderIcons } from "@/app/venue/render.icons";
 
@@ -254,9 +253,13 @@ export default function VenuePage() {
             briefing.
           </p>
         </div>
-        <div className={"fcol gap-14 items-center justify-center lg:hidden"}>
+        <div className={"grid grid-rows-3 gap-5 lg:hidden"}>
           <Image src={MapPhoto} alt={""} className={"w-full"} />
-          <div className={cn(gallerySection, "items-center")}>
+          <div
+            className={
+              "bg-[#1A1A1A] rounded-[28px] w-full h-full fcol items-center justify-center gap-3"
+            }
+          >
             <h1
               className={cn(
                 " font-normal text-[#7DEB9A] text-[2.5rem]",
@@ -307,16 +310,18 @@ export default function VenuePage() {
           src={RightGlowPC}
           alt={""}
           className={
-            "absolute -z-10 right-0 top-[10%] w-full blur-md hidden lg:block"
+            "absolute -z-10 right-0 bottom-0 top-12 w-full blur-md hidden lg:block"
           }
         />
-      </section>
-      <section className={"text-center relative"}>
         <Image
           src={LeftGlow}
           alt={""}
-          className={"absolute -z-10 left-0 w-fit -top-12 lg:hidden"}
+          className={
+            "absolute -z-10 left-0 w-full h-fit top-1/4 lg:hidden scale-[140%]"
+          }
         />
+      </section>
+      <section className={"text-center"}>
         <h2 className={"font-normal lg:text-start text-center"}>
           The terms of participation
         </h2>
