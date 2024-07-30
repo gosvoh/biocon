@@ -3,7 +3,6 @@
 import { cn } from "@/lib/utils";
 import { Architects_Daughter } from "next/font/google";
 import { useEffect, useState } from "react";
-import { Skeleton } from "antd";
 
 const font = Architects_Daughter({
   subsets: ["latin"],
@@ -34,9 +33,6 @@ interface CurrentWeather {
   temperature_2m: number;
 }
 const fetchWeather = async (): Promise<WeatherResponse | null> => {
-  if (localStorage.getItem("isTemperatureSet") == "true") {
-    return null;
-  }
   const fetchUrl =
     "https://api.open-meteo.com/v1/forecast?latitude=54.901171&longitude=52.297230&current=temperature_2m&timezone=Europe%2FMoscow&forecast_days=1";
   try {
@@ -45,8 +41,7 @@ const fetchWeather = async (): Promise<WeatherResponse | null> => {
       console.error(`Error! Status ${response.status}`);
       return null;
     }
-    const json = response.json();
-    return json;
+    return await response.json();
   } catch (e) {
     console.error(e);
     return null;
@@ -58,13 +53,8 @@ export const RenderTemperature = () => {
 
   useEffect(() => {
     fetchWeather().then((weather) => {
-      localStorage.setItem("isTemperatureSet", "true");
       setTemperature(weather);
     });
-
-    return () => {
-      localStorage.clear();
-    };
   }, []);
 
   return (
