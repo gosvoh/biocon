@@ -116,7 +116,7 @@ export const metadata: Metadata = {
     { name: "Aleksey Vokhmin", url: "https://github.com/gosvoh" },
     { name: "Advanced Engineering School ITMO", url: "https://pish-itmo.ru" },
   ],
-  icons: "https://biocon.international/logo.png",
+  icons: "/favicon.svg",
   robots: {
     index: true,
     follow: false,

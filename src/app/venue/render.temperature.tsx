@@ -59,18 +59,21 @@ export const RenderTemperature = () => {
 
   return (
     <div
+      id={"card"}
       className={
         "bg-[#1A1A1A] rounded-[28px] w-full h-full fcol items-center justify-center gap-5"
       }
     >
-      <h1
-        className={cn(
-          " font-normal text-[#7DEB9A] text-[3rem] lg:text-[5rem]",
-          font.className,
-        )}
-      >
-        {temperature?.current.temperature_2m} °C
-      </h1>
+      {temperature && (
+        <div className={cn(" text-[#7DEB9A] flex gap-3", font.className)}>
+          <h1 className={"text-[3rem] lg:text-[4rem] font-normal"}>
+            {Math.sign(temperature.current.temperature_2m) == 1 ? "+" : "-"}
+          </h1>
+          <h1 className={"text-[3rem] lg:text-[5rem] font-normal"}>
+            {Math.round(temperature.current.temperature_2m)} °C
+          </h1>
+        </div>
+      )}
       <p>Almetyevsk, Russia</p>
     </div>
   );

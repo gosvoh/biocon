@@ -13,7 +13,7 @@ export default function AntdConfigProvider({
         algorithm: theme.darkAlgorithm,
         token: {
           colorPrimary: "hsl(268 67% 44%)",
-          colorBgBase: "hsl(0 0% 10%)",
+          colorBgBase: "#000000",
           boxShadow: "none",
         },
       }}

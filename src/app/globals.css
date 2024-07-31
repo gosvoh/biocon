@@ -192,7 +192,7 @@
 
     &.feedback-card {
       @apply max-md:[&>*]:max-w-none max-md:pb-[60px] h-full;
-      @apply fcol gap-2 lg:gap-6;
+      @apply fcol gap-5 lg:gap-6;
 
       & > p {
         @apply text-ellipsis line-clamp-6;

@@ -73,10 +73,10 @@ export default async function SpeakersPage() {
                   "absolute right-10 top-10 border-white border-[1px] rounded-[10px]"
                 }
               />
-              <div className={"grid grid-cols-[1fr_2fr] "}>
+              <div className={"grid grid-cols-[1.2fr_2fr] "}>
                 <div
                   className={
-                    "relative rounded-l-[25px] overflow-hidden aspect-[3/4] w-full"
+                    "relative rounded-l-[25px] overflow-hidden aspect-[3/4] w-full h-full"
                   }
                 >
                   <Image
@@ -134,7 +134,7 @@ export default async function SpeakersPage() {
                       )}
                     </div>
                   </div>
-                  <div className="p-3 border border-white rounded-[66px] w-[30%] text-center">
+                  <div className="p-3 pl-6 pr-6 border border-white rounded-[66px] min-w-[30%] max-w-max text-center whitespace-nowrap">
                     h-index: {speaker.hIndex}
                   </div>
                   <p>{speaker.description}</p>

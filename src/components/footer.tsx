@@ -63,7 +63,7 @@ export default function Footer() {
               ))}
             </div>
             <Socials className="lg:hidden" />
-            <div className="fcol 2xl:flex-row justify-between gap-6">
+            <div className="fcol 2xl:flex-row justify-between gap-6 text-[#969696]">
               <p>ITMO University</p>
               <div>
                 <Link

@@ -29,20 +29,19 @@ export default function CarouselFeedback({
         items={cardContent.map((content, i) => {
           const CardContent = ({ tgLink }: { tgLink?: boolean }) => (
             <>
-              <div className={"fcol gap-4  w-full"}>
-                <div className="flex flex-row gap-6 items-center max-w-none">
+              <div className={"fcol gap-6 w-full"}>
+                <div className="flex flex-row lg:gap-6 gap-4 items-center max-w-none">
                   <Image
                     src={content.icon}
                     alt={content.name}
                     className="aspect-square w-16 lg:w-24 object-cover rounded-full object-center"
                     sizes="6rem"
                   />
-                  <h3>
-                    {content.name.split(" ")[0]} <br />{" "}
-                    {content.name.split(" ")[1]}
-                  </h3>
+                  <h3>{content.name}</h3>
                 </div>
-                <p className={"lg:text-base"}>{content.affiliation}</p>
+                {tgLink && (
+                  <p className={"lg:text-base"}>{content.affiliation}</p>
+                )}
               </div>
               <p>{content.description}</p>
               {tgLink ? (
@@ -80,7 +79,7 @@ export default function CarouselFeedback({
                   okButtonProps: { style: { boxShadow: "none" } },
                   footer: <></>,
                   content: (
-                    <div className="fcol gap-4 p-4">
+                    <div className="fcol gap-6 p-4">
                       <CardContent tgLink />
                     </div>
                   ),

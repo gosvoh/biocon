@@ -119,18 +119,23 @@ export default function Biocon2023Page({
           src={UpperGlowPC}
           alt={""}
           className={
-            "absolute -top-1/3 w-full h-[300%] -z-10 hidden lg:block blur-md"
+            "absolute -top-[36%] w-full h-[300%] -z-10 hidden lg:block blur-md"
           }
         />
-        <div className="fcol text-center">
-          <h1 className="font-[500]">BIOCON 2023</h1>
+        <div
+          className={
+            "flex flex-col lg:flex-row lg:items-baseline lg:justify-center text-center lg:gap-5"
+          }
+        >
+          <h1 className="font-[500] lg:text-[2.75rem]">BIOCON 2023</h1>
+          <h1 className={"font-normal hidden lg:block"}>—</h1>
           <h2
             className={cn(
-              "lg:text-3xl font-normal text-[#7DEB9A]",
+              " font-normal text-[#7DEB9A] lg:text-6xl",
               font.className,
             )}
           >
-            How was it?
+            how was it?
           </h2>
         </div>
       </section>

@@ -36,6 +36,7 @@ import VenueBGPC from "@public/venue/BG_desktop.jpg";
 import { RenderHotelsInfo } from "@/app/venue/hotel.info.render";
 import { RenderIcons } from "@/app/venue/render.icons";
 import { RenderTemperature } from "@/app/venue/render.temperature";
+import Link from "next/link";
 
 export default function VenuePage() {
   const gallerySection =
@@ -177,7 +178,18 @@ export default function VenuePage() {
           </p>
         </div>
         <div className={"grid grid-rows-3 gap-5 lg:hidden"}>
-          <Image src={MapPhoto} alt={""} className={"w-full"} />
+          <Link
+            href={
+              "https://yandex.ru/maps/geo/rabochiy_posyolok_koltsovo/53118019/?ll=83.189250%2C54.939775"
+            }
+            target={"_blank"}
+          >
+            <Image
+              src={MapPhoto}
+              alt={""}
+              className={"w-full rounded-[16px]"}
+            />
+          </Link>
           <RenderTemperature />
           <Image
             src={ConferencePC}
@@ -187,8 +199,19 @@ export default function VenuePage() {
         </div>
         <div className={"hidden lg:block"}>
           <div className={"grid grid-rows-2 gap-6"}>
-            <div className={"grid grid-cols-2 gap-6"}>
-              <Image src={MapPhoto} alt={""} className={"w-full"} />
+            <div className={"grid grid-cols-[1fr,1fr] gap-6"}>
+              <Link
+                href={
+                  "https://yandex.ru/maps/geo/rabochiy_posyolok_koltsovo/53118019/?ll=83.189250%2C54.939775"
+                }
+                target={"_blank"}
+              >
+                <Image
+                  src={MapPhoto}
+                  alt={""}
+                  className={"w-full rounded-[28px] h-full"}
+                />
+              </Link>
               <RenderTemperature />
             </div>
             <div className={"relative"}>
