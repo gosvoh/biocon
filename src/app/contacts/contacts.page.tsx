@@ -1,4 +1,3 @@
-import Card from "@/components/card";
 import Image from "next/image";
 import BigSideGlow from "@public/BigSideGlow.svg";
 import SideGlow from "@public/contacts/LeftGlow.svg";
@@ -49,7 +48,13 @@ const RightGlow = ({
 const RenderPartnersInfoCards = ({
   infoArray,
 }: {
-  infoArray: Array<{ title: string; description: string }>;
+  infoArray: Array<{
+    title: string;
+    description: string;
+    redirectInstantly?: boolean;
+    redirectLink: string;
+    redirectLinkRu?: string;
+  }>;
 }) => (
   <div className={"fcol gap-5 lg:grid lg:grid-cols-4"}>
     {infoArray.map((infoElem, index) => (
@@ -57,6 +62,9 @@ const RenderPartnersInfoCards = ({
         key={index}
         title={infoElem.title}
         description={infoElem.description}
+        redirectLink={infoElem.redirectLink}
+        redirectInstantly={infoElem.redirectInstantly}
+        redirectLinkRu={infoElem.redirectLinkRu}
       />
     ))}
   </div>
@@ -118,18 +126,32 @@ export default function ContactsPage({
             {
               title: "Become our media partner",
               description: "Download partners program",
+              redirectLink:
+                "https://drive.google.com/file/d/1zEgF5HRVqiVg8LDHHCyAEh5vNDQI_sK1/view",
+              redirectInstantly: true,
             },
             {
               title: "About BIOCON",
               description: "Download presentation",
+              redirectLink:
+                "https://drive.google.com/file/d/1fuGzWuepbX90mcQbV_a8TqmNH5wo6DhV/view?usp=sharing",
+              redirectLinkRu:
+                "https://drive.google.com/file/d/11frvCVFJJzZ0KCBF1S0DaX7eWfaMbBrG/view?usp=sharing",
             },
             {
               title: "Media press kit",
               description: "Download press release",
+              redirectLink:
+                "https://drive.google.com/file/d/10NzuVeS03_pYk8EzAE8vM7vpxNmZ1Uh_/view",
+              redirectInstantly: true,
             },
             {
               title: "Use of logos and identity",
               description: "Download brand breech",
+              redirectLink:
+                "https://drive.google.com/file/d/1HzM96rD4MTUy0hne3B6UeicCfkp5cnZx/view?usp=sharing",
+              redirectLinkRu:
+                "https://drive.google.com/file/d/1XBJtG32W0I44WoDtVGIson6bcmif2z_J/view?usp=sharing",
             },
           ]}
         />

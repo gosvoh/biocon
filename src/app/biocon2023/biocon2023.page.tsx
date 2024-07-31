@@ -356,7 +356,7 @@ export default function Biocon2023Page({
               <h3 className={`font-normal mb-6 ${index !== 0 ? "mt-8" : ""}`}>
                 {speakerData.type}
               </h3>
-              <div className="grid-cols-4 gap-14 grid">
+              <div className="grid-cols-4 gap-7 grid">
                 {speakerData.speakersData.map((speaker, index) => (
                   <div
                     key={index}
