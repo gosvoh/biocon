@@ -133,7 +133,7 @@ export const RenderIcons = () => {
                   <li>5. Bugulma (Airport)</li>
                   <li>6. Begishevo (Airport Nizhnekamsk)</li>
                 </ol>
-                <div className={"flex gap-1 items-center"}>
+                <div className={"fcol lg:flex-row gap-1 items-center"}>
                   <p>If you have any questions, write at</p>
                   <Link
                     href={"mailto:biocon@itmo.ru"}

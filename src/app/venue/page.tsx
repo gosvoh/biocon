@@ -55,7 +55,7 @@ export default function VenuePage() {
           "text-base md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl",
           "py-8",
           "max-w-none px-0",
-          "space-y-[42px] md:space-y-[80px] h-[43rem]",
+          "space-y-[42px] md:space-y-[80px] h-[30rem] lg:h-[45rem]",
         )}
       >
         <div className="absolute inset-0 -z-10">
@@ -77,11 +77,11 @@ export default function VenuePage() {
             className={" w-[50%] mx-auto hidden lg:block"}
           />
         </div>
-        <div className="absolute bottom-0 w-full h-[20%]">
+        <div className="absolute -bottom-12 w-full h-[30%]">
           <Image
             src={PhotoGradient}
             alt=""
-            className="w-full h-full object-cover blur-sm"
+            className="w-full h-full object-cover blur-xl bg-[rgba(0,0,0,0.1)]"
           />
         </div>
       </section>
@@ -178,12 +178,7 @@ export default function VenuePage() {
           </p>
         </div>
         <div className={"grid grid-rows-3 gap-5 lg:hidden"}>
-          <Link
-            href={
-              "https://yandex.ru/maps/geo/rabochiy_posyolok_koltsovo/53118019/?ll=83.189250%2C54.939775"
-            }
-            target={"_blank"}
-          >
+          <Link href={"https://yandex.ru/maps/-/CDWhELKO"} target={"_blank"}>
             <Image
               src={MapPhoto}
               alt={""}
@@ -201,9 +196,7 @@ export default function VenuePage() {
           <div className={"grid grid-rows-2 gap-6"}>
             <div className={"grid grid-cols-[1fr,1fr] gap-6"}>
               <Link
-                href={
-                  "https://yandex.ru/maps/geo/rabochiy_posyolok_koltsovo/53118019/?ll=83.189250%2C54.939775"
-                }
+                href={"https://yandex.ru/maps/-/CDWhELKO"}
                 target={"_blank"}
               >
                 <Image
@@ -249,7 +242,16 @@ export default function VenuePage() {
         <h2 className={"font-normal"}>Accommodation options</h2>
         <p className={"font-light mb-10 lg:mb-24"}>
           We have gathered several accommodation options for the conference
-          days. Key locations have been marked on an interactive map.
+          days. Key locations have been marked on an{" "}
+          <Link
+            href={
+              "https://yandex.ru/maps/11121/almetyevsk/?azimuth=6.231099757965407&ll=52.322867%2C54.923325&mode=usermaps&source=constructorLink&um=constructor%3A3336d62a0f098e4a7df825d70c7345ac755a8ab05d0b6a4d8a55a818bf5632cf&z=11"
+            }
+            target={"_blank"}
+            className={"link-hover-underline text-[#FE6F61]"}
+          >
+            interactive map.
+          </Link>
         </p>
         <div className={"fcol gap-16 lg:gap-24"}>
           <RenderHotelsInfo />

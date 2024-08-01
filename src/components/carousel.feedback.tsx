@@ -30,6 +30,7 @@ export default function CarouselFeedback({
           const CardContent = ({ tgLink }: { tgLink?: boolean }) => (
             <>
               <div className={"fcol gap-6 w-full"}>
+                {tgLink && <h2 className={" mb-0 font-normal"}>Feedback</h2>}
                 <div className="flex flex-row lg:gap-6 gap-4 items-center max-w-none">
                   <Image
                     src={content.icon}
@@ -37,11 +38,11 @@ export default function CarouselFeedback({
                     className="aspect-square w-16 lg:w-24 object-cover rounded-full object-center"
                     sizes="6rem"
                   />
-                  <h3>{content.name}</h3>
+                  <div>
+                    <h3 className={"font-normal"}>{content.name}</h3>
+                    {tgLink && <p>{content.affiliation}</p>}
+                  </div>
                 </div>
-                {tgLink && (
-                  <p className={"lg:text-base"}>{content.affiliation}</p>
-                )}
               </div>
               <p>{content.description}</p>
               {tgLink ? (
