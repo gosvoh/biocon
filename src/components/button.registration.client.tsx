@@ -12,11 +12,13 @@ import {
   Radio,
   Select,
 } from "antd";
-import { use, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import Awesome from "@public/awesome.png";
 import type { Cities, Registrations } from "@/db/schema";
 import Link from "next/link";
 import { modalProps } from "./ui/modal";
 import { register } from "./button.registration.actions";
+import Image from "next/image";
 
 type RegisterFormValues = typeof Registrations.$inferInsert & {
   captchaToken: string;
@@ -376,21 +378,6 @@ const RegForm = ({
             </Form.Item>
           </>
         )}
-      {selectedParticipationType == "Contributed speaker" && (
-        <Form.Item<RegisterFormValues>
-          name="abstract"
-          label="Abstracts (Requirements for abstract formatting)"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your abstract",
-            },
-            { type: "url", message: "Please enter a valid url" },
-          ]}
-        >
-          <Input placeholder={"Provide a link to the abstract in English"} />
-        </Form.Item>
-      )}
       <Form.Item<RegisterFormValues>
         name="personalData"
         valuePropName="checked"
@@ -407,11 +394,11 @@ const RegForm = ({
       >
         <Checkbox>
           I agree to the{" "}
-          <Link prefetch={false} href="/policy.pdf" target="_blank">
+          <Link prefetch={false} href="/files/policy.pdf" target="_blank">
             processing of my personal data
           </Link>{" "}
           in accordance with{" "}
-          <Link prefetch={false} href="/regulations.pdf" target="_blank">
+          <Link prefetch={false} href="/files/regulations.pdf" target="_blank">
             ITMO University’s Policy regarding the processing of personal data
           </Link>
           .
@@ -464,7 +451,6 @@ export default function ButtonRegistrationClient({
   const [form] = Form.useForm<RegisterFormValues>();
   const [modal, context] = Modal.useModal();
   const modalRef = useRef<HTMLDivElement | null>(null);
-
   return (
     <>
       {context}
@@ -485,6 +471,30 @@ export default function ButtonRegistrationClient({
               try {
                 const values = await form.validateFields();
                 await register(values);
+                modal.info({
+                  icon: null,
+                  closable: true,
+                  footer: <></>,
+                  content: (
+                    <div
+                      className={
+                        "fcol gap-7 items-center justify-center text-center pb-10 pt-10"
+                      }
+                    >
+                      <h3 className={"font-[500]"}>You are awesome!</h3>
+                      <div className={"w-32 h-32"}>
+                        <Image
+                          src={Awesome}
+                          alt={""}
+                          className={"object-cover aspect-square scale-150"}
+                        />
+                      </div>
+                      <p className={"font-light"}>
+                        Registration completed successsfully
+                      </p>
+                    </div>
+                  ),
+                });
               } catch (e) {
                 console.error(e);
                 return Promise.reject(e);

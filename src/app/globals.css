@@ -100,6 +100,17 @@
     @apply text-3xl md:text-lg font-bold;
     @apply hover:underline;
   }
+  .ant-modal-mask {
+    @apply bg-black bg-opacity-75 !important;
+  }
+
+
+  .ant-modal,
+  .ant-modal-content,
+  .ant-modal-body {
+    background-color: #1A1A1A !important;
+  }
+
 }
 
 @layer components {

@@ -220,7 +220,6 @@ export default function RegistrationsTable({
           { title: "Email", dataIndex: "email" },
           { title: "How to know", dataIndex: "howToKnow" },
           { title: "Mobile", dataIndex: "mobile" },
-          { title: "Abstract", dataIndex: "abstract" },
           { title: "Country", dataIndex: "country" },
           { title: "City", dataIndex: "city" },
           { title: "Affiliation", dataIndex: "affiliation" },

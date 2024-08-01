@@ -126,32 +126,27 @@ export default function ContactsPage({
             {
               title: "Become our media partner",
               description: "Download partners program",
-              redirectLink:
-                "https://drive.google.com/file/d/1zEgF5HRVqiVg8LDHHCyAEh5vNDQI_sK1/view",
+              redirectLink: "/files/Partners program BIOCON 2024.pdf",
               redirectInstantly: true,
             },
             {
               title: "About BIOCON",
               description: "Download presentation",
-              redirectLink:
-                "https://drive.google.com/file/d/1fuGzWuepbX90mcQbV_a8TqmNH5wo6DhV/view?usp=sharing",
+              redirectLink: "/files/about_biocon/BIOCON presentation (eng).pdf",
               redirectLinkRu:
-                "https://drive.google.com/file/d/11frvCVFJJzZ0KCBF1S0DaX7eWfaMbBrG/view?usp=sharing",
+                "/files/about_biocon/BIOCON presentation (rus).pdf",
             },
             {
               title: "Media press kit",
               description: "Download press release",
-              redirectLink:
-                "https://drive.google.com/file/d/10NzuVeS03_pYk8EzAE8vM7vpxNmZ1Uh_/view",
+              redirectLink: "/files/Пресс-кит BIOCON 2024.pdf",
               redirectInstantly: true,
             },
             {
               title: "Use of logos and identity",
               description: "Download brand breech",
-              redirectLink:
-                "https://drive.google.com/file/d/1HzM96rD4MTUy0hne3B6UeicCfkp5cnZx/view?usp=sharing",
-              redirectLinkRu:
-                "https://drive.google.com/file/d/1XBJtG32W0I44WoDtVGIson6bcmif2z_J/view?usp=sharing",
+              redirectLink: "/files/brand_book/BIOCON 2024 Brandbook ENG.pdf",
+              redirectLinkRu: "/files/brand_book/BIOCON 2024 Brandbook RUS.pdf",
             },
           ]}
         />

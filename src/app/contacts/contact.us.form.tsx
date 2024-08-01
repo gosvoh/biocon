@@ -181,14 +181,14 @@ export const ContactUsForm = () => {
             onChange={(event) =>
               setIsPrivacyPolicyChecked(event.target.checked)
             }
-            className="appearance-none w-8 h-8 border-[1px] border-white rounded-full bg-[#1A1A1A] checked:bg-[#FE6F61] checked:transition-colors checked:duration-300"
+            className="appearance-none w-8 h-8 border-[1px] border-white rounded-full bg-[#1A1A1A] checked:bg-[#FE6F61] checked:transition-colors checked:duration-300 cursor-pointer"
           />
           <div className={"fcol gap-2 lg:hidden"}>
             <label>
               I agree to the processing <br /> of personal data.
             </label>
             <Link
-              href={"https://google.com"}
+              href={"/files/policy.pdf"}
               className={"underline text-[#FE6F61]"}
               target={"_blank"}
             >
@@ -198,7 +198,7 @@ export const ContactUsForm = () => {
           <div className={"lg:flex lg:gap-2 hidden"}>
             <label>I agree to the processing of personal data.</label>
             <Link
-              href={"https://google.com"}
+              href={"/files/policy.pdf"}
               className={"underline text-[#FE6F61]"}
               target={"_blank"}
             >

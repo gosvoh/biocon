@@ -1,10 +1,15 @@
-import Image from "next/image";
+"use client";
+
+import Image, { StaticImageData } from "next/image";
 import ConferenceIcon from "@public/venue/icons/0.svg";
 import CupIcon from "@public/venue/icons/3.svg";
 import FuelIcon from "@public/venue/icons/1.svg";
 import PlaneIcon from "@public/venue/icons/4.svg";
 import BusIcon from "@public/venue/icons/2.svg";
 import CardStopIcon from "@public/venue/icons/5.svg";
+import { Modal } from "antd";
+import { isPlainText } from "nodemailer/lib/mime-funcs";
+import Link from "next/link";
 
 const icons = [
   {
@@ -40,12 +45,11 @@ const icons = [
   },
   {
     description:
-      "Basic accommodation options at hotels that we recommend can be found here.",
-    description2:
-      "During the days of the conference, we will organize transfers from these hotels to the conference location.",
+      "Basic accommodation options at hotels that we recommend can be found below.",
     icon: CardStopIcon,
   },
 ];
+
 const mobileIcons = [
   {
     description: "Participation is free for all types of participants!",
@@ -80,16 +84,79 @@ const mobileIcons = [
   },
   {
     description:
-      "Basic accommodation options at hotels that we recommend can be found here.",
-    description2:
-      "During the days of the conference, we will organize transfers from these hotels to the conference location.",
+      "Basic accommodation options at hotels that we recommend can be found below.",
     icon: CardStopIcon,
   },
 ];
 
 export const RenderIcons = () => {
+  const [modal, context] = Modal.useModal();
+
+  const RenderIcon = ({
+    icon,
+    description,
+    description2,
+  }: {
+    icon: StaticImageData;
+    description: string;
+    description2?: string;
+  }) => (
+    <div
+      className={`${description2 && "fcol gap-2"} ${icon == PlaneIcon && "cursor-pointer hover:text-[#FE6F61] duration-300"}`}
+      onClick={() => {
+        icon == PlaneIcon &&
+          modal.info({
+            icon: null,
+            title: "Plane tickets",
+            width: "800px",
+            footer: <></>,
+            closable: true,
+            content: (
+              <div className={"fcol gap-5"}>
+                <p>
+                  When buying tickets, please note that the conference will take
+                  place on November 11-13.
+                </p>
+                <p className={"font-bold"}>
+                  We recommend arriving on November 10, 2024. <br />
+                  We recommend leaving on November 14, 2024.
+                </p>
+                <p>
+                  Free transfer to the conference’s location will be organized
+                  from the following points:
+                </p>
+                <ol>
+                  <li>1. Kazan-Passazhirskaya (Kazan railway station)</li>
+                  <li>2. Kazan-Passazhirskaya 2 (Kazan railway station)</li>
+                  <li>3. Kazan (Airport)</li>
+                  <li>4. Bugulma (Railway station)</li>
+                  <li>5. Bugulma (Airport)</li>
+                  <li>6. Begishevo (Airport Nizhnekamsk)</li>
+                </ol>
+                <div className={"flex gap-1 items-center"}>
+                  <p>If you have any questions, write at</p>
+                  <Link
+                    href={"mailto:biocon@itmo.ru"}
+                    className={
+                      "font-bold link-hover-underline text-white hover:text-white"
+                    }
+                  >
+                    biocon@itmo.ru
+                  </Link>
+                </div>
+              </div>
+            ),
+          });
+      }}
+    >
+      <p>{description}</p>
+      <p>{description2}</p>
+    </div>
+  );
+
   return (
     <>
+      {context}
       <div className={"grid grid-cols-1 gap-y-9 lg:hidden"}>
         {mobileIcons.map((icon, index) => (
           <div
@@ -99,10 +166,11 @@ export const RenderIcons = () => {
             }
           >
             <Image src={icon.icon} alt={""} className={"w-full h-full"} />
-            <div className={`${icon.description2 && "fcol gap-2"}`}>
-              <p>{icon.description}</p>
-              <p>{icon.description2}</p>
-            </div>
+            <RenderIcon
+              icon={icon.icon}
+              description={icon.description}
+              description2={icon.description2}
+            />
           </div>
         ))}
       </div>
@@ -115,10 +183,11 @@ export const RenderIcons = () => {
             }
           >
             <Image src={icon.icon} alt={""} className={"w-full h-full"} />
-            <div className={`${icon.description2 && "fcol gap-2"}`}>
-              <p>{icon.description}</p>
-              <p>{icon.description2}</p>
-            </div>
+            <RenderIcon
+              icon={icon.icon}
+              description={icon.description}
+              description2={icon.description2}
+            />
           </div>
         ))}
       </div>

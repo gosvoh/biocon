@@ -174,7 +174,7 @@ export default function Home() {
           <Image src={LogoDesktop} alt="Biocon" className="block w-full" />
           <p className="text-big text-center">is an opportunity</p>
         </div>
-        <div className="lg:absolute bottom-16 left-0 lg:wrapper lg:max-w-1/2 space-y-6 max-lg:pt-8 z-10">
+        <div className="lg:absolute bottom-8 left-0 lg:wrapper lg:max-w-1/2 space-y-6 max-lg:pt-8 z-10">
           <p>
             BIOCON is everyone’s spotlight: whether you are a schoolkid or a
             leading researcher, the talk is plenary. Your aspirations, endeavors
@@ -286,7 +286,6 @@ export default function Home() {
                     text="The preliminary title of your speech"
                     color="green"
                   />
-                  <Tag text="Abstracts" color="green" />
                 </div>
               </div>
             }

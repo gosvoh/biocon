@@ -74,7 +74,7 @@ export default function Footer() {
                 </Link>
               </div>
               <div>
-                <Link className="link-hover-underline" href="/policy.pdf">
+                <Link className="link-hover-underline" href="/files/policy.pdf">
                   Privacy policy
                 </Link>
               </div>
