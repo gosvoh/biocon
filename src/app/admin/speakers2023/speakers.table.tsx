@@ -203,7 +203,9 @@ export default function Speakers2023Table({
           {
             title: "Image",
             dataIndex: "image",
-            render: (_, x) => <Image src={`/images/${x.image}`} width={100} />,
+            render: (_, x) => (
+              <Image src={`/images/${x.image}`} width={100} alt={x.name} />
+            ),
           },
         ]}
       />

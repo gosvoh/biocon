@@ -201,7 +201,9 @@ export default function NewsTable({
           {
             title: "Image",
             dataIndex: "image",
-            render: (x) => <Image src={`/images/${x}`} width={100} />,
+            render: (x) => (
+              <Image src={`/images/${x}`} width={100} alt={x.name} />
+            ),
           },
         ]}
       />

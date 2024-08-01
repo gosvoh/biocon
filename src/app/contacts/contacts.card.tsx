@@ -12,7 +12,7 @@ const ModalContent = ({
   ruLink: string;
 }) => {
   const downloadButtonStyles =
-    "lg:w-fit w-full text-center pl-10 pr-10 p-5 border-white border-[1px] h-full rounded-md cursor-pointer hover:bg-[#FE6F61] transition-colors duration-300 text-white text-lg";
+    "lg:w-fit w-full text-center pl-10 pr-10 p-5 border-white border-2 h-full rounded-md cursor-pointer hover:bg-[#FE6F61] transition-colors duration-300 text-white text-lg";
   return (
     <div className={"fcol w-full gap-5 lg:flex-row mt-5 justify-center"}>
       <Link href={ruLink} target={"_blank"}>

@@ -8,8 +8,8 @@ const links: {
   { title: "Biocon 2023", href: "/biocon2023" },
   { title: "Speakers", href: "/speakers" },
   // { title: "Program", href: "#" },
-  // { title: "Venue", href: "#" },
-  // { title: "Organizers", href: "#" },
+  { title: "Venue", href: "/venue" },
+  { title: "Organizers", href: "/contacts" },
 ];
 
 export default links;
