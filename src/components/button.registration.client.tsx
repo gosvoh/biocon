@@ -51,6 +51,7 @@ const roles = [
   "Contributed speaker",
   "Participant of BioTech Open Mic",
 ];
+
 const RegForm = ({
   form,
   countries,
@@ -98,6 +99,7 @@ const RegForm = ({
       firstInputRef.current?.focus();
     }, 100);
   }, []);
+
   const RenderLabel = ({
     text,
     required,
@@ -112,6 +114,7 @@ const RegForm = ({
       </p>
     );
   };
+
   return (
     <>
       <style type="text/css">
@@ -326,12 +329,26 @@ const RegForm = ({
             }))}
           />
         </Form.Item>
-        <RenderTags
-          className={"mt-7 mb-5"}
-          state={selectedParticipationType}
-          setState={setSelectedParticipationType}
-          subjects={roles}
-        />
+        <Form.Item<RegisterFormValues>
+          name="participationType"
+          initialValue={roles[0]}
+          rules={[
+            {
+              required: true,
+              message: "Please select your participation type",
+            },
+          ]}
+        >
+          <RenderTags
+            className={"mt-7 mb-5"}
+            state={selectedParticipationType}
+            setState={(value) => {
+              setSelectedParticipationType(value);
+              form.setFieldsValue({ participationType: value });
+            }}
+            subjects={roles}
+          />
+        </Form.Item>
 
         {selectedParticipationType === "Attendee" && (
           <Form.Item<RegisterFormValues>
