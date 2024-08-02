@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import Link from "next/link";
 import { notification } from "antd";
+import { cn } from "@/lib/utils";
 
 const subjects = [
   "Difficulties with registration",
@@ -17,15 +18,18 @@ const StyledInput = ({
   setState,
   placeholder,
   textarea = false,
+  value,
 }: {
   setState: Dispatch<SetStateAction<string | null>>;
   placeholder: string;
   textarea?: boolean;
+  value: string | null;
 }) => (
   <>
     {textarea ? (
       <textarea
         rows={7}
+        value={value || ""}
         placeholder={placeholder}
         className={
           "bg-[#1A1A1A] rounded-lg border-white border-[1px] p-5 text-center lg:text-left lg:pl-7 resize-none focus:outline-none"
@@ -35,6 +39,7 @@ const StyledInput = ({
     ) : (
       <input
         type="text"
+        value={value || ""}
         onChange={(event) => setState(event.target.value)}
         className={
           "bg-[#1A1A1A] rounded-full border-white border-[1px] p-2 pr-5 pl-5 lg:p-5 lg:pr-8 lg:pl-8 focus:outline-none"
@@ -45,20 +50,24 @@ const StyledInput = ({
   </>
 );
 
-const RenderTags = ({
+export const RenderTags = ({
   state,
   setState,
+  subjects,
+  className,
 }: {
-  state: number | null;
-  setState: Dispatch<SetStateAction<number | null>>;
+  state: string | null;
+  setState: Dispatch<SetStateAction<string | null>>;
+  subjects: Array<string>;
+  className?: string;
 }) => {
   return (
-    <div className={"fcol lg:grid lg:grid-cols-3 gap-5"}>
+    <div className={cn("fcol lg:grid lg:grid-cols-3 gap-5", className)}>
       {subjects.map((subject, index) => (
         <div
           key={index}
-          className={`flex items-center justify-center w-fit lg:w-full border-white border-[1px] p-4 lg:pl-12 lg:pr-12 pr-8 pl-8 text-center rounded-[66px] cursor-pointer ${index == state && "bg-[#FE6F61]"} transition-colors duration-300`}
-          onClick={() => setState(index)}
+          className={`flex items-center justify-center w-fit lg:w-full border-white border-[1px] p-4 lg:pl-12 lg:pr-12 pr-8 pl-8 text-center rounded-[66px] cursor-pointer ${subject == state && "bg-[#FE6F61]"} transition-colors duration-300`}
+          onClick={() => setState(subjects[index])}
         >
           {subject}
         </div>
@@ -72,7 +81,7 @@ export const ContactUsForm = () => {
   const textCn = "font-normal lg:text-3xl";
 
   const [api, contextHolder] = notification.useNotification();
-  const [tagsStatus, setTagsStatus] = useState<number | null>(null);
+  const [tagsStatus, setTagsStatus] = useState<string | null>(null);
   const [nameInputState, setNameInputState] = useState<string | null>(null);
   const [emailInputState, setEmailInputState] = useState<string | null>(null);
   const [messageInputState, setMessageInputState] = useState<string | null>(
@@ -94,7 +103,12 @@ export const ContactUsForm = () => {
     ) {
       return api.error({
         message: "Not all fields are filled",
-        description: "Please fill all required fileds.",
+        description: "Please fill all required fields.",
+      });
+    } else if (emailInputState.indexOf("@") == -1) {
+      return api.error({
+        message: "E-mail is incorrect",
+        description: "Please enter a correct e-mail",
       });
     }
 
@@ -108,7 +122,7 @@ export const ContactUsForm = () => {
           name: nameInputState,
           email: emailInputState,
           message: messageInputState,
-          subject: subjects[tagsStatus],
+          subject: tagsStatus,
         }),
       });
 
@@ -118,6 +132,18 @@ export const ContactUsForm = () => {
           description: `Status code: ${response.status}`,
         });
       }
+
+      setIsPrivacyPolicyChecked(null);
+      setEmailInputState(null);
+      setNameInputState(null);
+      setIsPrivacyPolicyChecked(false);
+      setTagsStatus(null);
+      setMessageInputState(null);
+
+      return api.success({
+        message: "Success",
+        description: "Your feedback sent successfully!",
+      });
     } catch (error) {
       let message = "Unknown Error";
       if (error instanceof Error) message = error.message;
@@ -141,7 +167,11 @@ export const ContactUsForm = () => {
             <p className={textCn}>Subject</p>
             <p className={"text-[#888888]"}>*</p>
           </div>
-          <RenderTags state={tagsStatus} setState={setTagsStatus} />
+          <RenderTags
+            state={tagsStatus}
+            setState={setTagsStatus}
+            subjects={subjects}
+          />
         </div>
         <div className={containerCn}>
           <div className={"flex gap-1"}>
@@ -149,6 +179,7 @@ export const ContactUsForm = () => {
             <p className={"text-[#888888]"}>*</p>
           </div>
           <StyledInput
+            value={nameInputState}
             setState={setNameInputState}
             placeholder={"Enter your name"}
           />
@@ -160,6 +191,7 @@ export const ContactUsForm = () => {
           </div>
 
           <StyledInput
+            value={emailInputState}
             setState={setEmailInputState}
             placeholder={"Enter your email"}
           />
@@ -170,6 +202,7 @@ export const ContactUsForm = () => {
             <p className={"text-[#888888]"}>*</p>
           </div>
           <StyledInput
+            value={messageInputState}
             textarea
             setState={setMessageInputState}
             placeholder={"Enter the issue you want to address"}

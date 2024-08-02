@@ -9,16 +9,17 @@ import {
   Input,
   InputRef,
   Modal,
-  Radio,
   Select,
 } from "antd";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Awesome from "@public/awesome.png";
 import type { Cities, Registrations } from "@/db/schema";
 import Link from "next/link";
 import { modalProps } from "./ui/modal";
 import { register } from "./button.registration.actions";
 import Image from "next/image";
+import styled from "styled-components";
+import { RenderTags } from "@/app/contacts/contact.us.form";
 
 type RegisterFormValues = typeof Registrations.$inferInsert & {
   captchaToken: string;
@@ -26,6 +27,69 @@ type RegisterFormValues = typeof Registrations.$inferInsert & {
   personalData: boolean;
 };
 
+const StyledCheckbox = styled(Checkbox)`
+  .ant-checkbox-inner {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid white;
+    background-color: #1a1a1a;
+    transition: background-color 0.3s;
+
+    &::after {
+      display: none;
+    }
+    &:hover {
+      border: 1px solid white;
+    }
+  }
+
+  .ant-checkbox-wrapper:hover {
+    background-color: #fe6f61;
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #fe6f61;
+    border: 1px solid white;
+  }
+
+  .ant-checkbox-checked:hover .ant-checkbox-inner,
+  .ant-checkbox-checked:focus .ant-checkbox-inner {
+    background-color: #fe6f61;
+    border-color: #fe6f61;
+  }
+
+  .ant-checkbox-input {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+  }
+`;
+
+const StyledInput = styled(Input)`
+  border-radius: 3rem;
+  padding: 1rem 1rem 1rem 1.5rem;
+  border: 1px solid white;
+`;
+
+const StyledTextArea = styled(Input.TextArea)`
+  border-radius: 28px;
+  padding: 1rem 1rem 1rem 1.5rem;
+  border: 1px solid white;
+`;
+
+const StyledSelect = styled(Select)`
+  border: 1px solid white;
+  border-radius: 3rem;
+  width: 100%;
+  box-sizing: border-box;
+`;
+
+const roles = [
+  "Attendee",
+  "Contributed speaker",
+  "Participant of BioTech Open Mic",
+];
 const RegForm = ({
   form,
   countries,
@@ -39,7 +103,9 @@ const RegForm = ({
   cities: (typeof Cities.$inferSelect)[];
 }) => {
   const turnstileRef = useRef<TurnstileInstance>(null);
-  const selectedParticipationType = Form.useWatch("participationType", form);
+  const [selectedParticipationType, setSelectedParticipationType] = useState<
+    string | null
+  >(roles[0]);
   const selectedRole = Form.useWatch("role", form);
   const selectedCountry = Form.useWatch("country", form);
   const firstInputRef = useRef<InputRef>(null);
@@ -71,366 +137,421 @@ const RegForm = ({
       firstInputRef.current?.focus();
     }, 100);
   }, []);
-
+  const RenderLabel = ({
+    text,
+    required,
+  }: {
+    text: string;
+    required: boolean;
+  }) => {
+    const textCn = "font-[500] lg:text-2xl mb-2 mt-2 flex gap-1";
+    return (
+      <p className={textCn}>
+        {text} {required && <p className={"text-[#888888]"}>*</p>}
+      </p>
+    );
+  };
   return (
-    <Form preserve={false} form={form} layout="vertical">
-      <Form.Item<RegisterFormValues>
-        name="name"
-        label="Full name"
-        tooltip="Please specify your First name, Last name and Patronymic (if available)"
-        rules={[
-          { required: true, message: "Please enter your name" },
-          { min: 3, message: "Name must be at least 3 characters" },
-        ]}
-      >
-        <Input ref={firstInputRef} placeholder="Enter your full name here" />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="email"
-        label="Email"
-        rules={[
-          {
-            required: true,
-            message: "Please enter your email",
-          },
-          {
-            type: "email",
-            message: "Please enter a valid email",
-          },
-        ]}
-      >
-        <Input placeholder="Enter your email here" type="email" />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="howToKnow"
-        label="How did you learn about BIOCON?"
-        rules={[
-          {
-            required: true,
-            message: "Please enter how did you learn about BIOCON",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="mobile"
-        label="Mobile"
-        tooltip="Enter the country code, followed by the full phone number here"
-        rules={[
-          { required: true, message: "Please enter your mobile" },
-          {
-            pattern: /^[+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-            message: "Invalid mobile",
-          },
-        ]}
-      >
-        <Input type="tel" />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="country"
-        label="Select country"
-        rules={[
-          {
-            required: true,
-            message: "Please enter your country",
-          },
-        ]}
-      >
-        <Select
-          disabled={countries.length === 0}
-          placeholder="Country"
-          options={memoizedCountries}
-          showSearch
-          filterOption={(input, option) =>
-            !option
-              ? false
-              : option.label.toLowerCase().includes(input.toLowerCase())
+    <>
+      <style type="text/css">
+        {`
+        .ant-select {
+          padding: 1rem 1rem 1rem 1.5rem;
+        }
+        .ant-select-selector {
+          padding: 1rem 1.5rem;
+          border: none !important;
+          box-shadow: none !important;
+          &:focus,
+          &:active,
+          &:hover {
+            border: none !important;
+            box-shadow: none !important;
           }
-          filterSort={(a, b) => a.label.localeCompare(b.label)}
-        />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="city"
-        label="Select city"
-        rules={[
-          {
-            required: true,
-            message: "Please enter your city",
-          },
-        ]}
-      >
-        <Select
-          disabled={!selectedCountry}
-          placeholder="City"
-          showSearch
-          filterOption={(input, option) =>
-            !option
-              ? false
-              : option.label.toLowerCase().startsWith(input.toLowerCase())
-          }
-          filterSort={(a, b) => a.label.localeCompare(b.label)}
-          options={memoizedCities}
-        />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="affiliation"
-        label="Affiliation"
-        rules={[
-          {
-            required: true,
-            message: "Please enter your affiliation",
-          },
-        ]}
-      >
-        <Input placeholder="Enter the name of your university or organization here" />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="role"
-        label="Role"
-        rules={[
-          {
-            required: true,
-            message: "Please select your role",
-          },
-        ]}
-      >
-        <Select
-          placeholder="Role"
-          options={[
-            "Undergraduate student",
-            "Graduate student",
-            "PhD student",
-            "Professor",
-            "Industrial partner",
-            "Other",
-          ].map((r) => ({ value: r, label: r }))}
-        />
-      </Form.Item>
-      {selectedRole === "Other" && (
+        }
+
+        .ant-select-arrow {
+          color: white !important;
+          margin-right: 0.5rem
+        }
+        .ant-form-item-explain {
+          margin-left:1.5rem
+        }
+      `}
+      </style>
+      <Form preserve={false} form={form} layout="vertical">
         <Form.Item<RegisterFormValues>
-          name="customRole"
-          label="Custom role"
+          name="name"
+          label={<RenderLabel text={"Full name"} required={true} />}
+          required={false}
+          rules={[
+            { required: true, message: "Please enter your name" },
+            { min: 3, message: "Name must be at least 3 characters" },
+          ]}
+        >
+          <StyledInput
+            ref={firstInputRef}
+            placeholder="Enter your full name here"
+          />
+        </Form.Item>
+        <Form.Item<RegisterFormValues>
+          name="email"
+          required={false}
+          label={<RenderLabel text={"Email"} required={true} />}
           rules={[
             {
               required: true,
-              message: "Please enter your role",
+              message: "Please enter your email",
+            },
+            {
+              type: "email",
+              message: "Please enter a valid email",
             },
           ]}
         >
-          <Input placeholder="Enter your custom role here" />
+          <StyledInput placeholder="Enter your email here" type="email" />
         </Form.Item>
-      )}
-      <Form.Item<RegisterFormValues>
-        name="clothingSize"
-        label="Clothing size"
-        rules={[
-          {
-            required: true,
-            message: "Please select your clothing size",
-          },
-        ]}
-      >
-        <Select
-          placeholder="Clothing size"
-          options={["S", "M", "L", "XL"].map((s) => ({
-            value: s,
-            label: s,
-          }))}
-        />
-      </Form.Item>
-      <Form.Item<RegisterFormValues>
-        name="participationType"
-        label="Choose your role"
-        rules={[
-          {
-            required: true,
-            message: "Please enter your participation type",
-          },
-        ]}
-      >
-        <Radio.Group>
-          <Radio value="Attendee">
-            Attendee. Participate in all conference events!
-          </Radio>
-          <Radio value="Contributed speaker">
-            Contributed speaker. Become part of one of the parallel sessions!
-          </Radio>
-          <Radio value="Participant of BioTech Open Mic">
-            Participant of BioTech Open Mic. Present your research in an
-            entertaining way in only 10 minutes!
-          </Radio>
-        </Radio.Group>
-      </Form.Item>
-
-      {selectedParticipationType === "Attendee" && (
         <Form.Item<RegisterFormValues>
-          name="motivationLetter"
-          label="Motivation letter"
-          tooltip="Please write in English"
+          name="howToKnow"
+          required={false}
+          label={
+            <RenderLabel
+              text={"How did you learn about BIOCON?"}
+              required={true}
+            />
+          }
           rules={[
             {
-              required: selectedParticipationType === "Attendee",
-              message: "Please enter your motivation letter",
+              required: true,
+              message: "Please enter how did you learn about BIOCON",
             },
           ]}
         >
-          <Input.TextArea
-            rows={4}
-            placeholder={`Questions to be answered in the motivation letter (volume: 1-2 pages):
+          <StyledInput />
+        </Form.Item>
+        <Form.Item<RegisterFormValues>
+          name="mobile"
+          label={<RenderLabel text={"Mobile"} required={true} />}
+          required={false}
+          rules={[
+            { required: true, message: "Please enter your mobile" },
+            {
+              pattern: /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
+              message: "Invalid mobile",
+            },
+          ]}
+        >
+          <StyledInput type="tel" />
+        </Form.Item>
+        <Form.Item<RegisterFormValues>
+          name="country"
+          label={<RenderLabel text={"Select your country"} required={true} />}
+          required={false}
+          rules={[
+            {
+              required: true,
+              message: "Please enter your country",
+            },
+          ]}
+        >
+          <StyledSelect
+            style={{ padding: "26px 26px 26px 14px" }}
+            disabled={countries.length === 0}
+            placeholder="Country"
+            options={memoizedCountries}
+            showSearch
+            filterOption={(input, option) =>
+              !option
+                ? false
+                : option.label.toLowerCase().includes(input.toLowerCase())
+            }
+            filterSort={(a, b) => a.label.localeCompare(b.label)}
+          />
+        </Form.Item>
+        <Form.Item<RegisterFormValues>
+          name="city"
+          label={<RenderLabel text={"Select your сity"} required={true} />}
+          required={false}
+          rules={[
+            {
+              required: true,
+              message: "Please enter your city",
+            },
+          ]}
+        >
+          <StyledSelect
+            disabled={!selectedCountry}
+            style={{ padding: "26px 26px 26px 14px" }}
+            placeholder="City"
+            showSearch
+            filterOption={(input, option) =>
+              !option
+                ? false
+                : option.label.toLowerCase().startsWith(input.toLowerCase())
+            }
+            filterSort={(a, b) => a.label.localeCompare(b.label)}
+            options={memoizedCities}
+          />
+        </Form.Item>
+        <Form.Item<RegisterFormValues>
+          name="affiliation"
+          label={<RenderLabel text={"Affiliation"} required={true} />}
+          required={false}
+          rules={[
+            {
+              required: true,
+              message: "Please enter your affiliation",
+            },
+          ]}
+        >
+          <StyledInput placeholder="Enter the name of your university or organization here" />
+        </Form.Item>
+        <Form.Item<RegisterFormValues>
+          name="role"
+          label={<RenderLabel text={"Role"} required={true} />}
+          required={false}
+          rules={[
+            {
+              required: true,
+              message: "Please select your role",
+            },
+          ]}
+        >
+          <StyledSelect
+            style={{ padding: "26px 26px 26px 14px" }}
+            placeholder="Role"
+            options={[
+              "Undergraduate student",
+              "Graduate student",
+              "PhD student",
+              "Professor",
+              "Industrial partner",
+              "Other",
+            ].map((r) => ({ value: r, label: r }))}
+          />
+        </Form.Item>
+        {selectedRole === "Other" && (
+          <Form.Item<RegisterFormValues>
+            name="customRole"
+            label={<RenderLabel text={"Custom role"} required={true} />}
+            required={false}
+            rules={[
+              {
+                required: true,
+                message: "Please enter your role",
+              },
+            ]}
+          >
+            <StyledInput placeholder="Enter your custom role here" />
+          </Form.Item>
+        )}
+        <Form.Item<RegisterFormValues>
+          name="clothingSize"
+          label={<RenderLabel text={"Clothing size"} required={true} />}
+          required={false}
+          rules={[
+            {
+              required: true,
+              message: "Please select your clothing size",
+            },
+          ]}
+        >
+          <StyledSelect
+            style={{ padding: "26px 26px 26px 14px" }}
+            placeholder="Clothing size"
+            options={["S", "M", "L", "XL"].map((s) => ({
+              value: s,
+              label: s,
+            }))}
+          />
+        </Form.Item>
+        <RenderTags
+          className={"mt-7 mb-5"}
+          state={selectedParticipationType}
+          setState={setSelectedParticipationType}
+          subjects={roles}
+        />
+
+        {selectedParticipationType === "Attendee" && (
+          <Form.Item<RegisterFormValues>
+            name="motivationLetter"
+            label={<RenderLabel text={"Motivation letter"} required={true} />}
+            required={false}
+            rules={[
+              {
+                required: selectedParticipationType === "Attendee",
+                message: "Please enter your motivation letter",
+              },
+            ]}
+          >
+            <StyledTextArea
+              rows={8}
+              placeholder={`Questions to be answered in the motivation letter (volume: 1-2 pages):
 - Why would your participation be valuable to the conference and its participants?
 - Describe your experience in the field of biotechnology (study / work / projects)
 - What are your expectations from the conference?`}
-          />
-        </Form.Item>
-      )}
-
-      {!!selectedParticipationType &&
-        selectedParticipationType !== "Attendee" && (
-          <Form.Item<RegisterFormValues>
-            name="researchInterests"
-            label="Research interests"
-            rules={[
-              {
-                required:
-                  !!selectedParticipationType &&
-                  selectedParticipationType !== "Attendee",
-                message: "Please enter your research interests",
-              },
-            ]}
-          >
-            <Input placeholder="Enter your research interest(s) here" />
+            />
           </Form.Item>
         )}
 
-      {selectedParticipationType === "Contributed speaker" && (
-        <>
-          <Form.Item<RegisterFormValues>
-            name="tentativeTitle"
-            label="Tentative title"
-            rules={[
-              {
-                required: selectedParticipationType === "Contributed speaker",
-                message: "Please enter your tentative title",
-              },
-            ]}
-          >
-            <Input placeholder="Enter the tentative title of your talk here" />
-          </Form.Item>
-          <Form.Item<RegisterFormValues>
-            name="resume"
-            label="Resume"
-            tooltip="Please write in English"
-            rules={[
-              {
-                required: selectedParticipationType === "Contributed speaker",
-                message: "Please provide a link to your resume",
-              },
-              { type: "url", message: "Please enter a valid url" },
-            ]}
-          >
-            <Input placeholder="Provide a link to your resume in PDF format" />
-          </Form.Item>
-        </>
-      )}
+        {!!selectedParticipationType &&
+          selectedParticipationType !== "Attendee" && (
+            <Form.Item<RegisterFormValues>
+              name="researchInterests"
+              label={
+                <RenderLabel text={"Research interests"} required={true} />
+              }
+              required={false}
+              rules={[
+                {
+                  required:
+                    !!selectedParticipationType &&
+                    selectedParticipationType !== "Attendee",
+                  message: "Please enter your research interests",
+                },
+              ]}
+            >
+              <StyledInput placeholder="Enter your research interest(s) here" />
+            </Form.Item>
+          )}
 
-      {!!selectedParticipationType &&
-        selectedParticipationType !== "Attendee" && (
+        {selectedParticipationType === "Contributed speaker" && (
           <>
             <Form.Item<RegisterFormValues>
-              name="scienceProfile"
-              label="Science profile"
+              name="tentativeTitle"
+              label={<RenderLabel text={"Tentative title"} required={true} />}
+              required={false}
               rules={[
                 {
-                  required:
-                    !!selectedParticipationType &&
-                    selectedParticipationType !== "Attendee",
-                  message:
-                    "Please enter your Google Scholar, Scopus or ORCID profile",
+                  required: selectedParticipationType === "Contributed speaker",
+                  message: "Please enter your tentative title",
                 },
-                { type: "url", message: "Please enter a valid url" },
               ]}
             >
-              <Input placeholder="Provide a link to your Google Scholar, Scopus or ORCID profile" />
+              <StyledInput placeholder="Enter the tentative title of your talk here" />
             </Form.Item>
             <Form.Item<RegisterFormValues>
-              name="video"
-              label="Video"
+              name="resume"
+              label={<RenderLabel text={"Resume"} required={true} />}
+              required={false}
               rules={[
                 {
-                  required:
-                    !!selectedParticipationType &&
-                    selectedParticipationType !== "Attendee",
-                  message: "Please enter your video",
+                  required: selectedParticipationType === "Contributed speaker",
+                  message: "Please provide a link to your resume",
                 },
                 { type: "url", message: "Please enter a valid url" },
               ]}
             >
-              <Input
-                placeholder={
-                  ["Contributed speaker", "Attendee"].includes(
-                    selectedParticipationType,
-                  )
-                    ? "Provide a link to a short self-presentation video"
-                    : "Provide a link to a teaser of your talk"
-                }
-              />
+              <StyledInput placeholder="Provide a link to your resume in PDF format" />
             </Form.Item>
           </>
         )}
-      <Form.Item<RegisterFormValues>
-        name="personalData"
-        valuePropName="checked"
-        rules={[
-          {
-            validator: (_, value) =>
-              value
-                ? Promise.resolve()
-                : Promise.reject(
-                    "Please confirm that you agree to share your personal data",
-                  ),
-          },
-        ]}
-      >
-        <Checkbox>
-          I agree to the{" "}
-          <Link prefetch={false} href="/files/policy.pdf" target="_blank">
-            processing of my personal data
-          </Link>{" "}
-          in accordance with{" "}
-          <Link prefetch={false} href="/files/regulations.pdf" target="_blank">
-            ITMO University’s Policy regarding the processing of personal data
-          </Link>
-          .
-        </Checkbox>
-      </Form.Item>
 
-      <Form.Item<RegisterFormValues>
-        name="captchaToken"
-        rules={[
-          {
-            validator: (_, value) =>
-              value
-                ? Promise.resolve()
-                : Promise.reject("Please confirm that you are not a robot"),
-          },
-        ]}
-      >
-        <Turnstile
-          ref={turnstileRef}
-          id="registration-turnstile"
-          siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-          options={{
-            action: "Registration",
-            theme: "light",
-            size: "normal",
-            language: "en",
-          }}
-          onSuccess={(token) => form.setFieldsValue({ captchaToken: token })}
-          className="mx-auto"
-        />
-      </Form.Item>
-    </Form>
+        {!!selectedParticipationType &&
+          selectedParticipationType !== "Attendee" && (
+            <>
+              <Form.Item<RegisterFormValues>
+                name="scienceProfile"
+                label={<RenderLabel text={"Science profile"} required={true} />}
+                required={false}
+                rules={[
+                  {
+                    required:
+                      !!selectedParticipationType &&
+                      selectedParticipationType !== "Attendee",
+                    message:
+                      "Please enter your Google Scholar, Scopus or ORCID profile",
+                  },
+                  { type: "url", message: "Please enter a valid url" },
+                ]}
+              >
+                <StyledInput placeholder="Provide a link to your Google Scholar, Scopus or ORCID profile" />
+              </Form.Item>
+              <Form.Item<RegisterFormValues>
+                name="video"
+                label={<RenderLabel text={"Video"} required={true} />}
+                required={false}
+                rules={[
+                  {
+                    required:
+                      !!selectedParticipationType &&
+                      selectedParticipationType !== "Attendee",
+                    message: "Please enter your video",
+                  },
+                  { type: "url", message: "Please enter a valid url" },
+                ]}
+              >
+                <StyledInput
+                  placeholder={
+                    ["Contributed speaker", "Attendee"].includes(
+                      selectedParticipationType,
+                    )
+                      ? "Provide a link to a short self-presentation video"
+                      : "Provide a link to a teaser of your talk"
+                  }
+                />
+              </Form.Item>
+            </>
+          )}
+        <Form.Item<RegisterFormValues>
+          name="personalData"
+          valuePropName="checked"
+          rules={[
+            {
+              validator: (_, value) =>
+                value ? Promise.resolve() : Promise.reject(),
+            },
+          ]}
+        >
+          <div className="flex mt-5 items-center">
+            <input
+              type="checkbox"
+              className="appearance-none h-8 aspect-square border-[1px] border-white rounded-full bg-[#1A1A1A] checked:bg-[#FE6F61] checked:transition-colors checked:duration-300 cursor-pointer"
+            />
+            <div className="ml-4">
+              I agree to the{" "}
+              <Link prefetch={false} href="/files/policy.pdf" target="_blank">
+                processing of my personal data
+              </Link>{" "}
+              in accordance with{" "}
+              <Link
+                prefetch={false}
+                href="/files/regulations.pdf"
+                target="_blank"
+              >
+                ITMO University’s Policy regarding the processing of personal
+                data
+              </Link>
+              .
+            </div>
+          </div>
+        </Form.Item>
+
+        <Form.Item<RegisterFormValues>
+          name="captchaToken"
+          rules={[
+            {
+              validator: (_, value) =>
+                value ? Promise.resolve() : Promise.reject(),
+            },
+          ]}
+        >
+          <Turnstile
+            ref={turnstileRef}
+            id="registration-turnstile"
+            siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+            options={{
+              action: "Registration",
+              theme: "light",
+              size: "normal",
+              language: "en",
+            }}
+            onSuccess={(token) => form.setFieldsValue({ captchaToken: token })}
+            className="mx-auto"
+          />
+        </Form.Item>
+      </Form>
+    </>
   );
 };
 
@@ -460,7 +581,6 @@ export default function ButtonRegistrationClient({
           modal.confirm({
             ...modalProps,
             panelRef: modalRef,
-            title: "Registration",
             content: (
               <RegForm form={form} countries={countries} cities={cities} />
             ),
