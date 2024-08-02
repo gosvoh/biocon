@@ -101,13 +101,18 @@ export default function VenuePage() {
           <p className={"font-light"}>
             In the Republic of Tatarstan, Almetyevsk is often called “The Oil
             Capital” the city is home to the headquarters of Tatneft and 80% of
-            its population is employed by the oil sector:
+            its population is employed by the oil sector <br /> <br />
+            In November, the climate in Almetyevsk is generally characterized by
+            cool and overcast conditions, with temperatures typically ranging
+            from -3°C to 5°C (27°F to 41°F). During this month, it is common to
+            experience rain and occasional light snowfall, which contributes to
+            the overall chilly atmosphere.
           </p>
         </div>
         <Image
           src={TatarCat}
           alt={""}
-          className={"hidden lg:block justify-self-center w-fit h-[125%]"}
+          className={"hidden lg:block justify-self-center w-fit h-[80%]"}
         />
       </section>
       <section className={"fcol gap-16 text-center relative"}>

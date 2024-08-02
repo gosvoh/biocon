@@ -27,45 +27,6 @@ type RegisterFormValues = typeof Registrations.$inferInsert & {
   personalData: boolean;
 };
 
-const StyledCheckbox = styled(Checkbox)`
-  .ant-checkbox-inner {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid white;
-    background-color: #1a1a1a;
-    transition: background-color 0.3s;
-
-    &::after {
-      display: none;
-    }
-    &:hover {
-      border: 1px solid white;
-    }
-  }
-
-  .ant-checkbox-wrapper:hover {
-    background-color: #fe6f61;
-  }
-
-  .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: #fe6f61;
-    border: 1px solid white;
-  }
-
-  .ant-checkbox-checked:hover .ant-checkbox-inner,
-  .ant-checkbox-checked:focus .ant-checkbox-inner {
-    background-color: #fe6f61;
-    border-color: #fe6f61;
-  }
-
-  .ant-checkbox-input {
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-  }
-`;
-
 const StyledInput = styled(Input)`
   border-radius: 3rem;
   padding: 1rem 1rem 1rem 1.5rem;
@@ -155,11 +116,7 @@ const RegForm = ({
     <>
       <style type="text/css">
         {`
-        .ant-select {
-          padding: 1rem 1rem 1rem 1.5rem;
-        }
         .ant-select-selector {
-          padding: 1rem 1.5rem;
           border: none !important;
           box-shadow: none !important;
           &:focus,
@@ -259,13 +216,15 @@ const RegForm = ({
             disabled={countries.length === 0}
             placeholder="Country"
             options={memoizedCountries}
-            showSearch
+            /*
+                showSearch
             filterOption={(input, option) =>
               !option
                 ? false
                 : option.label.toLowerCase().includes(input.toLowerCase())
             }
             filterSort={(a, b) => a.label.localeCompare(b.label)}
+             */
           />
         </Form.Item>
         <Form.Item<RegisterFormValues>
@@ -283,6 +242,7 @@ const RegForm = ({
             disabled={!selectedCountry}
             style={{ padding: "26px 26px 26px 14px" }}
             placeholder="City"
+            /*
             showSearch
             filterOption={(input, option) =>
               !option
@@ -290,6 +250,7 @@ const RegForm = ({
                 : option.label.toLowerCase().startsWith(input.toLowerCase())
             }
             filterSort={(a, b) => a.label.localeCompare(b.label)}
+            */
             options={memoizedCities}
           />
         </Form.Item>

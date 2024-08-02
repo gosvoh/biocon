@@ -74,7 +74,12 @@ export const RenderTemperature = () => {
           </h1>
         </div>
       )}
-      <p>Almetyevsk, Russia</p>
+      <div className={"fcol gap-1 items-center"}>
+        <p>Almetyevsk, Russia</p>
+        <p className={"text-[#888888] text-xs lg:text-lg"}>
+          (real-time weather){" "}
+        </p>
+      </div>
     </div>
   );
 };
