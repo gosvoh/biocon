@@ -48,7 +48,7 @@ const LeftGlow = ({
     src={big ? BigSideGlow : SideGlow}
     alt=""
     className={cn(
-      "absolute top-1/2 -left-14 -z-10 h-[125%] w-fit px-0 -translate-y-1/2 max-w-none rotate-180",
+      "absolute top-1/2 -left-24 -z-10 h-[125%] w-fit px-0 -translate-y-1/2 max-w-none rotate-180",
       className,
     )}
   />

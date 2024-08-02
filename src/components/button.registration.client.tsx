@@ -484,7 +484,7 @@ const RegForm = ({
           <div className="flex mt-5 items-center">
             <input
               type="checkbox"
-              className="appearance-none h-8 aspect-square border-[1px] border-white rounded-full bg-[#1A1A1A] checked:bg-[#FE6F61] checked:transition-colors checked:duration-300 cursor-pointer"
+              className="appearance-none h-8 w-8 lg:w-auto  aspect-square border-[1px] border-white rounded-full bg-[#1A1A1A] checked:bg-[#FE6F61] checked:transition-colors checked:duration-300 cursor-pointer"
             />
             <div className="ml-4">
               I agree to the{" "}
@@ -564,7 +564,7 @@ export default function ButtonRegistrationClient({
             ),
             okText: "Send",
             cancelText: "Cancel",
-            className: "max-h-[90vh] overflow-y-auto",
+            className: "max-h-max overflow-y-auto",
             onOk: async () => {
               try {
                 const values = await form.validateFields();
