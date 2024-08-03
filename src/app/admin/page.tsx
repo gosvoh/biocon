@@ -5,6 +5,7 @@ import {
   MicIcon,
   NewspaperIcon,
   TicketCheckIcon,
+  VideoIcon,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -25,6 +26,9 @@ export default function Admin() {
       </Link>
       <Link href="/admin/organizers">
         <Button icon={<ContactIcon />}>Organizers</Button>
+      </Link>
+      <Link href="/admin/mediaAboutUs">
+        <Button icon={<VideoIcon />}>Media about us</Button>
       </Link>
     </Space>
   );

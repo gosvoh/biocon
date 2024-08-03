@@ -24,6 +24,7 @@ import BottomGlow from "@public/previous_biocon/glow/lower.svg";
 import UpperGlowPC from "@public/previous_biocon/glow/upperPC.svg";
 import LeftGlowPC from "@public/previous_biocon/glow/leftPC.svg";
 import BottomGlowPC from "@public/previous_biocon/glow/lowerPC.svg";
+import MediaAboutUsGlowPC from "@public/previous_biocon/glow/RightGlowMediaAboutUs.svg";
 
 // gallery
 import img1 from "@public/previous_biocon/BXrm3Nh1_AI.jpg";
@@ -42,6 +43,9 @@ import lower_man_affiliation_speaker from "@public/previous_biocon/ZZZ_9953.jpg"
 import lower_man_with_glasses_speaker from "@public/previous_biocon/ZZZ_2148.jpg";
 
 import "./noise.css";
+import MediaAboutUsCarousel from "@/components/mediaAboutUsCarousel";
+import { Suspense } from "react";
+import NewsCarousel, { NewsSkeleton } from "@/components/news";
 
 const font = Architects_Daughter({
   subsets: ["latin"],
@@ -275,6 +279,7 @@ export default function Biocon2023Page({
           }
         />
       </section>
+      
       <Image
         src={LeftGlowPC}
         alt={""}
@@ -282,7 +287,8 @@ export default function Biocon2023Page({
           "absolute -z-10 -left-0 w-full top-[15%] blur-md hidden lg:block"
         }
       />
-      <section>
+
+      <section className={"relative"}>
         <h2 className="font-normal">Conference results</h2>
         <div className={"fcol gap-10"}>
           <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
@@ -346,6 +352,18 @@ export default function Biocon2023Page({
             </div>
           </div>
         </div>
+        <Image
+          src={MediaAboutUsGlowPC}
+          alt={"glow"}
+          className={
+            "absolute -right-16 w-full -bottom-[60%] -z-10 hidden lg:block blur-md"
+          }
+        />
+      </section>
+
+      <section className="relative space-y-6 lg:space-y-9">
+        <h2 className={"font-normal"}>Media about us</h2>
+        <MediaAboutUsCarousel />
       </section>
 
       <section className="relative fcol gap-3 lg:gap-6">

@@ -66,6 +66,13 @@ export const News = pgTable("News", {
   image: text("image").notNull(),
 });
 
+export const MediaAboutUs = pgTable("News", {
+  id: serial("id").primaryKey().notNull(),
+  title: text("title").notNull(),
+  href: text("href").notNull(),
+  image: text("image").notNull(),
+});
+
 export const Cities = pgTable("Cities", {
   geoname_id: integer("geoname_id").primaryKey().notNull(),
   ascii_name: text("name").notNull(),
