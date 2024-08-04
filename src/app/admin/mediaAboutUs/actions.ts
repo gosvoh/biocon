@@ -25,7 +25,7 @@ export async function remove(id: number) {
     console.error(error);
     return Promise.reject({ message: "Error while deleting speaker", error });
   }
-  revalidatePath("/admin/news");
+  revalidatePath("/admin/mediaAboutUs");
 }
 
 export async function add(formData: FormData) {
@@ -45,7 +45,7 @@ export async function add(formData: FormData) {
   await biocon
     .insert(MediaAboutUs)
     .values({ title, href, image: `${uuid}.webp` });
-  revalidatePath("/admin/news");
+  revalidatePath("/admin/mediaAboutUs");
 }
 
 export async function update(id: number, formData: FormData) {

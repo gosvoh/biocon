@@ -66,7 +66,7 @@ export const News = pgTable("News", {
   image: text("image").notNull(),
 });
 
-export const MediaAboutUs = pgTable("News", {
+export const MediaAboutUs = pgTable("MediaAboutUs", {
   id: serial("id").primaryKey().notNull(),
   title: text("title").notNull(),
   href: text("href").notNull(),

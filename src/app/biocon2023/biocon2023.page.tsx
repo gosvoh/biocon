@@ -279,7 +279,7 @@ export default function Biocon2023Page({
           }
         />
       </section>
-      
+
       <Image
         src={LeftGlowPC}
         alt={""}
