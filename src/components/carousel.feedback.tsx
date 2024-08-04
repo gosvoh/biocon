@@ -78,7 +78,7 @@ export default function CarouselFeedback({
                   width: 800,
                   centered: true,
                   okButtonProps: { style: { boxShadow: "none" } },
-                  footer: <></>,
+                  footer: null,
                   content: (
                     <div className="fcol gap-6 p-4">
                       <CardContent tgLink />

@@ -49,7 +49,7 @@ export const ContactsCard = ({
           modal.info({
             title: title,
             icon: null,
-            footer: <></>,
+            footer: null,
             closable: true,
             content: (
               <ModalContent

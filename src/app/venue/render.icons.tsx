@@ -109,7 +109,7 @@ export const RenderIcons = () => {
             icon: null,
             title: "Plane tickets",
             width: "800px",
-            footer: <></>,
+            footer: null,
             closable: true,
             content: (
               <div className={"fcol gap-5"}>

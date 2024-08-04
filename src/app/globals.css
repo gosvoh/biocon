@@ -83,7 +83,7 @@
     @apply mb-6 md:mb-10 font-[500];
   }
   h3 {
-    @apply font-bold text-base md:text-3xl;
+    @apply font-[500] text-base md:text-3xl;
   }
   main {
     @apply text-sm md:text-xl overflow-hidden;

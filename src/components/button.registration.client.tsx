@@ -572,7 +572,7 @@ export default function ButtonRegistrationClient({
                 modal.info({
                   icon: null,
                   closable: true,
-                  footer: <></>,
+                  footer: null,
                   content: (
                     <div
                       className={

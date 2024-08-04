@@ -21,6 +21,7 @@ export default function CardChoose({
         onClick={() => {
           modal.info({
             title,
+            footer: null,
             content: modalContent,
             closable: true,
             maskClosable: true,
