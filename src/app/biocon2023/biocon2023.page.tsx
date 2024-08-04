@@ -133,12 +133,7 @@ export default function Biocon2023Page({
         >
           <h1 className="lg:text-[2.75rem]">BIOCON 2023</h1>
           <h1 className={"hidden lg:block"}>—</h1>
-          <h2
-            className={cn(
-              "text-[#7DEB9A] lg:text-6xl",
-              font.className,
-            )}
-          >
+          <h2 className={cn("text-[#7DEB9A] lg:text-6xl", font.className)}>
             how was it?
           </h2>
         </div>

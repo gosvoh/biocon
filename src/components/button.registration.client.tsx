@@ -587,9 +587,7 @@ export default function ButtonRegistrationClient({
                           className={"object-cover aspect-square scale-150"}
                         />
                       </div>
-                      <p className={"font-light"}>
-                        Registration completed successsfully
-                      </p>
+                      <p>Registration completed successsfully</p>
                     </div>
                   ),
                 });

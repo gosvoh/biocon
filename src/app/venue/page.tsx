@@ -98,7 +98,7 @@ export default function VenuePage() {
             <br />
             Әлмәт (Tatar)
           </h3>
-          <p className={"font-light"}>
+          <p>
             In the Republic of Tatarstan, Almetyevsk is often called “The Oil
             Capital” the city is home to the headquarters of Tatneft and 80% of
             its population is employed by the oil sector <br /> <br />
@@ -125,7 +125,7 @@ export default function VenuePage() {
         />
         <div className={gallerySection}>
           <Image src={SkiResort} alt={""} className={galleryImage} />
-          <p className={"font-light lg:text-left"}>
+          <p className={"lg:text-left"}>
             Almetyevsk boasts its own ski resort, a 150 km network of bike
             paths, the “Almet” community center (complete with Renaissance-era
             art and Shostakovich’s grand piano), and 30 art objects and murals
@@ -138,7 +138,7 @@ export default function VenuePage() {
             alt={""}
             className={cn(galleryImage, "lg:order-2")}
           />
-          <p className={"font-light lg:text-left"}>
+          <p className={"lg:text-left"}>
             PJSC Tatneft, together with the Advanced Engineering School ITMO, is
             developing the biotech industry in Almetyevsk.
             <br /> <br />
@@ -149,7 +149,7 @@ export default function VenuePage() {
         </div>
         <div className={gallerySection}>
           <Image src={PeoplePHS} alt={""} className={galleryImage} />
-          <p className={"font-light lg:text-left"}>
+          <p className={"lg:text-left"}>
             In April 2023, cellular, molecular, microbiological and chemical
             laboratories equipped with advanced research equipment were launched
             on the basis of the Laboratory and Research Building of the
@@ -162,7 +162,7 @@ export default function VenuePage() {
             alt={""}
             className={cn(galleryImage, "lg:order-2")}
           />
-          <p className={"font-light  lg:text-left"}>
+          <p className={"lg:text-left"}>
             In December 2023, the first international biotechnology conference,
             BIOCON 2023, was held at the Almet Cultural Center. The conference
             took place over three days and brought together the most advanced
@@ -174,7 +174,7 @@ export default function VenuePage() {
       <section className={"fcol gap-10 relative"}>
         <div>
           <h2>Conference venue</h2>
-          <p className={"font-light"}>
+          <p>
             “Almet” is a modern and well-equipped venue, which is perfect for
             large-scale events. There is everything necessary for the speakers
             performance: a large screen, loop, laser pointer, duplicate screens,
@@ -245,7 +245,7 @@ export default function VenuePage() {
       </section>
       <section className={"relative mb-24"}>
         <h2>Accommodation options</h2>
-        <p className={"font-light mb-10 lg:mb-24"}>
+        <p className={"mb-10 lg:mb-24"}>
           We have gathered several accommodation options for the conference
           days. Key locations have been marked on an{" "}
           <Link

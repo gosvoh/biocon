@@ -85,6 +85,9 @@
   h3 {
     @apply font-[500] text-base md:text-3xl;
   }
+  p{
+    @apply font-[300]
+  }
   main {
     @apply text-sm md:text-xl overflow-hidden;
 

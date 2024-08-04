@@ -45,7 +45,7 @@ export const RenderHotelsInfo = () => {
             }
           >
             <h3>{hotel.name}</h3>
-            <p className={"font-light"}>{hotel.description}</p>
+            <p>{hotel.description}</p>
             <Link href={hotel.link2Booking} target={"_blank"}>
               <button className={"main-button mt-2 lg:absolute lg:bottom-0"}>
                 Go to booking

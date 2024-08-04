@@ -81,7 +81,7 @@ export const ContactsCard = ({
             <div className={"grid grid-rows-[1fr,0.5fr] gap-3 "}>
               <div className={"fcol gap-5"}>
                 <h3>{title}</h3>
-                <p className={"font-light"}>{description}</p>
+                <p>{description}</p>
               </div>
             </div>
           </Link>
@@ -89,7 +89,7 @@ export const ContactsCard = ({
           <div className={"grid grid-rows-[1fr,0.5fr] gap-3 "}>
             <div className={"fcol gap-5"}>
               <h3>{title}</h3>
-              <p className={"font-light"}>{description}</p>
+              <p>{description}</p>
             </div>
           </div>
         )}
