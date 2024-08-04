@@ -27,7 +27,7 @@ export default function Timeline({
 
         <div className="row-[1] mob-col">
           <div className={"flex flex-col gap-1"}>
-            <h3 className="font-bold">September 1</h3>
+            <h3>September 1</h3>
             <p>
               Registration ends for participants from from{" "}
               <Link
@@ -42,13 +42,13 @@ export default function Timeline({
         </div>
         <div className="row-[3] mob-col">
           <div className={"flex flex-col gap-1"}>
-            <h3 className="font-bold">October 25</h3>
+            <h3>October 25</h3>
             <p>Registration ends for all participants</p>
           </div>
         </div>
         <div className="row-[5] mob-col">
           <div className={"flex flex-col gap-1"}>
-            <h3 className="font-bold">November 11-13</h3>
+            <h3>November 11-13</h3>
             <p>See you in Almetyevsk!</p>
           </div>
         </div>
@@ -56,7 +56,7 @@ export default function Timeline({
 
       <div className="hidden lg:flex flex-row text-center justify-around flex-1">
         <div className="fcol lg:flex-1 gap-3 items-center mt-4">
-          <h3 className={cn("font-bold")}>September 1</h3>
+          <h3>September 1</h3>
           <p className={"w-[55%]"}>
             Registration ends for participants from{" "}
             <Link
@@ -69,11 +69,11 @@ export default function Timeline({
           </p>
         </div>
         <div className="fcol lg:flex-1 gap-3 mt-4">
-          <h3 className={cn("font-bold")}>October 25</h3>
+          <h3>October 25</h3>
           <p>Registration ends for all participants</p>
         </div>
         <div className="fcol lg:flex-1 gap-3 mt-4">
-          <h3 className={cn("font-bold")}>November 11-13</h3>
+          <h3>November 11-13</h3>
           <p>See you in Almetyevsk!</p>
         </div>
       </div>

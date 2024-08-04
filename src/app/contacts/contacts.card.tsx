@@ -80,7 +80,7 @@ export const ContactsCard = ({
           <Link href={redirectLink} target={"_blank"}>
             <div className={"grid grid-rows-[1fr,0.5fr] gap-3 "}>
               <div className={"fcol gap-5"}>
-                <h3 className={"font-normal"}>{title}</h3>
+                <h3>{title}</h3>
                 <p className={"font-light"}>{description}</p>
               </div>
             </div>
@@ -88,7 +88,7 @@ export const ContactsCard = ({
         ) : (
           <div className={"grid grid-rows-[1fr,0.5fr] gap-3 "}>
             <div className={"fcol gap-5"}>
-              <h3 className={"font-normal"}>{title}</h3>
+              <h3>{title}</h3>
               <p className={"font-light"}>{description}</p>
             </div>
           </div>

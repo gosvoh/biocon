@@ -579,7 +579,7 @@ export default function ButtonRegistrationClient({
                         "fcol gap-7 items-center justify-center text-center pb-10 pt-10"
                       }
                     >
-                      <h3 className={"font-[500]"}>You are awesome!</h3>
+                      <h3>You are awesome!</h3>
                       <div className={"w-32 h-32"}>
                         <Image
                           src={Awesome}

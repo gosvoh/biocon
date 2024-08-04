@@ -104,7 +104,7 @@ export default function Home() {
             className="block md:hidden w-full"
           />
           <div className="flex flex-col gap-4 xl:gap-[25px]">
-            <h1 className={"xl:text-6xl lg:text-5xl font-normal"}>
+            <h1 className={"xl:text-6xl lg:text-5xl"}>
               International Biotechnology Conference
             </h1>
             <p className={"lg:text-3xl"}>November 11-13, 2024</p>
@@ -292,7 +292,7 @@ export default function Home() {
           />
           <CardChoose
             title="BioTech Open Mic"
-            description={`Present your research in an entertaining way in only 10 minutes. A format in which there is no "framework"`}
+            description={`Present your research in an entertaining way in only 10 minutes. A format that has no limits."`}
             modalContent={
               <div className="fcol gap-4">
                 <p>Performance time: 7-10 min</p>

@@ -131,11 +131,11 @@ export default function Biocon2023Page({
             "flex flex-col lg:flex-row lg:items-baseline lg:justify-center text-center lg:gap-5"
           }
         >
-          <h1 className="font-[500] lg:text-[2.75rem]">BIOCON 2023</h1>
-          <h1 className={"font-normal hidden lg:block"}>—</h1>
+          <h1 className="lg:text-[2.75rem]">BIOCON 2023</h1>
+          <h1 className={"hidden lg:block"}>—</h1>
           <h2
             className={cn(
-              " font-normal text-[#7DEB9A] lg:text-6xl",
+              "text-[#7DEB9A] lg:text-6xl",
               font.className,
             )}
           >
@@ -289,7 +289,7 @@ export default function Biocon2023Page({
       />
 
       <section className={"relative"}>
-        <h2 className="font-normal">Conference results</h2>
+        <h2>Conference results</h2>
         <div className={"fcol gap-10"}>
           <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
             <iframe
@@ -362,16 +362,16 @@ export default function Biocon2023Page({
       </section>
 
       <section className="relative space-y-6 lg:space-y-9">
-        <h2 className={"font-normal"}>Media about us</h2>
+        <h2>Media about us</h2>
         <MediaAboutUsCarousel />
       </section>
 
       <section className="relative fcol gap-3 lg:gap-6">
-        <h2 className="font-normal m-0">BIOCON’23 speakers</h2>
+        <h2 className="m-0">BIOCON’23 speakers</h2>
         <div className={"hidden lg:block"}>
           {preparedData.map((speakerData, index) => (
             <>
-              <h3 className={`font-normal mb-6 ${index !== 0 ? "mt-8" : ""}`}>
+              <h3 className={`mb-6 ${index !== 0 ? "mt-8" : ""}`}>
                 {speakerData.type}
               </h3>
               <div className="grid-cols-4 gap-7 grid">
@@ -407,7 +407,7 @@ export default function Biocon2023Page({
         <div className={"lg:hidden"}>
           {preparedData.map((speakerData) => (
             <>
-              <h3 className="font-normal mb-6">{speakerData.type}</h3>
+              <h3 className="mb-6">{speakerData.type}</h3>
               <Carousel>
                 <CarouselContent>
                   {speakerData.speakersData.map((speaker, index) => (

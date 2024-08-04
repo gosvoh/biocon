@@ -70,14 +70,14 @@ export const CarouselComponent = ({
                 </div>
                 <div className={"fcol gap-3"}>
                   <div className={"fcol gap-1"}>
-                    <h3 className={"font-normal"}>{organizer.name}</h3>
+                    <h3>{organizer.name}</h3>
                     <p className={"font-light"}>{organizer.position}</p>
                   </div>
                   <Link
                     href={`mailto:${organizer.email}`}
                     className={"underline"}
                   >
-                    <h3 className={"font-normal"}>{organizer.email}</h3>
+                    <h3>{organizer.email}</h3>
                   </Link>
                 </div>
               </div>

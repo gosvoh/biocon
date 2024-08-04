@@ -43,16 +43,16 @@ export default function ProgramPage() {
         </div>
       </section>
       <section className={"fcol gap-10"}>
-        <h1 className={"font-normal"}>Topics of BIOCON 2024</h1>
+        <h1>Topics of BIOCON 2024</h1>
         <div className={"grid grid-cols-3 gap-8 h-[45vh]"}>
           <div className={"p-10 bg-white rounded-[28px] text-black"}>
-            <h3 className={"font-normal"}>Industrial Biotechnology </h3>
+            <h3>Industrial Biotechnology </h3>
           </div>
           <div className={"p-10 bg-[#6CCD86] rounded-[28px]"}>
-            <h3 className={"font-normal"}>Agricultural biotechnology </h3>
+            <h3>Agricultural biotechnology </h3>
           </div>
           <div className={"p-10 rounded-[28px] bg-[#2531BA]"}>
-            <h3 className={"font-normal"}>
+            <h3>
               Marine and <br /> fresh-water <br /> biotechnology{" "}
             </h3>
           </div>
@@ -64,7 +64,9 @@ export default function ProgramPage() {
           Engineering, Food Biotechnology, and Sustainable Biotechnology.
         </p>
       </section>
-      <section></section>
+      <section>
+        <h1>Topics of BIOCON 2024</h1>
+      </section>
     </main>
   );
 }

@@ -87,7 +87,7 @@ export default function ContactsPage({
             "max-w-none max-h-none overflow-x-hidden",
           )}
         />
-        <h2 className={"font-normal m-0"}>Contacts</h2>
+        <h2 className={"m-0"}>Contacts</h2>
         <div className={"hidden lg:grid grid-cols-4 gap-x-8 gap-y-16 "}>
           {organizers.map((organizer, index) => (
             <div key={index} className={"fcol gap-6"}>
@@ -101,7 +101,7 @@ export default function ContactsPage({
               </div>
               <div className={"fcol gap-2"}>
                 <div className={"fcol gap-1"}>
-                  <h3 className={"font-normal"}>{organizer.name}</h3>
+                  <h3>{organizer.name}</h3>
                   <p>{organizer.position}</p>
                 </div>
                 <Link
@@ -120,7 +120,7 @@ export default function ContactsPage({
       </section>
       <section className={"relative "}>
         <LeftGlow className="hidden lg:block" />
-        <h2 className={"font-normal"}>For our partners</h2>
+        <h2>For our partners</h2>
         <RenderPartnersInfoCards
           infoArray={[
             {
@@ -154,7 +154,7 @@ export default function ContactsPage({
       </section>
       <section className="relative">
         <div className={"lg:fcol lg:items-center"}>
-          <h2 className={"font-normal"}>Contact us</h2>
+          <h2>Contact us</h2>
           <ContactUsForm />
         </div>
         <Image

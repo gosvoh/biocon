@@ -77,10 +77,10 @@
   h1,
   h2 {
     @apply text-balance;
-    @apply font-bold text-2xl md:text-4xl;
+    @apply font-[500] text-2xl md:text-4xl;
   }
   h2 {
-    @apply mb-6 md:mb-10;
+    @apply mb-6 md:mb-10 font-[500];
   }
   h3 {
     @apply font-bold text-base md:text-3xl;

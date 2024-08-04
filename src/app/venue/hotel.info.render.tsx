@@ -44,7 +44,7 @@ export const RenderHotelsInfo = () => {
               "fcol gap-4 lg:items-start lg:text-start lg:justify-start"
             }
           >
-            <h3 className={"font-normal"}>{hotel.name}</h3>
+            <h3>{hotel.name}</h3>
             <p className={"font-light"}>{hotel.description}</p>
             <Link href={hotel.link2Booking} target={"_blank"}>
               <button className={"main-button mt-2 lg:absolute lg:bottom-0"}>

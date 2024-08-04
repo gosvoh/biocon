@@ -92,8 +92,8 @@ export default function VenuePage() {
           className={"absolute -z-10 right-0 h-fit w-full top-0 lg:hidden"}
         />
         <div className={"fcol gap-5 lg:gap-8 lg:w-[75%]"}>
-          <h1 className={"font-normal"}>Almetyevsk</h1>
-          <h3 className={"font-normal"}>
+          <h1>Almetyevsk</h1>
+          <h3>
             Альметьевск (Russian)
             <br />
             Әлмәт (Tatar)
@@ -173,7 +173,7 @@ export default function VenuePage() {
       </section>
       <section className={"fcol gap-10 relative"}>
         <div>
-          <h2 className={"font-normal"}>Conference venue</h2>
+          <h2>Conference venue</h2>
           <p className={"font-light"}>
             “Almet” is a modern and well-equipped venue, which is perfect for
             large-scale events. There is everything necessary for the speakers
@@ -238,13 +238,13 @@ export default function VenuePage() {
         />
       </section>
       <section className={"text-center"}>
-        <h2 className={"font-normal lg:text-start text-center"}>
+        <h2 className={"lg:text-start text-center"}>
           The terms of participation
         </h2>
         <RenderIcons />
       </section>
       <section className={"relative mb-24"}>
-        <h2 className={"font-normal"}>Accommodation options</h2>
+        <h2>Accommodation options</h2>
         <p className={"font-light mb-10 lg:mb-24"}>
           We have gathered several accommodation options for the conference
           days. Key locations have been marked on an{" "}
