@@ -1,1 +1,0 @@
-ALTER TABLE "Registrations" ADD COLUMN "abstract" text;

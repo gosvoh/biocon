@@ -1,1 +1,0 @@
-ALTER TABLE "Registrations" DROP COLUMN IF EXISTS "abstract";
