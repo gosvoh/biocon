@@ -3,7 +3,6 @@ import Image, { StaticImageData } from "next/image";
 import HeroGlow from "@public/HeroGlow.svg";
 import MobileLogo from "@public/program/logo/LogoMobile.png";
 import DesktopLogo from "@public/program/logo/LogoPC.png";
-import ButtonRegistration from "@/components/button.registration";
 import {
   Accordion,
   AccordionContent,
@@ -18,6 +17,8 @@ import BiotechOpenMic from "@public/program/gallery/BioconOpenMic.jpg";
 import Mirza from "@public/program/gallery/mirza.jpeg";
 import PeopleConference from "@public/program/gallery/peopleConference.png";
 import TumourCell from "@public/program/gallery/TumourCell.png";
+import OpenMicMan from "@public/program/gallery/OpenMicMan.png"
+import IdentificationMan from "@public/program/gallery/manIdentification.png"
 
 // glows
 import BottomGlowPC from "@public/program/glows/bottomglowPC.svg";
@@ -66,7 +67,7 @@ const GridGallery = ({
         alt={alt}
         className={`object-cover aspect-[${aspect}] object-top lg:rounded-[28px] rounded-[16px] ${reverse && "lg:order-2"}`}
       />
-      <div className={`fcol gap-9 ${reverse && "lg:order-1"} hidden lg:block`}>
+      <div className={`fcol gap-9 ${reverse && "lg:order-1"} hidden lg:flex`}>
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
@@ -150,7 +151,7 @@ export default function ProgramPage() {
           className={"bg-white text-black font-[500]"}
         />
         <RenderAccordion
-          title={"Industrial biotechnology"}
+          title={"Agricultural biotechnology"}
           description={"Nodescr"}
           className={"bg-[#6CCD86] font-[500]"}
         />
@@ -257,6 +258,10 @@ export default function ProgramPage() {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+          </div>
+          <div className={"hidden lg:grid grid-cols-[1fr_2fr] gap-6"}>
+            <Image src={OpenMicMan} alt={"open_mic_man"} className={"w-full object-cover aspect-[5/3] rounded-[28px]"}/>
+            <Image src={IdentificationMan} alt={"biocon_man"} className={"w-full object-cover aspect-[10/3] rounded-[28px]"}/>
           </div>
           <GridGallery
             image={TumourCell}
