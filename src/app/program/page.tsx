@@ -91,7 +91,7 @@ export default function ProgramPage() {
           src={HeroGlow}
           alt=""
           className={cn(
-            "absolute  lg:top-1/3 top-1/2 lg:left-1/2 left-[60%] w-fit lg:h-[240%] h-[140%] rotate-[25deg] -z-10 lg:blur-none blur-xl",
+            "absolute  lg:top-1/3 top-1/2 lg:left-1/2 left-[60%] w-fit lg:h-[240%] h-[140%] rotate-[25deg] lg:rotate-0 -z-10 lg:blur-none blur-xl",
             "-translate-x-1/2 -translate-y-1/2",
             "max-w-none max-h-none",
           )}
