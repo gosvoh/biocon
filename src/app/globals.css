@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer tailwind-base, antd;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+@tailwind components;
+@tailwind utilities;
+
+@layer tailwind-base {
+  :root {
+    --background: 0 0% 10%;
+    --foreground: 0 0% 100%;
+
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 100%;
+
+    --card: 268 67% 44%;
+    --card-foreground: 0 0% 100%;
+
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+
+    --ring: 0 0% 14.9%;
+
+    --radius: 1.5rem;
+
+    --text-secondary: 0 0% 71%;
+    --text-disabled: 0 0% 30%;
+
+    --accent: 268 67% 44%;
+    --hover: 5 99% 69%;
+    --active: 5 98% 59%;
+    --green: 136 49% 61%;
+  }
+}
+
+@layer tailwind-base {
+  * {
+    @apply border-border;
+    @apply motion-reduce:!transition-none;
+    /* @apply outline outline-1 outline-red-400; */
+  }
+  html,
+  body {
+    @apply min-h-screen h-auto;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    @apply flex flex-col;
+    @apply overflow-x-hidden overflow-y-auto;
+  }
+   {
+    @apply text-center;
+  }
+  h1,
+  h2 {
+    @apply text-balance;
+    @apply font-[500] text-2xl md:text-4xl;
+  }
+  h2 {
+    @apply mb-6 md:mb-10 font-[500];
+  }
+  h3 {
+    @apply font-[500] text-base md:text-3xl;
+  }
+  p{
+    @apply font-[300]
+  }
+  main {
+    @apply text-sm md:text-xl overflow-hidden;
+
+    & > section {
+      @apply py-10 lg:py-[100px] wrapper;
+    }
+  }
+  section {
+    @apply scroll-mt-10 overflow-x-clip;
+  }
+  nav a {
+    @apply text-secondary hover:text-primary;
+    @apply text-3xl md:text-lg font-bold;
+    @apply hover:underline;
+  }
+  .ant-modal-mask {
+    @apply bg-black bg-opacity-75 !important;
+  }
+
+
+  .ant-modal,
+  .ant-modal-content,
+  .ant-modal-body {
+    background-color: #1A1A1A !important;
+  }
+
+}
+
+@layer components {
+  .scale-animation{
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+  .scale-animation:hover{
+    transform: scale(110%);
+  }
+  .chevron-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2rem;
+    height: 2rem;
+    background-color: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+  .main-button {
+    @apply rounded-full text-white bg-accent hover:bg-hover px-[52px] py-3 text-base md:text-xl;
+    @apply block mx-auto w-full md:w-fit;
+    @apply transition-all duration-300;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-big {
+    @apply font-bold text-2xl md:text-4xl;
+  }
+
+  .wrapper {
+    @apply px-10 md:px-12 lg:px-16 max-w-[1920px] mx-auto w-full;
+  }
+
+  .fcol {
+    @apply flex flex-col;
+  }
+
+  .link-hover-underline {
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .link-hover-underline::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width 0.3s ease-in-out;
+  }
+
+  .link-hover-underline:hover::after {
+    width: 100%;
+  }
+
+
+  .timeline {
+    .dot,
+    .dotted {
+      @apply max-lg:col-[1];
+    }
+
+    .dotted {
+      @apply border-l-2 border-dotted border-foreground;
+      @apply lg:border-l-0 lg:border-t-2;
+      @apply w-[1px] h-full min-h-10 lg:min-h-0 lg:w-full lg:h-[1px];
+    }
+
+    .dot {
+      @apply rounded-lg border-[3px] border-white w-16 h-16 text-big flex items-center justify-center;
+      @apply md:max-lg:w-24 md:max-lg:h-24 lg:w-36 lg:h-36;
+    }
+
+    .mob-col {
+      @apply col-[2] fcol lg:flex-1 justify-self-start lg:hidden;
+    }
+  }
+
+  .card {
+    @apply bg-card p-8 md:p-12 rounded-lg flex-1 [&>*]:max-w-2/3;
+
+    .card-icon {
+      @apply absolute right-2 bottom-2;
+
+      & > * {
+        @apply rounded-full bg-white w-[50px] h-[50px] p-[12px];
+        @apply duration-0;
+      }
+    }
+
+    &.feedback-card {
+      @apply max-md:[&>*]:max-w-none max-md:pb-[60px] h-full;
+      @apply fcol gap-5 lg:gap-6;
+
+      & > p {
+        @apply text-ellipsis line-clamp-6;
+      }
+    }
+  }
+
+  .tags {
+    @apply flex flex-wrap gap-4;
+  }
+}

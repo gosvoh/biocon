@@ -1,0 +1,1 @@
+ALTER TABLE "Cities" ADD COLUMN "cou_name_en" text NOT NULL;
