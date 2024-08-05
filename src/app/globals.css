@@ -106,12 +106,17 @@
   .ant-modal-mask {
     @apply bg-black bg-opacity-75 !important;
   }
-
+  ul{
+    padding-left: 1.25rem;
+    margin-top:0.5rem;
+    list-style-type: disc;
+  }
 
   .ant-modal,
   .ant-modal-content,
   .ant-modal-body {
     background-color: #1A1A1A !important;
+    border-radius: 28px;
   }
 
 }

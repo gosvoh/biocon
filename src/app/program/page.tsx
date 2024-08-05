@@ -10,15 +10,20 @@ import {
   AccordionTrigger,
 } from "@/components/accordion.program";
 import { ReactNode } from "react";
+import {
+  ProgramPageCards,
+  RenderAccordions,
+} from "@/app/program/program.cards";
 
 // gallery
 import PanelDiscussion from "@public/program/gallery/PanelDiscussion.jpg";
 import BiotechOpenMic from "@public/program/gallery/BioconOpenMic.jpg";
 import Mirza from "@public/program/gallery/mirza.jpeg";
-import PeopleConference from "@public/program/gallery/peopleConference.png";
-import TumourCell from "@public/program/gallery/TumourCell.png";
-import OpenMicMan from "@public/program/gallery/OpenMicMan.png"
-import IdentificationMan from "@public/program/gallery/manIdentification.png"
+import PeopleConference from "@public/program/gallery/peopleConference.jpg";
+import TumourCell from "@public/program/gallery/TumourCell.jpg";
+import OpenMicMan from "@public/program/gallery/OpenMicMan.png";
+import IdentificationMan from "@public/program/gallery/IdentificationMan.jpg";
+import DiscussionImage from "@public/program/gallery/Discussion.png";
 
 // glows
 import BottomGlowPC from "@public/program/glows/bottomglowPC.svg";
@@ -33,7 +38,7 @@ const RenderAccordion = ({
 }: {
   className?: string;
   title: string | ReactNode;
-  description: string;
+  description: string | ReactNode;
 }) => (
   <Accordion type="single" collapsible className={"block lg:hidden"}>
     <AccordionItem value="item-1">
@@ -49,7 +54,7 @@ const GridGallery = ({
   description,
   reverse,
   alt,
-  aspect = "2/1",
+  aspect = "10/6",
 }: {
   image: StaticImageData;
   title: string;
@@ -119,17 +124,7 @@ export default function ProgramPage() {
       <section className={"fcol gap-16 hidden lg:flex"}>
         <h1>Topics of BIOCON 2024</h1>
         <div className={"grid grid-cols-3 gap-8 h-[20rem]"}>
-          <div className={"p-10 bg-white rounded-[28px] text-black"}>
-            <h3>Industrial Biotechnology </h3>
-          </div>
-          <div className={"p-10 bg-[#6CCD86] rounded-[28px]"}>
-            <h3>Agricultural biotechnology </h3>
-          </div>
-          <div className={"p-10 rounded-[28px] bg-[#2531BA]"}>
-            <h3>
-              Marine and <br /> fresh-water <br /> biotechnology{" "}
-            </h3>
-          </div>
+          <ProgramPageCards />
         </div>
         <p className={"text-[1.25rem]"}>
           Please click on the bar to access the topic description. We are also
@@ -145,21 +140,7 @@ export default function ProgramPage() {
           className={"absolute -z-10 right-0 w-full top-1/4"}
         />
         <h1>Topics of BIOCON 2024</h1>
-        <RenderAccordion
-          title={"Industrial biotechnology"}
-          description={"Nodescr"}
-          className={"bg-white text-black font-[500]"}
-        />
-        <RenderAccordion
-          title={"Agricultural biotechnology"}
-          description={"Nodescr"}
-          className={"bg-[#6CCD86] font-[500]"}
-        />
-        <RenderAccordion
-          title={"Marine and fresh-water biotechnology"}
-          description={"Nodescr"}
-          className={"bg-[#2531BA] font-[500] text-left text-white pt-5 pb-5"}
-        />
+        <RenderAccordions />
         <p className={"mt-2"}>
           BIOCON 2023 was focused on UNESCO Sustainable Development Goals.
         </p>
@@ -204,7 +185,9 @@ export default function ProgramPage() {
           <Image
             src={PeopleConference}
             alt={"conference"}
-            className={"w-full hidden lg:block"}
+            className={
+              "w-full hidden lg:block rounded-[28px] aspect-[15/3] object-cover object-top"
+            }
           />
           <div
             className={
@@ -216,7 +199,7 @@ export default function ProgramPage() {
               alt={"biotech_open_mic"}
               className={`object-cover aspect-[4/3] object-top lg:rounded-[28px] lg:order-2 rounded-[16px]`}
             />
-            <div className={`fcol gap-9 lg:order-1 hidden lg:block`}>
+            <div className={`fcol gap-9 lg:order-1 hidden lg:flex`}>
               <h3>BioTech OpenMic</h3>
               <p>
                 The program includes not only sessions from experts but also
@@ -260,8 +243,18 @@ export default function ProgramPage() {
             </Accordion>
           </div>
           <div className={"hidden lg:grid grid-cols-[1fr_2fr] gap-6"}>
-            <Image src={OpenMicMan} alt={"open_mic_man"} className={"w-full object-cover aspect-[5/3] rounded-[28px]"}/>
-            <Image src={IdentificationMan} alt={"biocon_man"} className={"w-full object-cover aspect-[10/3] rounded-[28px]"}/>
+            <Image
+              src={OpenMicMan}
+              alt={"open_mic_man"}
+              className={"w-full object-cover aspect-[5/3] rounded-[28px]"}
+            />
+            <Image
+              src={IdentificationMan}
+              alt={"biocon_man"}
+              className={
+                "w-full object-cover aspect-[10/3] rounded-[28px] object-top"
+              }
+            />
           </div>
           <GridGallery
             image={TumourCell}
@@ -273,7 +266,7 @@ export default function ProgramPage() {
             alt={"tumour_cell"}
           />
           <GridGallery
-            image={TumourCell}
+            image={DiscussionImage}
             title={"Networking"}
             description={
               "Say goodbye to dull dialogues and wasted time! This format is definitely not about casual conversations and exchanging business cards. Networking is an essential part of any conference. What if we create a structured plan for spontaneous interactions, ensuring that by the end of the evening, you will have gained several valuable contacts or joined a new research project?"

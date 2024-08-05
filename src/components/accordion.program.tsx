@@ -29,7 +29,7 @@ const AccordionTrigger = React.forwardRef<
       )}
       {...props}
     >
-      <p>{children}</p>
+      <h3>{children}</h3>
       <div className={"rounded-full bg-white w-8 h-8 absolute right-6 z-10"} />
       <ChevronDown className="h-6 w-6 shrink-0 transition-transform duration-200 z-20 stroke-black " />
     </AccordionPrimitive.Trigger>
@@ -47,7 +47,7 @@ const AccordionContent = React.forwardRef<
     className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down ml-1 mt-5"
     {...props}
   >
-    <div className={cn("pb-4 pt-0", className)}>{children}</div>
+    <p className={cn("pb-4 pt-0", className)}>{children}</p>
   </AccordionPrimitive.Content>
 ));
 
