@@ -9,9 +9,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/accordion.program";
-import { ReactNode } from "react";
 import {
   ProgramPageCards,
+  RenderAccordion,
   RenderAccordions,
 } from "@/app/program/program.cards";
 
@@ -30,23 +30,7 @@ import BottomGlowPC from "@public/program/glows/bottomglowPC.svg";
 import LeftGlowPC from "@public/program/glows/leftGlowPC.svg";
 import BottomGlowMobile from "@public/program/glows/BottomGlowMobile.svg";
 import RightGlowMobile from "@public/program/glows/rightGlowMobile.svg";
-
-const RenderAccordion = ({
-  className,
-  title,
-  description,
-}: {
-  className?: string;
-  title: string | ReactNode;
-  description: string | ReactNode;
-}) => (
-  <Accordion type="single" collapsible className={"block lg:hidden"}>
-    <AccordionItem value="item-1">
-      <AccordionTrigger className={className}>{title}</AccordionTrigger>
-      <AccordionContent>{description}</AccordionContent>
-    </AccordionItem>
-  </Accordion>
-);
+import { ProgramButton } from "@/app/program/program.button";
 
 const GridGallery = ({
   image,
@@ -115,10 +99,7 @@ export default function ProgramPage() {
           />
         </div>
         <div className="wrapper">
-          <button className={"main-button hidden lg:block"}>
-            Download the BIOCON 2024 program
-          </button>
-          <button className={"main-button lg:hidden"}>Download program</button>
+          <ProgramButton />
         </div>
       </section>
       <section className={"fcol gap-16 hidden lg:flex"}>

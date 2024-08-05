@@ -7,7 +7,7 @@ const links: {
   { title: "About", href: "/" },
   { title: "Biocon 2023", href: "/biocon2023" },
   { title: "Speakers", href: "/speakers" },
-  // { title: "Program", href: "#" },
+  { title: "Program", href: "/program" },
   { title: "Venue", href: "/venue" },
   { title: "Organizers", href: "/contacts" },
 ];

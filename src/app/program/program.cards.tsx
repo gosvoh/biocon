@@ -34,7 +34,7 @@ const titleArray = [
   "Marine and fresh-water biotechnology",
 ];
 
-const RenderAccordion = ({
+export const RenderAccordion = ({
   className,
   title,
   description,

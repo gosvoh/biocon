@@ -6,6 +6,7 @@ import AntdConfigProvider from "@/components/providers/ant.config.provider";
 import Header from "@/components/header";
 import Script from "next/script";
 import Footer from "@/components/footer";
+import React from "react";
 
 const font = localfont({
   src: [
