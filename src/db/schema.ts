@@ -1,4 +1,11 @@
-import { pgTable, timestamp, text, integer, serial } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  timestamp,
+  text,
+  integer,
+  serial,
+  boolean,
+} from "drizzle-orm/pg-core";
 
 export const Organizers = pgTable("Organizers", {
   id: serial("id").primaryKey().notNull(),
@@ -64,6 +71,8 @@ export const News = pgTable("News", {
   title: text("title").notNull(),
   href: text("href").notNull(),
   image: text("image").notNull(),
+  article: text("article"),
+  show_article: boolean("show_article").default(false),
 });
 
 export const MediaAboutUs = pgTable("MediaAboutUs", {
@@ -78,13 +87,4 @@ export const Cities = pgTable("Cities", {
   ascii_name: text("name").notNull(),
   cou_name_en: text("cou_name_en").notNull(),
   country_code: text("country_code").notNull(),
-});
-
-export const Contacts = pgTable("Contacts", {
-  id: serial("id").primaryKey().notNull(),
-  name: text("name").notNull(),
-  position: text("position").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone"),
-  image: text("image").notNull(),
 });

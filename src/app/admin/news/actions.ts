@@ -32,6 +32,7 @@ export async function add(formData: FormData) {
   const title = formData.get("title") as string;
   const href = formData.get("href") as string;
   const img = formData.get("image") as File;
+  const show_article = formData.get("show_article");
 
   if (!fs.existsSync("./uploads")) fs.mkdirSync("./uploads");
   const uuid = randomUUID();
@@ -42,7 +43,12 @@ export async function add(formData: FormData) {
     return Promise.reject({ message: "Error while processing image", error });
   }
 
-  await biocon.insert(News).values({ title, href, image: `${uuid}.webp` });
+  await biocon.insert(News).values({
+    title,
+    href,
+    image: `${uuid}.webp`,
+    show_article: show_article == "true",
+  });
   revalidatePath("/admin/news");
 }
 
@@ -50,7 +56,8 @@ export async function update(id: number, formData: FormData) {
   const title = formData.get("title") as string;
   const href = formData.get("href") as string;
   const img = formData.get("image") as File | null;
-
+  const show_article = formData.get("show_article");
+  console.log(show_article);
   let newImagePath;
   if (img) {
     if (!fs.existsSync("./uploads")) fs.mkdirSync("./uploads");
@@ -66,8 +73,13 @@ export async function update(id: number, formData: FormData) {
 
   await biocon
     .update(News)
-    .set({ title, href, image: newImagePath })
+    .set({
+      title,
+      href,
+      image: newImagePath,
+      show_article: show_article == "true",
+    })
     .where(eq(News.id, id));
 
-  revalidatePath("/admin/speakers2023");
+  revalidatePath("/admin/news");
 }

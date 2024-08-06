@@ -71,6 +71,20 @@
       "when": 1722767565072,
       "tag": "0009_flaky_clea",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1722974404085,
+      "tag": "0010_parallel_jazinda",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1722974733871,
+      "tag": "0011_unusual_phantom_reporter",
+      "breakpoints": true
     }
   ]
 }

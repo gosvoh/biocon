@@ -334,7 +334,9 @@ export default function Home() {
       </section>
 
       <section className="relative">
-        <h2>Feedback from participants</h2>
+        <h2 className={"text-center lg:text-left"}>
+          Feedback from participants
+        </h2>
         <CarouselFeedback
           cardContent={[
             {

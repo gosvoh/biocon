@@ -3,6 +3,7 @@
 import type { News } from "@/db/schema";
 import {
   Button,
+  Checkbox,
   Form,
   FormInstance,
   Image,
@@ -16,6 +17,7 @@ import {
 } from "antd";
 import {
   ArrowLeft,
+  Check,
   EditIcon,
   PlusCircleIcon,
   Trash2Icon,
@@ -70,6 +72,13 @@ const EditForm = ({
         <Button icon={<UploadIcon />}>Upload</Button>
       </Upload>
     </Form.Item>
+    <Form.Item<typeof News.$inferInsert>
+      name="show_article"
+      label="Show article?"
+      valuePropName="checked"
+    >
+      <Checkbox />
+    </Form.Item>
   </Form>
 );
 
@@ -85,6 +94,7 @@ export default function NewsTable({
     <>
       {context}
       <Table
+        bordered={true}
         dataSource={data}
         rowKey={(x) => x.id}
         className="wrapper py-10"
@@ -118,6 +128,10 @@ export default function NewsTable({
                           formData.append("title", val.title);
                           formData.append("href", val.href);
                           formData.append("image", val.image[0].originFileObj);
+                          formData.append(
+                            "show_article",
+                            String(val.show_article),
+                          );
                           return await add(formData).then(() =>
                             form.resetFields(),
                           );
@@ -138,6 +152,7 @@ export default function NewsTable({
           {
             title: "Actions",
             width: 200,
+            align: "center",
             render: (_, x) => (
               <Space>
                 <Popconfirm
@@ -167,6 +182,10 @@ export default function NewsTable({
                           const formData = new FormData();
                           formData.append("title", val.title);
                           formData.append("href", val.href);
+                          formData.append(
+                            "show_article",
+                            String(val.show_article),
+                          );
                           val.image &&
                             formData.append(
                               "image",
@@ -188,6 +207,7 @@ export default function NewsTable({
           {
             title: "Link",
             dataIndex: "href",
+            align: "center",
             render: (x) => (
               <Link href={x} target="_blank">
                 Link
@@ -197,13 +217,42 @@ export default function NewsTable({
           {
             title: "Title",
             dataIndex: "title",
+            align: "center",
           },
           {
             title: "Image",
             dataIndex: "image",
+            align: "center",
             render: (x) => (
               <Image src={`/images/${x}`} width={100} alt={x.name} />
             ),
+          },
+          {
+            title: "Show article?",
+            width: "200px",
+            align: "center",
+            dataIndex: "show_article",
+            render: (x) =>
+              x && (
+                <div className={"flex justify-center"}>
+                  <Check className={"w-10 h-10"} />
+                </div>
+              ),
+          },
+          {
+            title: "Edit article",
+            width: "200px",
+            align: "center",
+            dataIndex: "show_article",
+            render: (_, record) =>
+              record.show_article && (
+                <Link
+                  href={`/editArticle/${record.id}`}
+                  className={"flex justify-center"}
+                >
+                  <EditIcon className={"w-10 h-10"} />
+                </Link>
+              ),
           },
         ]}
       />

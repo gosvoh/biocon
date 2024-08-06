@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS "Organizers" (
 	"name" text NOT NULL,
 	"position" text NOT NULL,
 	"image" text NOT NULL,
-	"email" text NOT NULL,
+	"email" text NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "Registrations" (
