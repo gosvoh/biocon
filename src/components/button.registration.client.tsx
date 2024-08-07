@@ -484,7 +484,7 @@ const RegForm = ({
             },
           ]}
         >
-          <div className="grid grid-cols-[0.25fr_2fr] items-center">
+          <div className="grid grid-cols-[0.25fr_2fr] xl:flex xl:gap-5 items-center">
             <input
               type="checkbox"
               className="appearance-none h-8 w-8 lg:w-auto  aspect-square border-[1px] border-white rounded-full bg-[#1A1A1A] checked:bg-[#FE6F61] checked:transition-colors checked:duration-300 cursor-pointer"

@@ -61,7 +61,7 @@ export default async function SpeakersPage() {
         </div>
       </section>
       <section className="relative space-y-6 md:space-y-9">
-        <div className={"hidden flex-col gap-5 lg:flex"}>
+        <div className={"hidden flex-col gap-5 xl:flex"}>
           {speakers.map((speaker, index) => (
             <Card key={index} className="p-0 relative">
               <Image
@@ -143,7 +143,7 @@ export default async function SpeakersPage() {
             </Card>
           ))}
         </div>
-        <div className={"flex flex-col gap-5 lg:hidden"}>
+        <div className={"flex flex-col gap-5 xl:hidden"}>
           {speakers.map((speaker, index) => (
             <div
               key={index}

@@ -9,7 +9,7 @@ const links: {
   { title: "Speakers", href: "/speakers" },
   { title: "Program", href: "/program" },
   { title: "Venue", href: "/venue" },
-  { title: "Organizers", href: "/contacts" },
+  { title: "Contacts", href: "/contacts" },
 ];
 
 export default links;
