@@ -73,10 +73,12 @@ const RegForm = ({
   const firstInputRef = useRef<InputRef>(null);
   const memoizedCountries = useMemo(
     () =>
-      countries.map((c) => ({
-        value: c.code,
-        label: c.name,
-      })),
+      countries
+        .map((c) => ({
+          value: c.code,
+          label: c.name,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label)),
     [countries],
   );
   const memoizedCities = useMemo(
@@ -90,7 +92,8 @@ const RegForm = ({
         .map((c) => ({
           value: c.ascii_name,
           label: c.ascii_name,
-        })),
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label)),
     [cities, selectedCountry],
   );
 
@@ -139,7 +142,7 @@ const RegForm = ({
         }
       `}
       </style>
-      <Form preserve={false} form={form} layout="vertical">
+      <Form preserve={false} form={form} layout="vertical" className={"overflow-hidden"}>
         <Form.Item<RegisterFormValues>
           name="name"
           label={<RenderLabel text={"Full name"} required={true} />}
@@ -481,14 +484,19 @@ const RegForm = ({
             },
           ]}
         >
-          <div className="flex mt-5 items-center">
+          <div className="grid grid-cols-[0.25fr_2fr] items-center">
             <input
               type="checkbox"
               className="appearance-none h-8 w-8 lg:w-auto  aspect-square border-[1px] border-white rounded-full bg-[#1A1A1A] checked:bg-[#FE6F61] checked:transition-colors checked:duration-300 cursor-pointer"
             />
             <div className="ml-4">
               I agree to the{" "}
-              <Link prefetch={false} href="/files/policy.pdf" target="_blank" className={"styled-link"}>
+              <Link
+                prefetch={false}
+                href="/files/policy.pdf"
+                target="_blank"
+                className={"styled-link"}
+              >
                 processing of my personal data
               </Link>{" "}
               in accordance with{" "}

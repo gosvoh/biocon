@@ -56,7 +56,7 @@ const RenderPartnersInfoCards = ({
     redirectLinkRu?: string;
   }>;
 }) => (
-  <div className={"fcol gap-5 lg:grid lg:grid-cols-4"}>
+  <div className={"fcol gap-5 xl:grid xl:grid-cols-4"}>
     {infoArray.map((infoElem, index) => (
       <ContactsCard
         key={index}
@@ -96,7 +96,7 @@ export default function ContactsPage({
                   src={`/images/${organizer.image}`}
                   alt={""}
                   fill={true}
-                  className={"object-cover rounded-[28px] object-top"}
+                  className={"object-cover rounded-[28px]"}
                 />
               </div>
               <div className={"fcol gap-2"}>
@@ -160,7 +160,7 @@ export default function ContactsPage({
         <Image
           src={BottomGlow}
           alt=""
-          className="absolute h-[90%] -bottom-32 right-0 w-[150%] -z-10 hidden lg:block blur-md"
+          className="absolute h-[90%] xl:-bottom-32 -bottom-1/2 right-0 w-[150%] -z-10 hidden lg:block blur-md"
         />
         <Image
           src={BottomGlowMobile}
