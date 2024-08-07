@@ -96,7 +96,7 @@ export default function ContactsPage({
                   src={`/images/${organizer.image}`}
                   alt={""}
                   fill={true}
-                  className={"object-cover rounded-[28px]"}
+                  className={"object-cover rounded-[28px] object-top"}
                 />
               </div>
               <div className={"fcol gap-2"}>
