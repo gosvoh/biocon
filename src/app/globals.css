@@ -147,6 +147,9 @@
 }
 
 @layer components {
+  .styled-link{
+      @apply text-[#FE6F61] hover:text-[#FE6F61]  lg:link-hover-underline underline;
+  }
   .scale-animation{
     transition-property: transform;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

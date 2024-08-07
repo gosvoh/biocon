@@ -10,7 +10,6 @@ import {
   Input,
   Modal,
   Popconfirm,
-  Select,
   Space,
   Table,
   Upload,

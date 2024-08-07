@@ -222,7 +222,7 @@ export const ContactUsForm = () => {
             </label>
             <Link
               href={"/files/policy.pdf"}
-              className={"underline text-[#FE6F61]"}
+              className={"styled-link"}
               target={"_blank"}
             >
               Privacy Policy
@@ -232,7 +232,7 @@ export const ContactUsForm = () => {
             <label>I agree to the processing of personal data.</label>
             <Link
               href={"/files/policy.pdf"}
-              className={"underline text-[#FE6F61]"}
+              className={"styled-link"}
               target={"_blank"}
             >
               Privacy Policy

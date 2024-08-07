@@ -488,7 +488,7 @@ const RegForm = ({
             />
             <div className="ml-4">
               I agree to the{" "}
-              <Link prefetch={false} href="/files/policy.pdf" target="_blank">
+              <Link prefetch={false} href="/files/policy.pdf" target="_blank" className={"styled-link"}>
                 processing of my personal data
               </Link>{" "}
               in accordance with{" "}
@@ -496,6 +496,7 @@ const RegForm = ({
                 prefetch={false}
                 href="/files/regulations.pdf"
                 target="_blank"
+                className={"styled-link"}
               >
                 ITMO University’s Policy regarding the processing of personal
                 data
