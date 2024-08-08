@@ -73,10 +73,10 @@ export default async function SpeakersPage() {
                   "absolute right-10 top-10 border-white border-[1px] rounded-[10px]"
                 }
               />
-              <div className={"grid grid-cols-[1.2fr_2fr] "}>
+              <div className={"grid grid-cols-[25rem_2fr] "}>
                 <div
                   className={
-                    "relative rounded-l-[25px] overflow-hidden aspect-[3/4] w-full h-full"
+                    "relative rounded-l-[25px] overflow-hidden aspect-[3/4] w-full  h-full"
                   }
                 >
                   <Image
@@ -211,13 +211,15 @@ export default async function SpeakersPage() {
                     h-index: {speaker.hIndex}
                   </div>
                 )}
-                <p className={"whitespace-pre-line"}>{speaker.description}</p>
+                <div className=" overflow-wrap whitespace-pre-line hyphens-auto break-words break-all">
+                  <p>{speaker.description}</p>
+                </div>
               </div>
             </div>
           ))}
         </div>
         <Image
-          src={BottomGlow}
+            src={BottomGlow}
           alt=""
           className="absolute h-[150%] w-fit md:w-[150%] md:h-fit max-w-none -translate-x-1/2 -bottom-10 left-1/2 -z-10"
         />
