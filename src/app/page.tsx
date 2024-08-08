@@ -398,6 +398,7 @@ export default function Home() {
         <div className="fcol md:flex-row gap-20">
           <Modal
             title="Aeroflot"
+            footer={null}
             trigger={
               <div className="fcol gap-8 flex-1 items-center cursor-pointer">
                 <Image src={Aeroflot} alt="Aeroflot" className="h-full" />
@@ -425,6 +426,7 @@ export default function Home() {
           />
           <Modal
             title="S7 Airlines"
+            footer={null}
             trigger={
               <div className="fcol gap-8 flex-1 items-center cursor-pointer">
                 <Image

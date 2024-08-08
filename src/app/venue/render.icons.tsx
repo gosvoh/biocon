@@ -8,7 +8,7 @@ import PlaneIcon from "@public/venue/icons/4.svg";
 import BusIcon from "@public/venue/icons/2.svg";
 import CardStopIcon from "@public/venue/icons/5.svg";
 import { Modal } from "antd";
-import Map from "@public/venue/photos/map_popup.png"
+import Map from "@public/venue/photos/map_popup.png";
 import Link from "next/link";
 
 const icons = [
@@ -111,43 +111,47 @@ export const RenderIcons = () => {
             footer: null,
             closable: true,
             content: (
-                <>
+              <>
                 <h2>Plane tickets</h2>
-        <div className={"fcol gap-5"}>
-                <p>
-                  When buying tickets, please note that the conference will take
-                  place on November 11-13.
-                </p>
-                <p className={"font-bold"}>
-                  We recommend arriving on November 10, 2024. <br />
-                  We recommend leaving on November 14, 2024.
-                </p>
-                <p>
-                  Free transfer to the conference’s location will be organized
-                  from the following points:
-                </p>
-                <ol>
-                  <li>1. Kazan-Passazhirskaya (Kazan railway station)</li>
-                  <li>2. Kazan-Passazhirskaya 2 (Kazan railway station)</li>
-                  <li>3. Kazan (Airport)</li>
-                  <li>4. Bugulma (Railway station)</li>
-                  <li>5. Bugulma (Airport)</li>
-                  <li>6. Begishevo (Airport Nizhnekamsk)</li>
-                </ol>
-                <div className={"fcol lg:flex-row gap-1 items-center"}>
-                  <p>If you have any questions, write at</p>
-                  <Link
-                    href={"mailto:biocon@itmo.ru"}
-                    className={
-                      "font-bold link-hover-underline text-white hover:text-white"
-                    }
-                  >
-                    biocon@itmo.ru
-                  </Link>
+                <div className={"fcol gap-5"}>
+                  <p>
+                    When buying tickets, please note that the conference will
+                    take place on November 11-13.
+                  </p>
+                  <p className={"font-bold"}>
+                    We recommend arriving on November 10, 2024. <br />
+                    We recommend leaving on November 14, 2024.
+                  </p>
+                  <p>
+                    Free transfer to the conference’s location will be organized
+                    from the following points:
+                  </p>
+                  <ol>
+                    <li>1. Kazan-Passazhirskaya (Kazan railway station)</li>
+                    <li>2. Kazan-Passazhirskaya 2 (Kazan railway station)</li>
+                    <li>3. Kazan (Airport)</li>
+                    <li>4. Bugulma (Railway station)</li>
+                    <li>5. Bugulma (Airport)</li>
+                    <li>6. Begishevo (Airport Nizhnekamsk)</li>
+                  </ol>
+                  <div className={"fcol lg:flex-row gap-1 items-center"}>
+                    <p>If you have any questions, write at</p>
+                    <Link
+                      href={"mailto:biocon@itmo.ru"}
+                      className={
+                        "font-bold link-hover-underline text-white hover:text-white"
+                      }
+                    >
+                      biocon@itmo.ru
+                    </Link>
+                  </div>
+                  <Image
+                    src={Map}
+                    alt={""}
+                    className={"rounded-[16px] xl:rounded-[28px]"}
+                  />
                 </div>
-                <Image src={Map} alt={""} className={"rounded-[16px] xl:rounded-[28px]"}/>
-              </div>
-                  </>
+              </>
             ),
           });
       }}

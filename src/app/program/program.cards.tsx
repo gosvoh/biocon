@@ -110,7 +110,7 @@ export const ProgramPageCards = () => {
               content: (
                 <div className={"mt-5 mb-5 ml-2 mr-2 fcol gap-8"}>
                   {index == 2 ? (
-                    <h3 className={"font-normal"}>
+                    <h3>
                       {title.split(" ")[0]} {title.split(" ")[1]}{" "}
                       {title.split(" ")[2]} <br /> {title.split(" ")[3]}
                     </h3>

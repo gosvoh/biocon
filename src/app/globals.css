@@ -114,6 +114,12 @@
   .ant-modal-confirm-content{
     margin-top: 1rem
   }
+
+  .ant-modal{
+    max-height: max-content;
+    overflow-y: auto;
+  }
+
   .ant-modal,
   .ant-modal-content,
   .ant-modal-body {
