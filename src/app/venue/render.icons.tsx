@@ -8,7 +8,7 @@ import PlaneIcon from "@public/venue/icons/4.svg";
 import BusIcon from "@public/venue/icons/2.svg";
 import CardStopIcon from "@public/venue/icons/5.svg";
 import { Modal } from "antd";
-import { isPlainText } from "nodemailer/lib/mime-funcs";
+import Map from "@public/venue/photos/map_popup.png"
 import Link from "next/link";
 
 const icons = [
@@ -107,12 +107,13 @@ export const RenderIcons = () => {
         icon == PlaneIcon &&
           modal.info({
             icon: null,
-            title: "Plane tickets",
             width: "800px",
             footer: null,
             closable: true,
             content: (
-              <div className={"fcol gap-5"}>
+                <>
+                <h2>Plane tickets</h2>
+        <div className={"fcol gap-5"}>
                 <p>
                   When buying tickets, please note that the conference will take
                   place on November 11-13.
@@ -144,7 +145,9 @@ export const RenderIcons = () => {
                     biocon@itmo.ru
                   </Link>
                 </div>
+                <Image src={Map} alt={""} className={"rounded-[16px] xl:rounded-[28px]"}/>
               </div>
+                  </>
             ),
           });
       }}

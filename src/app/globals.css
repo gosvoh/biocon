@@ -111,7 +111,9 @@
     margin-top:0.5rem;
     list-style-type: disc;
   }
-
+  .ant-modal-confirm-content{
+    margin-top: 1rem
+  }
   .ant-modal,
   .ant-modal-content,
   .ant-modal-body {
