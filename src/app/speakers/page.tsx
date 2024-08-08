@@ -125,18 +125,22 @@ export default async function SpeakersPage() {
                           </div>
                         </Link>
                       ) : (
-                        <div className={"flex gap-2 items-center"}>
-                          <div className="lg:w-5 lg:h-5">
-                            <Trophy className="w-full h-full" />
+                        speaker.thunder && (
+                          <div className={"flex gap-2 items-center"}>
+                            <div className="lg:w-5 lg:h-5">
+                              <Trophy className="w-full h-full" />
+                            </div>
+                            <p>{speaker.thunder}</p>
                           </div>
-                          <p>{speaker.thunder}</p>
-                        </div>
+                        )
                       )}
                     </div>
                   </div>
-                  <div className="p-3 pl-6 pr-6 border border-white rounded-[66px] min-w-[30%] max-w-max text-center whitespace-nowrap">
-                    h-index: {speaker.hIndex}
-                  </div>
+                  {speaker.hIndex && (
+                    <div className="p-3 pl-6 pr-6 border border-white rounded-[66px] min-w-[30%] max-w-max text-center whitespace-nowrap">
+                      h-index: {speaker.hIndex}
+                    </div>
+                  )}
                   <p>{speaker.description}</p>
                 </div>
               </div>
@@ -185,7 +189,6 @@ export default async function SpeakersPage() {
                 >
                   <p className={"font-normal"}>{speaker.university}</p>
                 </Link>
-
                 {speaker.thunderUrl ? (
                   <Link
                     href={speaker.thunderUrl}
@@ -197,13 +200,17 @@ export default async function SpeakersPage() {
                     </p>
                   </Link>
                 ) : (
-                  <p className={"font-normal flex gap-2 items-center"}>
-                    <Trophy /> {speaker.thunder}{" "}
-                  </p>
+                  speaker.thunder && (
+                    <p className={"font-normal flex gap-2 items-center"}>
+                      <Trophy /> {speaker.thunder}{" "}
+                    </p>
+                  )
                 )}
-                <div className="p-2 border border-white rounded-full w-[60%]">
-                  h-index: {speaker.hIndex}
-                </div>
+                {speaker.hIndex && (
+                  <div className="p-2 border border-white rounded-full w-[60%]">
+                    h-index: {speaker.hIndex}
+                  </div>
+                )}
                 <p>{speaker.description}</p>
               </div>
             </div>

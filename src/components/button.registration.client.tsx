@@ -142,7 +142,12 @@ const RegForm = ({
         }
       `}
       </style>
-      <Form preserve={false} form={form} layout="vertical" className={"overflow-hidden"}>
+      <Form
+        preserve={false}
+        form={form}
+        layout="vertical"
+        className={"overflow-hidden"}
+      >
         <Form.Item<RegisterFormValues>
           name="name"
           label={<RenderLabel text={"Full name"} required={true} />}
