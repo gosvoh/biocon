@@ -141,7 +141,7 @@ export default async function SpeakersPage() {
                       h-index: {speaker.hIndex}
                     </div>
                   )}
-                  <p>{speaker.description}</p>
+                  <p className={"whitespace-pre-line"}>{speaker.description}</p>
                 </div>
               </div>
             </Card>
@@ -211,7 +211,7 @@ export default async function SpeakersPage() {
                     h-index: {speaker.hIndex}
                   </div>
                 )}
-                <p>{speaker.description}</p>
+                <p className={"whitespace-pre-line"}>{speaker.description}</p>
               </div>
             </div>
           ))}
