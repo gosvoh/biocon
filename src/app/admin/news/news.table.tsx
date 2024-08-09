@@ -242,16 +242,15 @@ export default function NewsTable({
             title: "Edit article",
             width: "200px",
             align: "center",
-            dataIndex: "show_article",
-            render: (_, record) =>
-              record.show_article && (
-                <Link
-                  href={`/admin/editArticle/${record.id}`}
-                  className={"flex justify-center"}
-                >
-                  <EditIcon className={"w-10 h-10"} />
-                </Link>
-              ),
+            dataIndex: "edit_article",
+            render: (_, record) => (
+              <Link
+                href={`/admin/editArticle/${record.id}`}
+                className={"flex justify-center"}
+              >
+                <EditIcon className={"w-10 h-10"} />
+              </Link>
+            ),
           },
         ]}
       />

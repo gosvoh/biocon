@@ -39,8 +39,8 @@ const font = localfont({
 });
 
 export const metadata: Metadata = {
-  title: "404",
-  description: "Page not found",
+  title: "Page",
+  description: "Unknown page",
   keywords: [
     "Конференция",
     "Биотехнологии",
@@ -124,8 +124,8 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://biocon.international"),
   openGraph: {
-    title: "404 ",
-    description: "Page not found",
+    title: "Page",
+    description: "Unknown page",
     images: {
       url: "https://biocon.international/openGraph/with none.png",
       secureUrl: "https://biocon.international/openGraph/with none.png",
@@ -136,8 +136,8 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "404 ",
-    description: "Page not found",
+    title: "Page",
+    description: "Unknown page",
     images: ["https://biocon.international/openGraph/with none.png"],
   },
   creator: "Aleksey Vokhmin",
