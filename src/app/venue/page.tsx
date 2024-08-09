@@ -41,8 +41,8 @@ import Link from "next/link";
 export const metadata = {
   title: "BIOCON 2024 - Venue",
   openGraph: {
-    title: 'BIOCON 2024 - Venue',
-    description: 'Venue page of BIOCON 2024',
+    title: "BIOCON 2024 - Venue",
+    description: "Venue page of BIOCON 2024",
     images: {
       url: "https://biocon.international/openGraph/Venue.png",
       secureUrl: "https://biocon.international/openGraph/Venue.png",
@@ -53,9 +53,9 @@ export const metadata = {
     },
   },
   twitter: {
-    title: 'BIOCON 2024 - Venue',
-    description: 'Venue page of BIOCON 2024',
-    images: ['https://biocon.international/openGraph/Venue.png'],
+    title: "BIOCON 2024 - Venue",
+    description: "Venue page of BIOCON 2024",
+    images: ["https://biocon.international/openGraph/Venue.png"],
   },
 };
 

@@ -18,8 +18,8 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "BIOCON 2024 - Speakers",
   openGraph: {
-    title: 'BIOCON 2024 - Speakers',
-    description: 'Speakers page of BIOCON 2024',
+    title: "BIOCON 2024 - Speakers",
+    description: "Speakers page of BIOCON 2024",
     images: {
       url: "https://biocon.international/openGraph/SPEAKERS.png",
       secureUrl: "https://biocon.international/openGraph/SPEAKERS.png",
@@ -30,9 +30,9 @@ export const metadata = {
     },
   },
   twitter: {
-    title: 'BIOCON 2024 - Speakers',
-    description: 'Speakers page of BIOCON 2024',
-    images: ['https://biocon.international/openGraph/SPEAKERS.png'],
+    title: "BIOCON 2024 - Speakers",
+    description: "Speakers page of BIOCON 2024",
+    images: ["https://biocon.international/openGraph/SPEAKERS.png"],
   },
 };
 
@@ -239,7 +239,7 @@ export default async function SpeakersPage() {
           ))}
         </div>
         <Image
-            src={BottomGlow}
+          src={BottomGlow}
           alt=""
           className="absolute h-[150%] w-fit md:w-[150%] md:h-fit max-w-none -translate-x-1/2 -bottom-10 left-1/2 -z-10"
         />

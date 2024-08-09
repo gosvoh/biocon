@@ -45,7 +45,7 @@ import lower_man_with_glasses_speaker from "@public/previous_biocon/ZZZ_2148.jpg
 import "./noise.css";
 import MediaAboutUsCarousel from "@/components/mediaAboutUsCarousel";
 import { Suspense } from "react";
-import NewsCarousel, { NewsSkeleton } from "@/components/news";
+import NewsCarousel, { NewsSkeleton } from "@/components/news.carousel";
 
 const font = Architects_Daughter({
   subsets: ["latin"],

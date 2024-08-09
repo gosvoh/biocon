@@ -35,8 +35,8 @@ import { ProgramButton } from "@/app/program/program.button";
 export const metadata = {
   title: "BIOCON 2024 - Program",
   openGraph: {
-    title: 'BIOCON 2024 - Program',
-    description: 'Program page of BIOCON 2024',
+    title: "BIOCON 2024 - Program",
+    description: "Program page of BIOCON 2024",
     images: {
       url: "https://biocon.international/openGraph/Program.png",
       secureUrl: "https://biocon.international/openGraph/Program.png",
@@ -47,9 +47,9 @@ export const metadata = {
     },
   },
   twitter: {
-    title: 'BIOCON 2024 - Program',
-    description: 'Program page of BIOCON 2024',
-    images: ['https://biocon.international/openGraph/Program.png'],
+    title: "BIOCON 2024 - Program",
+    description: "Program page of BIOCON 2024",
+    images: ["https://biocon.international/openGraph/Program.png"],
   },
 };
 

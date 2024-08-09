@@ -7,8 +7,8 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "BIOCON 2024 - Contacts",
   openGraph: {
-    title: 'BIOCON 2024 - Contacts',
-    description: 'Contacts page of BIOCON 2024',
+    title: "BIOCON 2024 - Contacts",
+    description: "Contacts page of BIOCON 2024",
     images: {
       url: "https://biocon.international/openGraph/Contacts.png",
       secureUrl: "https://biocon.international/openGraph/Contacts.png",
@@ -19,9 +19,9 @@ export const metadata = {
     },
   },
   twitter: {
-    title: 'BIOCON 2024 - Contacts',
-    description: 'Contacts page of BIOCON 2024',
-    images: ['https://biocon.international/openGraph/Contacts.png'],
+    title: "BIOCON 2024 - Contacts",
+    description: "Contacts page of BIOCON 2024",
+    images: ["https://biocon.international/openGraph/Contacts.png"],
   },
 };
 

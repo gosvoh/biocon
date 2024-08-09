@@ -54,7 +54,11 @@ export default async function NewsCarousel() {
           </div>
           <p>{x.title}</p>
           <div>
-            <Link href={x.href} className="underline" target={"_blank"}>
+            <Link
+              href={x.show_article ? `/news/${x.id}` : x.href}
+              className="underline"
+              target={"_blank"}
+            >
               Read more
             </Link>
           </div>

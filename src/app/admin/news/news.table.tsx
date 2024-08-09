@@ -246,7 +246,7 @@ export default function NewsTable({
             render: (_, record) =>
               record.show_article && (
                 <Link
-                  href={`/editArticle/${record.id}`}
+                  href={`/admin/editArticle/${record.id}`}
                   className={"flex justify-center"}
                 >
                   <EditIcon className={"w-10 h-10"} />

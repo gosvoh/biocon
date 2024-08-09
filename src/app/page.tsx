@@ -33,15 +33,15 @@ import Tag from "@/components/ui/tag";
 import Modal from "@/components/ui/modal";
 import { MapPin } from "lucide-react";
 import { Suspense } from "react";
-import NewsCarousel, { NewsSkeleton } from "@/components/news";
+import NewsCarousel, { NewsSkeleton } from "@/components/news.carousel";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: 'BIOCON 2024 - About',
-  description: 'About page of BIOCON 2024',
+  title: "BIOCON 2024 - About",
+  description: "About page of BIOCON 2024",
   openGraph: {
-    title: 'BIOCON 2024 - About',
-    description: 'About page of BIOCON 2024',
+    title: "BIOCON 2024 - About",
+    description: "About page of BIOCON 2024",
     images: {
       url: "https://biocon.international/openGraph/ABOUT.png",
       secureUrl: "https://biocon.international/openGraph/ABOUT.png",
@@ -52,9 +52,9 @@ export const metadata = {
     },
   },
   twitter: {
-    title: 'BIOCON 2024 - About',
-    description: 'About page of BIOCON 2024',
-    images: ['https://biocon.international/openGraph/ABOUT.png'],
+    title: "BIOCON 2024 - About",
+    description: "About page of BIOCON 2024",
+    images: ["https://biocon.international/openGraph/ABOUT.png"],
   },
 };
 

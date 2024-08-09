@@ -7,8 +7,8 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "BIOCON 2024 - BIOCON2023",
   openGraph: {
-    title: 'BIOCON 2024 - BIOCON2023',
-    description: 'BIOCON 2023 results page of BIOCON 2024',
+    title: "BIOCON 2024 - BIOCON2023",
+    description: "BIOCON 2023 results page of BIOCON 2024",
     images: {
       url: "https://biocon.international/openGraph/BIOCON 2023.png",
       secureUrl: "https://biocon.international/openGraph/BIOCON 2023.png",
@@ -19,9 +19,9 @@ export const metadata = {
     },
   },
   twitter: {
-    title: 'BIOCON 2024 - BIOCON2023',
-    description: 'BIOCON 2023 results page of BIOCON 2024',
-    images: ['https://biocon.international/openGraph/BIOCON 2023.png'],
+    title: "BIOCON 2024 - BIOCON2023",
+    description: "BIOCON 2023 results page of BIOCON 2024",
+    images: ["https://biocon.international/openGraph/BIOCON 2023.png"],
   },
 };
 
