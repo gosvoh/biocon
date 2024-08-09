@@ -36,7 +36,27 @@ import { Suspense } from "react";
 import NewsCarousel, { NewsSkeleton } from "@/components/news";
 
 export const dynamic = "force-dynamic";
-
+export const metadata = {
+  title: 'BIOCON 2024 - About',
+  description: 'About page of BIOCON 2024',
+  openGraph: {
+    title: 'BIOCON 2024 - About',
+    description: 'About page of BIOCON 2024',
+    images: {
+      url: "https://biocon.international/openGraph/ABOUT.png",
+      secureUrl: "https://biocon.international/openGraph/ABOUT.png",
+      width: 1920,
+      height: 768,
+      alt: "BIOCON 2024",
+      type: "image/png",
+    },
+  },
+  twitter: {
+    title: 'BIOCON 2024 - About',
+    description: 'About page of BIOCON 2024',
+    images: ['https://biocon.international/openGraph/ABOUT.png'],
+  },
+};
 
 const LeftGlow = ({
   className,

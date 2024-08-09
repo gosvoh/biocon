@@ -39,8 +39,8 @@ const font = localfont({
 });
 
 export const metadata: Metadata = {
-  title: "BIOCON 2024 - About",
-  description: "BIOCON 2024 - Updates very soon!",
+  title: "404",
+  description: "Page not found",
   keywords: [
     "Конференция",
     "Биотехнологии",
@@ -124,11 +124,11 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://biocon.international"),
   openGraph: {
-    title: 'BIOCON 2024 - About',
-    description: 'About page of BIOCON 2024',
+    title: '404 ',
+    description: 'Page not found',
     images: {
-      url: "https://biocon.international/openGraph/ABOUT.png",
-      secureUrl: "https://biocon.international/openGraph/ABOUT.png",
+      url: "https://biocon.international/openGraph/with none.png",
+      secureUrl: "https://biocon.international/openGraph/with none.png",
       width: 1920,
       height: 768,
       alt: "BIOCON 2024",
@@ -136,9 +136,9 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: 'BIOCON 2024 - About',
-    description: 'About page of BIOCON 2024',
-    images: ['https://biocon.international/openGraph/ABOUT.png'],
+    title: '404 ',
+    description: 'Page not found',
+    images: ['https://biocon.international/openGraph/with none.png'],
   },
   creator: "Aleksey Vokhmin",
 };
