@@ -15,9 +15,29 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  title: "BIOCON 2024 - Speakers",
+  openGraph: {
+    title: 'BIOCON 2024 - Speakers',
+    description: 'Speakers page of BIOCON 2024',
+    images: {
+      url: "https://biocon.international/openGraph/SPEAKERS.png",
+      secureUrl: "https://biocon.international/openGraph/SPEAKERS.png",
+      width: 1920,
+      height: 768,
+      alt: "BIOCON 2024",
+      type: "image/png",
+    },
+  },
+  twitter: {
+    title: 'BIOCON 2024 - Speakers',
+    description: 'Speakers page of BIOCON 2024',
+    images: ['https://biocon.international/openGraph/SPEAKERS.png'],
+  },
+};
+
 export default async function SpeakersPage() {
   let speakers: (typeof Speakers.$inferSelect)[] = [];
-
   try {
     speakers = await biocon.select().from(Speakers);
   } catch (e) {

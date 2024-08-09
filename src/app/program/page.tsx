@@ -32,6 +32,27 @@ import BottomGlowMobile from "@public/program/glows/BottomGlowMobile.svg";
 import RightGlowMobile from "@public/program/glows/rightGlowMobile.svg";
 import { ProgramButton } from "@/app/program/program.button";
 
+export const metadata = {
+  title: "BIOCON 2024 - Program",
+  openGraph: {
+    title: 'BIOCON 2024 - Program',
+    description: 'Program page of BIOCON 2024',
+    images: {
+      url: "https://biocon.international/openGraph/Program.png",
+      secureUrl: "https://biocon.international/openGraph/Program.png",
+      width: 1920,
+      height: 768,
+      alt: "BIOCON 2024",
+      type: "image/png",
+    },
+  },
+  twitter: {
+    title: 'BIOCON 2024 - Program',
+    description: 'Program page of BIOCON 2024',
+    images: ['https://biocon.international/openGraph/Program.png'],
+  },
+};
+
 const GridGallery = ({
   image,
   title,

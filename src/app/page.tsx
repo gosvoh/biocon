@@ -37,6 +37,7 @@ import NewsCarousel, { NewsSkeleton } from "@/components/news";
 
 export const dynamic = "force-dynamic";
 
+
 const LeftGlow = ({
   className,
   big = false,

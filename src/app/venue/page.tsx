@@ -38,6 +38,27 @@ import { RenderIcons } from "@/app/venue/render.icons";
 import { RenderTemperature } from "@/app/venue/render.temperature";
 import Link from "next/link";
 
+export const metadata = {
+  title: "BIOCON 2024 - Venue",
+  openGraph: {
+    title: 'BIOCON 2024 - Venue',
+    description: 'Venue page of BIOCON 2024',
+    images: {
+      url: "https://biocon.international/openGraph/Venue.png",
+      secureUrl: "https://biocon.international/openGraph/Venue.png",
+      width: 1920,
+      height: 768,
+      alt: "BIOCON 2024",
+      type: "image/png",
+    },
+  },
+  twitter: {
+    title: 'BIOCON 2024 - Venue',
+    description: 'Venue page of BIOCON 2024',
+    images: ['https://biocon.international/openGraph/Venue.png'],
+  },
+};
+
 export default function VenuePage() {
   const gallerySection =
     "fcol gap-5  lg:grid lg:grid-cols-2 lg:items-center lg:gap-9";

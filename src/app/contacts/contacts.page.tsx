@@ -11,6 +11,7 @@ import { Organizers } from "@/db/schema";
 import Link from "next/link";
 import { ContactsCard } from "@/app/contacts/contacts.card";
 
+
 const LeftGlow = ({
   className,
   big = false,

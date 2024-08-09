@@ -39,7 +39,7 @@ const font = localfont({
 });
 
 export const metadata: Metadata = {
-  title: "BIOCON 2024",
+  title: "BIOCON 2024 - About",
   description: "BIOCON 2024 - Updates very soon!",
   keywords: [
     "Конференция",
@@ -124,20 +124,21 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://biocon.international"),
   openGraph: {
-    type: "website",
-    description: "BIOCON 2024 - Updates very soon!",
-    locale: "en_US",
-    url: "https://biocon.international",
-    siteName: "BIOCON 2024",
+    title: 'BIOCON 2024 - About',
+    description: 'About page of BIOCON 2024',
     images: {
-      url: "https://biocon.international/logo.png",
-      secureUrl: "https://biocon.international/logo.png",
+      url: "https://biocon.international/openGraph/ABOUT.png",
+      secureUrl: "https://biocon.international/openGraph/ABOUT.png",
       width: 1920,
       height: 768,
       alt: "BIOCON 2024",
       type: "image/png",
     },
-    title: "BIOCON 2024",
+  },
+  twitter: {
+    title: 'BIOCON 2024 - About',
+    description: 'About page of BIOCON 2024',
+    images: ['https://biocon.international/openGraph/ABOUT.png'],
   },
   creator: "Aleksey Vokhmin",
 };
