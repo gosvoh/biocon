@@ -40,6 +40,7 @@ export default async function SpeakersPage() {
   let speakers: (typeof Speakers.$inferSelect)[] = [];
   try {
     speakers = await biocon.select().from(Speakers);
+    speakers.sort((a, b) => a.order - b.order);
   } catch (e) {
     console.error(e);
   }

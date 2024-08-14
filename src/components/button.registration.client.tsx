@@ -145,8 +145,15 @@ const RegForm = ({
       >
         <Form.Item<RegisterFormValues>
           name="name"
-          label={<div><RenderLabel text={"Full name"} required={true} /> <p className={"text-[#888888] mt-1 mb-2 font-[500]"}>Please specify
-              your First name, Last name and Patronymic (if available)</p></div>}
+          label={
+            <div>
+              <RenderLabel text={"Full name"} required={true} />{" "}
+              <p className={"text-[#888888] mt-1 mb-2 font-[500]"}>
+                Please specify your First name, Last name and Patronymic (if
+                available)
+              </p>
+            </div>
+          }
           required={false}
           rules={[
             { required: true, message: "Please enter your name" },
@@ -205,7 +212,10 @@ const RegForm = ({
             },
           ]}
         >
-          <StyledInput type="tel" placeholder={"Enter your phone number here"}/>
+          <StyledInput
+            type="tel"
+            placeholder={"Enter your phone number here"}
+          />
         </Form.Item>
         <Form.Item<RegisterFormValues>
           name="country"
@@ -464,7 +474,9 @@ const RegForm = ({
                 ]}
               >
                 <StyledInput
-                  placeholder={"Provide a link to a short self-presentation video"}
+                  placeholder={
+                    "Provide a link to a short self-presentation video"
+                  }
                 />
               </Form.Item>
             </>

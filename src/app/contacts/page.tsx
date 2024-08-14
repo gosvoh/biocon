@@ -34,5 +34,7 @@ export default async function ContactsDataLoader() {
     console.error(e);
   }
 
-  return <ContactsPage organizers={organizers} />;
+  return (
+    <ContactsPage organizers={organizers.sort((a, b) => a.order - b.order)} />
+  );
 }

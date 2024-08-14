@@ -64,10 +64,10 @@ export async function update(id: number, formData: FormData) {
   const img = formData.get("image") as File | null;
   const email = formData.get("email") as string;
   const position = formData.get("position") as string;
-  const order = formData.get("order") as number | null;
+  const order = Number(formData.get("order") as number | null);
 
   let newImagePath;
-  if (img) {
+  if (img && typeof img !== "string") {
     if (!fs.existsSync("./uploads")) fs.mkdirSync("./uploads");
     const uuid = randomUUID();
     try {
@@ -92,7 +92,7 @@ export async function update(id: number, formData: FormData) {
 
   await biocon
     .update(Organizers)
-    .set({ name, image: newImagePath, email, position })
+    .set({ name, image: newImagePath, email, position, order })
     .where(eq(Organizers.id, id));
 
   revalidatePath("/admin/organizers");
