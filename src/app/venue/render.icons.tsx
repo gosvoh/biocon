@@ -140,7 +140,7 @@ export const RenderIcons = () => {
                     <Link
                       href={"mailto:biocon@itmo.ru"}
                       className={
-                        "font-bold link-hover-underline text-white hover:text-white"
+                        "font-bold link-hover-underline text-white hover:text-white styled-link"
                       }
                     >
                       biocon@itmo.ru

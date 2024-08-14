@@ -93,7 +93,7 @@ export default async function SpeakersPage() {
                   "absolute right-10 top-10 border-white border-[1px] rounded-[10px]"
                 }
               />
-              <div className={"grid grid-cols-[25rem_2fr] "}>
+              <div className={"grid grid-cols-[25rem_auto] "}>
                 <div
                   className={
                     "relative rounded-l-[25px] overflow-hidden aspect-[3/4] w-full  h-full"

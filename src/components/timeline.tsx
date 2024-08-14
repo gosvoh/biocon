@@ -31,7 +31,7 @@ export default function Timeline({
             <p>
               Registration ends for participants from from{" "}
               <Link
-                className="underline"
+                className="styled-link"
                 href="https://electronic-visa.kdmid.ru/country_en.html"
               >
                 non-listed countries
@@ -60,7 +60,7 @@ export default function Timeline({
           <p className={"w-[55%]"}>
             Registration ends for participants from{" "}
             <Link
-              className="underline"
+              className="styled-link"
               href="https://electronic-visa.kdmid.ru/country_en.html"
             >
               non-listed countries

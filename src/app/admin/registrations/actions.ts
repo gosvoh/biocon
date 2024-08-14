@@ -13,7 +13,10 @@ export async function add(
 }
 
 export async function remove(id: number) {
-  await biocon.update(Registrations).set({deletedAt: String(Date.now())}).where(eq(Registrations.id, id));
+  await biocon
+    .update(Registrations)
+    .set({ deletedAt: String(Date.now()) })
+    .where(eq(Registrations.id, id));
   revalidatePath("/admin");
 }
 

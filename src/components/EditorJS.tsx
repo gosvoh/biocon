@@ -1,10 +1,7 @@
 "use client";
 import EditorJs from "@natterstefan/react-editor-js";
 import type EditorJSType from "@editorjs/editorjs";
-import type {
-    ToolConstructable,
-    ToolSettings,
-} from "@editorjs/editorjs";
+import type { ToolConstructable, ToolSettings } from "@editorjs/editorjs";
 //@ts-expect-error 7016
 import Table from "@editorjs/table";
 // import List from '@editorjs/list'

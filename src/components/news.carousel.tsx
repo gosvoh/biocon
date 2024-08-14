@@ -44,19 +44,23 @@ export default async function NewsCarousel() {
           key={`media-item-${i}`}
           className="md:basis-1/2 xl:basis-1/3 fcol gap-6"
         >
-          <div className={"relative overflow-hidden  w-full aspect-[6/4]"}>
+          <Link
+            href={x.show_article ? `/news/${x.id}` : x.href}
+            target={"_blank"}
+            className={"relative overflow-hidden  w-full aspect-[6/4] "}
+          >
             <Image
               src={`/images/${x.image}`}
               alt=""
               fill
               className="rounded-[16px] lg:rounded-[28px] object-fill"
             />
-          </div>
+          </Link>
           <p>{x.title}</p>
           <div>
             <Link
               href={x.show_article ? `/news/${x.id}` : x.href}
-              className="underline"
+              className={"styled-link"}
               target={"_blank"}
             >
               Read more

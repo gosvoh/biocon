@@ -54,7 +54,7 @@ export default async function MediaAboutUsCarousel() {
           </div>
           <p>{x.title}</p>
           <div>
-            <Link href={x.href} className="underline" target={"_blank"}>
+            <Link href={x.href} className="styled-link" target={"_blank"}>
               Read more
             </Link>
           </div>

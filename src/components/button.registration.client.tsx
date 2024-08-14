@@ -145,7 +145,8 @@ const RegForm = ({
       >
         <Form.Item<RegisterFormValues>
           name="name"
-          label={<RenderLabel text={"Full name"} required={true} />}
+          label={<div><RenderLabel text={"Full name"} required={true} /> <p className={"text-[#888888] mt-1 mb-2 font-[500]"}>Please specify
+              your First name, Last name and Patronymic (if available)</p></div>}
           required={false}
           rules={[
             { required: true, message: "Please enter your name" },
@@ -204,7 +205,7 @@ const RegForm = ({
             },
           ]}
         >
-          <StyledInput type="tel" />
+          <StyledInput type="tel" placeholder={"Enter your phone number here"}/>
         </Form.Item>
         <Form.Item<RegisterFormValues>
           name="country"
@@ -246,7 +247,7 @@ const RegForm = ({
         >
           <StyledSelect
             disabled={!selectedCountry}
-            placeholder="City"
+            placeholder="-"
             /*
             showSearch
             filterOption={(input, option) =>
@@ -270,7 +271,7 @@ const RegForm = ({
             },
           ]}
         >
-          <StyledInput placeholder="Enter the name of your university or organization here" />
+          <StyledInput placeholder="Enter the name of the organization you are affilated with" />
         </Form.Item>
         <Form.Item<RegisterFormValues>
           name="role"
@@ -463,13 +464,7 @@ const RegForm = ({
                 ]}
               >
                 <StyledInput
-                  placeholder={
-                    ["Contributed speaker", "Attendee"].includes(
-                      selectedParticipationType,
-                    )
-                      ? "Provide a link to a short self-presentation video"
-                      : "Provide a link to a teaser of your talk"
-                  }
+                  placeholder={"Provide a link to a short self-presentation video"}
                 />
               </Form.Item>
             </>
