@@ -133,7 +133,7 @@ export default function VenuePage() {
         <Image
           src={TatarCat}
           alt={""}
-          className={"hidden lg:block justify-self-center w-fit h-[80%]"}
+          className={"hidden lg:block justify-self-center w-fit h-[90%]"}
         />
       </section>
       <section className={"fcol gap-16 text-center relative"}>

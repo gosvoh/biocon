@@ -294,7 +294,6 @@ export default function Home() {
                 </div>
                 <p className="font-bold">You must specify when registering:</p>
                 <div className="tags">
-                  <Tag text="Your CV in English" color="green" />
                   <Tag
                     text="Short video with your self-presentation in English"
                     color="green"
@@ -333,7 +332,6 @@ export default function Home() {
                 </div>
                 <p className="font-bold">You must specify when registering:</p>
                 <div className="tags">
-                  <Tag text="Your CV in English" color="green" />
                   <Tag
                     text="Short video with a teaser of your talk in English"
                     color="green"
@@ -420,6 +418,7 @@ export default function Home() {
           <Modal
             title="Aeroflot"
             footer={null}
+            centered
             trigger={
               <div className="fcol gap-8 flex-1 items-center cursor-pointer">
                 <Image src={Aeroflot} alt="Aeroflot" className="h-full" />
@@ -448,6 +447,7 @@ export default function Home() {
           <Modal
             title="S7 Airlines"
             footer={null}
+            centered
             trigger={
               <div className="fcol gap-8 flex-1 items-center cursor-pointer">
                 <Image

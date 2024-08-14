@@ -348,6 +348,7 @@ const RegForm = ({
           ]}
         >
           <RenderTags
+              isRegistration={true}
             className={"mt-7 mb-5"}
             state={selectedParticipationType}
             setState={(value) => {

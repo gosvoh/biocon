@@ -269,4 +269,8 @@
   .tags {
     @apply flex flex-wrap gap-4;
   }
+
+  .back-to-top{
+    @apply fixed bottom-5 right-5 text-black p-2 cursor-pointer z-50 rounded-full aspect-square bg-primary
+  }
 }

@@ -55,18 +55,20 @@ export const RenderTags = ({
   setState,
   subjects,
   className,
+    isRegistration = false
 }: {
   state: string | null;
   setState: Dispatch<SetStateAction<string | null>>;
   subjects: Array<string>;
   className?: string;
+  isRegistration?: boolean;
 }) => {
   return (
-    <div className={cn("fcol xl:grid xl:grid-cols-3 gap-5", className)}>
+    <div className={cn(`fcol gap-5 ${!isRegistration && "xl:grid xl:grid-cols-3"}`, className)}>
       {subjects.map((subject, index) => (
         <div
           key={index}
-          className={`flex items-center justify-center w-fit lg:w-full border-white border-[1px] p-4 lg:pl-12 lg:pr-12 pr-8 pl-8 text-center rounded-full cursor-pointer ${subject == state && "bg-[#FE6F61]"} transition-colors duration-300`}
+          className={`flex items-center justify-center w-fit ${!isRegistration && "lg:w-full"} border-white border-[1px] p-4 lg:pl-12 lg:pr-12 pr-8 pl-8 text-center rounded-full cursor-pointer ${subject == state && "bg-[#FE6F61]"} transition-colors duration-300`}
           onClick={() => setState(subjects[index])}
         >
           {subject}

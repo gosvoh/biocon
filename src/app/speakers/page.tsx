@@ -157,7 +157,7 @@ export default async function SpeakersPage() {
                     </div>
                   </div>
                   {speaker.hIndex && (
-                    <div className="p-3 pl-6 pr-6 border border-white rounded-[66px] min-w-[30%] max-w-max text-center whitespace-nowrap">
+                    <div className="p-5 pl-12 pr-12 border-2 border-white rounded-[66px] min-w-[30%] max-w-max text-center whitespace-nowrap">
                       h-index: {speaker.hIndex}
                     </div>
                   )}

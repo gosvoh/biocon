@@ -28,6 +28,7 @@ export default function Modal({
   trigger.props.onClick = () => {
     modal[type]({
       content: modalContent,
+      footer: null,
       title: <p className="text-center">{title}</p>,
       ...modalProps,
       ...props,

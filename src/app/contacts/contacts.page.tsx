@@ -144,7 +144,7 @@ export default function ContactsPage({
             },
             {
               title: "Use of logos and identity",
-              description: "Download brand breech",
+              description: "Download brandbook",
               redirectLink: "/files/brand_book/BIOCON 2024 Brandbook ENG.pdf",
               redirectLinkRu: "/files/brand_book/BIOCON 2024 Brandbook RUS.pdf",
             },
