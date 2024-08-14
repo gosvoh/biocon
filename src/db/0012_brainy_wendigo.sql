@@ -1,0 +1,1 @@
+ALTER TABLE "Registrations" ADD COLUMN "deletedAt" text;

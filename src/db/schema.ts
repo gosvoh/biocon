@@ -6,6 +6,7 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
+import {number} from "prop-types";
 
 export const Organizers = pgTable("Organizers", {
   id: serial("id").primaryKey().notNull(),
@@ -64,6 +65,7 @@ export const Registrations = pgTable("Registrations", {
     .notNull(),
   howToKnow: text("howToKnow").notNull(),
   clothingSize: text("clothingSize").notNull(),
+  deletedAt: text("deletedAt")
 });
 
 export const News = pgTable("News", {

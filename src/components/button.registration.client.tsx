@@ -36,6 +36,7 @@ const StyledSelect = styled(Select)`
   border-radius: 3rem;
   width: 100%;
   box-sizing: border-box;
+  padding: 26px 26px 26px 14px;
 `;
 
 const roles = [
@@ -217,19 +218,19 @@ const RegForm = ({
           ]}
         >
           <StyledSelect
-            style={{ padding: "26px 26px 26px 14px" }}
             disabled={countries.length === 0}
             placeholder="Country"
             options={memoizedCountries}
             /*
-                showSearch
-            filterOption={(input, option) =>
-              !option
-                ? false
-                : option.label.toLowerCase().includes(input.toLowerCase())
-            }
-            filterSort={(a, b) => a.label.localeCompare(b.label)}
-             */
+              optionFilterProp="label"
+              filterOption={(input, option) =>
+                  !option
+                      ? false
+                      : option.label.toLowerCase().includes(input.toLowerCase())
+              }
+              showSearch
+              filterSort={(a, b) => a.label.localeCompare(b.label)}
+               */
           />
         </Form.Item>
         <Form.Item<RegisterFormValues>
@@ -245,7 +246,6 @@ const RegForm = ({
         >
           <StyledSelect
             disabled={!selectedCountry}
-            style={{ padding: "26px 26px 26px 14px" }}
             placeholder="City"
             /*
             showSearch
@@ -604,6 +604,7 @@ export default function ButtonRegistrationClient({
           modal.confirm({
             ...modalProps,
             panelRef: modalRef,
+            style: { top: "3rem" },
             footer: null,
             content: (
               <RegForm
