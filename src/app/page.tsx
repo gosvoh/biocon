@@ -113,7 +113,7 @@ export default function Home() {
             "max-w-none max-h-none",
           )}
         />
-        <div className="wrapper fcol gap-8 md: lg:gap-8 xl:gap-[50px]">
+        <div className="wrapper fcol gap-8 xl:gap-[50px]">
           <Image
             src={LogoDesktop}
             alt="Biocon"
@@ -145,9 +145,9 @@ export default function Home() {
               </p>
             </div>
           </Link>
-        </div>
-        <div className="wrapper">
-          <ButtonRegistration />
+          <div className="wrapper mt-5">
+            <ButtonRegistration />
+          </div>
         </div>
       </section>
 
@@ -215,31 +215,31 @@ export default function Home() {
           BIOCON — a conference that is conducted entirely in English
         </h2>
         <div className="fcol lg:grid lg:grid-cols-3 gap-2 lg:gap-5">
-          <Card>
+          <Card className="hover-color-change">
             <p>
               Immerse yourself in the world of biotechnology and gain new
               insights for three days
             </p>
           </Card>
-          <Card>
+          <Card className="hover-color-change">
             <p>Find new colleagues, partners and investors for your projects</p>
           </Card>
-          <Card>
+          <Card className="hover-color-change">
             <p>
               Opportunity to speak about your scientific research to a larger
               audience
             </p>
           </Card>
-          <Card>
+          <Card className="hover-color-change">
             <p>Become a participant in interdisciplinary projects</p>
           </Card>
-          <Card>
+          <Card className="hover-color-change">
             <p>
               Establish new projects at the Research and Development Center in
-              Almetevsk
+              Almetyevsk
             </p>
           </Card>
-          <Card>
+          <Card className="hover-color-change">
             <p>Improve soft-skills and public speaking skills</p>
           </Card>
         </div>

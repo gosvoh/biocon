@@ -75,7 +75,7 @@ const GridGallery = ({
       <Image
         src={image}
         alt={alt}
-        className={`object-cover aspect-[${aspect}] object-top lg:rounded-[28px] rounded-[16px] ${reverse && "lg:order-2"}`}
+        className={`object-cover aspect-[${aspect}] object-top lg:rounded-[28px] rounded-[16px] ${reverse && "lg:order-2"} mini-scale-animation`}
       />
       <div className={`fcol gap-9 ${reverse && "lg:order-1"} hidden lg:flex`}>
         <h3>{title}</h3>
@@ -199,7 +199,7 @@ export default function ProgramPage() {
             <Image
               src={BiotechOpenMic}
               alt={"biotech_open_mic"}
-              className={`object-cover aspect-[4/3] object-top lg:rounded-[28px] lg:order-2 rounded-[16px]`}
+              className={`object-cover aspect-[4/3] object-top lg:rounded-[28px] lg:order-2 rounded-[16px] mini-scale-animation`}
             />
             <div className={`fcol gap-9 lg:order-1 hidden lg:flex`}>
               <h3>BioTech OpenMic</h3>

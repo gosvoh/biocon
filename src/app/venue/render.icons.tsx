@@ -109,6 +109,7 @@ export const RenderIcons = () => {
             icon: null,
             width: "800px",
             footer: null,
+            maskClosable: true,
             closable: true,
             content: (
               <>

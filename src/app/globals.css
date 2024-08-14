@@ -221,6 +221,13 @@
     width: 100%;
   }
 
+  .mini-scale-animation{
+    @apply transition-transform duration-300 hover:scale-[103%];
+  }
+
+  .hover-color-change{
+    @apply hover:bg-[#FE6F61] transition-colors duration-300
+  }
 
   .timeline {
     .dot,

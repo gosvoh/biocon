@@ -66,14 +66,14 @@ export const RenderTags = ({
   return (
     <div
       className={cn(
-        `fcol gap-5 ${!isRegistration && "xl:grid xl:grid-cols-3"}`,
+        `fcol gap-5 ${!isRegistration ? "xl:grid xl:grid-cols-3" : "ml-2"}`,
         className,
       )}
     >
       {subjects.map((subject, index) => (
         <div
           key={index}
-          className={`text-base flex items-center justify-center w-fit ${!isRegistration && "lg:w-full text-lg"} border-white border-[1px] p-4 lg:pl-12 lg:pr-12 pr-8 pl-8 text-center rounded-full cursor-pointer ${subject == state && "bg-[#FE6F61]"} transition-colors duration-300`}
+          className={`text-base flex items-center justify-center w-fit ${!isRegistration && "lg:w-full text-lg"} border-white border-[1px] p-4 lg:pl-12 lg:pr-12 pr-8 pl-8 text-center rounded-full cursor-pointer ${subject == state && "bg-[#FE6F61]"} transition-all duration-300 hover:scale-105`}
           onClick={() => setState(subjects[index])}
         >
           {subject}

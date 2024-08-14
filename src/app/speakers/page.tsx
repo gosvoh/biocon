@@ -161,7 +161,12 @@ export default async function SpeakersPage() {
                       h-index: {speaker.hIndex}
                     </div>
                   )}
-                  <div className={"whitespace-pre-line"} dangerouslySetInnerHTML={{ __html: String(speaker.description) }}/>
+                  <div
+                    className={"whitespace-pre-line"}
+                    dangerouslySetInnerHTML={{
+                      __html: String(speaker.description),
+                    }}
+                  />
                 </div>
               </div>
             </Card>

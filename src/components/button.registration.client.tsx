@@ -2,15 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
-import {
-  Checkbox,
-  Form,
-  type FormInstance,
-  Input,
-  InputRef,
-  Modal,
-  Select,
-} from "antd";
+import { Form, type FormInstance, Input, InputRef, Modal, Select } from "antd";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Awesome from "@public/awesome.png";
 import type { Cities, Registrations } from "@/db/schema";
@@ -54,9 +46,11 @@ const roles = [
 
 const RegForm = ({
   form,
+  onFinish,
   countries,
   cities,
 }: {
+  onFinish: () => void;
   form: FormInstance;
   countries: {
     name: string;
@@ -117,7 +111,6 @@ const RegForm = ({
       </p>
     );
   };
-
   return (
     <>
       <style type="text/css">
@@ -146,6 +139,7 @@ const RegForm = ({
         preserve={false}
         form={form}
         layout="vertical"
+        onFinish={onFinish}
         className={"overflow-hidden"}
       >
         <Form.Item<RegisterFormValues>
@@ -543,6 +537,9 @@ const RegForm = ({
             className="mx-auto"
           />
         </Form.Item>
+        <button type={"submit"} className={"main-button mt-4 mb-6 text-base"}>
+          Register
+        </button>
       </Form>
     </>
   );
@@ -565,6 +562,39 @@ export default function ButtonRegistrationClient({
   const [form] = Form.useForm<RegisterFormValues>();
   const [modal, context] = Modal.useModal();
   const modalRef = useRef<HTMLDivElement | null>(null);
+
+  const onFinish = async () => {
+    try {
+      const values = await form.validateFields();
+      await register(values);
+      modal.info({
+        icon: null,
+        closable: true,
+        maskClosable: true,
+        footer: null,
+        content: (
+          <div
+            className={
+              "fcol gap-7 items-center justify-center text-center pb-10 pt-10"
+            }
+          >
+            <h3>You are awesome!</h3>
+            <div className={"w-32 h-32"}>
+              <Image
+                src={Awesome}
+                alt={""}
+                className={"object-cover aspect-square scale-150"}
+              />
+            </div>
+            <p>Registration completed successsfully</p>
+          </div>
+        ),
+      });
+    } catch (e) {
+      console.error(e);
+      return Promise.reject(e);
+    }
+  };
   return (
     <>
       {context}
@@ -574,46 +604,17 @@ export default function ButtonRegistrationClient({
           modal.confirm({
             ...modalProps,
             panelRef: modalRef,
+            footer: null,
             content: (
-              <RegForm form={form} countries={countries} cities={cities} />
+              <RegForm
+                form={form}
+                onFinish={() => onFinish()}
+                countries={countries}
+                cities={cities}
+              />
             ),
-            okText: "Send",
-            cancelText: "Cancel",
+            maskClosable: true,
             className: "max-h-max overflow-y-auto",
-            onOk: async () => {
-              try {
-                const values = await form.validateFields();
-                await register(values);
-                modal.info({
-                  icon: null,
-                  closable: true,
-                  footer: null,
-                  content: (
-                    <div
-                      className={
-                        "fcol gap-7 items-center justify-center text-center pb-10 pt-10"
-                      }
-                    >
-                      <h3>You are awesome!</h3>
-                      <div className={"w-32 h-32"}>
-                        <Image
-                          src={Awesome}
-                          alt={""}
-                          className={"object-cover aspect-square scale-150"}
-                        />
-                      </div>
-                      <p>Registration completed successsfully</p>
-                    </div>
-                  ),
-                });
-              } catch (e) {
-                console.error(e);
-                return Promise.reject(e);
-              }
-            },
-            onCancel: () => {
-              form.resetFields();
-            },
           });
         }}
       >

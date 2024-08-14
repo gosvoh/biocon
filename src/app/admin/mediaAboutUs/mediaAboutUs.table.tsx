@@ -97,6 +97,7 @@ export default function MediaAboutUsTable({
               onClick={() => {
                 modal.confirm({
                   title: "Add Info",
+                  maskClosable: true,
                   content: <EditForm form={form} />,
                   onOk: async () => {
                     modal.confirm({
