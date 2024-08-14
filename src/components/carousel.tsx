@@ -1,10 +1,10 @@
 "use client";
 
 import {
+  Carousel as ShadCarousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
-  Carousel as ShadCarousel,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";

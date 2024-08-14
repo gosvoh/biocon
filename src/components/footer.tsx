@@ -6,11 +6,10 @@ import Tatneft from "@public/tat.png";
 import Biotech from "@public/Biotech.svg";
 import { cn } from "@/lib/utils";
 import YandexMap from "./yandex.map";
-import { SiYoutube, SiVk, SiTelegram } from "@icons-pack/react-simple-icons";
+import { SiTelegram, SiVk, SiYoutube } from "@icons-pack/react-simple-icons";
 import PHS from "@public/agni.png";
 import ITMO from "@public/itmo.png";
 import PISH from "@public/pish.svg";
-import { ChevronUp } from "lucide-react";
 import { GoToTop } from "@/components/go.to.top";
 
 const Socials = ({ className }: { className?: string }) => (

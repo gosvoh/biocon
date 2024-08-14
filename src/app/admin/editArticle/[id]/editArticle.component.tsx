@@ -1,7 +1,5 @@
 "use client";
-import EditorJs from "@natterstefan/react-editor-js";
 import type EditorJSType from "@editorjs/editorjs";
-import type { ToolConstructable, ToolSettings } from "@editorjs/editorjs";
 import { update } from "@/app/admin/editArticle/[id]/saveArticle";
 import { notification } from "antd";
 import { EditorJSElement } from "@/components/EditorJS";

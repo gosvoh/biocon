@@ -1,10 +1,10 @@
 import {
-  pgTable,
-  timestamp,
-  text,
-  integer,
-  serial,
   boolean,
+  integer,
+  pgTable,
+  serial,
+  text,
+  timestamp,
 } from "drizzle-orm/pg-core";
 
 export const Organizers = pgTable("Organizers", {

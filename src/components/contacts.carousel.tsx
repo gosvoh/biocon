@@ -1,13 +1,8 @@
 import Image from "next/image";
 import Carousel from "./carousel";
 import Link from "next/link";
-import { MediaAboutUs, Organizers } from "@/db/schema";
-import { biocon } from "@/db/db";
+import { Organizers } from "@/db/schema";
 import { Skeleton } from "./ui/skeleton";
-import GradientR from "@public/contacts/gradientr.png";
-import GradientL from "@public/contacts/gradientl.png";
-
-export const dynamic = "force-dynamic";
 
 export const ContactsSkeleton = () => (
   <Carousel
@@ -37,8 +32,8 @@ export default async function ContactsCarousel({
 
   return (
     <Carousel
-      items={organizersArray.reverse().map((organizer) => (
-        <div className={"fcol gap-5 text-center"}>
+      items={organizersArray.reverse().map((organizer, index) => (
+        <div key={index} className={"fcol gap-5 text-center"}>
           <div className={"relative w-full aspect-[4/3]"}>
             <Image
               src={`/images/${organizer.image}`}

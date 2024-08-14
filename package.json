@@ -72,6 +72,7 @@
     "drizzle-kit": "^0.23.2",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.5",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "ts-prune": "^0.10.3"
   }
 }

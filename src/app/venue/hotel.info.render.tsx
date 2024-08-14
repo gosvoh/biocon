@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import DeluxeHotel from "@public/venue/hotels/deluxe.jpg";
 import NeftyanikHotel from "@public/venue/hotels/neftyanik.jpg";

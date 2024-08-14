@@ -2,12 +2,12 @@ import NavLogo from "@public/NavLogo.svg";
 import Link from "next/link";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetClose,
 } from "@/components/ui/sheet";
 import { Button } from "./ui/button";
 import { MenuIcon, X } from "lucide-react";

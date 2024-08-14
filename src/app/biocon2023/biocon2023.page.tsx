@@ -41,11 +41,7 @@ import lower_man_speaker from "@public/previous_biocon/ZZZ_5948.jpg";
 import lower_woman_speaker from "@public/previous_biocon/ZZZ_7525.jpg";
 import lower_man_affiliation_speaker from "@public/previous_biocon/ZZZ_9953.jpg";
 import lower_man_with_glasses_speaker from "@public/previous_biocon/ZZZ_2148.jpg";
-
-import "./noise.css";
 import MediaAboutUsCarousel from "@/components/media.about.us.carousel";
-import { Suspense } from "react";
-import NewsCarousel, { NewsSkeleton } from "@/components/news.carousel";
 
 const font = Architects_Daughter({
   subsets: ["latin"],
