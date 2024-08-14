@@ -55,7 +55,7 @@ export const RenderTags = ({
   setState,
   subjects,
   className,
-    isRegistration = false
+  isRegistration = false,
 }: {
   state: string | null;
   setState: Dispatch<SetStateAction<string | null>>;
@@ -64,7 +64,12 @@ export const RenderTags = ({
   isRegistration?: boolean;
 }) => {
   return (
-    <div className={cn(`fcol gap-5 ${!isRegistration && "xl:grid xl:grid-cols-3"}`, className)}>
+    <div
+      className={cn(
+        `fcol gap-5 ${!isRegistration && "xl:grid xl:grid-cols-3"}`,
+        className,
+      )}
+    >
       {subjects.map((subject, index) => (
         <div
           key={index}

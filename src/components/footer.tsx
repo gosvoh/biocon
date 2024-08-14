@@ -10,8 +10,8 @@ import { SiYoutube, SiVk, SiTelegram } from "@icons-pack/react-simple-icons";
 import PHS from "@public/agni.png";
 import ITMO from "@public/itmo.png";
 import PISH from "@public/pish.svg";
-import {ChevronUp} from "lucide-react";
-import {GoToTop} from "@/components/go.to.top";
+import { ChevronUp } from "lucide-react";
+import { GoToTop } from "@/components/go.to.top";
 
 const Socials = ({ className }: { className?: string }) => (
   <div
@@ -48,7 +48,7 @@ const Socials = ({ className }: { className?: string }) => (
 export default function Footer() {
   return (
     <footer className="bg-default">
-      <GoToTop/>
+      <GoToTop />
       <div className="bg-secondary">
         <div className="wrapper px-0 flex flex-row">
           <div className="px-10 md:px-12 lg:px-16 py-10 md:py-16 fcol gap-8 md:gap-16 flex-1 max-w-1/2">
