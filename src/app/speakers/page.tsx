@@ -108,7 +108,7 @@ export default async function SpeakersPage() {
                 </div>
                 <div
                   className={
-                    "flex flex-col gap-5 p-12 pt-7 font-light w-full text-lg"
+                    "flex flex-col gap-6 p-12 pt-7 font-light w-full text-lg"
                   }
                 >
                   <div>
@@ -194,7 +194,7 @@ export default async function SpeakersPage() {
                   fill
                 />
               </div>
-              <div className="p-9 pt-0 flex flex-col gap-5 text-center font-light justify-center items-center">
+              <div className="p-9 pt-0 flex flex-col gap-4 text-center font-light justify-center items-center">
                 <Link
                   href={speaker.nameUrl}
                   className={"underline"}

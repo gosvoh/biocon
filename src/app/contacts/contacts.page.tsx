@@ -4,12 +4,12 @@ import SideGlow from "@public/contacts/LeftGlow.svg";
 import { cn } from "@/lib/utils";
 import BottomGlow from "@public/contacts/BottomGlow.svg";
 import BottomGlowMobile from "@public/contacts/BottomGlowMobile.svg";
-import { CarouselComponent } from "@/app/contacts/carousel.component";
 import HeroGlow from "@public/HeroGlow.svg";
 import { ContactUsForm } from "@/app/contacts/contact.us.form";
 import { Organizers } from "@/db/schema";
 import Link from "next/link";
 import { ContactsCard } from "@/app/contacts/contacts.card";
+import ContactsCarousel from "@/components/contacts.carousel";
 
 const LeftGlow = ({
   className,
@@ -115,7 +115,7 @@ export default function ContactsPage({
           ))}
         </div>
         <div className={"block lg:hidden"}>
-          <CarouselComponent organizersArray={organizers} />
+          <ContactsCarousel organizersArray={organizers} />
         </div>
       </section>
       <section className={"relative "}>

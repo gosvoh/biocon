@@ -32,7 +32,7 @@ const StyledInput = ({
         value={value || ""}
         placeholder={placeholder}
         className={
-          "bg-[#1A1A1A] rounded-lg border-white border-[1px] p-5 text-center lg:text-left lg:pl-7 resize-none focus:outline-none"
+          "bg-[#1A1A1A] rounded-lg border-white border-[1px] p-5 lg:text-left lg:pl-7 resize-none focus:outline-none"
         }
         onChange={(event) => setState(event.target.value)}
       />
@@ -73,7 +73,7 @@ export const RenderTags = ({
       {subjects.map((subject, index) => (
         <div
           key={index}
-          className={`flex items-center justify-center w-fit ${!isRegistration && "lg:w-full"} border-white border-[1px] p-4 lg:pl-12 lg:pr-12 pr-8 pl-8 text-center rounded-full cursor-pointer ${subject == state && "bg-[#FE6F61]"} transition-colors duration-300`}
+          className={`text-base flex items-center justify-center w-fit ${!isRegistration && "lg:w-full text-lg"} border-white border-[1px] p-4 lg:pl-12 lg:pr-12 pr-8 pl-8 text-center rounded-full cursor-pointer ${subject == state && "bg-[#FE6F61]"} transition-colors duration-300`}
           onClick={() => setState(subjects[index])}
         >
           {subject}
