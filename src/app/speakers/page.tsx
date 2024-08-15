@@ -238,7 +238,11 @@ export default async function SpeakersPage() {
                   </div>
                 )}
                 <div className=" overflow-wrap whitespace-pre-line hyphens-auto break-words break-all">
-                  <p>{speaker.description}</p>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: String(speaker.description),
+                    }}
+                  />
                 </div>
               </div>
             </div>
