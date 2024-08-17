@@ -216,6 +216,11 @@ export default function RegistrationsTable({
               </Popconfirm>
             ),
           },
+          {
+            title: "Registration date",
+            dataIndex: "registrationDate",
+            render: (x: Date) => dayjs(x).format("DD.MM.YYYY HH:mm:ss"),
+          },
           { title: "Name", dataIndex: "name" },
           { title: "Email", dataIndex: "email" },
           { title: "How to know", dataIndex: "howToKnow" },
@@ -232,11 +237,6 @@ export default function RegistrationsTable({
           { title: "Resume", dataIndex: "resume" },
           { title: "Science profile", dataIndex: "scienceProfile" },
           { title: "Video", dataIndex: "video" },
-          {
-            title: "Registration date",
-            dataIndex: "registrationDate",
-            render: (x: Date) => dayjs(x).format("DD.MM.YYYY HH:mm:ss"),
-          },
         ]}
       />
     </>
