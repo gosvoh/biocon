@@ -602,13 +602,14 @@ export default function ButtonRegistrationClient({
       return Promise.reject(e);
     }
   };
+
   return (
     <>
       {context}
       <button
         className={cn("main-button", className)}
         onClick={() => {
-          modal.confirm({
+          const instance = modal.confirm({
             ...modalProps,
             panelRef: modalRef,
             style: { top: "3rem" },
@@ -616,7 +617,10 @@ export default function ButtonRegistrationClient({
             content: (
               <RegForm
                 form={form}
-                onFinish={() => onFinish()}
+                onFinish={() => {
+                  instance.destroy();
+                  onFinish();
+                }}
                 countries={countries}
                 cities={cities}
               />
