@@ -3,6 +3,7 @@
 import Card from "@/components/card";
 import Link from "next/link";
 import { Modal } from "antd";
+import { useRouter } from "next/router";
 
 const ModalContent = ({
   enLink,
@@ -39,26 +40,28 @@ export const ContactsCard = ({
   redirectLinkRu?: string | undefined;
 }) => {
   const [modal, context] = Modal.useModal();
+
   return (
     <>
       {context}
       <Card
         isContactsPage={true}
         onClick={() =>
-          !redirectInstantly &&
-          modal.info({
-            title: title,
-            icon: null,
-            maskClosable: true,
-            footer: null,
-            closable: true,
-            content: (
-              <ModalContent
-                enLink={redirectLink}
-                ruLink={redirectLinkRu ? redirectLinkRu : ""}
-              />
-            ),
-          })
+          redirectInstantly
+            ? window.open(redirectLink, "_blank", "noopener,noreferrer")
+            : modal.info({
+                title: title,
+                icon: null,
+                maskClosable: true,
+                footer: null,
+                closable: true,
+                content: (
+                  <ModalContent
+                    enLink={redirectLink}
+                    ruLink={redirectLinkRu ? redirectLinkRu : ""}
+                  />
+                ),
+              })
         }
         icon={
           <svg
@@ -77,23 +80,12 @@ export const ContactsCard = ({
         }
         className={"relative lg:rounded-[28px] rounded-[16px] p-7 lg:p-11"}
       >
-        {redirectInstantly ? (
-          <Link href={redirectLink} target={"_blank"}>
-            <div className={"grid grid-rows-[1fr,0.5fr] gap-3 "}>
-              <div className={"fcol gap-5"}>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </div>
-            </div>
-          </Link>
-        ) : (
-          <div className={"grid grid-rows-[1fr,0.5fr] gap-3 "}>
-            <div className={"fcol gap-5"}>
-              <h3>{title}</h3>
-              <p>{description}</p>
-            </div>
+        <div className={"grid grid-rows-[1fr,0.5fr] gap-3 "}>
+          <div className={"fcol gap-5"}>
+            <h3>{title}</h3>
+            <p>{description}</p>
           </div>
-        )}
+        </div>
       </Card>
     </>
   );
