@@ -574,6 +574,11 @@ export default function ButtonRegistrationClient({
     try {
       const values = await form.validateFields();
       await register(values);
+      await fetch("/api/mailer", {
+        method: "POST",
+          headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: values.name, to: values.email }),
+      });
       modal.info({
         icon: null,
         closable: true,
