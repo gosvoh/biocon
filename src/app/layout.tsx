@@ -116,7 +116,7 @@ export const metadata: Metadata = {
   authors: [
     { name: "Aleksey Vokhmin", url: "https://github.com/gosvoh" },
     { name: "Advanced Engineering School ITMO", url: "https://pish-itmo.ru" },
-    { name: "Nikita Arkhipov", url: "https://github.com/nikita-nn"}
+    { name: "Nikita Arkhipov", url: "https://github.com/nikita-nn" },
   ],
   icons: "/favicon.ico",
   robots: {
