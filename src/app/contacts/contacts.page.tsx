@@ -10,6 +10,8 @@ import { Organizers } from "@/db/schema";
 import Link from "next/link";
 import { ContactsCard } from "@/app/contacts/contacts.card";
 import ContactsCarousel from "@/components/contacts.carousel";
+import IADNSLogo from "@public/contacts/iadns.png";
+import AlmetLogo from "@public/contacts/almet.png";
 
 const LeftGlow = ({
   className,
@@ -151,6 +153,30 @@ export default function ContactsPage({
           ]}
         />
         <RightGlow big className=" w-[180%] lg:hidden" />
+      </section>
+      <section>
+        <h2>Partners</h2>
+        <div className={"grid grid-cols-1 lg:grid-cols-4 gap-12"}>
+          <div className={"fcol gap-6 text-center"}>
+            <Image src={IADNSLogo} alt={"iadns"} className={" aspect-square"} />
+            <Link
+              className={"styled-link"}
+              href={"http://www.iadns.cn/index.php?catid=4"}
+            >
+              International Association of Dietetic Nutrition and Safety
+            </Link>
+          </div>
+          <div className={"fcol gap-6 text-center"}>
+            <Image src={AlmetLogo} alt={"iadns"} className={" aspect-square"} />
+            <Link
+              className={"styled-link"}
+              href={"http://www.iadns.cn/index.php?catid=4"}
+            >
+              ALMET TECH: <br />
+              BIO & IT technology center
+            </Link>
+          </div>
+        </div>
       </section>
       <section className="relative">
         <div className={"lg:fcol lg:items-center"}>

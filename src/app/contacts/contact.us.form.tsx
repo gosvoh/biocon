@@ -73,7 +73,7 @@ export const RenderTags = ({
       {subjects.map((subject, index) => (
         <div
           key={index}
-          className={`text-base flex items-center justify-center w-fit ${!isRegistration && "lg:w-full text-lg"} border-white border-[1px] p-4 lg:pl-12 lg:pr-12 pr-8 pl-8 text-center rounded-full cursor-pointer ${subject == state && "bg-[#FE6F61]"} transition-all duration-300 hover:scale-105`}
+          className={`text-base flex items-center justify-center w-fit ${!isRegistration && "lg:w-full text-base"} border-white border-[1px] p-4 lg:pl-12 lg:pr-12 pr-8 pl-8 text-center rounded-full cursor-pointer ${subject == state && "bg-[#FE6F61]"} transition-all duration-300 hover:scale-105`}
           onClick={() => setState(subjects[index])}
         >
           {subject}

@@ -11,6 +11,7 @@ import PHS from "@public/agni.png";
 import ITMO from "@public/itmo.png";
 import PISH from "@public/pish.svg";
 import { GoToTop } from "@/components/go.to.top";
+import { Linkedin } from "lucide-react";
 
 const Socials = ({ className }: { className?: string }) => (
   <div
@@ -40,6 +41,13 @@ const Socials = ({ className }: { className?: string }) => (
       target={"_blank"}
     >
       <SiVk className="w-10 h-10" />
+    </Link>
+    <Link
+      href={"https://linkedin.com/company/biocon-conference/"}
+      className={"scale-animation"}
+      target={"_blank"}
+    >
+      <Linkedin className="w-10 h-10" />
     </Link>
   </div>
 );
