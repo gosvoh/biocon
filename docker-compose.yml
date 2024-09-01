@@ -28,6 +28,12 @@ services:
       - database
     environment:
       - DATABASE_URL
+      - MAIL_USER
+      - MAIL_PASS
+      - TOPIC_ID
+      - TELEGRAM_BOT_TOKEN
+      - CHAT_ID
+      - KEY
 
 networks:
   nginx:
