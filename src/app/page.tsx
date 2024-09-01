@@ -21,6 +21,7 @@ import Cite from "@public/cite.png";
 
 import Aeroflot from "@public/aeroflot.png";
 import S7 from "@public/s7.png";
+import S7Ad from "@public/s7Ad.jpg";
 
 import Barua from "@public/humans/Barua.jpg";
 import Kalinikin from "@public/humans/Kalinikin.jpg";
@@ -474,6 +475,16 @@ export default function Home() {
                   In order to get a discount on the purchase of a ticket, you
                   need to register for the conference.
                 </p>
+                <Link
+                  href="https://www.s7.ru/ru/vl/biocon-2024/"
+                  className="block"
+                >
+                  <Image
+                    src={S7Ad}
+                    alt="S7"
+                    className="cursor-pointer rounded"
+                  />
+                </Link>
               </div>
             }
           />
