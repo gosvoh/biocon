@@ -340,7 +340,7 @@ export const flags: FlagMap = {
     "https://upload.wikimedia.org/wikipedia/commons/4/4d/Flag_of_Uganda.svg",
   Ukraine: "https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Ukraine.svg",
   "United Arab Emirates":
-    "https://upload.wikimedia.org/wikipedia/commons/4/47/Flag_of_the_United_Arab_Emirates.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg",
   "United Kingdom":
     "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_Kingdom.svg",
   "United States":
