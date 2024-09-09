@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import YandexMap from "./yandex.map";
 import { SiTelegram, SiVk, SiYoutube } from "@icons-pack/react-simple-icons";
 import PHS from "@public/agni.png";
-import ITMO from "@public/itmo.png";
+import AlmetTech from "@public/almet_tech.png";
 import PISH from "@public/pish.svg";
 import { GoToTop } from "@/components/go.to.top";
 import { Linkedin } from "lucide-react";
@@ -94,8 +94,8 @@ export default function Footer() {
         </div>
       </div>
       <div className="py-10 md:py-16 flex flex-wrap wrapper gap-8 justify-evenly [&>a>*]:h-20 [&>a>*]:w-fit ">
-        <Link href={"https://en.itmo.ru/"} target={"_blank"}>
-          <Image src={ITMO} alt="ITMO" />
+        <Link href={"https://almet.pish.itmo.ru/"} target={"_blank"} className={"w-full lg:w-auto flex items-center justify-center mt-2"}>
+          <Image src={AlmetTech} alt="ITMO" className="scale-[250%] self-c"/>
         </Link>
         <Link href={"https://biotech.industries/"} target={"_blank"}>
           <Image
