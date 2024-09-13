@@ -160,7 +160,7 @@ export default function ContactsPage({
           <div className={"fcol gap-6 text-center"}>
             <Image src={IADNSLogo} alt={"iadns"} className={" aspect-square"} />
             <Link
-              className={"styled-link"}
+              className={"styled-link text-white hover:text-white"}
               href={"http://www.iadns.cn/index.php?catid=4"}
             >
               International Association of Dietetic Nutrition and Safety
@@ -169,7 +169,7 @@ export default function ContactsPage({
           <div className={"fcol gap-6 text-center"}>
             <Image src={AlmetLogo} alt={"iadns"} className={" aspect-square"} />
             <Link
-              className={"styled-link"}
+              className={"styled-link text-white hover:text-white"}
               href={"http://www.iadns.cn/index.php?catid=4"}
             >
               ALMET TECH: <br />
