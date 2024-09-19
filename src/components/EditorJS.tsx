@@ -25,6 +25,13 @@ import Delimiter from "@editorjs/delimiter";
 import SimpleImage from "@editorjs/simple-image";
 // import Paragraph from 'editorjs-paragraph-with-alignment';
 import NestedList from "@editorjs/nested-list";
+import styled from "styled-components";
+
+const Container = styled.div`
+  .cdx-marker {
+    color: inherit;
+  }
+`;
 
 const EDITOR_JS_TOOLS = {
   table: Table,
@@ -69,7 +76,7 @@ export const EditorJSElement = ({
   className?: string;
 }) => {
   return (
-    <div className={className}>
+    <Container className={className}>
       <EditorJs
         readOnly={viewOnly}
         tools={
@@ -84,6 +91,6 @@ export const EditorJSElement = ({
       >
         <div id="editorJS" />
       </EditorJs>
-    </div>
+    </Container>
   );
 };
