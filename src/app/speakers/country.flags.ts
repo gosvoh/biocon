@@ -149,7 +149,7 @@ export const flags: FlagMap = {
   India: "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg",
   Indonesia:
     "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg",
-  Iran: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Flag_of_Iran.svg",
+  Iran: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Flag_of_Iran.svg",
   Iraq: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg",
   Ireland: "https://upload.wikimedia.org/wikipedia/en/4/45/Flag_of_Ireland.svg",
   Israel: "https://upload.wikimedia.org/wikipedia/en/d/d3/Flag_of_Israel.svg",
