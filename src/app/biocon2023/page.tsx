@@ -2,7 +2,7 @@ import { biocon } from "@/db/db";
 import { Speakers2023 } from "@/db/schema";
 import Biocon2023Page from "@/app/biocon2023/biocon2023.page";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const metadata = {
   title: "BIOCON 2024 - BIOCON2023",

@@ -1,6 +1,18 @@
-import { Cities } from "@/db/schema";
 import ButtonRegistrationClient from "./button.registration.client";
-import { biocon } from "@/db/db";
+import fs from "fs";
+import path from "path";
+
+export type City = {
+  geoname_id: number;
+  ascii_name: string;
+  cou_name_en: string;
+  country_code: string;
+};
+
+export type Country = {
+  name: string;
+  code: string;
+};
 
 export default async function ButtonRegistration({
   className,
@@ -9,14 +21,27 @@ export default async function ButtonRegistration({
   className?: string;
   text?: string;
 }) {
-  let cities: (typeof Cities.$inferSelect)[] = [];
-  let countries: { name: string; code: string }[] = [];
+  let cities: City[] = [];
+  let countries: Country[] = [];
 
   try {
-    cities = await biocon.select().from(Cities);
-    countries = await biocon
-      .selectDistinct({ name: Cities.cou_name_en, code: Cities.country_code })
-      .from(Cities);
+    if (!fs.existsSync(path.join(process.cwd(), "public", "cities.json")))
+      throw new Error("cities.json not found");
+    const citiesJson = fs.readFileSync(
+      path.join(process.cwd(), "public", "cities.json"),
+      "utf-8",
+    );
+    cities = JSON.parse(citiesJson) as City[];
+    countries = cities
+      .map((city) => ({ name: city.cou_name_en, code: city.country_code }))
+      .filter(
+        (country, index, self) =>
+          index ===
+          self.findIndex(
+            (t) => t.name === country.name && t.code === country.code,
+          ),
+      )
+      .sort((a, b) => a.name.localeCompare(b.name));
   } catch (e) {
     console.error(e);
   }

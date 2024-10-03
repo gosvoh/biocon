@@ -36,7 +36,7 @@ import { MapPin } from "lucide-react";
 import { Suspense } from "react";
 import NewsCarousel, { NewsSkeleton } from "@/components/news.carousel";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 export const metadata = {
   title: "BIOCON 2024 - About",
   description: "About page of BIOCON 2024",

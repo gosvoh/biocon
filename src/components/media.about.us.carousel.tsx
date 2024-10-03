@@ -5,7 +5,7 @@ import { MediaAboutUs } from "@/db/schema";
 import { biocon } from "@/db/db";
 import { Skeleton } from "./ui/skeleton";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const MediaAboutUsSkeleton = () => (
   <Carousel

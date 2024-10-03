@@ -13,7 +13,7 @@ import { Trophy } from "lucide-react";
 import { findCountryFlagByName } from "@/app/speakers/country.flags";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const metadata = {
   title: "BIOCON 2024 - Speakers",
