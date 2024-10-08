@@ -150,7 +150,7 @@ export default function SpeakersTable({
       {context}
       <Table
         dataSource={data}
-        rowKey={(x) => x.order}
+        rowKey={(x) => x.id}
         className="wrapper py-10"
         title={() => (
           <Space>

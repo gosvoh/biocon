@@ -100,7 +100,7 @@ export default function OrganizersTable({
       {context}
       <Table
         dataSource={data}
-        rowKey={(x) => x.order}
+        rowKey={(x) => x.id}
         className="wrapper py-10"
         title={() => (
           <Space>
