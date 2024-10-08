@@ -34,7 +34,7 @@ export default async function ContactsCarousel({
     <Carousel
       items={organizersArray.reverse().map((organizer, index) => (
         <div key={index} className={"fcol gap-5 text-center"}>
-          <div className={"relative w-full aspect-[4/3]"}>
+          <div className={"relative w-full aspect-square"}>
             <Image
               src={`/images/${organizer.image}`}
               alt={""}
