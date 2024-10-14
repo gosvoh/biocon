@@ -12,6 +12,7 @@ import { ContactsCard } from "@/app/contacts/contacts.card";
 import ContactsCarousel from "@/components/contacts.carousel";
 import IADNSLogo from "@public/contacts/iadns.png";
 import AlmetLogo from "@public/contacts/almet.png";
+import QASLogo from "@public/contacts/QAS logo.png";
 
 const LeftGlow = ({
   className,
@@ -158,7 +159,11 @@ export default function ContactsPage({
         <h2>Partners</h2>
         <div className={"grid grid-cols-1 lg:grid-cols-4 gap-12"}>
           <div className={"fcol gap-6 text-center"}>
-            <Image src={IADNSLogo} alt={"iadns"} className={" aspect-square"} />
+            <Image
+              src={IADNSLogo}
+              alt={"IANDS logo"}
+              className={"aspect-square"}
+            />
             <Link
               className={"styled-link text-white hover:text-white"}
               href={"http://www.iadns.cn/index.php?catid=4"}
@@ -167,13 +172,31 @@ export default function ContactsPage({
             </Link>
           </div>
           <div className={"fcol gap-6 text-center"}>
-            <Image src={AlmetLogo} alt={"iadns"} className={" aspect-square"} />
+            <Image
+              src={AlmetLogo}
+              alt={"ALMET TECH logo"}
+              className={"aspect-square"}
+            />
             <Link
               className={"styled-link text-white hover:text-white"}
-              href={"http://www.iadns.cn/index.php?catid=4"}
+              href={"https://almet.pish.itmo.ru/"}
             >
               ALMET TECH: <br />
               BIO & IT technology center
+            </Link>
+          </div>
+          <div className={"fcol gap-6 text-center"}>
+            <Image
+              src={QASLogo}
+              alt={"Quality Assurance and Safety of Crops & Foods logo"}
+              className={"aspect-square"}
+            />
+            <Link
+              className={"styled-link text-white hover:text-white"}
+              href={"https://qascf.com/index.php/qas/index"}
+            >
+              The journal: <br />
+              Quality Assurance and Safety of Crops & Foods
             </Link>
           </div>
         </div>
