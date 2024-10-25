@@ -45,8 +45,6 @@ export async function add(formData: FormData) {
   };
   const img = formData.get("image") as File;
 
-  console.log(typeof img);
-
   if (!fs.existsSync("./uploads")) fs.mkdirSync("./uploads");
   const uuid = randomUUID();
   try {

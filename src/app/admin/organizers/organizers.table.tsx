@@ -93,7 +93,6 @@ export default function OrganizersTable({
     const order = data.map((x) => x.order);
     return [Math.min(...order), Math.max(...order)];
   }, [data]);
-  console.log(minOrder, maxOrder);
 
   return (
     <>

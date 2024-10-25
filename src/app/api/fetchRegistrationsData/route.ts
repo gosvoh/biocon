@@ -14,7 +14,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   try {
     data = await biocon.select().from(Registrations);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },

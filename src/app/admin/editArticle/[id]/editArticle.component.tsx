@@ -14,7 +14,6 @@ export const EditArticle = ({
 }) => {
   const [api, context] = notification.useNotification();
   let editor: EditorJSType | null = null;
-  console.log(initialData);
 
   const onReady = () => {
     api.info({

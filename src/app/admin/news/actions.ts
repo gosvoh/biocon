@@ -57,8 +57,8 @@ export async function update(id: number, formData: FormData) {
   const href = formData.get("href") as string;
   const img = formData.get("image") as File | null;
   const show_article = formData.get("show_article");
-  console.log(show_article);
   let newImagePath;
+
   if (img) {
     if (!fs.existsSync("./uploads")) fs.mkdirSync("./uploads");
     const uuid = randomUUID();

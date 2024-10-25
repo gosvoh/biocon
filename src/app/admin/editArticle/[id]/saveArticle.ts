@@ -12,6 +12,6 @@ export const update = async (data: OutputData, id: number) => {
       .set({ article: JSON.stringify(data) })
       .where(eq(News.id, id));
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };

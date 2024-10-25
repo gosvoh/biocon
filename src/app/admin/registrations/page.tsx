@@ -12,6 +12,6 @@ export default async function Admin() {
   } catch (e) {
     console.error(e);
   }
-  console.log(data);
+
   return <RegistrationsTable data={data.filter((el) => !el.deletedAt)} />;
 }
