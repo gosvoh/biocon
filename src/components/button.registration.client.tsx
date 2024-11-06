@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
+// import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
 import { Form, type FormInstance, Input, InputRef, Modal, Select } from "antd";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Awesome from "@public/awesome.png";
@@ -65,7 +65,7 @@ const RegForm = ({
   countries: Country[];
   cities: City[];
 }) => {
-  const turnstileRef = useRef<TurnstileInstance>(null);
+  // const turnstileRef = useRef<TurnstileInstance>(null);
   const [selectedParticipationType, setSelectedParticipationType] = useState<
     string | null
   >(roles[0]);
@@ -490,7 +490,7 @@ const RegForm = ({
         </div>
       </Form.Item>
 
-      <Form.Item<RegisterFormValues>
+      {/* <Form.Item<RegisterFormValues>
         name="captchaToken"
         rules={[
           {
@@ -512,7 +512,7 @@ const RegForm = ({
           onSuccess={(token) => form.setFieldsValue({ captchaToken: token })}
           className="mx-auto"
         />
-      </Form.Item>
+      </Form.Item> */}
       <button type={"submit"} className={"main-button mt-4 mb-6 text-base"}>
         Register
       </button>

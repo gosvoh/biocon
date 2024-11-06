@@ -146,9 +146,9 @@ export default function Home() {
               </p>
             </div>
           </Link>
-          <div className="wrapper mt-5">
+          {/* <div className="wrapper mt-5">
             <ButtonRegistration />
-          </div>
+          </div> */}
         </div>
       </section>
 

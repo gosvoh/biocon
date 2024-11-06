@@ -77,9 +77,9 @@ export default async function SpeakersPage() {
             className="block md:hidden w-full"
           />
         </div>
-        <div className="wrapper">
+        {/* <div className="wrapper">
           <ButtonRegistration text={"I want to be a speaker"} />
-        </div>
+        </div> */}
       </section>
       <section className="relative space-y-6 md:space-y-9">
         <div className={"hidden flex-col gap-5 xl:flex"}>
