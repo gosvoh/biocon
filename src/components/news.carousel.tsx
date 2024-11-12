@@ -30,7 +30,7 @@ export default async function NewsCarousel() {
   let data: (typeof News.$inferSelect)[] = [];
 
   try {
-    data = await biocon.select().from(News);
+    data = (await biocon.select().from(News)).filter((x) => x.show_article);
   } catch (e) {
     console.error(e);
   }
@@ -50,7 +50,7 @@ export default async function NewsCarousel() {
             className={"relative overflow-hidden  w-full aspect-[6/4] "}
           >
             <Image
-              src={`/images/${x.image}`}
+              src={`https://biocon.international/images/${x.image}`}
               alt=""
               fill
               className="rounded-[16px] lg:rounded-[28px] object-fill"
