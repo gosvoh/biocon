@@ -84,10 +84,20 @@ export async function update(id: number, formData: FormData) {
       .select()
       .from(Organizers)
       .where(eq(Organizers.id, id));
-    const ret = await biocon
-      .update(Organizers)
-      .set({ order: current[0].order })
-      .where(eq(Organizers.order, order));
+    if (current[0].order !== order) {
+      await biocon
+        .update(Organizers)
+        .set({ order: -1 })
+        .where(eq(Organizers.order, order));
+      await biocon
+        .update(Organizers)
+        .set({ order })
+        .where(eq(Organizers.id, id));
+      await biocon
+        .update(Organizers)
+        .set({ order: current[0].order })
+        .where(eq(Organizers.order, -1));
+    }
   }
 
   await biocon
