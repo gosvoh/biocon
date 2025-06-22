@@ -31,6 +31,7 @@ import LeftGlowPC from "@public/program/glows/leftGlowPC.svg";
 import BottomGlowMobile from "@public/program/glows/BottomGlowMobile.svg";
 import RightGlowMobile from "@public/program/glows/rightGlowMobile.svg";
 import { ProgramButton } from "@/app/program/program.button";
+import { notFound } from "next/navigation";
 
 export const metadata = {
   title: "BIOCON 2024 - Program",
@@ -87,6 +88,8 @@ const GridGallery = ({
 };
 
 export default function ProgramPage() {
+  return notFound();
+
   return (
     <main>
       <section

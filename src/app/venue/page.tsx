@@ -37,6 +37,7 @@ import { RenderHotelsInfo } from "@/app/venue/hotel.info.render";
 import { RenderIcons } from "@/app/venue/render.icons";
 import { RenderTemperature } from "@/app/venue/render.temperature";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export const metadata = {
   title: "BIOCON 2024 - Venue",
@@ -60,6 +61,8 @@ export const metadata = {
 };
 
 export default function VenuePage() {
+  return notFound();
+
   const gallerySection =
     "fcol gap-5  lg:grid lg:grid-cols-2 lg:items-center lg:gap-9";
   const galleryImage =
