@@ -71,9 +71,6 @@
     @apply flex flex-col;
     @apply overflow-x-hidden overflow-y-auto;
   }
-   {
-    @apply text-center;
-  }
   h1,
   h2 {
     @apply text-balance;
@@ -85,8 +82,8 @@
   h3 {
     @apply font-[500] text-base md:text-3xl;
   }
-  p{
-    @apply font-[300]
+  p {
+    @apply font-[300];
   }
   main {
     @apply text-sm md:text-xl overflow-hidden;
@@ -106,16 +103,16 @@
   .ant-modal-mask {
     @apply bg-black bg-opacity-75 !important;
   }
-  ul{
+  ul {
     padding-left: 1.25rem;
-    margin-top:0.5rem;
+    margin-top: 0.5rem;
     list-style-type: disc;
   }
-  .ant-modal-confirm-content{
-    margin-top: 1rem
+  .ant-modal-confirm-content {
+    margin-top: 1rem;
   }
 
-  .ant-modal{
+  .ant-modal {
     max-height: max-content;
     overflow-y: auto;
   }
@@ -123,7 +120,7 @@
   .ant-modal,
   .ant-modal-content,
   .ant-modal-body {
-    background-color: #1A1A1A !important;
+    background-color: #1a1a1a !important;
     border-radius: 28px;
   }
 
@@ -151,23 +148,22 @@
   .ant-modal-close-x:hover {
     background-color: rgba(255, 255, 255, 0.2);
   }
-
 }
 
 @layer components {
-  .styled-link{
-      @apply text-[#FE6F61] hover:text-[#FE6F61]  lg:link-hover-underline underline;
+  .styled-link {
+    @apply text-[#FE6F61] hover:text-[#FE6F61]  lg:link-hover-underline underline;
   }
-  .scale-animation{
+  .scale-animation {
     transition-property: transform;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
   }
-  .scale-animation:hover{
+  .scale-animation:hover {
     transform: scale(110%);
   }
   .chevron-icon::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -221,12 +217,12 @@
     width: 100%;
   }
 
-  .mini-scale-animation{
+  .mini-scale-animation {
     @apply transition-transform duration-300 hover:scale-[103%];
   }
 
-  .hover-color-change{
-    @apply hover:bg-[#FE6F61] transition-colors duration-300
+  .hover-color-change {
+    @apply hover:bg-[#FE6F61] transition-colors duration-300;
   }
 
   .timeline {
@@ -277,7 +273,7 @@
     @apply flex flex-wrap gap-4;
   }
 
-  .back-to-top{
-    @apply fixed bottom-5 right-5 text-black p-2 cursor-pointer z-50 rounded-full aspect-square bg-primary
+  .back-to-top {
+    @apply fixed bottom-5 right-5 text-black p-2 cursor-pointer z-50 rounded-full aspect-square bg-primary;
   }
 }
