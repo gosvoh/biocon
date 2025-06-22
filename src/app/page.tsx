@@ -125,12 +125,12 @@ export default function Home() {
             alt="Biocon"
             className="block md:hidden w-full"
           />
-          <div className="flex flex-col gap-4 xl:gap-[25px]">
+          {/* <div className="flex flex-col gap-4 xl:gap-[25px]">
             <h1 className={"xl:text-6xl lg:text-5xl"}>
               International Biotechnology Conference
             </h1>
             <p className={"lg:text-3xl"}>November 11-13, 2024</p>
-          </div>
+          </div> */}
           <Link
             className={"underline w-fit mx-auto"}
             href={"https://en.wikipedia.org/wiki/Almetyevsk"}
@@ -159,10 +159,18 @@ export default function Home() {
             <div className="md:space-y-6 text-base md:text-xl">
               <p>BIOCON is International Biotechnology Conference.</p>
               <p>
-                Over three days, you will have the opportunity to share
-                innovative ideas, research results, and experiences with
+                Throughout the conference, you will have the opportunity to
+                share innovative ideas, research results, and experiences with
                 like-minded biotech enthusiasts from around the world.
               </p>
+            </div>
+            <div className="">
+              <button className={cn("main-button ml-0")}>
+                <a href={"/biocon2023"}>Recap BIOCON 2023</a>
+              </button>
+              <button className={cn("main-button ml-0 mt-4")}>
+                <a href={"/biocon2024"}>Recap BIOCON 2024</a>
+              </button>
             </div>
           </div>
           <Image
@@ -175,11 +183,6 @@ export default function Home() {
             alt=""
             className="col-start-3 -col-end-1 md:max-lg:mx-auto px-0 mr-0 hidden lg:block self-end object-cover row-[1] translate-x-[15%] h-[110%]"
           />
-          <div className="lg:absolute bottom-10 left-1/2 lg:-translate-x-1/2 md:max-lg:my-10">
-            <button className={cn("main-button")}>
-              <a href={"/biocon2023"}>Recap BIOCON 2023</a>
-            </button>
-          </div>
         </div>
         <RightGlow className="max-lg:hidden h-[150%]" />
       </section>
@@ -196,7 +199,7 @@ export default function Home() {
           <Image src={LogoDesktop} alt="Biocon" className="block w-full" />
           <p className="text-big text-center">is an opportunity</p>
         </div>
-        <div className="lg:absolute bottom-8 left-0 lg:wrapper lg:max-w-1/2 space-y-6 max-lg:pt-8 z-10">
+        {/* <div className="lg:absolute bottom-8 left-0 lg:wrapper lg:max-w-1/2 space-y-6 max-lg:pt-8 z-10">
           <p>
             BIOCON is everyone’s spotlight: whether you are a schoolkid or a
             leading researcher, the talk is plenary. Your aspirations, endeavors
@@ -208,7 +211,7 @@ export default function Home() {
             <br />
             Chair of BIOCON 2024
           </p>
-        </div>
+        </div> */}
       </section>
 
       <section className="relative space-y-6 lg:space-y-9">
@@ -236,8 +239,8 @@ export default function Home() {
           </Card>
           <Card className="hover-color-change">
             <p>
-              Establish new projects at the Research and Development Center in
-              Almetyevsk
+              Establish new projects and meet fascinating scientific
+              collaborators
             </p>
           </Card>
           <Card className="hover-color-change">
@@ -247,7 +250,7 @@ export default function Home() {
         <LeftGlow className="max-lg:hidden h-[200%] 2xl:h-[150%]" />
       </section>
 
-      <section className="relative space-y-6 lg:space-y-9">
+      {/* <section className="relative space-y-6 lg:space-y-9">
         <h2>Choose your role</h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-5">
           <CardChoose
@@ -347,7 +350,7 @@ export default function Home() {
           />
         </div>
         <RightGlow big className="lg:hidden h-[300%]" />
-      </section>
+      </section> */}
 
       <section className="relative space-y-6 lg:space-y-9">
         <Timeline />
@@ -359,6 +362,30 @@ export default function Home() {
         </h2>
         <CarouselFeedback
           cardContent={[
+            {
+              // @ts-expect-error TODO: add icon
+              icon: undefined,
+              name: "Ksenia Baraishchuk",
+              affiliation: "Saint Petersburg",
+              description:
+                "BIOCON 2024 provided a uniquely valuable experience for the scientific sphere. The logically organized presentation sessions, categorized by biotechnology field and color, complemented each other effectively, emphasizing the central theme: each sector's impact on global challenges related to climate change and sustainable development. Solutions require collaboration between scientific disciplines and between research and industry. The conference's gathering of experts and leading professionals fostered a unique atmosphere for knowledge exchange and innovative ideas to address these global challenges. The overall organization, from logistics to the cultural program, was exceptional. Participants had ample opportunities for topic immersion, networking, and experiencing the traditions of Tatarstan.",
+            },
+            {
+              // @ts-expect-error TODO: add icon
+              icon: undefined,
+              name: "Alvina Farooqui",
+              affiliation: "Integral University",
+              description:
+                "Overall the experience was unique , the conference was differently handled in a very interesting and musical way. The Dean and chair should be praised for his lively presence and comparing the entire event in a very appealing and smooth manner.",
+            },
+            {
+              // @ts-expect-error TODO: add icon
+              icon: undefined,
+              name: "Kiryowa Idrisa",
+              affiliation: "Entebbe",
+              description:
+                "BIOCON 2024 (is)/ was not like any other ordinary conference but a more of a public conclave for scientists in all fields (biology, chemistry, physics, philosophy etc) to share, learn and integrate within one another for a better and sustainable future of science and technology to betterment humanity. It encompassed great scientists from all over the world (Germany, Russia, Pakistani, Turkey, India and many) all with one single voice “Sustainable Science and Technology” and we learned a lot from them. To key point a few of my best presentations, Dr. N. Andrey, Prof. SM. Jafari, Prof. Amin and others all gave immensely valuable insights about science, innovation and sustainability for a greater global economy.",
+            },
             {
               icon: Kalinikin,
               name: "Danila Kalinikin",
@@ -494,6 +521,9 @@ export default function Home() {
           alt=""
           className="absolute h-[150%] w-fit md:w-[150%] md:h-fit max-w-none -translate-x-1/2 -bottom-10 left-1/2 -z-10"
         />
+        <p className="text-center">
+          We are open to partnerships and collaborations
+        </p>
       </section>
     </main>
   );
