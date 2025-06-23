@@ -41,7 +41,7 @@ import lower_man_speaker from "@public/previous_biocon/ZZZ_5948.jpg";
 import lower_woman_speaker from "@public/previous_biocon/ZZZ_7525.jpg";
 import lower_man_affiliation_speaker from "@public/previous_biocon/ZZZ_9953.jpg";
 import lower_man_with_glasses_speaker from "@public/previous_biocon/ZZZ_2148.jpg";
-import MediaAboutUsCarousel from "@/components/media.about.us.carousel";
+import MediaAboutUsAsyncCarousel from "@/components/media.about.us.async.carousel";
 
 const font = Architects_Daughter({
   subsets: ["latin"],
@@ -354,7 +354,7 @@ export default function Biocon2023Page({
 
       <section className="relative space-y-6 lg:space-y-9">
         <h2>Media about us</h2>
-        <MediaAboutUsCarousel />
+        <MediaAboutUsAsyncCarousel />
       </section>
 
       <section className="relative fcol gap-3 lg:gap-6">

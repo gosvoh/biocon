@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Carousel from "./carousel";
 import Link from "next/link";
-import { MediaAboutUs } from "@/db/schema";
-import { biocon } from "@/db/db";
+import type { MediaAboutUs, MediaAboutUs2024 } from "@/db/schema";
 import { Skeleton } from "./ui/skeleton";
 
 export const revalidate = 3600;
@@ -26,15 +25,14 @@ export const MediaAboutUsSkeleton = () => (
   />
 );
 
-export default async function MediaAboutUsCarousel() {
-  let data: (typeof MediaAboutUs.$inferSelect)[] = [];
-
-  try {
-    data = await biocon.select().from(MediaAboutUs);
-  } catch (e) {
-    console.error(e);
-  }
-
+export default function MediaAboutUsCarousel({
+  data,
+}: {
+  data: (
+    | typeof MediaAboutUs.$inferSelect
+    | typeof MediaAboutUs2024.$inferSelect
+  )[];
+}) {
   if (data.length === 0) return <MediaAboutUsSkeleton />;
 
   return (

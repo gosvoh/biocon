@@ -71,5 +71,5 @@ export async function update(id: number, formData: FormData) {
     .set({ title, href, image: newImagePath })
     .where(eq(MediaAboutUs.id, id));
 
-  revalidatePath("/admin/speakers2023");
+  revalidatePath("/admin/mediaAboutUs");
 }
