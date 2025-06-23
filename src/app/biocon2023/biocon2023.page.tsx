@@ -31,9 +31,7 @@ import MediaAboutUsGlowPC from "@public/previous_biocon/glow/RightGlowMediaAbout
 // gallery
 import img1 from "@public/previous_biocon/BXrm3Nh1_AI.jpg";
 import speaker1 from "@public/previous_biocon/KH05oj8MpPo.jpg";
-import speaker2 from "@public/previous_biocon/mirza.jpeg";
 import img4 from "@public/previous_biocon/D-BUvQriEfw.jpg";
-import speaker1_square from "@public/previous_biocon/speaker_square.jpg";
 import speaker3_square from "@public/previous_biocon/speaker2_square.jpeg";
 import mirzamob from "@public/previous_biocon/mirzamob.jpeg";
 
@@ -161,8 +159,8 @@ export default function Biocon2023Page({
                 </div>
                 <div className="relative flex items-center justify-center">
                   <Image
-                    className="rounded-[28px] object-cover w-full h-full aspect-square"
-                    src={speaker1_square}
+                    className="rounded-[28px] object-cover w-full h-full aspect-square object-top"
+                    src={speaker1}
                     alt="GL"
                   />
                 </div>
@@ -187,7 +185,7 @@ export default function Biocon2023Page({
             <div className="relative flex items-stretch h-full">
               <Image
                 className="rounded-[28px] object-cover w-full h-full"
-                src={speaker2}
+                src={mirzamob}
                 alt="GL"
               />
             </div>

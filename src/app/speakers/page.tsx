@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
 import { biocon } from "@/db/db";
 import { Speakers } from "@/db/schema";
@@ -6,13 +6,17 @@ import HeroGlow from "@public/HeroGlow.svg";
 import SpeakersPageLogoDesktop from "@public/speakers_page/speakers_desktop.svg";
 import SpeakersPageLogoMobile from "@public/speakers_page/speakers_mobile.svg";
 
-import ButtonRegistration from "@/components/button.registration";
 import BottomGlow from "@public/BottomGlow.svg";
 import Card from "@/components/card";
 import { Trophy } from "lucide-react";
 import { findCountryFlagByName } from "@/app/speakers/country.flags";
 import Link from "next/link";
 import { Fragment } from "react";
+
+import Mirza from "@public/previous_biocon/BioconPlenarySpeakers/mirza.jpeg";
+import Meisam from "@public/previous_biocon/BioconPlenarySpeakers/Meisam.jpeg";
+import Amin from "@public/previous_biocon/BioconPlenarySpeakers/amin.jpeg";
+import Mukesh from "@public/previous_biocon/BioconPlenarySpeakers/wzDozYDXwi4.jpg";
 
 export const revalidate = 3600;
 
@@ -37,13 +41,14 @@ export const metadata = {
   },
 };
 
-const Biocon2023Speskers: (Omit<
+const Biocon2023Speakers: (Omit<
   typeof Speakers.$inferSelect,
-  "id" | "speakerType" | "order" | "university" | "universityUrl"
+  "id" | "speakerType" | "order" | "university" | "universityUrl" | "image"
 > & {
   id?: (typeof Speakers.$inferSelect)["id"];
   university: string | string[];
   universityUrl: string | string[];
+  image: StaticImageData;
 })[] = [
   {
     name: "Mirza Hasanuzzaman",
@@ -51,8 +56,7 @@ const Biocon2023Speskers: (Omit<
     university: "Sher-e-Bangla Agricultural University",
     universityUrl: "https://sau.edu.bd/",
     country: "Bangladesh",
-    // TODO add image
-    image: "speakers/2023/mirza_hasanuzzaman.jpg",
+    image: Mirza,
     thunder: "Highly Cited Researcher - 2022",
     thunderUrl: "https://www.webofscience.com/wos/author/record/416118",
     hIndex: 98,
@@ -65,8 +69,7 @@ const Biocon2023Speskers: (Omit<
     university: "Universiti Malaysia Terengganu",
     universityUrl: "https://www.umt.edu.my/",
     country: "Malaysia",
-    // TODO add image
-    image: "speakers/2023/meisam_tabatabaei.jpg",
+    image: Meisam,
     thunder: "Highly Cited Researcher - 2021",
     thunderUrl: "https://www.webofscience.com/wos/author/record/544482",
     hIndex: 100,
@@ -82,10 +85,8 @@ const Biocon2023Speskers: (Omit<
       "https://unicamp.br/en/",
       "https://en.itmo.ru/?ysclid=madsv8zhd5229375602",
     ],
-    // TODO уточнить
     country: "Russia",
-    // TODO add image
-    image: "speakers/2023/amin_mousavi_khaneghah.jpg",
+    image: Amin,
     thunder: "Highly Cited Researcher - 2021",
     thunderUrl: "https://www.webofscience.com/wos/author/record/156224",
     hIndex: 87,
@@ -94,16 +95,13 @@ const Biocon2023Speskers: (Omit<
   },
   {
     name: "Mukesh Kumar Awasthi",
-    nameUrl: "https://scholar.google.co.in/citations?user=Dj3ktGAAAAAJ&hl=en",
+    nameUrl: "https://scholar.google.com/citations?user=Dj3ktGAAAAAJ&hl=en",
     university: "Northwest A&F University 9",
     universityUrl: "https://en.nwsuaf.edu.cn/",
-    // TODO уточнить
     country: "China",
-    // TODO add image
-    image: "speakers/2023/mukesh_kumar_awasthi.jpg",
+    image: Mukesh,
     thunder: "Highly Cited Researcher - 2022",
-    // TODO add thunderUrl
-    thunderUrl: "https://www.webofscience.com/wos/author/record/156224",
+    thunderUrl: "https://loop.frontiersin.org/people/766367/overview",
     hIndex: 69,
     description:
       "Most contributed Topics:\n\n1. AChallenges and opportunities in the phytoremediation of heavy metals contaminated soils: A review\n2. Enhancing phosphate adsorption by Mg/Al layered double hydroxide functionalized biochar with different Mg/Al ratios\n3. Evaluation of thermophilic fungal consortium for organic municipal solid waste composting",
@@ -113,7 +111,7 @@ const Biocon2023Speskers: (Omit<
 const SpeakersList = ({
   speakers,
 }: {
-  speakers: (typeof Speakers.$inferSelect)[] | typeof Biocon2023Speskers;
+  speakers: (typeof Speakers.$inferSelect)[] | typeof Biocon2023Speakers;
 }) => (
   <div className={"flex flex-col gap-5"}>
     {speakers.map((speaker) => (
@@ -136,7 +134,11 @@ const SpeakersList = ({
             >
               <Image
                 className={"object-cover"}
-                src={"/images/" + speaker.image}
+                src={
+                  typeof speaker.image === "string"
+                    ? "/images/" + speaker.image
+                    : speaker.image
+                }
                 alt=""
                 fill
               />
@@ -234,8 +236,12 @@ const SpeakersList = ({
               }
             />
             <Image
-              className={"object-cover z-10 aspect-auto"}
-              src={"/images/" + speaker.image}
+              className={"object-cover z-10 aspect-auto object-top"}
+              src={
+                typeof speaker.image === "string"
+                  ? "/images/" + speaker.image
+                  : speaker.image
+              }
               alt=""
               fill
             />
@@ -356,7 +362,7 @@ export default async function SpeakersPage() {
         </div>
         <div>
           <h2 className="mb-6 mt-12">Speakers of BIOCON 2023</h2>
-          <SpeakersList speakers={Biocon2023Speskers} />
+          <SpeakersList speakers={Biocon2023Speakers} />
         </div>
         <Image
           src={BottomGlow}
