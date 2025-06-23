@@ -16,6 +16,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/carousel.speakers.organizers";
+import MediaAboutUsAsyncCarousel from "@/components/media.about.us.async.carousel";
+import CarouselFeedback from "@/components/carousel.feedback";
 
 // glows
 import UpperGlow from "@public/previous_biocon/glow/upper.svg";
@@ -41,7 +43,12 @@ import lower_man_speaker from "@public/previous_biocon/ZZZ_5948.jpg";
 import lower_woman_speaker from "@public/previous_biocon/ZZZ_7525.jpg";
 import lower_man_affiliation_speaker from "@public/previous_biocon/ZZZ_9953.jpg";
 import lower_man_with_glasses_speaker from "@public/previous_biocon/ZZZ_2148.jpg";
-import MediaAboutUsAsyncCarousel from "@/components/media.about.us.async.carousel";
+
+import Barua from "@public/humans/Barua.jpg";
+import Kalinikin from "@public/humans/Kalinikin.jpg";
+import Khayrova from "@public/humans/Khayrova.jpg";
+import Polyansky from "@public/humans/Polyansky.jpg";
+import Tracey from "@public/humans/Tracey.jpg";
 
 const font = Architects_Daughter({
   subsets: ["latin"],
@@ -457,6 +464,58 @@ export default function Biocon2023Page({
           </>
         )}
       </section>
+
+      <section className="relative">
+        <h2 className={"text-center lg:text-left"}>
+          Feedback from participants
+        </h2>
+        <CarouselFeedback
+          cardContent={[
+            {
+              icon: Kalinikin,
+              name: "Danila Kalinikin",
+              affiliation: "AI Talent Hub",
+              description:
+                "BIOCON is a platform with a high concentration of expertise in the field of biotech and new technologies. For me, as a person from the entrepreneurial environment, BIOCON has become a reference point in forming new connections with industry representatives. I can confidently say that BIOCON is a place of attraction of opportunities and biotech content of high quality.",
+              tg: "@Chem_Dan",
+            },
+            {
+              icon: Tracey,
+              name: "Chantal Tracey",
+              affiliation: "SCAMT, ITMO University",
+              description:
+                "BIOCON 2023 was absolutely electric. Every day was jam packed with interesting presentations that describe highly innovative approaches to solving many of the sustainability challenges of the twenty-first century. The little 'mini excursions' to interesting places around Almetyevsk were nice interludes between the conference sessions. The conference was also an excellent networking opportunity, where everyone from bachelor's students to highly cited leading biotechnologists were able to converse and share ideas and entertain potential collaboration. I highly recommend attending BIOCON 2024.",
+              tg: "@Chantalena",
+            },
+            {
+              icon: Khayrova,
+              name: "Adelya Khayrova",
+              affiliation: "Russian Academy of Sciences",
+              description:
+                "I really enjoyed the BIOCON 2023 conference held in Almetyevsk last year. It was exceptionally well-organised, featuring fun and engaging formats like TED-style presentations. The networking opportunities were fantastic, allowing me to meet and connect with leading experts from the biotech industry. The laboratory tour and discussions with established foreign researchers were particularly enriching, providing valuable insights and fostering meaningful professional connections. I highly recommend this conference for industry professionals, academics, and young students considering a career in biotechnology",
+              tg: "@adelya_khayrova",
+            },
+            {
+              icon: Barua,
+              name: "Subhrajit Barua",
+              affiliation: "ITMO University",
+              description:
+                "BIOCON 2023 made me an integral part of the Faculty of Biotechnologies at ITMO University. I made some invaluable connections and expanded my network",
+              tg: "@subhrajit_barua",
+            },
+            {
+              icon: Polyansky,
+              name: "Dmitriy Polyansky",
+              affiliation:
+                "N.F. Gamaleya National Research Center for Epidemiology and Microbiology",
+              description:
+                "BIOCON 2023 is a great opportunity to prove yourself. This event allowed me to learn in more detail about the most promising and sought-after areas in biotechnology. It is worth noting that the organizers did a great job. Everything from the meeting at the airport to the closing of the conference was at the highest level. This show will forever remain in my memory.",
+              tg: "@Dmitriy_Polyansky",
+            },
+          ]}
+        />
+      </section>
+
       <Image
         src={BottomGlowPC}
         alt={""}
