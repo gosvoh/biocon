@@ -13,15 +13,6 @@ const nextConfig = {
       },
     ];
   },
-  images: {
-    remotePatterns: [
-      {
-        hostname: "biocon.international",
-        pathname: "/images/**",
-        protocol: "https",
-      },
-    ],
-  },
   experimental: {
     instrumentationHook: true,
   },
