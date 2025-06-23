@@ -92,6 +92,20 @@
       "when": 1723653592452,
       "tag": "0012_brainy_wendigo",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1750706840488,
+      "tag": "0013_foamy_omega_red",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1750708638745,
+      "tag": "0014_rare_marten_broadcloak",
+      "breakpoints": true
     }
   ]
 }

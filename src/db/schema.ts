@@ -25,6 +25,14 @@ export const Speakers2023 = pgTable("Speakers2023", {
   type: text("type").notNull(),
 });
 
+export const Speakers2024 = pgTable("Speakers2024", {
+  id: serial("id").primaryKey().notNull(),
+  name: text("name").notNull(),
+  university: text("university").notNull(),
+  image: text("image").notNull(),
+  type: text("type").notNull(),
+});
+
 export const Speakers = pgTable("Speakers", {
   id: serial("id").primaryKey().notNull(),
   name: text("name").notNull(),
@@ -78,6 +86,13 @@ export const News = pgTable("News", {
 });
 
 export const MediaAboutUs = pgTable("MediaAboutUs", {
+  id: serial("id").primaryKey().notNull(),
+  title: text("title").notNull(),
+  href: text("href").notNull(),
+  image: text("image").notNull(),
+});
+
+export const MediaAboutUs2024 = pgTable("MediaAboutUs2024", {
   id: serial("id").primaryKey().notNull(),
   title: text("title").notNull(),
   href: text("href").notNull(),
