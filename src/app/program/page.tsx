@@ -88,8 +88,6 @@ const GridGallery = ({
 };
 
 export default function ProgramPage() {
-  return notFound();
-
   return (
     <main>
       <section

@@ -61,8 +61,6 @@ export const metadata = {
 };
 
 export default function VenuePage() {
-  return notFound();
-
   const gallerySection =
     "fcol gap-5  lg:grid lg:grid-cols-2 lg:items-center lg:gap-9";
   const galleryImage =
