@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 import Card from "@/components/card";
-import ButtonRegistration from "@/components/button.registration";
 import CarouselFeedback from "@/components/carousel.feedback";
 import Timeline from "@/components/timeline";
 
@@ -28,9 +27,10 @@ import Kalinikin from "@public/humans/Kalinikin.jpg";
 import Khayrova from "@public/humans/Khayrova.jpg";
 import Polyansky from "@public/humans/Polyansky.jpg";
 import Tracey from "@public/humans/Tracey.jpg";
+import Alvina from "@public/humans/Alvina.jpg";
+import Barayshuk from "@public/humans/Barayshuk.jpg";
+import Idrisa from "@public/humans/Idrisa.jpg";
 
-import CardChoose from "@/components/card.choose";
-import Tag from "@/components/ui/tag";
 import Modal from "@/components/ui/modal";
 import { MapPin } from "lucide-react";
 import { Suspense } from "react";
@@ -363,30 +363,6 @@ export default function Home() {
         <CarouselFeedback
           cardContent={[
             {
-              // @ts-expect-error TODO: add icon
-              icon: undefined,
-              name: "Ksenia Baraishchuk",
-              affiliation: "Saint Petersburg",
-              description:
-                "BIOCON 2024 provided a uniquely valuable experience for the scientific sphere. The logically organized presentation sessions, categorized by biotechnology field and color, complemented each other effectively, emphasizing the central theme: each sector's impact on global challenges related to climate change and sustainable development. Solutions require collaboration between scientific disciplines and between research and industry. The conference's gathering of experts and leading professionals fostered a unique atmosphere for knowledge exchange and innovative ideas to address these global challenges. The overall organization, from logistics to the cultural program, was exceptional. Participants had ample opportunities for topic immersion, networking, and experiencing the traditions of Tatarstan.",
-            },
-            {
-              // @ts-expect-error TODO: add icon
-              icon: undefined,
-              name: "Alvina Farooqui",
-              affiliation: "Integral University",
-              description:
-                "Overall the experience was unique , the conference was differently handled in a very interesting and musical way. The Dean and chair should be praised for his lively presence and comparing the entire event in a very appealing and smooth manner.",
-            },
-            {
-              // @ts-expect-error TODO: add icon
-              icon: undefined,
-              name: "Kiryowa Idrisa",
-              affiliation: "Entebbe",
-              description:
-                "BIOCON 2024 (is)/ was not like any other ordinary conference but a more of a public conclave for scientists in all fields (biology, chemistry, physics, philosophy etc) to share, learn and integrate within one another for a better and sustainable future of science and technology to betterment humanity. It encompassed great scientists from all over the world (Germany, Russia, Pakistani, Turkey, India and many) all with one single voice “Sustainable Science and Technology” and we learned a lot from them. To key point a few of my best presentations, Dr. N. Andrey, Prof. SM. Jafari, Prof. Amin and others all gave immensely valuable insights about science, innovation and sustainability for a greater global economy.",
-            },
-            {
               icon: Kalinikin,
               name: "Danila Kalinikin",
               affiliation: "AI Talent Hub",
@@ -426,6 +402,29 @@ export default function Home() {
               description:
                 "BIOCON 2023 is a great opportunity to prove yourself. This event allowed me to learn in more detail about the most promising and sought-after areas in biotechnology. It is worth noting that the organizers did a great job. Everything from the meeting at the airport to the closing of the conference was at the highest level. This show will forever remain in my memory.",
               tg: "@Dmitriy_Polyansky",
+            },
+            {
+              icon: Barayshuk,
+              name: "Ksenia Baraishchuk",
+              affiliation: "Saint Petersburg",
+              description:
+                "BIOCON 2024 provided a uniquely valuable experience for the scientific sphere. The logically organized presentation sessions, categorized by biotechnology field and color, complemented each other effectively, emphasizing the central theme: each sector's impact on global challenges related to climate change and sustainable development. Solutions require collaboration between scientific disciplines and between research and industry. The conference's gathering of experts and leading professionals fostered a unique atmosphere for knowledge exchange and innovative ideas to address these global challenges. The overall organization, from logistics to the cultural program, was exceptional. Participants had ample opportunities for topic immersion, networking, and experiencing the traditions of Tatarstan.",
+              tg: "@xbarayshchuk",
+            },
+            {
+              icon: Alvina,
+              name: "Alvina Farooqui",
+              affiliation: "Integral University",
+              description:
+                "Overall the experience was unique , the conference was differently handled in a very interesting and musical way. The Dean and chair should be praised for his lively presence and comparing the entire event in a very appealing and smooth manner.",
+            },
+            {
+              icon: Idrisa,
+              name: "Kiryowa Idrisa",
+              affiliation: "Entebbe",
+              description:
+                "BIOCON 2024 (is)/ was not like any other ordinary conference but a more of a public conclave for scientists in all fields (biology, chemistry, physics, philosophy etc) to share, learn and integrate within one another for a better and sustainable future of science and technology to betterment humanity. It encompassed great scientists from all over the world (Germany, Russia, Pakistani, Turkey, India and many) all with one single voice “Sustainable Science and Technology” and we learned a lot from them. To key point a few of my best presentations, Dr. N. Andrey, Prof. SM. Jafari, Prof. Amin and others all gave immensely valuable insights about science, innovation and sustainability for a greater global economy.",
+              tg: "@Eddy1990K",
             },
           ]}
         />
