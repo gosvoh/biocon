@@ -29,7 +29,11 @@ export default async function ContactsDataLoader() {
   let organizers: (typeof Organizers.$inferSelect)[] = [];
 
   try {
-    organizers = await biocon.select().from(Organizers).limit(3);
+    organizers = await biocon
+      .select()
+      .from(Organizers)
+      .orderBy(Organizers.order)
+      .limit(3);
   } catch (e) {
     console.error(e);
   }
