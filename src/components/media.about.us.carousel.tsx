@@ -47,7 +47,7 @@ export default function MediaAboutUsCarousel({
               src={`/images/${x.image}`}
               alt=""
               fill
-              className="rounded-[16px] lg:rounded-[28px] object-fill"
+              className="rounded-[16px] lg:rounded-[28px] object-cover"
             />
           </div>
           <p>{x.title}</p>
