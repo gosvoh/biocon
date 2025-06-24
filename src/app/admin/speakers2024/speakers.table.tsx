@@ -26,13 +26,13 @@ import Link from "next/link";
 
 const selectOptions = [
   "Plenary speakers",
-  "Agriculture & Environment",
-  "Biomaterials",
-  "Viruses & Vaccines",
-  "Genomics and structural biology",
-  "Food biotechnology",
-  "Gene therapy",
+  "BLUE BIOTECHNOLOGY",
   "Biotech Open Mic",
+  "Children session",
+  "GREEN BIOTECHNOLOGY",
+  "WHITE BIOTECHNOLOGY",
+  "RED BIOTECHNOLOGY",
+  "ML & Bioinformatics",
 ];
 
 const EditForm = ({

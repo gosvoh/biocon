@@ -47,28 +47,12 @@ const font = Architects_Daughter({
 });
 
 const prepareSpeakers = (speakers: (typeof Speakers2024.$inferSelect)[]) => {
-  const typeOrder = [
-    "Plenary speakers",
-    "Genomics and structural biology",
-    "Gene therapy",
-    "Viruses & Vaccines",
-    "Agriculture & Environment",
-    "Biomaterials",
-    "Food biotechnology",
-    "Biotech Open Mic",
-  ];
-
-  const typesOfSpeakers = speakers
-    .reduce((accumulator, currentValue) => {
-      if (accumulator.indexOf(currentValue.type) == -1) {
-        accumulator.push(currentValue.type);
-      }
-      return accumulator;
-    }, [] as string[])
-    .sort((a, b) => {
-      return typeOrder.indexOf(a) - typeOrder.indexOf(b);
-    })
-    .reverse();
+  const typesOfSpeakers = speakers.reduce((accumulator, currentValue) => {
+    if (accumulator.indexOf(currentValue.type) == -1) {
+      accumulator.push(currentValue.type);
+    }
+    return accumulator;
+  }, [] as string[]);
 
   return typesOfSpeakers
     .map((type) => {
