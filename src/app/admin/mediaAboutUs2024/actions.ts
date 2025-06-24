@@ -26,6 +26,7 @@ export async function remove(id: number) {
     return Promise.reject({ message: "Error while deleting speaker", error });
   }
   revalidatePath("/admin/mediaAboutUs2024");
+  revalidatePath("/biocon2024");
 }
 
 export async function add(formData: FormData) {
@@ -46,6 +47,7 @@ export async function add(formData: FormData) {
     .insert(MediaAboutUs2024)
     .values({ title, href, image: `${uuid}.webp` });
   revalidatePath("/admin/mediaAboutUs2024");
+  revalidatePath("/biocon2024");
 }
 
 export async function update(id: number, formData: FormData) {
@@ -72,4 +74,5 @@ export async function update(id: number, formData: FormData) {
     .where(eq(MediaAboutUs2024.id, id));
 
   revalidatePath("/admin/mediaAboutUs2024");
+  revalidatePath("/biocon2024");
 }
