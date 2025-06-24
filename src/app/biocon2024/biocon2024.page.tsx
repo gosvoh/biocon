@@ -54,12 +54,10 @@ const prepareSpeakers = (speakers: (typeof Speakers2024.$inferSelect)[]) => {
     return accumulator;
   }, [] as string[]);
 
-  return typesOfSpeakers
-    .map((type) => {
-      const typeData = speakers.filter((speaker) => speaker.type === type);
-      return { type, speakersData: typeData };
-    })
-    .reverse();
+  return typesOfSpeakers.map((type) => {
+    const typeData = speakers.filter((speaker) => speaker.type === type);
+    return { type, speakersData: typeData };
+  });
 };
 
 export default function Biocon2024Page({
