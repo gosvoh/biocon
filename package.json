@@ -1,6 +1,6 @@
 {
   "name": "biocon",
-  "version": "2.19.3",
+  "version": "2.19.4",
   "private": true,
   "scripts": {
     "dev": "next dev",
