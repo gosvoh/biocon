@@ -130,7 +130,7 @@ export default function Home() {
               International Biotechnology Conference
             </h1>
             <p className={"lg:text-3xl"}>November 11-13, 2024</p>
-          </div> */}
+          </div>
           <Link
             className={"underline w-fit mx-auto"}
             href={"https://en.wikipedia.org/wiki/Almetyevsk"}
@@ -145,7 +145,7 @@ export default function Home() {
                 Almetyevsk, Republic of Tatarstan
               </p>
             </div>
-          </Link>
+          </Link> */}
           {/* <div className="wrapper mt-5">
             <ButtonRegistration />
           </div> */}
@@ -352,9 +352,9 @@ export default function Home() {
         <RightGlow big className="lg:hidden h-[300%]" />
       </section> */}
 
-      <section className="relative space-y-6 lg:space-y-9">
+      {/* <section className="relative space-y-6 lg:space-y-9">
         <Timeline />
-      </section>
+      </section> */}
 
       <section className="relative">
         <h2 className={"text-center lg:text-left"}>
