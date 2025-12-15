@@ -26,6 +26,7 @@ export default function Modal({
   const [modal, context] = AntdModal.useModal();
 
   trigger.props.onClick = () => {
+    // @ts-expect-error width is incompatible for some reason
     modal[type]({
       content: modalContent,
       footer: null,
