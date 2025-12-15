@@ -1,4 +1,4 @@
-FROM node:18-alpine AS base
+FROM node:24-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -8,12 +8,7 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+RUN npm ci --legacy-peer-deps
 
 
 # Rebuild the source code only when needed
@@ -28,11 +23,11 @@ COPY . .
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 ARG NEXT_PUBLIC_RECAPTCHA_SITE_KEY
-ENV NEXT_PUBLIC_RECAPTCHA_SITE_KEY ${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+ENV NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
 ARG NEXT_PUBLIC_API_KEY
-ENV NEXT_PUBLIC_API_KEY ${NEXT_PUBLIC_API_KEY}
+ENV NEXT_PUBLIC_API_KEY=${NEXT_PUBLIC_API_KEY}
 ARG DATABASE_URL
-ENV DATABASE_URL ${DATABASE_URL}
+ENV DATABASE_URL=${DATABASE_URL}
 
 RUN yarn build
 
@@ -45,7 +40,7 @@ WORKDIR /app
 
 VOLUME [ "/app/uploads" ]
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
@@ -65,6 +60,6 @@ USER nextjs
 
 EXPOSE 3000
 
-ENV PORT 3000
+ENV PORT=3000
 
 CMD ["node", "server.js"]
