@@ -50,22 +50,18 @@ export const EditorJSElement = ({
         { default: NestedList },
       ] = await Promise.all([
         import("@natterstefan/react-editor-js"),
-        // @ts-expect-error 7016
         import("@editorjs/table"),
-        // @ts-expect-error 7016
         import("@editorjs/warning"),
         // @ts-expect-error 7016
         import("@editorjs/link"),
         // @ts-expect-error 7016
         import("@editorjs/raw"),
         import("@editorjs/header"),
-        // @ts-expect-error 7016
         import("@editorjs/quote"),
         // @ts-expect-error 7016
         import("@editorjs/marker"),
         // @ts-expect-error 7016
         import("@editorjs/checklist"),
-        // @ts-expect-error 7016
         import("@editorjs/delimiter"),
         // @ts-expect-error 7016
         import("@editorjs/simple-image"),
