@@ -155,7 +155,7 @@ export default function ContactsPage({
         />
         <RightGlow big className=" w-[180%] lg:hidden" />
       </section>
-      <section>
+      {/* <section>
         <h2>Partners</h2>
         <div className={"grid grid-cols-1 lg:grid-cols-4 gap-12"}>
           <div className={"fcol gap-6 text-center"}>
@@ -200,8 +200,8 @@ export default function ContactsPage({
             </Link>
           </div>
         </div>
-      </section>
-      <section className="relative">
+      </section> */}
+      {/* <section className="relative">
         <div className={"lg:fcol lg:items-center"}>
           <h2>Contact us</h2>
           <ContactUsForm />
@@ -216,7 +216,7 @@ export default function ContactsPage({
           alt=""
           className="absolute h-fit w-[100%] max-w-none -bottom-16 left-0 -z-10 lg:hidden "
         />
-      </section>
+      </section> */}
     </main>
   );
 }

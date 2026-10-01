@@ -33,7 +33,7 @@ export default async function ContactsDataLoader() {
       .select()
       .from(Organizers)
       .orderBy(Organizers.order)
-      .limit(3);
+      .limit(1);
   } catch (e) {
     console.error(e);
   }
